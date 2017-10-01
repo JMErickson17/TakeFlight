@@ -25,7 +25,7 @@ final class DataService {
     
     // MARK: Convenience
     
-    func retrieveFlightData() {
+    func retrieveFlightData(forRequest request: Request) {
         
     }
  

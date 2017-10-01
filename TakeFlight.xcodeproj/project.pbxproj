@@ -22,7 +22,8 @@
 		CAEC73E41F814F2E004D6F0B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E31F814F2E004D6F0B /* Constants.swift */; };
 		CAEC73E61F81638F004D6F0B /* FlightData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E51F81638F004D6F0B /* FlightData.swift */; };
 		CAEC73E81F816BF1004D6F0B /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E71F816BF1004D6F0B /* DataService.swift */; };
-		CAEC73EA1F8184D8004D6F0B /* QPXExpressBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E91F8184D8004D6F0B /* QPXExpressBuilder.swift */; };
+		CAEC73EA1F8184D8004D6F0B /* QPXExpress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E91F8184D8004D6F0B /* QPXExpress.swift */; };
+		CAEC73EE1F818D32004D6F0B /* Serializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73ED1F818D32004D6F0B /* Serializable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,7 +68,8 @@
 		CAEC73E31F814F2E004D6F0B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CAEC73E51F81638F004D6F0B /* FlightData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightData.swift; sourceTree = "<group>"; };
 		CAEC73E71F816BF1004D6F0B /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
-		CAEC73E91F8184D8004D6F0B /* QPXExpressBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QPXExpressBuilder.swift; sourceTree = "<group>"; };
+		CAEC73E91F8184D8004D6F0B /* QPXExpress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QPXExpress.swift; sourceTree = "<group>"; };
+		CAEC73ED1F818D32004D6F0B /* Serializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Serializable.swift; sourceTree = "<group>"; };
 		DF2F772D35F090085677C96D /* Pods-TakeFlightTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TakeFlightTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TakeFlightTests/Pods-TakeFlightTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E1CD68BDBB2978CC87E5D867 /* Pods_TakeFlight.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TakeFlight.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED00AF93923CA2A0C7663431 /* Pods-TakeFlightTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TakeFlightTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TakeFlightTests/Pods-TakeFlightTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -139,6 +141,8 @@
 		CAEC73A81F813C29004D6F0B /* TakeFlight */ = {
 			isa = PBXGroup;
 			children = (
+				CAEC73EC1F818CFA004D6F0B /* Protocols */,
+				CAEC73EB1F818CB0004D6F0B /* Extensions */,
 				CAEC73E21F814F1D004D6F0B /* Utilities */,
 				CAEC73DD1F814493004D6F0B /* XIB Files */,
 				CAEC73DA1F813C72004D6F0B /* Services */,
@@ -192,7 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				CAEC73E51F81638F004D6F0B /* FlightData.swift */,
-				CAEC73E91F8184D8004D6F0B /* QPXExpressBuilder.swift */,
+				CAEC73E91F8184D8004D6F0B /* QPXExpress.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -219,6 +223,21 @@
 				CAEC73E31F814F2E004D6F0B /* Constants.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		CAEC73EB1F818CB0004D6F0B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CAEC73EC1F818CFA004D6F0B /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				CAEC73ED1F818D32004D6F0B /* Serializable.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		D132DC59ACFEDB4A5D7D3905 /* Frameworks */ = {
@@ -527,10 +546,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CAEC73EA1F8184D8004D6F0B /* QPXExpressBuilder.swift in Sources */,
+				CAEC73EA1F8184D8004D6F0B /* QPXExpress.swift in Sources */,
 				CAEC73AC1F813C29004D6F0B /* SearchVC.swift in Sources */,
 				CAEC73E61F81638F004D6F0B /* FlightData.swift in Sources */,
 				CAEC73E01F8144D1004D6F0B /* RoundTripFlightDataCell.swift in Sources */,
+				CAEC73EE1F818D32004D6F0B /* Serializable.swift in Sources */,
 				CAEC73E81F816BF1004D6F0B /* DataService.swift in Sources */,
 				CAEC73AA1F813C29004D6F0B /* AppDelegate.swift in Sources */,
 				CAEC73E41F814F2E004D6F0B /* Constants.swift in Sources */,

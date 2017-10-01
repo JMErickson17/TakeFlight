@@ -28,9 +28,15 @@ class SearchVC: UIViewController {
         
         setupView()
         
-        // Testing only
-        let url = DataService.instance.makeURL(forFlightsByAirline: "MCO")
-        print("URL: \(url)")
+        let data = QPXExpress(adultCount: 1, origin: "MCO", destination: "LAX", date: Date.distantPast)
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        do {
+            let json = try encoder.encode(data)
+            print(String(data: json, encoding: .utf8)!)
+        } catch {
+
+        }
     }
 
     // MARK: Setup
