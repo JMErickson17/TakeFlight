@@ -17,6 +17,7 @@
 		CAEC73E01F8144D1004D6F0B /* RoundTripFlightDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73DE1F8144D1004D6F0B /* RoundTripFlightDataCell.swift */; };
 		CAEC73E11F8144D1004D6F0B /* RoundTripFlightDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAEC73DF1F8144D1004D6F0B /* RoundTripFlightDataCell.xib */; };
 		CAEC73E41F814F2E004D6F0B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E31F814F2E004D6F0B /* Constants.swift */; };
+		CAEC73E61F81638F004D6F0B /* FlightData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E51F81638F004D6F0B /* FlightData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		CAEC73DE1F8144D1004D6F0B /* RoundTripFlightDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundTripFlightDataCell.swift; sourceTree = "<group>"; };
 		CAEC73DF1F8144D1004D6F0B /* RoundTripFlightDataCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoundTripFlightDataCell.xib; sourceTree = "<group>"; };
 		CAEC73E31F814F2E004D6F0B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		CAEC73E51F81638F004D6F0B /* FlightData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +157,7 @@
 		CAEC73D91F813C69004D6F0B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CAEC73E51F81638F004D6F0B /* FlightData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -318,6 +321,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAEC73AC1F813C29004D6F0B /* SearchVC.swift in Sources */,
+				CAEC73E61F81638F004D6F0B /* FlightData.swift in Sources */,
 				CAEC73E01F8144D1004D6F0B /* RoundTripFlightDataCell.swift in Sources */,
 				CAEC73AA1F813C29004D6F0B /* AppDelegate.swift in Sources */,
 				CAEC73E41F814F2E004D6F0B /* Constants.swift in Sources */,

@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+enum Constants {
+    
+    static let ROUND_TRIP_FLIGHT_DATA_CELL = "RoundTripFlightDataCell"
+}
+

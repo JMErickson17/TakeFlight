@@ -25,14 +25,20 @@ class SearchVC: UIViewController {
         
         flightDataTableView.delegate = self
         flightDataTableView.dataSource = self
+        
+        setupView()
     }
 
     // MARK: Setup
     
+/**
+     Sets up the view, tableView, ect.
+ */
     func setupView() {
         
         // UITableViewCell Setup
-        let cellXib = UINib(nibName: <#T##String#>, bundle: <#T##Bundle?#>)
+        let roundTripCell = UINib(nibName: Constants.ROUND_TRIP_FLIGHT_DATA_CELL, bundle: nil)
+        flightDataTableView.register(roundTripCell, forCellReuseIdentifier: Constants.ROUND_TRIP_FLIGHT_DATA_CELL)
     }
     
     // MARK: Actions
@@ -46,7 +52,16 @@ class SearchVC: UIViewController {
 extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.ROUND_TRIP_FLIGHT_DATA_CELL, for: indexPath) as? RoundTripFlightDataCell {
+            cell.configureCell()
+            return cell
+        }
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        // TODO: Make size dynamic depending on type of cell
+        return 175
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

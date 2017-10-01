@@ -9,12 +9,42 @@
 import UIKit
 
 class RoundTripFlightDataCell: UITableViewCell {
+    
+    // MARK: Properties
 
+    @IBOutlet weak var departingAirlineImage: UIImageView!
+    @IBOutlet weak var departingTakeOffTimeLabel: UILabel!
+    @IBOutlet weak var departingLandingTimeLabel: UILabel!
+    @IBOutlet weak var departingDetailsLabel: UILabel!
+    @IBOutlet weak var departingStopCountLabel: UILabel!
+    @IBOutlet weak var departingFlightTimeLabel: UILabel!
+    
+    @IBOutlet weak var returningAirlineImage: UIImageView!
+    @IBOutlet weak var returningTakeOffTimeLabel: UILabel!
+    @IBOutlet weak var returningLandingTimeLabel: UILabel!
+    @IBOutlet weak var returningDetailsLabel: UILabel!
+    @IBOutlet weak var returningStopCountLabel: UILabel!
+    @IBOutlet weak var returningFlightTimeLabel: UILabel!
+    
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var priceSourceLabel: UILabel!
+    
+    // MARK: View Life Cycle
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
     }
 
+    // MARK: Convenience
+    
+/**
+     Configure the cell for a given IndexPath
+ */
+    func configureCell() {
+        
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
