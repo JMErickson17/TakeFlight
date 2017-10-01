@@ -28,8 +28,6 @@ protocol JTAppleCalendarLayoutProtocol: class {
     var minimumLineSpacing: CGFloat {get set}
     var sectionInset: UIEdgeInsets {get set}
     var scrollDirection: UICollectionViewScrollDirection {get set}
-    func targetContentOffsetForProposedContentOffset(_ proposedContentOffset: CGPoint) -> CGPoint
-    func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes?
 }
 
 extension UICollectionViewFlowLayout: JTAppleCalendarLayoutProtocol {}

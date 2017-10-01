@@ -21,6 +21,8 @@
 		CAEC73E11F8144D1004D6F0B /* RoundTripFlightDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAEC73DF1F8144D1004D6F0B /* RoundTripFlightDataCell.xib */; };
 		CAEC73E41F814F2E004D6F0B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E31F814F2E004D6F0B /* Constants.swift */; };
 		CAEC73E61F81638F004D6F0B /* FlightData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E51F81638F004D6F0B /* FlightData.swift */; };
+		CAEC73E81F816BF1004D6F0B /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E71F816BF1004D6F0B /* DataService.swift */; };
+		CAEC73EA1F8184D8004D6F0B /* QPXExpressBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E91F8184D8004D6F0B /* QPXExpressBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,8 @@
 		CAEC73DF1F8144D1004D6F0B /* RoundTripFlightDataCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoundTripFlightDataCell.xib; sourceTree = "<group>"; };
 		CAEC73E31F814F2E004D6F0B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CAEC73E51F81638F004D6F0B /* FlightData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightData.swift; sourceTree = "<group>"; };
+		CAEC73E71F816BF1004D6F0B /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		CAEC73E91F8184D8004D6F0B /* QPXExpressBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QPXExpressBuilder.swift; sourceTree = "<group>"; };
 		DF2F772D35F090085677C96D /* Pods-TakeFlightTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TakeFlightTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TakeFlightTests/Pods-TakeFlightTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E1CD68BDBB2978CC87E5D867 /* Pods_TakeFlight.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TakeFlight.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED00AF93923CA2A0C7663431 /* Pods-TakeFlightTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TakeFlightTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TakeFlightTests/Pods-TakeFlightTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -188,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				CAEC73E51F81638F004D6F0B /* FlightData.swift */,
+				CAEC73E91F8184D8004D6F0B /* QPXExpressBuilder.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -195,6 +200,7 @@
 		CAEC73DA1F813C72004D6F0B /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				CAEC73E71F816BF1004D6F0B /* DataService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -521,9 +527,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAEC73EA1F8184D8004D6F0B /* QPXExpressBuilder.swift in Sources */,
 				CAEC73AC1F813C29004D6F0B /* SearchVC.swift in Sources */,
 				CAEC73E61F81638F004D6F0B /* FlightData.swift in Sources */,
 				CAEC73E01F8144D1004D6F0B /* RoundTripFlightDataCell.swift in Sources */,
+				CAEC73E81F816BF1004D6F0B /* DataService.swift in Sources */,
 				CAEC73AA1F813C29004D6F0B /* AppDelegate.swift in Sources */,
 				CAEC73E41F814F2E004D6F0B /* Constants.swift in Sources */,
 			);

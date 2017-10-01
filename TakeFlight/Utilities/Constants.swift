@@ -10,6 +10,9 @@ import Foundation
 
 enum Constants {
     
+    // MARK: Identifiers
+    
     static let ROUND_TRIP_FLIGHT_DATA_CELL = "RoundTripFlightDataCell"
+    
 }
 

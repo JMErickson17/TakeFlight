@@ -1,15 +1,25 @@
 PODS:
-  - Alamofire (4.5.0)
-  - JTAppleCalendar (7.0.4)
+  - Alamofire (4.5.1)
+  - JTAppleCalendar (7.0.6)
 
 DEPENDENCIES:
   - Alamofire (~> 4.5)
-  - JTAppleCalendar (~> 7.0)
+  - JTAppleCalendar (from `https://github.com/patchthecode/JTAppleCalendar.git`, branch `master`)
+
+EXTERNAL SOURCES:
+  JTAppleCalendar:
+    :branch: master
+    :git: https://github.com/patchthecode/JTAppleCalendar.git
+
+CHECKOUT OPTIONS:
+  JTAppleCalendar:
+    :commit: 6a9af5870c6256239dd3bc01b0a8c1a865f4b966
+    :git: https://github.com/patchthecode/JTAppleCalendar.git
 
 SPEC CHECKSUMS:
-  Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
-  JTAppleCalendar: 6def48ecd0daae1d5baaa45e813124c2a20b184d
+  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
+  JTAppleCalendar: b92b692f1c2145368e1743b507e231b23b595224
 
-PODFILE CHECKSUM: 3786b8259e27d7f3791fc09260f7dac8c89bbfb3
+PODFILE CHECKSUM: 20efbf6e9c362f35033877f8e01aa2e3221a462c
 
 COCOAPODS: 1.3.1

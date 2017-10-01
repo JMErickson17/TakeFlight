@@ -27,6 +27,10 @@ class SearchVC: UIViewController {
         flightDataTableView.dataSource = self
         
         setupView()
+        
+        // Testing only
+        let url = DataService.instance.makeURL(forFlightsByAirline: "MCO")
+        print("URL: \(url)")
     }
 
     // MARK: Setup
