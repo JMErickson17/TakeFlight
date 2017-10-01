@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CAEC73AA1F813C29004D6F0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73A91F813C29004D6F0B /* AppDelegate.swift */; };
-		CAEC73AC1F813C29004D6F0B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73AB1F813C29004D6F0B /* ViewController.swift */; };
+		CAEC73AC1F813C29004D6F0B /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73AB1F813C29004D6F0B /* SearchVC.swift */; };
 		CAEC73AF1F813C29004D6F0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAEC73AD1F813C29004D6F0B /* Main.storyboard */; };
 		CAEC73B11F813C29004D6F0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAEC73B01F813C29004D6F0B /* Assets.xcassets */; };
 		CAEC73B41F813C29004D6F0B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAEC73B21F813C29004D6F0B /* LaunchScreen.storyboard */; };
@@ -36,7 +36,7 @@
 /* Begin PBXFileReference section */
 		CAEC73A61F813C29004D6F0B /* TakeFlight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TakeFlight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAEC73A91F813C29004D6F0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CAEC73AB1F813C29004D6F0B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CAEC73AB1F813C29004D6F0B /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		CAEC73AE1F813C29004D6F0B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CAEC73B01F813C29004D6F0B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CAEC73B31F813C29004D6F0B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -97,8 +97,11 @@
 		CAEC73A81F813C29004D6F0B /* TakeFlight */ = {
 			isa = PBXGroup;
 			children = (
+				CAEC73DA1F813C72004D6F0B /* Services */,
+				CAEC73D91F813C69004D6F0B /* Model */,
+				CAEC73D81F813C58004D6F0B /* View */,
+				CAEC73D71F813C4F004D6F0B /* Controller */,
 				CAEC73A91F813C29004D6F0B /* AppDelegate.swift */,
-				CAEC73AB1F813C29004D6F0B /* ViewController.swift */,
 				CAEC73AD1F813C29004D6F0B /* Main.storyboard */,
 				CAEC73B01F813C29004D6F0B /* Assets.xcassets */,
 				CAEC73B21F813C29004D6F0B /* LaunchScreen.storyboard */,
@@ -123,6 +126,35 @@
 				CAEC73CB1F813C2A004D6F0B /* Info.plist */,
 			);
 			path = TakeFlightUITests;
+			sourceTree = "<group>";
+		};
+		CAEC73D71F813C4F004D6F0B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CAEC73AB1F813C29004D6F0B /* SearchVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		CAEC73D81F813C58004D6F0B /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CAEC73D91F813C69004D6F0B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CAEC73DA1F813C72004D6F0B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,7 +291,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CAEC73AC1F813C29004D6F0B /* ViewController.swift in Sources */,
+				CAEC73AC1F813C29004D6F0B /* SearchVC.swift in Sources */,
 				CAEC73AA1F813C29004D6F0B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
