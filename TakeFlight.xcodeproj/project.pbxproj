@@ -14,6 +14,9 @@
 		CAEC73B41F813C29004D6F0B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAEC73B21F813C29004D6F0B /* LaunchScreen.storyboard */; };
 		CAEC73BF1F813C29004D6F0B /* TakeFlightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73BE1F813C29004D6F0B /* TakeFlightTests.swift */; };
 		CAEC73CA1F813C2A004D6F0B /* TakeFlightUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73C91F813C2A004D6F0B /* TakeFlightUITests.swift */; };
+		CAEC73E01F8144D1004D6F0B /* RoundTripFlightDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73DE1F8144D1004D6F0B /* RoundTripFlightDataCell.swift */; };
+		CAEC73E11F8144D1004D6F0B /* RoundTripFlightDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAEC73DF1F8144D1004D6F0B /* RoundTripFlightDataCell.xib */; };
+		CAEC73E41F814F2E004D6F0B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E31F814F2E004D6F0B /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +50,9 @@
 		CAEC73C51F813C2A004D6F0B /* TakeFlightUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TakeFlightUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAEC73C91F813C2A004D6F0B /* TakeFlightUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeFlightUITests.swift; sourceTree = "<group>"; };
 		CAEC73CB1F813C2A004D6F0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CAEC73DE1F8144D1004D6F0B /* RoundTripFlightDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundTripFlightDataCell.swift; sourceTree = "<group>"; };
+		CAEC73DF1F8144D1004D6F0B /* RoundTripFlightDataCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoundTripFlightDataCell.xib; sourceTree = "<group>"; };
+		CAEC73E31F814F2E004D6F0B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +103,8 @@
 		CAEC73A81F813C29004D6F0B /* TakeFlight */ = {
 			isa = PBXGroup;
 			children = (
+				CAEC73E21F814F1D004D6F0B /* Utilities */,
+				CAEC73DD1F814493004D6F0B /* XIB Files */,
 				CAEC73DA1F813C72004D6F0B /* Services */,
 				CAEC73D91F813C69004D6F0B /* Model */,
 				CAEC73D81F813C58004D6F0B /* View */,
@@ -139,6 +147,7 @@
 		CAEC73D81F813C58004D6F0B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CAEC73DE1F8144D1004D6F0B /* RoundTripFlightDataCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -155,6 +164,22 @@
 			children = (
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		CAEC73DD1F814493004D6F0B /* XIB Files */ = {
+			isa = PBXGroup;
+			children = (
+				CAEC73DF1F8144D1004D6F0B /* RoundTripFlightDataCell.xib */,
+			);
+			path = "XIB Files";
+			sourceTree = "<group>";
+		};
+		CAEC73E21F814F1D004D6F0B /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				CAEC73E31F814F2E004D6F0B /* Constants.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,6 +292,7 @@
 				CAEC73B41F813C29004D6F0B /* LaunchScreen.storyboard in Resources */,
 				CAEC73B11F813C29004D6F0B /* Assets.xcassets in Resources */,
 				CAEC73AF1F813C29004D6F0B /* Main.storyboard in Resources */,
+				CAEC73E11F8144D1004D6F0B /* RoundTripFlightDataCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,7 +318,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAEC73AC1F813C29004D6F0B /* SearchVC.swift in Sources */,
+				CAEC73E01F8144D1004D6F0B /* RoundTripFlightDataCell.swift in Sources */,
 				CAEC73AA1F813C29004D6F0B /* AppDelegate.swift in Sources */,
+				CAEC73E41F814F2E004D6F0B /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
