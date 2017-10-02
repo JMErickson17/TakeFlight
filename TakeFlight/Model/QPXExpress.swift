@@ -27,7 +27,8 @@ struct QPXExpress: Codable {
             let sliceKind = "qpxexpress#sliceInput"
             let origin: String!
             let destination: String!
-            let date: Date!
+            // TODO: Change date back to Date type
+            let date: String!
             let maxStops: Int?
             let preferredCabin: String?
             let permittedDepartureTime: PermittedDepartureTime?
@@ -65,8 +66,37 @@ struct QPXExpress: Codable {
         
         let passengers = Request.Passengers(adultCount: adultCount, childCount: childCount)
         let permittedDepartureTime = Request.Slice.PermittedDepartureTime(earliestTime: earliestTime, latestTime: latestTime)
-        let slice = Request.Slice(origin: origin, destination: destination, date: date, maxStops: maxStops, preferredCabin: preferredCabin, permittedDepartureTime: permittedDepartureTime)
+        let slice = Request.Slice(origin: origin, destination: destination, date: "2017-10-05", maxStops: maxStops, preferredCabin: preferredCabin, permittedDepartureTime: permittedDepartureTime)
         
         self.request = Request(passengers: passengers, slice: [slice], maxPrice: maxPrice, refundable: refundable)
+    }
+}
+
+// MARK: - Serialize
+
+extension QPXExpress: Serializable {
+    
+/**
+     Returns a data? object for a given QPXExpress object
+ */
+    func serialize() -> Data? {
+        let encoder = JSONEncoder()
+        
+        do {
+            return try encoder.encode(self)
+        } catch {
+            debugPrint(error.localizedDescription)
+            return nil
+        }
+    }
+    
+/**
+     Returns a JSONRepresentable dictionary for a given QPXExpress object
+ */
+    func serializeToDictionary() -> [String: Any]? {
+        if let data = self.serialize(), let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+            return json
+        }
+        return nil
     }
 }

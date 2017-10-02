@@ -29,14 +29,7 @@ class SearchVC: UIViewController {
         setupView()
         
         let data = QPXExpress(adultCount: 1, origin: "MCO", destination: "LAX", date: Date.distantPast)
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
-        do {
-            let json = try encoder.encode(data)
-            print(String(data: json, encoding: .utf8)!)
-        } catch {
-
-        }
+        DataService.instance.retrieveFlightData(forRequest: data)
     }
 
     // MARK: Setup
@@ -75,7 +68,7 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 5
     }
 }
 

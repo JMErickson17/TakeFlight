@@ -25,8 +25,20 @@ final class DataService {
     
     // MARK: Convenience
     
-    func retrieveFlightData(forRequest request: Request) {
-        
+/**
+     Returns an array of flight data for a given request.
+     
+     - Parameter forRequest: A QPXExpress object containing the request for flight information.
+ */
+    func retrieveFlightData(forRequest request: QPXExpress) -> [FlightData] {
+        let headers = ["Content-Type": "application/json"]
+        if let json = request.serializeToDictionary() {
+            
+            Alamofire.request(GOOGLE_REQUEST_URI, method: .post, parameters: json, encoding: JSONEncoding.default, headers: headers).responseJSON(completionHandler: { (response) in
+                
+                // Loop through and parse JSON into array
+            })
+        }
+        return [FlightData]()
     }
- 
 }
