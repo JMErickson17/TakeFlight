@@ -18,6 +18,12 @@ class SearchVC: UIViewController {
     @IBOutlet weak var returnDateTextField: UITextField!
     @IBOutlet weak var flightDataTableView: UITableView!
     
+    private var flights = [FlightData]() {
+        didSet {
+            flightDataTableView.reloadData()
+        }
+    }
+    
     // MARK: View Life Cycle
 
     override func viewDidLoad() {
@@ -29,7 +35,9 @@ class SearchVC: UIViewController {
         setupView()
         
         let data = QPXExpress(adultCount: 1, origin: "MCO", destination: "LAX", date: Date.distantPast)
-        DataService.instance.retrieveFlightData(forRequest: data)
+        DataService.instance.retrieveFlightData(forRequest: data) { (response) in
+            
+        }
     }
 
     // MARK: Setup

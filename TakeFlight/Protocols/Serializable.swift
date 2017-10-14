@@ -10,5 +10,4 @@ import Foundation
 
 protocol Serializable {
     func serialize() -> Data?
-    func serializeToDictionary() -> [String: Any]?
 }

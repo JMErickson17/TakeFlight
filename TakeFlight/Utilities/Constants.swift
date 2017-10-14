@@ -8,6 +8,10 @@
 
 import Foundation
 
+// MARK: Type Aliases
+
+typealias JSONDictionary = [String: Any]
+
 enum Constants {
     
     // MARK: Identifiers
