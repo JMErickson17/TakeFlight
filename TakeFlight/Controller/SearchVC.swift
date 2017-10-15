@@ -32,12 +32,10 @@ class SearchVC: UIViewController {
         flightDataTableView.delegate = self
         flightDataTableView.dataSource = self
         
-        setupView()
+        departureDateTextField.delegate = self
+        returnDateTextField.delegate = self
         
-        let data = QPXExpress(adultCount: 1, origin: "MCO", destination: "LAX", date: Date.distantPast)
-        DataService.instance.retrieveFlightData(forRequest: data) { (response) in
-            
-        }
+        setupView()
     }
 
     // MARK: Setup
@@ -50,6 +48,7 @@ class SearchVC: UIViewController {
         // UITableViewCell Setup
         let roundTripCell = UINib(nibName: Constants.ROUND_TRIP_FLIGHT_DATA_CELL, bundle: nil)
         flightDataTableView.register(roundTripCell, forCellReuseIdentifier: Constants.ROUND_TRIP_FLIGHT_DATA_CELL)
+        
     }
     
     // MARK: Actions
@@ -77,6 +76,15 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
+    }
+}
+
+// MARK: - UITextFieldDelegate
+
+extension SearchVC: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        performSegue(withIdentifier: Constants.TO_DATE_PICKER, sender: nil)
     }
 }
 

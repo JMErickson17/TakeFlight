@@ -10,6 +10,8 @@
 		58537D1DCEA65DD268A4666B /* Pods_TakeFlightUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 955C8FECD5270A6EC65FC55D /* Pods_TakeFlightUITests.framework */; };
 		5EC349B0BBE2F6B536A70966 /* Pods_TakeFlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1CD68BDBB2978CC87E5D867 /* Pods_TakeFlight.framework */; };
 		ABBA88BADDAB4EC602AE5126 /* Pods_TakeFlightTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962EB3CAD75C4C9C854C85D2 /* Pods_TakeFlightTests.framework */; };
+		CA825CD81F93A8BB006871B2 /* DatePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA825CD71F93A8BB006871B2 /* DatePickerVC.swift */; };
+		CA825CDA1F93A954006871B2 /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA825CD91F93A954006871B2 /* DatePickerCell.swift */; };
 		CAEC73AA1F813C29004D6F0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73A91F813C29004D6F0B /* AppDelegate.swift */; };
 		CAEC73AC1F813C29004D6F0B /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73AB1F813C29004D6F0B /* SearchVC.swift */; };
 		CAEC73AF1F813C29004D6F0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAEC73AD1F813C29004D6F0B /* Main.storyboard */; };
@@ -50,6 +52,8 @@
 		955C8FECD5270A6EC65FC55D /* Pods_TakeFlightUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TakeFlightUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		962EB3CAD75C4C9C854C85D2 /* Pods_TakeFlightTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TakeFlightTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C666A505AC3EF78917DB19DD /* Pods-TakeFlight.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TakeFlight.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TakeFlight/Pods-TakeFlight.debug.xcconfig"; sourceTree = "<group>"; };
+		CA825CD71F93A8BB006871B2 /* DatePickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerVC.swift; sourceTree = "<group>"; };
+		CA825CD91F93A954006871B2 /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
 		CAEC73A61F813C29004D6F0B /* TakeFlight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TakeFlight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAEC73A91F813C29004D6F0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CAEC73AB1F813C29004D6F0B /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
@@ -180,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				CAEC73AB1F813C29004D6F0B /* SearchVC.swift */,
+				CA825CD71F93A8BB006871B2 /* DatePickerVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -188,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				CAEC73DE1F8144D1004D6F0B /* RoundTripFlightDataCell.swift */,
+				CA825CD91F93A954006871B2 /* DatePickerCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -553,7 +559,9 @@
 				CAEC73EE1F818D32004D6F0B /* Serializable.swift in Sources */,
 				CAEC73E81F816BF1004D6F0B /* DataService.swift in Sources */,
 				CAEC73AA1F813C29004D6F0B /* AppDelegate.swift in Sources */,
+				CA825CD81F93A8BB006871B2 /* DatePickerVC.swift in Sources */,
 				CAEC73E41F814F2E004D6F0B /* Constants.swift in Sources */,
+				CA825CDA1F93A954006871B2 /* DatePickerCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

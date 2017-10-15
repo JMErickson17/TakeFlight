@@ -15,7 +15,6 @@ struct QPXExpress: Codable {
     
     // MARK: Types
     
-    // TODO: Add CodingKeys enums
     struct Request: Codable {
         struct Passengers: Codable {
             let kind = "qpxexpress#passengerCounts"
@@ -57,7 +56,6 @@ struct QPXExpress: Codable {
         var slice = [String: Any]()
         var permittedDepartureTime = [String: Any]()
         
-        // Passengers
         passengers["kind"] = self.request.passengers.kind
         passengers["adultCount"] = self.request.passengers.adultCount
         
@@ -65,7 +63,6 @@ struct QPXExpress: Codable {
             passengers["childCount"] = childCount
         }
         
-        // Slice
         slice["kind"] = self.request.slice.first?.kind
         slice["origin"] = self.request.slice.first?.origin
         slice["destination"] = self.request.slice.first?.destination
@@ -79,7 +76,6 @@ struct QPXExpress: Codable {
             slice["preferredCabin"] = preferredCabin
         }
         
-        // Permitted Departure Time
         permittedDepartureTime["kind"] = self.request.slice.first?.permittedDepartureTime?.kind
         
         if let earliestTime = self.request.slice.first?.permittedDepartureTime?.earliestTime {
@@ -92,7 +88,6 @@ struct QPXExpress: Codable {
         
         slice["permittedDepartureTime"] = permittedDepartureTime
         
-        // Request
         request["passengers"] = passengers
         request["slice"] = [slice]
         

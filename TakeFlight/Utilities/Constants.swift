@@ -8,15 +8,13 @@
 
 import Foundation
 
-// MARK: Type Aliases
-
-typealias JSONDictionary = [String: Any]
-
 enum Constants {
     
     // MARK: Identifiers
     
     static let ROUND_TRIP_FLIGHT_DATA_CELL = "RoundTripFlightDataCell"
+    static let DATE_PICKER_CELL = "DatePickerCell"
     
+    static let TO_DATE_PICKER = "ToDatePicker"
 }
 
