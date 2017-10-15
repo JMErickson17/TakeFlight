@@ -8,6 +8,9 @@ target 'TakeFlight' do
   # Pods for TakeFlight
   pod 'Alamofire', '~> 4.5'
   pod 'JTAppleCalendar', :git => 'https://github.com/patchthecode/JTAppleCalendar.git', :branch => 'master'
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
+
 
   target 'TakeFlightTests' do
     inherit! :search_paths
