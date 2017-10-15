@@ -1,6 +1,0 @@
-framework module Pods_TakeFlightUITests {
-  umbrella header "Pods-TakeFlightUITests-umbrella.h"
-
-  export *
-  module * { export * }
-}
