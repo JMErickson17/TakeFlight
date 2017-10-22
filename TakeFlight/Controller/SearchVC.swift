@@ -36,6 +36,7 @@ class SearchVC: UIViewController {
         returnDateTextField.delegate = self
         
         setupView()
+        
     }
 
     // MARK: Setup
@@ -48,7 +49,7 @@ class SearchVC: UIViewController {
         // UITableViewCell Setup
         let roundTripCell = UINib(nibName: Constants.ROUND_TRIP_FLIGHT_DATA_CELL, bundle: nil)
         flightDataTableView.register(roundTripCell, forCellReuseIdentifier: Constants.ROUND_TRIP_FLIGHT_DATA_CELL)
-        
+
     }
     
     // MARK: Actions
@@ -83,8 +84,12 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
 
 extension SearchVC: UITextFieldDelegate {
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+/**
+     Present DatePickerVC and prevent the keyboard from showing when the UITextField is tapped.
+ */
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         performSegue(withIdentifier: Constants.TO_DATE_PICKER, sender: nil)
+        return false
     }
 }
 

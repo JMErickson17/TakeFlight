@@ -22,13 +22,11 @@ final class FirebaseDataService {
     // MARK: Convenience
     
 /**
-     Retrieves airport data for a given search query and passes an array of Strings to the completion handler.
+     Retrieves airport data for a given search query and passes an array of Airports to the completion handler.
      
      - Parameter query: The keyword used to filter the search criteria.
  */
-    func getAirportDetails(forSearchQuery query: String, completion: @escaping (_ airports: [Airport]) -> Void) {
-        var airports = [Airport]()
-        
-        // TODO: Filter and return data for searching
+    func getAirportDetails(forSearchQuery query: String, completion: @escaping (_ airport: Airport) -> Void) {
+        // TODO: Get airport details
     }
 }
