@@ -9,9 +9,9 @@
 import Foundation
 import Alamofire
 
-final class DataService {
+final class FlightDataService {
     
-    static let instance = DataService()
+    static let instance = FlightDataService()
     private init() {}
     
     // MARK: Properties

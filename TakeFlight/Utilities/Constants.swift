@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Firebase
 
 enum Constants {
     
@@ -15,6 +16,12 @@ enum Constants {
     static let ROUND_TRIP_FLIGHT_DATA_CELL = "RoundTripFlightDataCell"
     static let DATE_PICKER_CELL = "DatePickerCell"
     
+    // MARK: Segues
+    
     static let TO_DATE_PICKER = "ToDatePicker"
+    
+    // MARK: Firebase
+    
+    static let DB_BASE = Database.database().reference()
 }
 

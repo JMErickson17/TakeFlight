@@ -105,7 +105,7 @@ struct QPXExpress: Codable {
     // MARK: Lifetime
     
     /**
-     Initializes a request object. All optional paramaters are optional and can be omitted.
+     Initializes a request object. All optional paramaters can be omitted.
      
      - Parameter adultCount: The number of adults on a flight ticket.
      - Parameter origin: Departing destination airport code
@@ -122,25 +122,5 @@ struct QPXExpress: Codable {
         
         self.request = Request(passengers: passengers, slice: [slice], maxPrice: maxPrice, refundable: refundable)
     }
-    
 }
 
-// MARK: - Serialize
-
-extension QPXExpress: Serializable {
-    
-    /**
-     Returns a data? object for a given QPXExpress object
-     */
-    func serialize() -> Data? {
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
-        
-        do {
-            return try encoder.encode(self)
-        } catch {
-            debugPrint(error.localizedDescription)
-            return nil
-        }
-    }
-}
