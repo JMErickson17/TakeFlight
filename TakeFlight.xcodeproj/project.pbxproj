@@ -10,6 +10,7 @@
 		58537D1DCEA65DD268A4666B /* Pods_TakeFlightUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 955C8FECD5270A6EC65FC55D /* Pods_TakeFlightUITests.framework */; };
 		5EC349B0BBE2F6B536A70966 /* Pods_TakeFlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1CD68BDBB2978CC87E5D867 /* Pods_TakeFlight.framework */; };
 		ABBA88BADDAB4EC602AE5126 /* Pods_TakeFlightTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962EB3CAD75C4C9C854C85D2 /* Pods_TakeFlightTests.framework */; };
+		CA29AA1B1F9D6A5E0047B2F1 /* FlightConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA29AA1A1F9D6A5E0047B2F1 /* FlightConvertable.swift */; };
 		CA3290171F9D2E650083EED7 /* MonthSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3290161F9D2E650083EED7 /* MonthSectionHeaderView.swift */; };
 		CA3290191F9D531F0083EED7 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3290181F9D531F0083EED7 /* DatePickerView.swift */; };
 		CA32901B1F9D5B650083EED7 /* Date+ComponentStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA32901A1F9D5B650083EED7 /* Date+ComponentStrings.swift */; };
@@ -31,6 +32,7 @@
 		CAEC73E61F81638F004D6F0B /* FlightData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E51F81638F004D6F0B /* FlightData.swift */; };
 		CAEC73E81F816BF1004D6F0B /* FlightDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E71F816BF1004D6F0B /* FlightDataService.swift */; };
 		CAEC73EA1F8184D8004D6F0B /* QPXExpress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E91F8184D8004D6F0B /* QPXExpress.swift */; };
+		CAF3714E1FA232EE002C3455 /* SelectedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF3714D1FA232EE002C3455 /* SelectedState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,7 @@
 		955C8FECD5270A6EC65FC55D /* Pods_TakeFlightUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TakeFlightUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		962EB3CAD75C4C9C854C85D2 /* Pods_TakeFlightTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TakeFlightTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C666A505AC3EF78917DB19DD /* Pods-TakeFlight.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TakeFlight.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TakeFlight/Pods-TakeFlight.debug.xcconfig"; sourceTree = "<group>"; };
+		CA29AA1A1F9D6A5E0047B2F1 /* FlightConvertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightConvertable.swift; sourceTree = "<group>"; };
 		CA3290161F9D2E650083EED7 /* MonthSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthSectionHeaderView.swift; sourceTree = "<group>"; };
 		CA3290181F9D531F0083EED7 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		CA32901A1F9D5B650083EED7 /* Date+ComponentStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+ComponentStrings.swift"; sourceTree = "<group>"; };
@@ -84,6 +87,7 @@
 		CAEC73E51F81638F004D6F0B /* FlightData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightData.swift; sourceTree = "<group>"; };
 		CAEC73E71F816BF1004D6F0B /* FlightDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDataService.swift; sourceTree = "<group>"; };
 		CAEC73E91F8184D8004D6F0B /* QPXExpress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QPXExpress.swift; sourceTree = "<group>"; };
+		CAF3714D1FA232EE002C3455 /* SelectedState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedState.swift; sourceTree = "<group>"; };
 		DF2F772D35F090085677C96D /* Pods-TakeFlightTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TakeFlightTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TakeFlightTests/Pods-TakeFlightTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E1CD68BDBB2978CC87E5D867 /* Pods_TakeFlight.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TakeFlight.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED00AF93923CA2A0C7663431 /* Pods-TakeFlightTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TakeFlightTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TakeFlightTests/Pods-TakeFlightTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -217,6 +221,7 @@
 				CAEC73E51F81638F004D6F0B /* FlightData.swift */,
 				CAEC73E91F8184D8004D6F0B /* QPXExpress.swift */,
 				CA8923D11F93F5F50091968B /* Airport.swift */,
+				CAF3714D1FA232EE002C3455 /* SelectedState.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -257,6 +262,7 @@
 		CAEC73EC1F818CFA004D6F0B /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				CA29AA1A1F9D6A5E0047B2F1 /* FlightConvertable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -577,10 +583,12 @@
 				CAEC73EA1F8184D8004D6F0B /* QPXExpress.swift in Sources */,
 				CAEC73AC1F813C29004D6F0B /* SearchVC.swift in Sources */,
 				CA3290171F9D2E650083EED7 /* MonthSectionHeaderView.swift in Sources */,
+				CA29AA1B1F9D6A5E0047B2F1 /* FlightConvertable.swift in Sources */,
 				CAEC73E61F81638F004D6F0B /* FlightData.swift in Sources */,
 				CA32901B1F9D5B650083EED7 /* Date+ComponentStrings.swift in Sources */,
 				CAEC73E01F8144D1004D6F0B /* RoundTripFlightDataCell.swift in Sources */,
 				CAEC73E81F816BF1004D6F0B /* FlightDataService.swift in Sources */,
+				CAF3714E1FA232EE002C3455 /* SelectedState.swift in Sources */,
 				CAEC73AA1F813C29004D6F0B /* AppDelegate.swift in Sources */,
 				CA825CD81F93A8BB006871B2 /* DatePickerVC.swift in Sources */,
 				CA825CDD1F93BFBF006871B2 /* FirebaseDataService.swift in Sources */,

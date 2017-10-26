@@ -8,15 +8,39 @@
 
 import UIKit
 
-class SearchVC: UIViewController {
+class SearchVC: UIViewController, FlightConvertable {
     
     // MARK: Properties
     
-    @IBOutlet weak var fromLocationTextField: UITextField!
-    @IBOutlet weak var toLocationTextField: UITextField!
+    @IBOutlet weak var originTextField: UITextField!
+    @IBOutlet weak var destinationTextField: UITextField!
     @IBOutlet weak var departureDateTextField: UITextField!
     @IBOutlet weak var returnDateTextField: UITextField!
     @IBOutlet weak var flightDataTableView: UITableView!
+    
+    private let formatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = Calendar.current.timeZone
+        dateFormatter.locale = Calendar.current.locale
+        dateFormatter.dateFormat = "MMMM dd"
+        return dateFormatter
+    }()
+    
+    var origin: String?
+    var destination: String?
+    var datesSelected: SelectedState = .none
+    
+    var departureDate: Date? {
+        didSet {
+            self.departureDateTextField.text = formatter.string(from: departureDate!)
+        }
+    }
+    
+    var returnDate: Date? {
+        didSet {
+            self.returnDateTextField.text = formatter.string(from: returnDate!)
+        }
+    }
     
     private var flights = [FlightData]() {
         didSet {
@@ -36,12 +60,11 @@ class SearchVC: UIViewController {
         returnDateTextField.delegate = self
         
         setupView()
-        
     }
 
     // MARK: Setup
     
-/**
+/*
      Sets up the view, tableView, ect.
  */
     func setupView() {
@@ -55,6 +78,14 @@ class SearchVC: UIViewController {
     // MARK: Actions
     
     // MARK: Convenience
+    
+    // MARK: Segues
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? DatePickerVC {
+            destination.delegate = self
+        }
+    }
     
 }
 
@@ -84,7 +115,7 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
 
 extension SearchVC: UITextFieldDelegate {
     
-/**
+/*
      Present DatePickerVC and prevent the keyboard from showing when the UITextField is tapped.
  */
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {

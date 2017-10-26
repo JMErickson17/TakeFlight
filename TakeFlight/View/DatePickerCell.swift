@@ -16,7 +16,6 @@ class DatePickerCell: JTAppleCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var selectedView: UIView!
     
-    
     // MARK: View Life Cycle
     
     override func awakeFromNib() {
@@ -30,15 +29,26 @@ class DatePickerCell: JTAppleCell {
     
     func configureCell(withDate date: String, isSelected: Bool, cellState: CellState) {
         self.dateLabel.text = date
-        handleCellSelected(isSelected: isSelected)
+        handleSelectedView(isSelected: isSelected)
         handleCellState(cellState)
     }
     
-    func handleCellSelected(isSelected: Bool) {
+    func handleSelection(forState state: CellState) {
+        switch state.selectedPosition() {
+        case .full, .left, .right:
+            self.handleSelectedView(isSelected: true)
+        case .middle:
+            self.handleSelectedView(isSelected: true)
+        default:
+            self.handleSelectedView(isSelected: false)
+        }
+    }
+    
+    private func handleSelectedView(isSelected: Bool) {
         self.selectedView.isHidden = !isSelected
     }
     
-    func handleCellState(_ cellState: CellState) {
+    private func handleCellState(_ cellState: CellState) {
         if cellState.dateBelongsTo == .thisMonth {
             dateLabel.layer.opacity = 1
         } else {

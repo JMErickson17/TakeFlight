@@ -16,6 +16,8 @@ class DatePickerVC: UIViewController {
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     
+    var delegate: FlightConvertable?
+    
     private let formatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = Calendar.current.timeZone
@@ -47,6 +49,9 @@ class DatePickerVC: UIViewController {
         
         calendarView.minimumLineSpacing = 0
         calendarView.minimumInteritemSpacing = 0
+        
+        calendarView.allowsMultipleSelection = true
+        calendarView.isRangeSelectionUsed = true
     }
     
     // MARK: Convenience
@@ -76,15 +81,40 @@ extension DatePickerVC: JTAppleCalendarViewDelegate {
  */
 
     func calendar(_ calendar: JTAppleCalendarView, willDisplay cell: JTAppleCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
+        if let cell = cell as? DatePickerCell {
+            cell.handleSelection(forState: cellState)
+        }
     }
     
 /*
      Configure the cells selected state.
  */
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
-        if let cell = cell as? DatePickerCell {
-            cell.handleCellSelected(isSelected: true)
+        guard let cell = cell as? DatePickerCell else { return }
+        guard delegate != nil else { return }
+        
+        switch delegate!.datesSelected {
+        case .none:
+            delegate!.departureDate = date
+            cell.handleSelection(forState: cellState)
+            delegate!.datesSelected = .first
+            
+        case .first:
+            if date < delegate!.departureDate! {
+                calendar.deselectAllDates()
+                delegate!.datesSelected = .none
+                break
+            }
+            
+            delegate!.returnDate = date
+            calendar.selectDates(from: delegate!.departureDate!, to: delegate!.returnDate!, triggerSelectionDelegate: false, keepSelectionIfMultiSelectionAllowed: true)
+            delegate!.datesSelected = .selected
+            
+        case .selected:
+            calendar.deselectAllDates()
+            delegate!.datesSelected = .none
         }
+        calendar.reloadData()
     }
     
 /*
@@ -92,7 +122,7 @@ extension DatePickerVC: JTAppleCalendarViewDelegate {
  */
     func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         if let cell = cell as? DatePickerCell {
-            cell.handleCellSelected(isSelected: false)
+            cell.handleSelection(forState: cellState)
         }
     }
     
@@ -119,12 +149,13 @@ extension DatePickerVC: JTAppleCalendarViewDelegate {
 
 extension DatePickerVC: JTAppleCalendarViewDataSource {
     
+/*
+     Configure the initial parameters for the calendar.
+ */
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
         let sixMonths: TimeInterval = 15552000
         let startDate = Date()
         let endDate = startDate.addingTimeInterval(sixMonths)
-        print(startDate)
-        print(endDate)
         
         let parameters = ConfigurationParameters(startDate: startDate, endDate: endDate)
         return parameters
