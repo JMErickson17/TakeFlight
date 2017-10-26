@@ -53,8 +53,6 @@ class SearchVC: UIViewController, FlightConvertable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         setupView()
     }
 
@@ -78,7 +76,41 @@ class SearchVC: UIViewController, FlightConvertable {
     
     // MARK: Actions
     
+    @IBAction func searchButtonTapped(_ sender: Any) {
+        searchFlights { (flightData) in
+            
+        }
+    }
     // MARK: Convenience
+    
+/*
+     Perform a search for flight data
+ */
+    func searchFlights(completion: @escaping (FlightData?) -> Void) {
+        guard textFieldsContainData() else { return }
+        guard let origin = originTextField.text else { return }
+        guard let destination = destinationTextField.text else { return }
+        guard let departureDate = departureDate else { return }
+        //guard let returnDate = returnDate else { return }
+        
+        let request = QPXExpress(adultCount: 1, origin: origin, destination: destination, date: departureDate)
+        
+        FlightDataService.instance.retrieveFlightData(forRequest: request) { (data) in
+            if let data = data {
+                print(String(data: data, encoding: .utf8))
+            }
+        }
+    }
+    
+/*
+     Returns true if all UITextFields needed to search contain data
+ */
+    func textFieldsContainData() -> Bool {
+        return !(self.originTextField.text == "" &&
+                 self.destinationTextField.text == "" &&
+                 self.departureDateTextField.text == "" &&
+                 self.returnDateTextField.text == "")
+    }
     
     // MARK: Segues
     

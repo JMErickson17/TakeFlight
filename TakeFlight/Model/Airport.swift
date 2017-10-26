@@ -18,21 +18,19 @@ struct Airport: Decodable {
     public private(set) var stateAbbreviation: String
     public private(set) var country: String
     public private(set) var iata: String
-    public private(set) var icao: String
     public private(set) var lat: Double
     public private(set) var lon: Double
     public private(set) var timeZone: String
     
     // MARK: Lifetime
     
-    init(name: String, city: String, state: String, stateAbbreviation: String, country: String, iata: String, icao: String, lat: Double, lon: Double, timeZone: String) {
+    init(name: String, city: String, state: String, stateAbbreviation: String, country: String, iata: String, lat: Double, lon: Double, timeZone: String) {
         self.name = name
         self.city = city
         self.state = state
         self.stateAbbreviation = stateAbbreviation
         self.country = country
         self.iata = iata
-        self.icao = icao
         self.lat = lat
         self.lon = lon
         self.timeZone = timeZone
@@ -50,7 +48,6 @@ extension Airport {
         case stateAbbreviation
         case country
         case iata
-        case icao
         case lat
         case lon
         case timeZone
@@ -65,12 +62,11 @@ extension Airport {
         let stateAbbreviation = try container.decode(String.self, forKey: .stateAbbreviation)
         let country = try container.decode(String.self, forKey: .country)
         let iata = try container.decode(String.self, forKey: .iata)
-        let icao = try container.decode(String.self, forKey: .icao)
         let lat = try container.decode(Double.self, forKey: .lat)
         let lon = try container.decode(Double.self, forKey: .lon)
         let timeZone = try container.decode(String.self, forKey: .timeZone)
         
-        self.init(name: name, city: city, state: state, stateAbbreviation: stateAbbreviation, country: country, iata: iata, icao: icao, lat: lat, lon: lon, timeZone: timeZone)
+        self.init(name: name, city: city, state: state, stateAbbreviation: stateAbbreviation, country: country, iata: iata, lat: lat, lon: lon, timeZone: timeZone)
     }
 }
 

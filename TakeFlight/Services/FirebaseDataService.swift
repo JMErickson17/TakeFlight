@@ -22,11 +22,30 @@ final class FirebaseDataService {
     // MARK: Convenience
     
 /**
-     Retrieves airport data for a given search query and passes an array of Airports to the completion handler.
-     
-     - Parameter query: The keyword used to filter the search criteria.
+     Returns airport data for all airports in the Database
  */
-    func getAirportDetails(forSearchQuery query: String, completion: @escaping (_ airport: Airport) -> Void) {
-        // TODO: Get airport details
+    func getAirports(completion: @escaping ([Airport]) -> Void) {
+        var airports = [Airport]()
+        REF_AIRPORTS.observeSingleEvent(of: .value) { (snapshot) in
+            if let snapshot = snapshot.value as? [[String: Any]] {
+                for snap in snapshot {
+                    guard let name = snap["name"] as? String else { continue }
+                    guard let city = snap["city"] as? String else { continue }
+                    guard let state = snap["state"] as? String else { continue }
+                    guard let stateAbbreviation = snap["stateAbbreviation"] as? String else { continue }
+                    guard let country = snap["country"] as? String else { continue }
+                    guard let iata = snap["iata"] as? String else { continue }
+                    guard let lat = snap["lat"] as? String else { continue }
+                    guard let lon = snap["lon"] as? String else { continue }
+                    guard let timeZone = snap["timeZone"] as? String else { continue }
+                    
+                    let airport = Airport(name: name, city: city, state: state, stateAbbreviation: stateAbbreviation, country: country, iata: iata, lat: Double(lat)!, lon: Double(lon)!, timeZone: timeZone)
+                    
+                    airports.append(airport)
+                }
+                completion(airports)
+            }
+        }
+
     }
 }

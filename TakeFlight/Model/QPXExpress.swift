@@ -27,7 +27,7 @@ struct QPXExpress: Codable {
             let origin: String!
             let destination: String!
             // TODO: Change date back to Date type
-            let date: String!
+            let date: Date!
             let maxStops: Int?
             let preferredCabin: String?
             let permittedDepartureTime: PermittedDepartureTime?
@@ -65,7 +65,7 @@ struct QPXExpress: Codable {
         
         let passengers = Request.Passengers(adultCount: adultCount, childCount: childCount)
         let permittedDepartureTime = Request.Slice.PermittedDepartureTime(earliestTime: earliestTime, latestTime: latestTime)
-        let slice = Request.Slice(origin: origin, destination: destination, date: "2017-10-15", maxStops: maxStops, preferredCabin: preferredCabin, permittedDepartureTime: permittedDepartureTime)
+        let slice = Request.Slice(origin: origin, destination: destination, date: date, maxStops: maxStops, preferredCabin: preferredCabin, permittedDepartureTime: permittedDepartureTime)
         
         self.request = Request(passengers: passengers, slice: [slice], maxPrice: maxPrice, refundable: refundable)
     }
@@ -91,7 +91,7 @@ extension QPXExpress {
         slice["kind"] = self.request.slice.first?.kind
         slice["origin"] = self.request.slice.first?.origin
         slice["destination"] = self.request.slice.first?.destination
-        slice["date"] = self.request.slice.first?.date
+        slice["date"] = self.request.slice.first?.date.toQPXExpressString()
         
         if let maxStops = self.request.slice.first?.maxStops {
             slice["maxStops"] = maxStops

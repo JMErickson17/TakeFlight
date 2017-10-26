@@ -13,7 +13,7 @@
 		CA29AA1B1F9D6A5E0047B2F1 /* FlightConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA29AA1A1F9D6A5E0047B2F1 /* FlightConvertable.swift */; };
 		CA3290171F9D2E650083EED7 /* MonthSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3290161F9D2E650083EED7 /* MonthSectionHeaderView.swift */; };
 		CA3290191F9D531F0083EED7 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3290181F9D531F0083EED7 /* DatePickerView.swift */; };
-		CA32901B1F9D5B650083EED7 /* Date+ComponentStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA32901A1F9D5B650083EED7 /* Date+ComponentStrings.swift */; };
+		CA32901B1F9D5B650083EED7 /* Date+Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA32901A1F9D5B650083EED7 /* Date+Strings.swift */; };
 		CA825CD81F93A8BB006871B2 /* DatePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA825CD71F93A8BB006871B2 /* DatePickerVC.swift */; };
 		CA825CDA1F93A954006871B2 /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA825CD91F93A954006871B2 /* DatePickerCell.swift */; };
 		CA825CDD1F93BFBF006871B2 /* FirebaseDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA825CDC1F93BFBF006871B2 /* FirebaseDataService.swift */; };
@@ -63,7 +63,7 @@
 		CA29AA1A1F9D6A5E0047B2F1 /* FlightConvertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightConvertable.swift; sourceTree = "<group>"; };
 		CA3290161F9D2E650083EED7 /* MonthSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthSectionHeaderView.swift; sourceTree = "<group>"; };
 		CA3290181F9D531F0083EED7 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
-		CA32901A1F9D5B650083EED7 /* Date+ComponentStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+ComponentStrings.swift"; sourceTree = "<group>"; };
+		CA32901A1F9D5B650083EED7 /* Date+Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Strings.swift"; sourceTree = "<group>"; };
 		CA825CD71F93A8BB006871B2 /* DatePickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerVC.swift; sourceTree = "<group>"; };
 		CA825CD91F93A954006871B2 /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
 		CA825CDB1F93BDCA006871B2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -256,7 +256,7 @@
 		CAEC73EB1F818CB0004D6F0B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				CA32901A1F9D5B650083EED7 /* Date+ComponentStrings.swift */,
+				CA32901A1F9D5B650083EED7 /* Date+Strings.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -589,7 +589,7 @@
 				CA3290171F9D2E650083EED7 /* MonthSectionHeaderView.swift in Sources */,
 				CA29AA1B1F9D6A5E0047B2F1 /* FlightConvertable.swift in Sources */,
 				CAEC73E61F81638F004D6F0B /* FlightData.swift in Sources */,
-				CA32901B1F9D5B650083EED7 /* Date+ComponentStrings.swift in Sources */,
+				CA32901B1F9D5B650083EED7 /* Date+Strings.swift in Sources */,
 				CAEC73E01F8144D1004D6F0B /* RoundTripFlightDataCell.swift in Sources */,
 				CAEC73E81F816BF1004D6F0B /* FlightDataService.swift in Sources */,
 				CAF3714E1FA232EE002C3455 /* SelectedState.swift in Sources */,

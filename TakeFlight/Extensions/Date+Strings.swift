@@ -29,4 +29,14 @@ extension Date {
         let year = formatter.string(from: self)
         return year
     }
+    
+/**
+     Converts a date to a QPXExpress formatted date String.
+ */
+    func toQPXExpressString() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY-MM-dd"
+        let dateString = formatter.string(from: self)
+        return dateString
+    }
 }

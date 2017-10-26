@@ -90,6 +90,18 @@
                                             </button>
                                         </subviews>
                                     </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m45-XX-P8U">
+                                        <rect key="frame" x="309" y="12" width="46" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="46" id="8Ui-Ba-h0m"/>
+                                            <constraint firstAttribute="height" constant="30" id="Atz-E3-Ec5"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <state key="normal" title="Search"/>
+                                        <connections>
+                                            <action selector="searchButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UVz-LF-cwd"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.88414158938462251" green="0.88414158938462251" blue="0.88414158938462251" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -99,7 +111,9 @@
                                     <constraint firstItem="bv1-9R-E6Y" firstAttribute="top" secondItem="GZy-mC-ZRT" secondAttribute="top" constant="25" id="Jsa-X4-VFF"/>
                                     <constraint firstItem="bv1-9R-E6Y" firstAttribute="centerX" secondItem="GZy-mC-ZRT" secondAttribute="centerX" id="Nri-1S-y1J"/>
                                     <constraint firstAttribute="trailing" secondItem="sVa-0L-NBq" secondAttribute="trailing" constant="20" id="Wfd-9e-YZi"/>
+                                    <constraint firstAttribute="trailing" secondItem="m45-XX-P8U" secondAttribute="trailing" constant="20" id="cXY-xU-KMD"/>
                                     <constraint firstItem="sVa-0L-NBq" firstAttribute="leading" secondItem="GZy-mC-ZRT" secondAttribute="leading" constant="20" id="gYA-do-hkD"/>
+                                    <constraint firstItem="m45-XX-P8U" firstAttribute="top" secondItem="GZy-mC-ZRT" secondAttribute="top" constant="12" id="jsi-dP-rae"/>
                                     <constraint firstItem="8Hc-2N-cqD" firstAttribute="leading" secondItem="GZy-mC-ZRT" secondAttribute="leading" constant="20" id="zEQ-uM-Nqf"/>
                                 </constraints>
                             </view>
