@@ -33,6 +33,7 @@
 		CAEC73E81F816BF1004D6F0B /* FlightDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E71F816BF1004D6F0B /* FlightDataService.swift */; };
 		CAEC73EA1F8184D8004D6F0B /* QPXExpress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E91F8184D8004D6F0B /* QPXExpress.swift */; };
 		CAF3714E1FA232EE002C3455 /* SelectedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF3714D1FA232EE002C3455 /* SelectedState.swift */; };
+		CAF371501FA2426E002C3455 /* Dismissable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF3714F1FA2426E002C3455 /* Dismissable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,7 @@
 		CAEC73E71F816BF1004D6F0B /* FlightDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDataService.swift; sourceTree = "<group>"; };
 		CAEC73E91F8184D8004D6F0B /* QPXExpress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QPXExpress.swift; sourceTree = "<group>"; };
 		CAF3714D1FA232EE002C3455 /* SelectedState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedState.swift; sourceTree = "<group>"; };
+		CAF3714F1FA2426E002C3455 /* Dismissable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dismissable.swift; sourceTree = "<group>"; };
 		DF2F772D35F090085677C96D /* Pods-TakeFlightTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TakeFlightTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TakeFlightTests/Pods-TakeFlightTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E1CD68BDBB2978CC87E5D867 /* Pods_TakeFlight.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TakeFlight.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED00AF93923CA2A0C7663431 /* Pods-TakeFlightTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TakeFlightTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TakeFlightTests/Pods-TakeFlightTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				CA29AA1A1F9D6A5E0047B2F1 /* FlightConvertable.swift */,
+				CAF3714F1FA2426E002C3455 /* Dismissable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -580,6 +583,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAF371501FA2426E002C3455 /* Dismissable.swift in Sources */,
 				CAEC73EA1F8184D8004D6F0B /* QPXExpress.swift in Sources */,
 				CAEC73AC1F813C29004D6F0B /* SearchVC.swift in Sources */,
 				CA3290171F9D2E650083EED7 /* MonthSectionHeaderView.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  SelectedState.swift
+//  Dismissable.swift
 //  TakeFlight
 //
 //  Created by Justin Erickson on 10/26/17.
@@ -8,8 +8,6 @@
 
 import Foundation
 
-enum SelectedState {
-    case none
-    case departure
-    case departureAndReturn
+protocol Dismissable {
+    func dismissViewContoller()
 }

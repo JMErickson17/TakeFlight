@@ -53,11 +53,7 @@ class SearchVC: UIViewController, FlightConvertable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        flightDataTableView.delegate = self
-        flightDataTableView.dataSource = self
         
-        departureDateTextField.delegate = self
-        returnDateTextField.delegate = self
         
         setupView()
     }
@@ -69,10 +65,15 @@ class SearchVC: UIViewController, FlightConvertable {
  */
     func setupView() {
         
+        departureDateTextField.delegate = self
+        returnDateTextField.delegate = self
+        
         // UITableViewCell Setup
+        flightDataTableView.delegate = self
+        flightDataTableView.dataSource = self
+        
         let roundTripCell = UINib(nibName: Constants.ROUND_TRIP_FLIGHT_DATA_CELL, bundle: nil)
         flightDataTableView.register(roundTripCell, forCellReuseIdentifier: Constants.ROUND_TRIP_FLIGHT_DATA_CELL)
-
     }
     
     // MARK: Actions
@@ -86,7 +87,6 @@ class SearchVC: UIViewController, FlightConvertable {
             destination.delegate = self
         }
     }
-    
 }
 
 // MARK: - UITableView

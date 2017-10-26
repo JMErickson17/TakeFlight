@@ -49,8 +49,33 @@ struct QPXExpress: Codable {
     
     var request: Request
     
-    var dictionaryRepresentation: [String: Any] {
+    // MARK: Lifetime
+    
+    /**
+     Initializes a request object. All optional paramaters can be omitted.
+     
+     - Parameter adultCount: The number of adults on a flight ticket.
+     - Parameter origin: Departing destination airport code
+     - Parameter destination: Arrival destination airport code
+     - Parameter date: Departure date.
+     */
+    init(adultCount: Int, origin: String, destination: String, date: Date,
+         childCount: Int? = nil, maxStops: Int? = nil, preferredCabin: String? = nil,
+         earliestTime: String? = nil, latestTime: String? = nil, maxPrice: String? = nil, refundable: Bool? = nil) {
         
+        let passengers = Request.Passengers(adultCount: adultCount, childCount: childCount)
+        let permittedDepartureTime = Request.Slice.PermittedDepartureTime(earliestTime: earliestTime, latestTime: latestTime)
+        let slice = Request.Slice(origin: origin, destination: destination, date: "2017-10-15", maxStops: maxStops, preferredCabin: preferredCabin, permittedDepartureTime: permittedDepartureTime)
+        
+        self.request = Request(passengers: passengers, slice: [slice], maxPrice: maxPrice, refundable: refundable)
+    }
+}
+
+// MARK: - Dictionary Representation
+
+extension QPXExpress {
+    
+    var dictionaryRepresentation: [String: Any] {
         var request = [String: Any]()
         var passengers = [String: Any]()
         var slice = [String: Any]()
@@ -100,27 +125,6 @@ struct QPXExpress: Codable {
         }
         
         return ["request": request]
-    }
-    
-    // MARK: Lifetime
-    
-    /**
-     Initializes a request object. All optional paramaters can be omitted.
-     
-     - Parameter adultCount: The number of adults on a flight ticket.
-     - Parameter origin: Departing destination airport code
-     - Parameter destination: Arrival destination airport code
-     - Parameter date: Departure date.
-     */
-    init(adultCount: Int, origin: String, destination: String, date: Date,
-         childCount: Int? = nil, maxStops: Int? = nil, preferredCabin: String? = nil,
-         earliestTime: String? = nil, latestTime: String? = nil, maxPrice: String? = nil, refundable: Bool? = nil) {
-        
-        let passengers = Request.Passengers(adultCount: adultCount, childCount: childCount)
-        let permittedDepartureTime = Request.Slice.PermittedDepartureTime(earliestTime: earliestTime, latestTime: latestTime)
-        let slice = Request.Slice(origin: origin, destination: destination, date: "2017-10-15", maxStops: maxStops, preferredCabin: preferredCabin, permittedDepartureTime: permittedDepartureTime)
-        
-        self.request = Request(passengers: passengers, slice: [slice], maxPrice: maxPrice, refundable: refundable)
     }
 }
 

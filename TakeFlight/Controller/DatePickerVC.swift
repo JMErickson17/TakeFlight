@@ -9,8 +9,8 @@
 import UIKit
 import JTAppleCalendar
 
-class DatePickerVC: UIViewController {
-
+class DatePickerVC: UIViewController, Dismissable {
+    
     // MARK: Properties
     
     @IBOutlet weak var backgroundView: UIView!
@@ -39,7 +39,7 @@ class DatePickerVC: UIViewController {
     
     func setupView() {
         
-        let dismissTap = UITapGestureRecognizer(target: self, action: #selector(DatePickerVC.closeDatePicker))
+        let dismissTap = UITapGestureRecognizer(target: self, action: #selector(DatePickerVC.dismissViewContoller))
         backgroundView.addGestureRecognizer(dismissTap)
     }
     
@@ -56,7 +56,7 @@ class DatePickerVC: UIViewController {
     
     // MARK: Convenience
     
-    @objc func closeDatePicker() {
+    @objc func dismissViewContoller() {
         dismiss(animated: true, completion: nil)
     }
 }
@@ -97,9 +97,8 @@ extension DatePickerVC: JTAppleCalendarViewDelegate {
         case .none:
             delegate!.departureDate = date
             cell.handleSelection(forState: cellState)
-            delegate!.datesSelected = .first
-            
-        case .first:
+            delegate!.datesSelected = .departure
+        case .departure:
             if date < delegate!.departureDate! {
                 calendar.deselectAllDates()
                 delegate!.datesSelected = .none
@@ -108,9 +107,9 @@ extension DatePickerVC: JTAppleCalendarViewDelegate {
             
             delegate!.returnDate = date
             calendar.selectDates(from: delegate!.departureDate!, to: delegate!.returnDate!, triggerSelectionDelegate: false, keepSelectionIfMultiSelectionAllowed: true)
-            delegate!.datesSelected = .selected
+            delegate!.datesSelected = .departureAndReturn
             
-        case .selected:
+        case .departureAndReturn:
             calendar.deselectAllDates()
             delegate!.datesSelected = .none
         }
@@ -131,7 +130,7 @@ extension DatePickerVC: JTAppleCalendarViewDelegate {
  */
     func calendar(_ calendar: JTAppleCalendarView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTAppleCollectionReusableView {
         if let header = calendar.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: "MonthHeader", for: indexPath) as? MonthSectionHeaderView {
-            header.configureHeader(withDate: range.start)
+            header.configureHeader(withDate: range.start, delegate: self)
             return header
         }
         return JTAppleCollectionReusableView()
