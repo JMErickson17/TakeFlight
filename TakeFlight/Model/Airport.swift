@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Airport: Decodable {
+struct Airport {
     
     // MARK: Properties
     
@@ -35,36 +35,17 @@ struct Airport: Decodable {
         self.lon = lon
         self.timeZone = timeZone
     }
-}
-
-// MARK: - Decodable
-
-extension Airport {
     
-    enum CodingKeys: String, CodingKey {
-        case name
-        case city
-        case state
-        case stateAbbreviation
-        case country
-        case iata
-        case lat
-        case lon
-        case timeZone
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        let name = try container.decode(String.self, forKey: .name)
-        let city = try container.decode(String.self, forKey: .city)
-        let state = try container.decode(String.self, forKey: .state)
-        let stateAbbreviation = try container.decode(String.self, forKey: .stateAbbreviation)
-        let country = try container.decode(String.self, forKey: .country)
-        let iata = try container.decode(String.self, forKey: .iata)
-        let lat = try container.decode(Double.self, forKey: .lat)
-        let lon = try container.decode(Double.self, forKey: .lon)
-        let timeZone = try container.decode(String.self, forKey: .timeZone)
+    init?(airportDictionary: [String: Any]) {
+        guard let name = airportDictionary["name"] as? String else { return nil }
+        guard let city = airportDictionary["city"] as? String else { return nil }
+        guard let state = airportDictionary["state"] as? String else { return nil }
+        guard let stateAbbreviation = airportDictionary["stateAbbreviation"] as? String else { return nil }
+        guard let country = airportDictionary["country"] as? String else { return nil }
+        guard let iata = airportDictionary["iata"] as? String else { return nil }
+        guard let lat = airportDictionary["lat"] as? Double else { return nil }
+        guard let lon = airportDictionary["lon"] as? Double else { return nil }
+        guard let timeZone = airportDictionary["timeZone"] as? String else { return nil }
         
         self.init(name: name, city: city, state: state, stateAbbreviation: stateAbbreviation, country: country, iata: iata, lat: lat, lon: lon, timeZone: timeZone)
     }

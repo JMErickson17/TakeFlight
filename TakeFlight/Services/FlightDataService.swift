@@ -16,7 +16,7 @@ final class FlightDataService {
     
     // MARK: Properties
     
-    var airports: [Airport]?
+    public private(set) var airports: [Airport]?
     
     // Laminar API
     private let LAMINAR_BASE_URL = "https://api.laminardata.aero/v1/"
@@ -27,6 +27,9 @@ final class FlightDataService {
     
     // MARK: Convenience
     
+/**
+     Retreives the list of airports from Firebase Database and stores them in the airports variable.
+ */
     func populateAirportData() {
         FirebaseDataService.instance.getAirports { (airports) in
             self.airports = airports

@@ -38,7 +38,6 @@ class DatePickerVC: UIViewController, Dismissable {
     // MARK: Setup
     
     func setupView() {
-        
         let dismissTap = UITapGestureRecognizer(target: self, action: #selector(DatePickerVC.dismissViewContoller))
         backgroundView.addGestureRecognizer(dismissTap)
     }

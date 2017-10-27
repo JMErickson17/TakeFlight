@@ -26,6 +26,8 @@ class MonthSectionHeaderView: JTAppleCollectionReusableView {
         self.delegate = delegate
     }
     
+    // MARK: Actions
+    
     @IBAction func datesSelectedButtonTapped(_ sender: Any) {
         delegate?.dismissViewContoller()
     }

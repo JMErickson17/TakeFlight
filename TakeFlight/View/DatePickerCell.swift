@@ -27,12 +27,18 @@ class DatePickerCell: JTAppleCell {
     
     // MARK: Convienence
     
+/**
+     Configure the current cell
+ */
     func configureCell(withDate date: String, isSelected: Bool, cellState: CellState) {
         self.dateLabel.text = date
         handleSelectedView(isSelected: isSelected)
         handleCellState(cellState)
     }
     
+/**
+     Configure the view of the cells selected state based on its position in the range of selected dates.
+ */
     func handleSelection(forState state: CellState) {
         switch state.selectedPosition() {
         case .full, .left, .right:
@@ -44,10 +50,16 @@ class DatePickerCell: JTAppleCell {
         }
     }
     
+/**
+     Configure the cells selected views
+ */
     private func handleSelectedView(isSelected: Bool) {
         self.selectedView.isHidden = !isSelected
     }
     
+/**
+     Configure the view of the cell based on its current cellState
+ */
     private func handleCellState(_ cellState: CellState) {
         if cellState.dateBelongsTo == .thisMonth {
             dateLabel.layer.opacity = 1

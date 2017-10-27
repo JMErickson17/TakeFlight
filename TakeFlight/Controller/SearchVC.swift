@@ -63,6 +63,7 @@ class SearchVC: UIViewController, FlightConvertable {
  */
     func setupView() {
         
+        // UITextField Setup
         departureDateTextField.delegate = self
         returnDateTextField.delegate = self
         
@@ -84,9 +85,9 @@ class SearchVC: UIViewController, FlightConvertable {
     // MARK: Convenience
     
 /*
-     Perform a search for flight data
+     Performs a search for a given request and passes an optional array of FlightData to the completion handler
  */
-    func searchFlights(completion: @escaping (FlightData?) -> Void) {
+    func searchFlights(completion: @escaping ([FlightData]?) -> Void) {
         guard textFieldsContainData() else { return }
         guard let origin = originTextField.text else { return }
         guard let destination = destinationTextField.text else { return }
@@ -97,7 +98,7 @@ class SearchVC: UIViewController, FlightConvertable {
         
         FlightDataService.instance.retrieveFlightData(forRequest: request) { (data) in
             if let data = data {
-                print(String(data: data, encoding: .utf8))
+                // Convert to FlightData and return
             }
         }
     }

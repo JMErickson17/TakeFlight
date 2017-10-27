@@ -26,7 +26,6 @@ struct QPXExpress: Codable {
             let kind = "qpxexpress#sliceInput"
             let origin: String!
             let destination: String!
-            // TODO: Change date back to Date type
             let date: Date!
             let maxStops: Int?
             let preferredCabin: String?
