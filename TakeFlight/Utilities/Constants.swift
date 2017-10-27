@@ -15,6 +15,7 @@ enum Constants {
     
     static let ROUND_TRIP_FLIGHT_DATA_CELL = "RoundTripFlightDataCell"
     static let DATE_PICKER_CELL = "DatePickerCell"
+    static let AIRPORT_PICKER_CELL = "AirportPickerCell"
     
     // MARK: Segues
     

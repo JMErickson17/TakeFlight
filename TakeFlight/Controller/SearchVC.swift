@@ -67,6 +67,9 @@ class SearchVC: UIViewController, FlightConvertable {
         departureDateTextField.delegate = self
         returnDateTextField.delegate = self
         
+        originTextField.delegate = self
+        destinationTextField.delegate = self
+        
         // UITableViewCell Setup
         flightDataTableView.delegate = self
         flightDataTableView.dataSource = self
@@ -152,8 +155,17 @@ extension SearchVC: UITextFieldDelegate {
      Present DatePickerVC and prevent the keyboard from showing when the UITextField is tapped.
  */
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        guard textField.tag == 3 || textField.tag == 4 else { return true }
         performSegue(withIdentifier: Constants.TO_DATE_PICKER, sender: nil)
         return false
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        guard textField.tag == 1 || textField.tag == 2 else { return }
+        let airportPickerVC = AirportPickerVC(nibName: "AirportPickerVC", bundle: nil)
+        airportPickerVC.modalPresentationStyle = .overCurrentContext
+        self.present(airportPickerVC, animated: true, completion: nil)
+    }
+    
 }
 

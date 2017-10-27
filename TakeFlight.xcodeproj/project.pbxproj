@@ -19,6 +19,10 @@
 		CA825CDD1F93BFBF006871B2 /* FirebaseDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA825CDC1F93BFBF006871B2 /* FirebaseDataService.swift */; };
 		CA8923D21F93F5F50091968B /* Airport.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8923D11F93F5F50091968B /* Airport.swift */; };
 		CA8C6B791F9CF86000753E7D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CA825CDB1F93BDCA006871B2 /* GoogleService-Info.plist */; };
+		CAA19A0A1FA3BDD800A479A8 /* AirportPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA19A081FA3BDD800A479A8 /* AirportPickerVC.swift */; };
+		CAA19A0B1FA3BDD800A479A8 /* AirportPickerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAA19A091FA3BDD800A479A8 /* AirportPickerVC.xib */; };
+		CAA19A0E1FA3C08000A479A8 /* AirportPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA19A0C1FA3C08000A479A8 /* AirportPickerCell.swift */; };
+		CAA19A0F1FA3C08000A479A8 /* AirportPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAA19A0D1FA3C08000A479A8 /* AirportPickerCell.xib */; };
 		CAEC73AA1F813C29004D6F0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73A91F813C29004D6F0B /* AppDelegate.swift */; };
 		CAEC73AC1F813C29004D6F0B /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73AB1F813C29004D6F0B /* SearchVC.swift */; };
 		CAEC73AF1F813C29004D6F0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAEC73AD1F813C29004D6F0B /* Main.storyboard */; };
@@ -69,6 +73,10 @@
 		CA825CDB1F93BDCA006871B2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CA825CDC1F93BFBF006871B2 /* FirebaseDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDataService.swift; sourceTree = "<group>"; };
 		CA8923D11F93F5F50091968B /* Airport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Airport.swift; sourceTree = "<group>"; };
+		CAA19A081FA3BDD800A479A8 /* AirportPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportPickerVC.swift; sourceTree = "<group>"; };
+		CAA19A091FA3BDD800A479A8 /* AirportPickerVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AirportPickerVC.xib; sourceTree = "<group>"; };
+		CAA19A0C1FA3C08000A479A8 /* AirportPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportPickerCell.swift; sourceTree = "<group>"; };
+		CAA19A0D1FA3C08000A479A8 /* AirportPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AirportPickerCell.xib; sourceTree = "<group>"; };
 		CAEC73A61F813C29004D6F0B /* TakeFlight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TakeFlight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAEC73A91F813C29004D6F0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CAEC73AB1F813C29004D6F0B /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
@@ -202,6 +210,7 @@
 			children = (
 				CAEC73AB1F813C29004D6F0B /* SearchVC.swift */,
 				CA825CD71F93A8BB006871B2 /* DatePickerVC.swift */,
+				CAA19A081FA3BDD800A479A8 /* AirportPickerVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -213,6 +222,7 @@
 				CA825CD91F93A954006871B2 /* DatePickerCell.swift */,
 				CA3290161F9D2E650083EED7 /* MonthSectionHeaderView.swift */,
 				CA3290181F9D531F0083EED7 /* DatePickerView.swift */,
+				CAA19A0C1FA3C08000A479A8 /* AirportPickerCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -241,6 +251,8 @@
 			isa = PBXGroup;
 			children = (
 				CAEC73DF1F8144D1004D6F0B /* RoundTripFlightDataCell.xib */,
+				CAA19A091FA3BDD800A479A8 /* AirportPickerVC.xib */,
+				CAA19A0D1FA3C08000A479A8 /* AirportPickerCell.xib */,
 			);
 			path = "XIB Files";
 			sourceTree = "<group>";
@@ -397,7 +409,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAEC73B41F813C29004D6F0B /* LaunchScreen.storyboard in Resources */,
+				CAA19A0F1FA3C08000A479A8 /* AirportPickerCell.xib in Resources */,
 				CAEC73B11F813C29004D6F0B /* Assets.xcassets in Resources */,
+				CAA19A0B1FA3BDD800A479A8 /* AirportPickerVC.xib in Resources */,
 				CA8C6B791F9CF86000753E7D /* GoogleService-Info.plist in Resources */,
 				CAEC73AF1F813C29004D6F0B /* Main.storyboard in Resources */,
 				CAEC73E11F8144D1004D6F0B /* RoundTripFlightDataCell.xib in Resources */,
@@ -593,8 +607,10 @@
 				CAEC73E01F8144D1004D6F0B /* RoundTripFlightDataCell.swift in Sources */,
 				CAEC73E81F816BF1004D6F0B /* FlightDataService.swift in Sources */,
 				CAF3714E1FA232EE002C3455 /* SelectedState.swift in Sources */,
+				CAA19A0A1FA3BDD800A479A8 /* AirportPickerVC.swift in Sources */,
 				CAEC73AA1F813C29004D6F0B /* AppDelegate.swift in Sources */,
 				CA825CD81F93A8BB006871B2 /* DatePickerVC.swift in Sources */,
+				CAA19A0E1FA3C08000A479A8 /* AirportPickerCell.swift in Sources */,
 				CA825CDD1F93BFBF006871B2 /* FirebaseDataService.swift in Sources */,
 				CA3290191F9D531F0083EED7 /* DatePickerView.swift in Sources */,
 				CA8923D21F93F5F50091968B /* Airport.swift in Sources */,
