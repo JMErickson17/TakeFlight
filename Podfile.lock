@@ -23,6 +23,7 @@ PODS:
   - GoogleToolboxForMac/NSData+zlib (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
   - JTAppleCalendar (7.0.6)
+  - KSTokenView (4.0.0)
   - leveldb-library (1.18.3)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
@@ -35,6 +36,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - JTAppleCalendar (from `https://github.com/patchthecode/JTAppleCalendar.git`, branch `master`)
+  - KSTokenView (~> 4.0)
 
 EXTERNAL SOURCES:
   JTAppleCalendar:
@@ -55,9 +57,10 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: a4fc702b5a026f7322964376047f1a3f1f7cc6ff
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   JTAppleCalendar: b92b692f1c2145368e1743b507e231b23b595224
+  KSTokenView: 6516bc275ad0edbd3fec86cb7cfac5a9326d5b5c
   leveldb-library: 10fb39c39e243db4af1828441162405bbcec1404
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
 
-PODFILE CHECKSUM: 0e624e7b92d29e1d2c16bff90f6615a343598679
+PODFILE CHECKSUM: 392701bae6f27b1fc2040bff3dbc382dfb0ca682
 
 COCOAPODS: 1.3.1
