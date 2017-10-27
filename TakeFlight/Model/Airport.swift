@@ -23,7 +23,11 @@ struct Airport {
     public private(set) var timeZone: String
     
     public var searchRepresentation: String {
-        return "\(city)[\(iata.uppercased())]"
+        return "\(name) [\(iata.uppercased())]"
+    }
+    
+    public var cityAndState: String {
+        return "\(city), \(stateAbbreviation)"
     }
     
     // MARK: Lifetime

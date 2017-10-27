@@ -15,7 +15,13 @@ class AirportPickerVC: UIViewController {
     @IBOutlet weak var backgroundView: UIView!
     
     private var tableView: UITableView!
-    private var filteredResults: [String]!
+    private var maxSearchResults = 20
+    
+    private var filteredAirports = [Airport]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
 
     // MARK: View Life Cycle
     
@@ -61,7 +67,6 @@ class AirportPickerVC: UIViewController {
     @objc func dismissViewController() {
         dismiss(animated: true, completion: nil)
     }
-
 }
 
 // MARK: - UITableView
@@ -70,13 +75,26 @@ extension AirportPickerVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.AIRPORT_PICKER_CELL, for: indexPath) as? AirportPickerCell {
-            cell.configureCell(name: "This will be the name", location: "And this will be the location")
+            let airport = filteredAirports[indexPath.row]
+            cell.configureCell(name: airport.searchRepresentation, location: airport.cityAndState)
             return cell
         }
         return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return filteredAirports.count > maxSearchResults ? maxSearchResults : filteredAirports.count
     }
+}
+
+// MARK: UISearchController
+
+extension AirportPickerVC: Searchable {
+    func searchQueryDidChange(query: String) {
+        filteredAirports = FlightDataService.instance.searchAirports(forQuery: query)
+    }
+    
+    
+    
+    
 }

@@ -16,7 +16,7 @@ final class FlightDataService {
     
     // MARK: Properties
     
-    public private(set) var airports: [Airport]?
+    public private(set) var airports = [Airport]()
     
     // Laminar API
     private let LAMINAR_BASE_URL = "https://api.laminardata.aero/v1/"
@@ -38,6 +38,13 @@ final class FlightDataService {
     }
     
 /**
+     Returns an array of airports containing the search query.
+ */
+    func searchAirports(forQuery query: String) -> [Airport] {
+        return airports.filter { $0.searchRepresentation.lowercased().contains(query.lowercased()) }
+    }
+    
+/**
      Performs a given request to the QPXExpress server and passes the response data to the completion handler.
      
      - Parameter forRequest: A QPXExpress object containing the request for flight information.
@@ -47,10 +54,12 @@ final class FlightDataService {
         let headers = ["Content-Type": "application/json"]
         let requestDict = request.dictionaryRepresentation
 
-        Alamofire.request(GOOGLE_REQUEST_URI, method: .post, parameters: requestDict, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
-            guard response.error == nil else { completion(nil); return }
-            
-            completion(response.data)
+        DispatchQueue.global().sync {
+            Alamofire.request(GOOGLE_REQUEST_URI, method: .post, parameters: requestDict, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+                guard response.error == nil else { completion(nil); return }
+                
+                completion(response.data)
+            }
         }
     }
 }

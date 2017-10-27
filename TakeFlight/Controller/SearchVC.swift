@@ -29,6 +29,7 @@ class SearchVC: UIViewController, FlightConvertable {
     var origin: String?
     var destination: String?
     var datesSelected: SelectedState = .none
+    var searchDelegate: Searchable?
     
     var departureDate: Date? {
         didSet {
@@ -69,6 +70,9 @@ class SearchVC: UIViewController, FlightConvertable {
         
         originTextField.delegate = self
         destinationTextField.delegate = self
+        
+        originTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        destinationTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         // UITableViewCell Setup
         flightDataTableView.delegate = self
@@ -164,7 +168,15 @@ extension SearchVC: UITextFieldDelegate {
         guard textField.tag == 1 || textField.tag == 2 else { return }
         let airportPickerVC = AirportPickerVC(nibName: "AirportPickerVC", bundle: nil)
         airportPickerVC.modalPresentationStyle = .overCurrentContext
+        searchDelegate = airportPickerVC
         self.present(airportPickerVC, animated: true, completion: nil)
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        guard searchDelegate != nil else { return }
+        if let searchQuery = textField.text {
+            searchDelegate?.searchQueryDidChange(query: searchQuery)
+        }
     }
     
 }
