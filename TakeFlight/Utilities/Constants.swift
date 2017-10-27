@@ -24,5 +24,12 @@ enum Constants {
     // MARK: Firebase
     
     static let DB_BASE = Database.database().reference()
+    
+    // MARK: User Defaults
+    
+    static let USER_ORIGIN_KEY = "userOriginKey"
+    static let USER_DESTINATION_KEY = "userDestinationKey"
+    static let USER_DEPARTURE_DATE_KEY = "userDepartureDateKey"
+    static let USER_RETURN_DATE_KEY = "userReturnDateKey"
 }
 
