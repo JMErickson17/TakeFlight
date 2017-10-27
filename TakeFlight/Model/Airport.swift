@@ -22,6 +22,10 @@ struct Airport {
     public private(set) var lon: Double
     public private(set) var timeZone: String
     
+    public var searchRepresentation: String {
+        return "\(city)[\(iata.uppercased())]"
+    }
+    
     // MARK: Lifetime
     
     init(name: String, city: String, state: String, stateAbbreviation: String, country: String, iata: String, lat: Double, lon: Double, timeZone: String) {
@@ -43,11 +47,11 @@ struct Airport {
         guard let stateAbbreviation = airportDictionary["stateAbbreviation"] as? String else { return nil }
         guard let country = airportDictionary["country"] as? String else { return nil }
         guard let iata = airportDictionary["iata"] as? String else { return nil }
-        guard let lat = airportDictionary["lat"] as? Double else { return nil }
-        guard let lon = airportDictionary["lon"] as? Double else { return nil }
+        guard let lat = airportDictionary["lat"] as? String else { return nil }
+        guard let lon = airportDictionary["lon"] as? String else { return nil }
         guard let timeZone = airportDictionary["timeZone"] as? String else { return nil }
         
-        self.init(name: name, city: city, state: state, stateAbbreviation: stateAbbreviation, country: country, iata: iata, lat: lat, lon: lon, timeZone: timeZone)
+        self.init(name: name, city: city, state: state, stateAbbreviation: stateAbbreviation, country: country, iata: iata, lat: Double(lat)!, lon: Double(lon)!, timeZone: timeZone)
     }
 }
 

@@ -33,6 +33,7 @@ final class FlightDataService {
     func populateAirportData() {
         FirebaseDataService.instance.getAirports { (airports) in
             self.airports = airports
+            print("Airport count: \(airports.count)")
         }
     }
     
