@@ -9,6 +9,8 @@
 import Foundation
 import Firebase
 
+typealias JSONRepresentable = [String: Any]
+
 enum Constants {
     
     // MARK: Identifiers

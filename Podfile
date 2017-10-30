@@ -10,6 +10,7 @@ target 'TakeFlight' do
   pod 'JTAppleCalendar', :git => 'https://github.com/patchthecode/JTAppleCalendar.git', :branch => 'master'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
+  pod 'SwiftyJSON'
 
   target 'TakeFlightTests' do
     inherit! :search_paths

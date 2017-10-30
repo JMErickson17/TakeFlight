@@ -12,36 +12,36 @@ class User {
     
     let defaults = UserDefaults.standard
     
-    var origin: String {
+    var origin: String? {
         get {
-            return defaults.string(forKey: Constants.USER_ORIGIN_KEY)!
+            return defaults.string(forKey: Constants.USER_ORIGIN_KEY)
         }
         set {
             defaults.set(newValue, forKey: Constants.USER_ORIGIN_KEY)
         }
     }
     
-    var destination: String {
+    var destination: String? {
         get {
-            return defaults.string(forKey: Constants.USER_DESTINATION_KEY)!
+            return defaults.string(forKey: Constants.USER_DESTINATION_KEY)
         }
         set {
             defaults.set(newValue, forKey: Constants.USER_DESTINATION_KEY)
         }
     }
     
-    var departureDate: Date {
+    var departureDate: Date? {
         get {
-            return defaults.object(forKey: Constants.USER_DEPARTURE_DATE_KEY) as! Date
+            return defaults.object(forKey: Constants.USER_DEPARTURE_DATE_KEY) as? Date
         }
         set {
             defaults.set(newValue, forKey: Constants.USER_DEPARTURE_DATE_KEY)
         }
     }
     
-    var returnDate: Date {
+    var returnDate: Date? {
         get {
-            return defaults.object(forKey: Constants.USER_RETURN_DATE_KEY) as! Date
+            return defaults.object(forKey: Constants.USER_RETURN_DATE_KEY) as? Date
         }
         set {
             defaults.set(newValue, forKey: Constants.USER_RETURN_DATE_KEY)

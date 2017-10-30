@@ -55,16 +55,21 @@ class SearchVC: UIViewController, FlightConvertable {
         super.viewDidLoad()
         
         setupView()
+        setupTableView()
+        
+        let request = QPXExpress(adultCount: 1, origin: "MCO", destination: "LAX", date: Date())
+        FlightDataService.instance.retrieveFlightData(forRequest: request) { (flightData) in
+            print(flightData)
+            print("Request Finished")
+        }
     }
 
     // MARK: Setup
     
 /*
-     Sets up the view, tableView, ect.
+     Sets up the view
  */
-    func setupView() {
-        
-        // UITextField Setup
+    private func setupView() {
         departureDateTextField.delegate = self
         returnDateTextField.delegate = self
         
@@ -73,8 +78,12 @@ class SearchVC: UIViewController, FlightConvertable {
         
         originTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         destinationTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        
-        // UITableViewCell Setup
+    }
+    
+/*
+     Sets up the tableView
+ */
+    private func setupTableView() {
         flightDataTableView.delegate = self
         flightDataTableView.dataSource = self
         
@@ -94,7 +103,7 @@ class SearchVC: UIViewController, FlightConvertable {
 /*
      Performs a search for a given request and passes an optional array of FlightData to the completion handler
  */
-    func searchFlights(completion: @escaping ([FlightData]?) -> Void) {
+    private func searchFlights(completion: @escaping ([FlightData]?) -> Void) {
         guard textFieldsContainData() else { return }
         guard let origin = originTextField.text else { return }
         guard let destination = destinationTextField.text else { return }
@@ -103,17 +112,13 @@ class SearchVC: UIViewController, FlightConvertable {
         
         let request = QPXExpress(adultCount: 1, origin: origin, destination: destination, date: departureDate)
         
-        FlightDataService.instance.retrieveFlightData(forRequest: request) { (data) in
-            if let data = data {
-                // Convert to FlightData and return
-            }
-        }
+        // Perform search
     }
     
 /*
      Returns true if all UITextFields needed to search contain data
  */
-    func textFieldsContainData() -> Bool {
+    private func textFieldsContainData() -> Bool {
         return !(self.originTextField.text == "" &&
                  self.destinationTextField.text == "" &&
                  self.departureDateTextField.text == "" &&

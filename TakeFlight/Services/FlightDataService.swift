@@ -33,7 +33,6 @@ final class FlightDataService {
     func populateAirportData() {
         FirebaseDataService.instance.getAirports { (airports) in
             self.airports = airports
-            print("Airport count: \(airports.count)")
         }
     }
     
@@ -45,20 +44,25 @@ final class FlightDataService {
     }
     
 /**
-     Performs a given request to the QPXExpress server and passes the response data to the completion handler.
+     Performs a given request to the QPXExpress server and passes an array of FlightData to the completion handler.
      
      - Parameter forRequest: A QPXExpress object containing the request for flight information.
-     - Parameter completion: A completion handler that is passed a data object returned from the server or nil.
+     - Parameter completion: A completion handler that is passed an array of FlightData
  */
-    func retrieveFlightData(forRequest request: QPXExpress, completion: @escaping (Data?) -> Void) {
+    func retrieveFlightData(forRequest request: QPXExpress, completion: @escaping ([FlightData]?) -> Void) {
         let headers = ["Content-Type": "application/json"]
         let requestDict = request.dictionaryRepresentation
+        var flightData: [FlightData]?
 
-        DispatchQueue.global().sync {
-            Alamofire.request(GOOGLE_REQUEST_URI, method: .post, parameters: requestDict, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+        DispatchQueue.global().async {
+            Alamofire.request(self.GOOGLE_REQUEST_URI, method: .post, parameters: requestDict, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
                 guard response.error == nil else { completion(nil); return }
+                guard let data = response.data else { completion(nil); return }
                 
-                completion(response.data)
+                if let json = try? JSONSerialization.jsonObject(with: data, options: []) as! [String: Any] {
+                    flightData = FlightData.parseQPXExpressToAirports(fromData: json)
+                }
+                completion(flightData)
             }
         }
     }
