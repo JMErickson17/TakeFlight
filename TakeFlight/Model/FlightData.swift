@@ -15,19 +15,19 @@ struct FlightData {
      FlightSegment
  */
     struct FlightSegment {
-        var id: String
-        var aircraft: Aircraft
-        var carrier: Carrier
-        var flightNumber: String
-        var carrierIcon: String
-        var arrivalTime: Date
-        var departureTime: Date
-        var origin: Airport
-        var destination: Airport
-        var duration: Int
-        var cabin: String
-        var bookingCode: String
-        var mileage: Int
+        public private(set) var id: String
+        public private(set) var aircraft: Aircraft
+        public private(set) var carrier: Carrier
+        public private(set) var flightNumber: String
+        public private(set) var carrierIcon: String
+        public private(set) var arrivalTime: Date
+        public private(set) var departureTime: Date
+        public private(set) var origin: Airport
+        public private(set) var destination: Airport
+        public private(set) var duration: Int
+        public private(set) var cabin: String
+        public private(set) var bookingCode: String
+        public private(set) var mileage: Int
     }
 
 /*
@@ -89,22 +89,40 @@ struct FlightData {
         }
     }
     
+    // MARK: Properties
+    
     public private(set) var id: String
     public private(set) var bookingCode: String
     public private(set) var saleTotal: String
     public private(set) var flightSegments: [FlightSegment]
     
-    // TODO: Convert to computed properties
-//    public private(set) var duration: Int
-//    public private(set) var origin: String
-//    public private(set) var destination: String
-    // TODO: Convert to Date
-//    public private(set) var departureTime: String
-//    public private(set) var arrivalTime: String
+    var numberOfStops: Int {
+        return flightSegments.count - 1
+    }
     
+    var duration: Int {
+        return flightSegments.reduce(0, { $0 + $1.duration })
+    }
     
-    // MARK: Lifetime
+    var origin: String {
+        return flightSegments.first?.origin.name ?? ""
+    }
     
+    var destination: String {
+        return flightSegments.last?.destination.name ?? ""
+    }
+    
+    var departureTime: Date {
+        return flightSegments.first?.departureTime ?? Date.distantPast
+    }
+    
+    var arrivalTime: Date {
+        return flightSegments.last?.arrivalTime ?? Date.distantPast
+    }
+    
+/**
+     Parses a QPXExpress response dictionary into an array of FlightData and passes it to the completion handler.
+ */
     static func parseQPXExpressToAirports(fromData data: JSONRepresentable) -> [FlightData]? {
         guard let trips = data["trips"] as? JSONRepresentable else { return nil }
         guard let tripData = trips["data"] as? JSONRepresentable else { return nil }
