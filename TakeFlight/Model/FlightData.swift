@@ -11,24 +11,28 @@ import SwiftyJSON
 
 struct FlightData {
     
+/*
+     FlightSegment
+ */
     struct FlightSegment {
         var id: String
         var aircraft: Aircraft
         var carrier: Carrier
+        var flightNumber: String
         var carrierIcon: String
-        // TODO: Convert to date
-        var arrivalTime: String
-        var departureTime: String
-        // TODO: Convert to Airport
-        var origin: String
-        var destination: String
+        var arrivalTime: Date
+        var departureTime: Date
+        var origin: Airport
+        var destination: Airport
         var duration: Int
         var cabin: String
         var bookingCode: String
-        var onTimePerformance: Int
         var mileage: Int
     }
-    
+
+/*
+     Aircraft
+ */
     struct Aircraft {
         public private(set) var code: String
         public private(set) var name: String
@@ -45,22 +49,9 @@ struct FlightData {
         }
     }
     
-    struct City {
-        public private(set) var code: String
-        public private(set) var name: String
-        
-        static func convertToCity(fromArray array: [JSONRepresentable]) -> [City]? {
-            var cityArray = [City]()
-            
-            for element in array {
-                guard let code = element["code"] as? String else { continue }
-                guard let name = element["name"] as? String else { continue }
-                cityArray.append(City(code: code, name: name))
-            }
-            return cityArray.isEmpty ? nil : cityArray
-        }
-    }
-    
+/*
+     Airport
+ */
     struct Airport {
         public private(set) var code: String
         public private(set) var city: String
@@ -79,6 +70,9 @@ struct FlightData {
         }
     }
     
+/*
+     Carrier
+ */
     struct Carrier {
         public private(set) var code: String
         public private(set) var name: String
@@ -111,24 +105,24 @@ struct FlightData {
     
     // MARK: Lifetime
     
-    static func parseQPXExpressToAirports(fromData data: [String: Any]) -> [FlightData]? {
-        guard let trips = data["trips"] as? [String: Any] else { return nil }
-        guard let tripData = trips["data"] as? [String: Any] else { return nil }
+    static func parseQPXExpressToAirports(fromData data: JSONRepresentable) -> [FlightData]? {
+        guard let trips = data["trips"] as? JSONRepresentable else { return nil }
+        guard let tripData = trips["data"] as? JSONRepresentable else { return nil }
         guard let aircrafts = Aircraft.convertToAircraft(fromArray: tripData["aircraft"] as! [JSONRepresentable]) else { return nil }
         guard let airports = Airport.convertToAirport(fromArray: tripData["airport"] as! [JSONRepresentable]) else { return nil }
         guard let carriers = Carrier.convertToCarrier(fromArray: tripData["carrier"] as! [JSONRepresentable]) else { return nil }
-        guard let cities = City.convertToCity(fromArray: tripData["city"] as! [JSONRepresentable]) else { return nil }
-        
         guard let tripOption = trips["tripOption"] as? [JSONRepresentable] else { return nil }
         
         var flightDataArray = [FlightData]()
-        var flightSegmentsArray = [FlightSegment]()
+        
         
         for trip in tripOption {
             guard let id = trip["id"] as? String else { continue }
             guard let saleTotal = trip["saleTotal"] as? String else { continue }
-            guard let slices = trip["slice"] as? [[String: Any]] else { continue }
+            guard let slices = trip["slice"] as? [JSONRepresentable] else { continue }
         
+            var flightSegmentsArray = [FlightSegment]()
+            
             for slice in slices {
                 guard let segments = slice["segment"] as? [JSONRepresentable] else { continue }
                 
@@ -140,23 +134,25 @@ struct FlightData {
                     guard let carrierId = flight["carrier"] as? String else { continue }
                     guard let flightNumber = flight["number"] as? String else { continue }
                     
-                    
                     guard let leg = segment["leg"] as? [JSONRepresentable] else { continue }
                     guard let legObject = leg.first else { continue }
                     guard let legAircraftId = legObject["aircraft"] as? String else { continue }
-                    guard let legArrivalTime = legObject["arrivalTime"] as? String else { continue }
-                    guard let legDepartureTime = legObject["departureTime"] as? String else { continue }
-                    guard let legOriginString = legObject["origin"] as? String else { continue }
-                    guard let legDestinationString = legObject["destination"] as? String else { continue }
+                    guard let legArrivalTimeString = legObject["arrivalTime"] as? String else { continue }
+                    guard let legDepartureTimeString = legObject["departureTime"] as? String else { continue }
+                    guard let legOriginId = legObject["origin"] as? String else { continue }
+                    guard let legDestinationId = legObject["destination"] as? String else { continue }
                     guard let legDuration = legObject["duration"] as? Int else { continue }
-                    guard let legOnTimePerformance = legObject["onTimePerformance"] as? Int else { continue }
                     guard let legMileage = legObject["mileage"] as? Int else { continue }
+                    
                     guard let carrier = carriers.first(where: { $0.code == carrierId }) else { continue }
                     guard let aircraft = aircrafts.first(where: { $0.code == legAircraftId}) else { continue }
-                    
-                    
-                    let flightSegment = FlightSegment(id: segmentId, aircraft: aircraft, carrier: carrier, carrierIcon: carrierId, arrivalTime: legArrivalTime, departureTime: legDepartureTime, origin: legOriginString, destination: legDestinationString, duration: legDuration, cabin: cabin, bookingCode: bookingCode, onTimePerformance: legOnTimePerformance, mileage: legMileage)
-                    
+                    guard let legOrigin = airports.first(where: { $0.code == legOriginId }) else { continue }
+                    guard let legDestination = airports.first(where: { $0.code == legDestinationId }) else { continue }
+                    guard let legDepartureTime = legDepartureTimeString.qpxExpressStringToDate() else { continue }
+                    guard let legArrivalTime = legArrivalTimeString.qpxExpressStringToDate() else { continue }
+
+                    let flightSegment = FlightSegment(id: segmentId, aircraft: aircraft, carrier: carrier, flightNumber: flightNumber, carrierIcon: carrierId, arrivalTime: legArrivalTime, departureTime: legDepartureTime, origin: legOrigin, destination: legDestination, duration: legDuration, cabin: cabin, bookingCode: bookingCode, mileage: legMileage)
+
                     flightSegmentsArray.append(flightSegment)
                 }
             }
