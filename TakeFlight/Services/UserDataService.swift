@@ -14,22 +14,28 @@ final class UserDataService {
     private init() {}
     
     private let defaults = UserDefaults.standard
+    private let encoder = JSONEncoder()
+    private let decoder = JSONDecoder()
     
     var origin: Airport? {
         get {
-            return defaults.object(forKey: Constants.USER_ORIGIN_KEY) as? Airport
+            let data: Data = defaults.object(forKey: Constants.USER_ORIGIN_KEY) as! Data
+            return try! decoder.decode(Airport.self, from: data)
         }
         set {
-            defaults.set(newValue, forKey: Constants.USER_ORIGIN_KEY)
+            let data = try? encoder.encode(newValue)
+            defaults.set(data, forKey: Constants.USER_ORIGIN_KEY)
         }
     }
     
     var destination: Airport? {
         get {
-            return defaults.object(forKey: Constants.USER_DESTINATION_KEY) as? Airport
+            let data: Data = defaults.object(forKey: Constants.USER_DESTINATION_KEY) as! Data
+            return try! decoder.decode(Airport.self, from: data)
         }
         set {
-            defaults.set(newValue, forKey: Constants.USER_DESTINATION_KEY)
+            let data = try? encoder.encode(newValue)
+            defaults.set(data, forKey: Constants.USER_DESTINATION_KEY)
         }
     }
     

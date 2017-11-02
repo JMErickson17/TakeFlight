@@ -11,6 +11,7 @@
 		5EC349B0BBE2F6B536A70966 /* Pods_TakeFlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1CD68BDBB2978CC87E5D867 /* Pods_TakeFlight.framework */; };
 		ABBA88BADDAB4EC602AE5126 /* Pods_TakeFlightTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962EB3CAD75C4C9C854C85D2 /* Pods_TakeFlightTests.framework */; };
 		CA297A631FAA905F00DC95A9 /* UIApplication+TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA297A621FAA905F00DC95A9 /* UIApplication+TopViewController.swift */; };
+		CA297A651FAA9BB700DC95A9 /* TextFieldType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA297A641FAA9BB700DC95A9 /* TextFieldType.swift */; };
 		CA29AA1B1F9D6A5E0047B2F1 /* SearchVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA29AA1A1F9D6A5E0047B2F1 /* SearchVCDelegate.swift */; };
 		CA3290171F9D2E650083EED7 /* MonthSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3290161F9D2E650083EED7 /* MonthSectionHeaderView.swift */; };
 		CA3290191F9D531F0083EED7 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3290181F9D531F0083EED7 /* DatePickerView.swift */; };
@@ -69,6 +70,7 @@
 		962EB3CAD75C4C9C854C85D2 /* Pods_TakeFlightTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TakeFlightTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C666A505AC3EF78917DB19DD /* Pods-TakeFlight.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TakeFlight.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TakeFlight/Pods-TakeFlight.debug.xcconfig"; sourceTree = "<group>"; };
 		CA297A621FAA905F00DC95A9 /* UIApplication+TopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+TopViewController.swift"; sourceTree = "<group>"; };
+		CA297A641FAA9BB700DC95A9 /* TextFieldType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldType.swift; sourceTree = "<group>"; };
 		CA29AA1A1F9D6A5E0047B2F1 /* SearchVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVCDelegate.swift; sourceTree = "<group>"; };
 		CA3290161F9D2E650083EED7 /* MonthSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthSectionHeaderView.swift; sourceTree = "<group>"; };
 		CA3290181F9D531F0083EED7 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				CAEC73E91F8184D8004D6F0B /* QPXExpress.swift */,
 				CA8923D11F93F5F50091968B /* Airport.swift */,
 				CAF3714D1FA232EE002C3455 /* SelectedState.swift */,
+				CA297A641FAA9BB700DC95A9 /* TextFieldType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -612,6 +615,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAF371501FA2426E002C3455 /* DatePickerVCDelegate.swift in Sources */,
+				CA297A651FAA9BB700DC95A9 /* TextFieldType.swift in Sources */,
 				CAEC73EA1F8184D8004D6F0B /* QPXExpress.swift in Sources */,
 				CAEC73AC1F813C29004D6F0B /* SearchVC.swift in Sources */,
 				CA3290171F9D2E650083EED7 /* MonthSectionHeaderView.swift in Sources */,

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Airport {
+struct Airport: Codable {
     
     // MARK: Properties
     

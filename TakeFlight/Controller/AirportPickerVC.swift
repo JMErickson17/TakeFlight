@@ -15,12 +15,14 @@ class AirportPickerVC: UIViewController {
     @IBOutlet weak var backgroundView: UIView!
     
     var delegate: SearchVCDelegate?
+    var currentTextFieldTag: Int?
     
     private var tableView: UITableView!
     private var maxSearchResults = 20
     
     private var filteredAirports = [Airport]() {
         didSet {
+            tableView.isHidden = filteredAirports.isEmpty
             tableView.reloadData()
         }
     }
@@ -58,8 +60,10 @@ class AirportPickerVC: UIViewController {
         
         tableView.layer.cornerRadius = 5
         tableView.frame = CGRect(x: 5, y: 90, width: tableViewWidth, height: tableViewHeight)
+        tableView.isHidden = filteredAirports.isEmpty
         
         tableView.register(UINib(nibName: Constants.AIRPORT_PICKER_CELL, bundle: nil), forCellReuseIdentifier: Constants.AIRPORT_PICKER_CELL)
+        
         self.view.addSubview(tableView)
     }
     
@@ -84,8 +88,18 @@ extension AirportPickerVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let airport = FlightDataService.instance.airports[indexPath.row]
+        guard let currentTextFieldTag = currentTextFieldTag else { return }
+        let airport = filteredAirports[indexPath.row]
         
+        switch currentTextFieldTag {
+        case 1:
+            delegate?.origin = airport
+        case 2:
+            delegate?.destination = airport
+        default:
+            return
+        }
+        dismissViewController()
     }
     
     

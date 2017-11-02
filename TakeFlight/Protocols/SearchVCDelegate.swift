@@ -14,5 +14,4 @@ protocol SearchVCDelegate {
     var destination: Airport? { get set }
     var departureDate: Date? { get set }
     var returnDate: Date? { get set }
-    
 }

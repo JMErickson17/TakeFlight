@@ -101,6 +101,22 @@ class SearchVC: UIViewController, SearchVCDelegate {
         
         originTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         destinationTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+        if let origin = user.origin {
+            self.origin = origin
+        }
+        
+        if let destination = user.destination {
+            self.destination = destination
+        }
+        
+        if let departureDate = user.departureDate {
+            self.departureDate = departureDate
+        }
+        
+        if let returnDate = user.returnDate {
+            self.returnDate = returnDate
+        }
     }
     
     private func setupTableView() {
@@ -141,9 +157,10 @@ class SearchVC: UIViewController, SearchVCDelegate {
         }
     }
     
-    private func presentAirportPicker(completion: (() -> Void)? = nil) {
+    private func presentAirportPicker(withTag tag: Int, completion: (() -> Void)? = nil) {
         let airportPickerVC = AirportPickerVC(nibName: Constants.AIRPORT_PICKER_VC, bundle: nil)
         airportPickerVC.delegate = self
+        airportPickerVC.currentTextFieldTag = tag
         searchDelegate = airportPickerVC
         airportPickerVC.modalPresentationStyle = .overCurrentContext
         present(airportPickerVC, animated: false, completion: completion)
@@ -187,7 +204,7 @@ extension SearchVC: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         guard textField.tag == 1 || textField.tag == 2 else { return }
-        presentAirportPicker()
+        presentAirportPicker(withTag: textField.tag)
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -197,7 +214,7 @@ extension SearchVC: UITextFieldDelegate {
             if topViewController.isKind(of: AirportPickerVC.self) {
                 searchDelegate?.searchQueryDidChange(query: query)
             } else {
-                presentAirportPicker(completion: {
+                presentAirportPicker(withTag: textField.tag, completion: {
                     self.searchDelegate?.searchQueryDidChange(query: query)
                     textField.becomeFirstResponder()
                 })
