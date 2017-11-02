@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol Dismissable {
+protocol DatePickerVCDelegate {
     func dismissViewContoller()
 }

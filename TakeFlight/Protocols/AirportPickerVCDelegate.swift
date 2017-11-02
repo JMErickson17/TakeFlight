@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol Searchable {
+protocol AirportPickerVCDelegate {
     func searchQueryDidChange(query: String)
 }

@@ -14,6 +14,8 @@ class AirportPickerVC: UIViewController {
     
     @IBOutlet weak var backgroundView: UIView!
     
+    var delegate: SearchVCDelegate?
+    
     private var tableView: UITableView!
     private var maxSearchResults = 20
     
@@ -54,11 +56,10 @@ class AirportPickerVC: UIViewController {
         let tableViewWidth = Int(screenSize.width - 10)
         let tableViewHeight = 200
         
-        tableView.frame = CGRect(x: 5, y: 90, width: tableViewWidth, height: tableViewHeight)
         tableView.layer.cornerRadius = 5
+        tableView.frame = CGRect(x: 5, y: 90, width: tableViewWidth, height: tableViewHeight)
         
         tableView.register(UINib(nibName: Constants.AIRPORT_PICKER_CELL, bundle: nil), forCellReuseIdentifier: Constants.AIRPORT_PICKER_CELL)
-        
         self.view.addSubview(tableView)
     }
     
@@ -82,6 +83,12 @@ extension AirportPickerVC: UITableViewDelegate, UITableViewDataSource {
         return UITableViewCell()
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let airport = FlightDataService.instance.airports[indexPath.row]
+        
+    }
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredAirports.count > maxSearchResults ? maxSearchResults : filteredAirports.count
     }
@@ -89,12 +96,8 @@ extension AirportPickerVC: UITableViewDelegate, UITableViewDataSource {
 
 // MARK: UISearchController
 
-extension AirportPickerVC: Searchable {
+extension AirportPickerVC: AirportPickerVCDelegate {
     func searchQueryDidChange(query: String) {
         filteredAirports = FlightDataService.instance.searchAirports(forQuery: query)
     }
-    
-    
-    
-    
 }

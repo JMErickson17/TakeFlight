@@ -8,10 +8,11 @@
 
 import Foundation
 
-protocol FlightConvertable {
-    var origin: String? { get set }
-    var destination: String? { get set }
+protocol SearchVCDelegate {
+    var datesSelected: SelectedState { get set }
+    var origin: Airport? { get set }
+    var destination: Airport? { get set }
     var departureDate: Date? { get set }
     var returnDate: Date? { get set }
-    var datesSelected: SelectedState { get set }
+    
 }

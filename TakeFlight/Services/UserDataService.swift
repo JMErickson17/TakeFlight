@@ -8,22 +8,25 @@
 
 import Foundation
 
-class User {
+final class UserDataService {
     
-    let defaults = UserDefaults.standard
+    static let instance = UserDataService()
+    private init() {}
     
-    var origin: String? {
+    private let defaults = UserDefaults.standard
+    
+    var origin: Airport? {
         get {
-            return defaults.string(forKey: Constants.USER_ORIGIN_KEY)
+            return defaults.object(forKey: Constants.USER_ORIGIN_KEY) as? Airport
         }
         set {
             defaults.set(newValue, forKey: Constants.USER_ORIGIN_KEY)
         }
     }
     
-    var destination: String? {
+    var destination: Airport? {
         get {
-            return defaults.string(forKey: Constants.USER_DESTINATION_KEY)
+            return defaults.object(forKey: Constants.USER_DESTINATION_KEY) as? Airport
         }
         set {
             defaults.set(newValue, forKey: Constants.USER_DESTINATION_KEY)

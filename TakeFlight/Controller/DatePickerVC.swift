@@ -9,14 +9,14 @@
 import UIKit
 import JTAppleCalendar
 
-class DatePickerVC: UIViewController, Dismissable {
+class DatePickerVC: UIViewController, DatePickerVCDelegate {
     
     // MARK: Properties
     
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     
-    var delegate: FlightConvertable?
+    var delegate: SearchVCDelegate?
     
     private let formatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -40,6 +40,8 @@ class DatePickerVC: UIViewController, Dismissable {
     func setupView() {
         let dismissTap = UITapGestureRecognizer(target: self, action: #selector(DatePickerVC.dismissViewContoller))
         backgroundView.addGestureRecognizer(dismissTap)
+        
+        
     }
     
     func setupCalendar() {
@@ -97,6 +99,7 @@ extension DatePickerVC: JTAppleCalendarViewDelegate {
             delegate!.departureDate = date
             cell.handleSelection(forState: cellState)
             delegate!.datesSelected = .departure
+            
         case .departure:
             if date < delegate!.departureDate! {
                 calendar.deselectAllDates()

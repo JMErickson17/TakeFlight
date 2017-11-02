@@ -10,7 +10,8 @@
 		58537D1DCEA65DD268A4666B /* Pods_TakeFlightUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 955C8FECD5270A6EC65FC55D /* Pods_TakeFlightUITests.framework */; };
 		5EC349B0BBE2F6B536A70966 /* Pods_TakeFlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1CD68BDBB2978CC87E5D867 /* Pods_TakeFlight.framework */; };
 		ABBA88BADDAB4EC602AE5126 /* Pods_TakeFlightTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962EB3CAD75C4C9C854C85D2 /* Pods_TakeFlightTests.framework */; };
-		CA29AA1B1F9D6A5E0047B2F1 /* FlightConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA29AA1A1F9D6A5E0047B2F1 /* FlightConvertable.swift */; };
+		CA297A631FAA905F00DC95A9 /* UIApplication+TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA297A621FAA905F00DC95A9 /* UIApplication+TopViewController.swift */; };
+		CA29AA1B1F9D6A5E0047B2F1 /* SearchVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA29AA1A1F9D6A5E0047B2F1 /* SearchVCDelegate.swift */; };
 		CA3290171F9D2E650083EED7 /* MonthSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3290161F9D2E650083EED7 /* MonthSectionHeaderView.swift */; };
 		CA3290191F9D531F0083EED7 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3290181F9D531F0083EED7 /* DatePickerView.swift */; };
 		CA32901B1F9D5B650083EED7 /* Date+Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA32901A1F9D5B650083EED7 /* Date+Strings.swift */; };
@@ -24,8 +25,8 @@
 		CAA19A0B1FA3BDD800A479A8 /* AirportPickerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAA19A091FA3BDD800A479A8 /* AirportPickerVC.xib */; };
 		CAA19A0E1FA3C08000A479A8 /* AirportPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA19A0C1FA3C08000A479A8 /* AirportPickerCell.swift */; };
 		CAA19A0F1FA3C08000A479A8 /* AirportPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAA19A0D1FA3C08000A479A8 /* AirportPickerCell.xib */; };
-		CAA19A111FA3D1CA00A479A8 /* Searchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA19A101FA3D1CA00A479A8 /* Searchable.swift */; };
-		CABA2C5C1FA3E5F9001D9743 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABA2C5B1FA3E5F9001D9743 /* User.swift */; };
+		CAA19A111FA3D1CA00A479A8 /* AirportPickerVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA19A101FA3D1CA00A479A8 /* AirportPickerVCDelegate.swift */; };
+		CABA2C5C1FA3E5F9001D9743 /* UserDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABA2C5B1FA3E5F9001D9743 /* UserDataService.swift */; };
 		CAEC73AA1F813C29004D6F0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73A91F813C29004D6F0B /* AppDelegate.swift */; };
 		CAEC73AC1F813C29004D6F0B /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73AB1F813C29004D6F0B /* SearchVC.swift */; };
 		CAEC73AF1F813C29004D6F0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAEC73AD1F813C29004D6F0B /* Main.storyboard */; };
@@ -40,7 +41,7 @@
 		CAEC73E81F816BF1004D6F0B /* FlightDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E71F816BF1004D6F0B /* FlightDataService.swift */; };
 		CAEC73EA1F8184D8004D6F0B /* QPXExpress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E91F8184D8004D6F0B /* QPXExpress.swift */; };
 		CAF3714E1FA232EE002C3455 /* SelectedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF3714D1FA232EE002C3455 /* SelectedState.swift */; };
-		CAF371501FA2426E002C3455 /* Dismissable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF3714F1FA2426E002C3455 /* Dismissable.swift */; };
+		CAF371501FA2426E002C3455 /* DatePickerVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF3714F1FA2426E002C3455 /* DatePickerVCDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,7 +68,8 @@
 		955C8FECD5270A6EC65FC55D /* Pods_TakeFlightUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TakeFlightUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		962EB3CAD75C4C9C854C85D2 /* Pods_TakeFlightTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TakeFlightTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C666A505AC3EF78917DB19DD /* Pods-TakeFlight.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TakeFlight.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TakeFlight/Pods-TakeFlight.debug.xcconfig"; sourceTree = "<group>"; };
-		CA29AA1A1F9D6A5E0047B2F1 /* FlightConvertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightConvertable.swift; sourceTree = "<group>"; };
+		CA297A621FAA905F00DC95A9 /* UIApplication+TopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+TopViewController.swift"; sourceTree = "<group>"; };
+		CA29AA1A1F9D6A5E0047B2F1 /* SearchVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVCDelegate.swift; sourceTree = "<group>"; };
 		CA3290161F9D2E650083EED7 /* MonthSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthSectionHeaderView.swift; sourceTree = "<group>"; };
 		CA3290181F9D531F0083EED7 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		CA32901A1F9D5B650083EED7 /* Date+Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Strings.swift"; sourceTree = "<group>"; };
@@ -81,8 +83,8 @@
 		CAA19A091FA3BDD800A479A8 /* AirportPickerVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AirportPickerVC.xib; sourceTree = "<group>"; };
 		CAA19A0C1FA3C08000A479A8 /* AirportPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportPickerCell.swift; sourceTree = "<group>"; };
 		CAA19A0D1FA3C08000A479A8 /* AirportPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AirportPickerCell.xib; sourceTree = "<group>"; };
-		CAA19A101FA3D1CA00A479A8 /* Searchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchable.swift; sourceTree = "<group>"; };
-		CABA2C5B1FA3E5F9001D9743 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		CAA19A101FA3D1CA00A479A8 /* AirportPickerVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportPickerVCDelegate.swift; sourceTree = "<group>"; };
+		CABA2C5B1FA3E5F9001D9743 /* UserDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataService.swift; sourceTree = "<group>"; };
 		CAEC73A61F813C29004D6F0B /* TakeFlight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TakeFlight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAEC73A91F813C29004D6F0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CAEC73AB1F813C29004D6F0B /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
@@ -103,7 +105,7 @@
 		CAEC73E71F816BF1004D6F0B /* FlightDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDataService.swift; sourceTree = "<group>"; };
 		CAEC73E91F8184D8004D6F0B /* QPXExpress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QPXExpress.swift; sourceTree = "<group>"; };
 		CAF3714D1FA232EE002C3455 /* SelectedState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedState.swift; sourceTree = "<group>"; };
-		CAF3714F1FA2426E002C3455 /* Dismissable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dismissable.swift; sourceTree = "<group>"; };
+		CAF3714F1FA2426E002C3455 /* DatePickerVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerVCDelegate.swift; sourceTree = "<group>"; };
 		DF2F772D35F090085677C96D /* Pods-TakeFlightTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TakeFlightTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TakeFlightTests/Pods-TakeFlightTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E1CD68BDBB2978CC87E5D867 /* Pods_TakeFlight.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TakeFlight.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED00AF93923CA2A0C7663431 /* Pods-TakeFlightTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TakeFlightTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TakeFlightTests/Pods-TakeFlightTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -240,7 +242,6 @@
 				CAEC73E91F8184D8004D6F0B /* QPXExpress.swift */,
 				CA8923D11F93F5F50091968B /* Airport.swift */,
 				CAF3714D1FA232EE002C3455 /* SelectedState.swift */,
-				CABA2C5B1FA3E5F9001D9743 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -250,6 +251,7 @@
 			children = (
 				CAEC73E71F816BF1004D6F0B /* FlightDataService.swift */,
 				CA825CDC1F93BFBF006871B2 /* FirebaseDataService.swift */,
+				CABA2C5B1FA3E5F9001D9743 /* UserDataService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -277,6 +279,7 @@
 			children = (
 				CA32901A1F9D5B650083EED7 /* Date+Strings.swift */,
 				CA862DE31FA7C2CF000B1332 /* String+Date.swift */,
+				CA297A621FAA905F00DC95A9 /* UIApplication+TopViewController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -284,9 +287,9 @@
 		CAEC73EC1F818CFA004D6F0B /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				CA29AA1A1F9D6A5E0047B2F1 /* FlightConvertable.swift */,
-				CAF3714F1FA2426E002C3455 /* Dismissable.swift */,
-				CAA19A101FA3D1CA00A479A8 /* Searchable.swift */,
+				CA29AA1A1F9D6A5E0047B2F1 /* SearchVCDelegate.swift */,
+				CAF3714F1FA2426E002C3455 /* DatePickerVCDelegate.swift */,
+				CAA19A101FA3D1CA00A479A8 /* AirportPickerVCDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -608,16 +611,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CAF371501FA2426E002C3455 /* Dismissable.swift in Sources */,
+				CAF371501FA2426E002C3455 /* DatePickerVCDelegate.swift in Sources */,
 				CAEC73EA1F8184D8004D6F0B /* QPXExpress.swift in Sources */,
 				CAEC73AC1F813C29004D6F0B /* SearchVC.swift in Sources */,
 				CA3290171F9D2E650083EED7 /* MonthSectionHeaderView.swift in Sources */,
-				CA29AA1B1F9D6A5E0047B2F1 /* FlightConvertable.swift in Sources */,
+				CA29AA1B1F9D6A5E0047B2F1 /* SearchVCDelegate.swift in Sources */,
 				CAEC73E61F81638F004D6F0B /* FlightData.swift in Sources */,
 				CA32901B1F9D5B650083EED7 /* Date+Strings.swift in Sources */,
+				CA297A631FAA905F00DC95A9 /* UIApplication+TopViewController.swift in Sources */,
 				CAEC73E01F8144D1004D6F0B /* RoundTripFlightDataCell.swift in Sources */,
 				CAEC73E81F816BF1004D6F0B /* FlightDataService.swift in Sources */,
-				CAA19A111FA3D1CA00A479A8 /* Searchable.swift in Sources */,
+				CAA19A111FA3D1CA00A479A8 /* AirportPickerVCDelegate.swift in Sources */,
 				CA862DE41FA7C2CF000B1332 /* String+Date.swift in Sources */,
 				CAF3714E1FA232EE002C3455 /* SelectedState.swift in Sources */,
 				CAA19A0A1FA3BDD800A479A8 /* AirportPickerVC.swift in Sources */,
@@ -629,7 +633,7 @@
 				CA8923D21F93F5F50091968B /* Airport.swift in Sources */,
 				CAEC73E41F814F2E004D6F0B /* Constants.swift in Sources */,
 				CA825CDA1F93A954006871B2 /* DatePickerCell.swift in Sources */,
-				CABA2C5C1FA3E5F9001D9743 /* User.swift in Sources */,
+				CABA2C5C1FA3E5F9001D9743 /* UserDataService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

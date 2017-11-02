@@ -15,6 +15,8 @@ enum Constants {
     
     // MARK: Identifiers
     
+    static let DATE_PICKER_VC = "DatePickerVC"
+    static let AIRPORT_PICKER_VC = "AirportPickerVC"
     static let ROUND_TRIP_FLIGHT_DATA_CELL = "RoundTripFlightDataCell"
     static let DATE_PICKER_CELL = "DatePickerCell"
     static let AIRPORT_PICKER_CELL = "AirportPickerCell"

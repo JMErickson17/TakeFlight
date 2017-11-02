@@ -16,11 +16,11 @@ class MonthSectionHeaderView: JTAppleCollectionReusableView {
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var yearLabel: UILabel!
     
-    var delegate: Dismissable?
+    var delegate: DatePickerVCDelegate?
     
     // MARK: Convenience
     
-    func configureHeader(withDate date: Date, delegate: Dismissable?) {
+    func configureHeader(withDate date: Date, delegate: DatePickerVCDelegate?) {
         self.monthLabel.text = date.toMonth()
         self.yearLabel.text = date.toYear()
         self.delegate = delegate

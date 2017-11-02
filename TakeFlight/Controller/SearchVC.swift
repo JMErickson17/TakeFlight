@@ -8,15 +8,56 @@
 
 import UIKit
 
-class SearchVC: UIViewController, FlightConvertable {
+class SearchVC: UIViewController, SearchVCDelegate {
     
     // MARK: Properties
     
-    @IBOutlet weak var originTextField: UITextField!
-    @IBOutlet weak var destinationTextField: UITextField!
+    @IBOutlet weak var flightDataTableView: UITableView!
     @IBOutlet weak var departureDateTextField: UITextField!
     @IBOutlet weak var returnDateTextField: UITextField!
-    @IBOutlet weak var flightDataTableView: UITableView!
+    @IBOutlet weak var originTextField: UITextField!
+    @IBOutlet weak var destinationTextField: UITextField!
+    
+    private var user = UserDataService.instance
+    
+    var datesSelected: SelectedState = .none
+    var searchDelegate: AirportPickerVCDelegate?
+    
+    var origin: Airport? {
+        didSet {
+            if let origin = origin {
+                user.origin = origin
+                originTextField.text = origin.searchRepresentation
+            }
+        }
+    }
+    
+    var destination: Airport? {
+        didSet {
+            if let destination = destination {
+                user.destination = destination
+                destinationTextField.text = destination.searchRepresentation
+            }
+        }
+    }
+    
+    var departureDate: Date? {
+        didSet {
+            if let departureDate = departureDate {
+                user.departureDate = departureDate
+                departureDateTextField.text = formatter.string(from: departureDate)
+            }
+        }
+    }
+    
+    var returnDate: Date? {
+        didSet {
+            if let returnDate = returnDate {
+                user.returnDate = returnDate
+                returnDateTextField.text = formatter.string(from: returnDate)
+            }
+        }
+    }
     
     private let formatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -25,23 +66,6 @@ class SearchVC: UIViewController, FlightConvertable {
         dateFormatter.dateFormat = "MMMM dd"
         return dateFormatter
     }()
-    
-    var origin: String?
-    var destination: String?
-    var datesSelected: SelectedState = .none
-    var searchDelegate: Searchable?
-    
-    var departureDate: Date? {
-        didSet {
-            self.departureDateTextField.text = formatter.string(from: departureDate!)
-        }
-    }
-    
-    var returnDate: Date? {
-        didSet {
-            self.returnDateTextField.text = formatter.string(from: returnDate!)
-        }
-    }
     
     private var flights = [FlightData]() {
         didSet {
@@ -57,18 +81,17 @@ class SearchVC: UIViewController, FlightConvertable {
         setupView()
         setupTableView()
         
-        let request = QPXExpress(adultCount: 1, origin: "MCO", destination: "LAX", date: Date())
-        FlightDataService.instance.retrieveFlightData(forRequest: request) { (flightData) in
-            print(flightData)
-            print("Request Finished")
-        }
+        // Test Code
+//        let request = QPXExpress(adultCount: 1, origin: "MCO", destination: "LAX", date: Date())
+//        FlightDataService.instance.retrieveFlightData(forRequest: request) { (flightData) in
+//            if let flightData = flightData {
+//                self.flights = flightData
+//            }
+//        }
     }
 
     // MARK: Setup
     
-/*
-     Sets up the view
- */
     private func setupView() {
         departureDateTextField.delegate = self
         returnDateTextField.delegate = self
@@ -80,9 +103,6 @@ class SearchVC: UIViewController, FlightConvertable {
         destinationTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
     
-/*
-     Sets up the tableView
- */
     private func setupTableView() {
         flightDataTableView.delegate = self
         flightDataTableView.dataSource = self
@@ -98,26 +118,14 @@ class SearchVC: UIViewController, FlightConvertable {
             
         }
     }
+    
     // MARK: Convenience
     
-/*
-     Performs a search for a given request and passes an optional array of FlightData to the completion handler
- */
     private func searchFlights(completion: @escaping ([FlightData]?) -> Void) {
         guard textFieldsContainData() else { return }
-        guard let origin = originTextField.text else { return }
-        guard let destination = destinationTextField.text else { return }
-        guard let departureDate = departureDate else { return }
-        //guard let returnDate = returnDate else { return }
-        
-        let request = QPXExpress(adultCount: 1, origin: origin, destination: destination, date: departureDate)
-        
-        // Perform search
+
     }
     
-/*
-     Returns true if all UITextFields needed to search contain data
- */
     private func textFieldsContainData() -> Bool {
         return !(self.originTextField.text == "" &&
                  self.destinationTextField.text == "" &&
@@ -125,12 +133,20 @@ class SearchVC: UIViewController, FlightConvertable {
                  self.returnDateTextField.text == "")
     }
     
-    // MARK: Segues
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? DatePickerVC {
-            destination.delegate = self
+    private func presentDatePicker(completion: (() -> Void)? = nil) {
+        if let datePickerVC = storyboard?.instantiateViewController(withIdentifier: Constants.DATE_PICKER_VC) as? DatePickerVC {
+            datePickerVC.delegate = self
+            datePickerVC.modalPresentationStyle = .overCurrentContext
+            present(datePickerVC, animated: true, completion: completion)
         }
+    }
+    
+    private func presentAirportPicker(completion: (() -> Void)? = nil) {
+        let airportPickerVC = AirportPickerVC(nibName: Constants.AIRPORT_PICKER_VC, bundle: nil)
+        airportPickerVC.delegate = self
+        searchDelegate = airportPickerVC
+        airportPickerVC.modalPresentationStyle = .overCurrentContext
+        present(airportPickerVC, animated: false, completion: completion)
     }
 }
 
@@ -165,22 +181,27 @@ extension SearchVC: UITextFieldDelegate {
  */
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         guard textField.tag == 3 || textField.tag == 4 else { return true }
-        performSegue(withIdentifier: Constants.TO_DATE_PICKER, sender: nil)
+        presentDatePicker()
         return false
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         guard textField.tag == 1 || textField.tag == 2 else { return }
-        let airportPickerVC = AirportPickerVC(nibName: "AirportPickerVC", bundle: nil)
-        airportPickerVC.modalPresentationStyle = .overCurrentContext
-        searchDelegate = airportPickerVC
-        self.present(airportPickerVC, animated: true, completion: nil)
+        presentAirportPicker()
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
-        guard searchDelegate != nil else { return }
-        if let searchQuery = textField.text {
-            searchDelegate?.searchQueryDidChange(query: searchQuery)
+        guard let query = textField.text else { return }
+        
+        if let topViewController = UIApplication.topViewController() {
+            if topViewController.isKind(of: AirportPickerVC.self) {
+                searchDelegate?.searchQueryDidChange(query: query)
+            } else {
+                presentAirportPicker(completion: {
+                    self.searchDelegate?.searchQueryDidChange(query: query)
+                    textField.becomeFirstResponder()
+                })
+            }
         }
     }
     

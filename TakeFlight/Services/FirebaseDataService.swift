@@ -27,8 +27,8 @@ final class FirebaseDataService {
     func getAirports(completion: @escaping ([Airport]) -> Void) {
         var airports = [Airport]()
         
-        DispatchQueue.global().sync {
-            REF_AIRPORTS.observeSingleEvent(of: .value, with: { (snapshot) in
+        DispatchQueue.global().async {
+            self.REF_AIRPORTS.observeSingleEvent(of: .value, with: { (snapshot) in
                 if let snapshot = snapshot.value as? [[String: Any]] {
                     for snap in snapshot {
                         if let airport = Airport(airportDictionary: snap) {
