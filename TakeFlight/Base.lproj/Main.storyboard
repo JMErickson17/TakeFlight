@@ -21,13 +21,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search Flights" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bv1-9R-E6Y">
-                                        <rect key="frame" x="139" y="25" width="97.5" height="18"/>
+                                        <rect key="frame" x="139" y="30" width="97.5" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="sVa-0L-NBq" userLabel="Input Stack View">
-                                        <rect key="frame" x="20" y="50" width="335" height="63"/>
+                                        <rect key="frame" x="20" y="58" width="335" height="63"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="sOl-yY-4k4" userLabel="Destination Stack View">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
@@ -66,7 +66,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8Hc-2N-cqD" userLabel="Options Stack View">
-                                        <rect key="frame" x="20" y="123" width="71" height="28"/>
+                                        <rect key="frame" x="20" y="131" width="71" height="28"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZeC-Oz-3QX">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="28"/>
@@ -85,10 +85,10 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m45-XX-P8U">
-                                        <rect key="frame" x="312" y="12" width="43" height="30"/>
+                                        <rect key="frame" x="305" y="24" width="50" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="Atz-E3-Ec5"/>
-                                            <constraint firstAttribute="width" constant="43" id="n0F-L0-bkL"/>
+                                            <constraint firstAttribute="height" constant="30" id="GSl-PP-KaH"/>
+                                            <constraint firstAttribute="width" constant="50" id="RtE-nV-aks"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <state key="normal" title="Search"/>
@@ -99,15 +99,15 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.88414158938462251" green="0.88414158938462251" blue="0.88414158938462251" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstItem="sVa-0L-NBq" firstAttribute="top" secondItem="GZy-mC-ZRT" secondAttribute="top" constant="50" id="1aO-FS-G2J"/>
                                     <constraint firstAttribute="height" constant="160" id="GC8-mO-79e"/>
                                     <constraint firstItem="8Hc-2N-cqD" firstAttribute="top" secondItem="sVa-0L-NBq" secondAttribute="bottom" constant="10" id="JeD-79-13w"/>
-                                    <constraint firstItem="bv1-9R-E6Y" firstAttribute="top" secondItem="GZy-mC-ZRT" secondAttribute="top" constant="25" id="Jsa-X4-VFF"/>
                                     <constraint firstItem="bv1-9R-E6Y" firstAttribute="centerX" secondItem="GZy-mC-ZRT" secondAttribute="centerX" id="Nri-1S-y1J"/>
+                                    <constraint firstItem="m45-XX-P8U" firstAttribute="centerY" secondItem="bv1-9R-E6Y" secondAttribute="centerY" id="OJo-Fo-fHD"/>
                                     <constraint firstAttribute="trailing" secondItem="sVa-0L-NBq" secondAttribute="trailing" constant="20" id="Wfd-9e-YZi"/>
-                                    <constraint firstAttribute="trailing" secondItem="m45-XX-P8U" secondAttribute="trailing" constant="20" id="cXY-xU-KMD"/>
+                                    <constraint firstItem="bv1-9R-E6Y" firstAttribute="top" secondItem="GZy-mC-ZRT" secondAttribute="top" constant="30" id="fHV-IC-4f7"/>
+                                    <constraint firstAttribute="trailing" secondItem="m45-XX-P8U" secondAttribute="trailing" constant="20" id="fVW-co-pda"/>
                                     <constraint firstItem="sVa-0L-NBq" firstAttribute="leading" secondItem="GZy-mC-ZRT" secondAttribute="leading" constant="20" id="gYA-do-hkD"/>
-                                    <constraint firstItem="m45-XX-P8U" firstAttribute="top" secondItem="GZy-mC-ZRT" secondAttribute="top" constant="12" id="jsi-dP-rae"/>
+                                    <constraint firstItem="sVa-0L-NBq" firstAttribute="top" secondItem="bv1-9R-E6Y" secondAttribute="bottom" constant="10" id="xRn-8h-jgp"/>
                                     <constraint firstItem="8Hc-2N-cqD" firstAttribute="leading" secondItem="GZy-mC-ZRT" secondAttribute="leading" constant="20" id="zEQ-uM-Nqf"/>
                                 </constraints>
                             </view>
@@ -149,10 +149,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ukx-XH-DBg" userLabel="Background View">
+                            <view alpha="0.25" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ukx-XH-DBg" userLabel="Background View">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2gF-Nz-qXu" userLabel="Date Picker View" customClass="DatePickerView" customModule="TakeFlight" customModuleProvider="target">
                                 <rect key="frame" x="10" y="120" width="355" height="397"/>
@@ -162,7 +162,7 @@
                                         <subviews>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bz8-PX-DFd" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
                                                 <rect key="frame" x="0.0" y="0.0" width="355" height="396.5"/>
-                                                <color key="backgroundColor" red="0.71663411458333337" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BU2-ch-zSW">
                                                     <size key="itemSize" width="50" height="50"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>

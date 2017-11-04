@@ -132,7 +132,6 @@ extension DatePickerVC: JTAppleCalendarViewDelegate {
      Configure the MonthSectionHeaderView header.
  */
     func calendar(_ calendar: JTAppleCalendarView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTAppleCollectionReusableView {
-        
         if let header = calendar.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: "MonthSectionHeaderView", for: indexPath) as? MonthSectionHeaderView {
             header.configureHeader(withDate: range.start, delegate: self)
             return header
@@ -170,6 +169,13 @@ extension DatePickerVC: JTAppleCalendarViewDelegate {
         cell?.isUserInteractionEnabled = true
         return true
     }
+    
+    func sizeOfDecorationView(indexPath: IndexPath) -> CGRect {
+        let headerViewRect = CGRect(x: 0, y: 0, width: calendarView.frame.width, height: 55)
+        return headerViewRect
+    }
+    
+
 /*
      Configure the default month size for the calendarView.
  */

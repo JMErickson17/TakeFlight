@@ -97,11 +97,12 @@ struct FlightData {
     public private(set) var flightSegments: [FlightSegment]
     
     var numberOfStops: Int {
-        return flightSegments.count - 1
+        return flightSegments.count
     }
     
-    var duration: Int {
-        return flightSegments.reduce(0, { $0 + $1.duration })
+    var duration: String {
+        let duration = flightSegments.reduce(0, { $0 + $1.duration })
+        return "\(duration / 60)h \(duration % 60)m"
     }
     
     var origin: String {
@@ -112,12 +113,24 @@ struct FlightData {
         return flightSegments.last?.destination.name ?? ""
     }
     
+    var carrier: String {
+        return flightSegments.first?.carrier.name ?? ""
+    }
+    
     var departureTime: Date {
         return flightSegments.first?.departureTime ?? Date.distantPast
     }
     
     var arrivalTime: Date {
         return flightSegments.last?.arrivalTime ?? Date.distantPast
+    }
+    
+    var tripDetails: String {
+        var detailsString = ""
+        for segment in flightSegments {
+            detailsString.append("\(segment.origin.code)-\(segment.destination.code) ")
+        }
+        return detailsString
     }
     
 /**

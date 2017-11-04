@@ -14,6 +14,8 @@ class DatePickerView: UIView {
         super.awakeFromNib()
         
         self.layer.cornerRadius = 15
+        self.layer.borderColor = UIColor.black.cgColor
+        self.layer.borderWidth = 1
     }
 
 }

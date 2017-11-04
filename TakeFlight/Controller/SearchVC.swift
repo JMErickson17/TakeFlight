@@ -41,6 +41,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
                 originTextField.text = origin.searchRepresentation
             } else {
                 originTextField.text = ""
+                user.origin = nil
             }
         }
     }
@@ -52,6 +53,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
                 destinationTextField.text = destination.searchRepresentation
             } else {
                 destinationTextField.text = ""
+                user.destination = nil
             }
         }
     }
@@ -63,6 +65,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
                 departureDateTextField.text = formatter.string(from: departureDate)
             } else {
                 departureDateTextField.text = ""
+                user.departureDate = nil
             }
         }
     }
@@ -74,6 +77,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
                 returnDateTextField.text = formatter.string(from: returnDate)
             } else {
                 returnDateTextField.text = ""
+                user.returnDate = nil
             }
         }
     }
@@ -100,13 +104,6 @@ class SearchVC: UIViewController, SearchVCDelegate {
         setupView()
         setupTableView()
         
-        // Test Code
-//        let request = QPXExpress(adultCount: 1, origin: "MCO", destination: "LAX", date: Date())
-//        FlightDataService.instance.retrieveFlightData(forRequest: request) { (flightData) in
-//            if let flightData = flightData {
-//                self.flights = flightData
-//            }
-//        }
     }
 
     // MARK: Setup
@@ -150,11 +147,18 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     @IBAction func searchButtonTapped(_ sender: Any) {
         searchFlights { (flightData) in
-            
+            if let flights = flightData {
+                self.flights = flights
+            }
         }
     }
     
     // MARK: Convenience
+    
+    func clearLocations() {
+        origin = nil
+        destination = nil
+    }
     
     func clearDates() {
         departureDate = nil
@@ -162,15 +166,21 @@ class SearchVC: UIViewController, SearchVCDelegate {
     }
     
     private func searchFlights(completion: @escaping ([FlightData]?) -> Void) {
-        guard textFieldsContainData() else { return }
-
+        guard searchDataIsValid() else { return completion(nil) }
+        let request = QPXExpress(adultCount: 1, origin: origin!.iata, destination: destination!.iata, date: departureDate!)
+        
+        FlightDataService.instance.retrieveFlightData(forRequest: request) { (flightData) in
+            completion(flightData)
+        }
     }
     
-    private func textFieldsContainData() -> Bool {
-        return !(self.originTextField.text == "" &&
-                 self.destinationTextField.text == "" &&
-                 self.departureDateTextField.text == "" &&
-                 self.returnDateTextField.text == "")
+    private func searchDataIsValid() -> Bool {
+        guard origin != nil else { return false }
+        guard destination != nil else { return false }
+        guard departureDate != nil else { return false }
+        guard returnDate != nil else { return false }
+        
+        return true
     }
     
     private func presentDatePicker(completion: (() -> Void)? = nil) {
@@ -197,7 +207,8 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.ROUND_TRIP_FLIGHT_DATA_CELL, for: indexPath) as? RoundTripFlightDataCell {
-            cell.configureCell()
+            let flight = flights[indexPath.row]
+            cell.configureCell(withFlightData: flight)
             return cell
         }
         return UITableViewCell()
@@ -209,7 +220,7 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return flights.count
     }
 }
 
@@ -231,6 +242,19 @@ extension SearchVC: UITextFieldDelegate {
         presentAirportPicker(withTag: textField.tag)
     }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard textField.text == "" else { return }
+        
+        switch textField.tag {
+        case 1:
+            self.origin = nil
+        case 2:
+            self.destination = nil
+        default:
+            break
+        }
+    }
+    
     @objc func textFieldDidChange(_ textField: UITextField) {
         guard let query = textField.text else { return }
         
@@ -245,6 +269,4 @@ extension SearchVC: UITextFieldDelegate {
             }
         }
     }
-    
 }
-

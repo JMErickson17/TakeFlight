@@ -11,7 +11,17 @@ import Foundation
 extension Date {
     
 /**
-     Converts a date object a string containing the month name.
+     Converts a date object to a string containing the time.
+ */
+    func toTime() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "H:mm"
+        let time = formatter.string(from: self)
+        return time
+    }
+    
+/**
+     Converts a date object to a string containing the month name.
  */
     func toMonth() -> String {
         let formatter = DateFormatter()
@@ -21,7 +31,7 @@ extension Date {
     }
     
 /**
-     Converts a date object a string containing the year.
+     Converts a date object to a string containing the year.
  */
     func toYear() -> String {
         let formatter = DateFormatter()

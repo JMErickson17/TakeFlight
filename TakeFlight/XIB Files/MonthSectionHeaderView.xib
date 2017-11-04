@@ -87,12 +87,13 @@
                                 </label>
                             </subviews>
                         </stackView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QYR-Iw-yEg">
-                            <rect key="frame" x="349" y="4" width="20" height="20"/>
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QYR-Iw-yEg">
+                            <rect key="frame" x="329" y="4" width="40" height="25"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="20" id="jRe-f1-vQ1"/>
-                                <constraint firstAttribute="height" constant="20" id="pG2-4p-320"/>
+                                <constraint firstAttribute="width" constant="40" id="jRe-f1-vQ1"/>
+                                <constraint firstAttribute="height" constant="25" id="pG2-4p-320"/>
                             </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
                             <state key="normal" image="DoneButton"/>
                             <connections>
                                 <action selector="datesSelectedButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="edF-in-X7d"/>
