@@ -19,8 +19,10 @@ final class UserDataService {
     
     var origin: Airport? {
         get {
-            let data: Data = defaults.object(forKey: Constants.USER_ORIGIN_KEY) as! Data
-            return try! decoder.decode(Airport.self, from: data)
+            if let data: Data = defaults.object(forKey: Constants.USER_ORIGIN_KEY) as? Data {
+                return try! decoder.decode(Airport.self, from: data)
+            }
+            return nil
         }
         set {
             let data = try? encoder.encode(newValue)
@@ -30,8 +32,10 @@ final class UserDataService {
     
     var destination: Airport? {
         get {
-            let data: Data = defaults.object(forKey: Constants.USER_DESTINATION_KEY) as! Data
-            return try! decoder.decode(Airport.self, from: data)
+            if let data: Data = defaults.object(forKey: Constants.USER_DESTINATION_KEY) as? Data {
+                return try! decoder.decode(Airport.self, from: data)
+            }
+            return nil
         }
         set {
             let data = try? encoder.encode(newValue)

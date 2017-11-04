@@ -19,15 +19,28 @@ class SearchVC: UIViewController, SearchVCDelegate {
     @IBOutlet weak var destinationTextField: UITextField!
     
     private var user = UserDataService.instance
-    
-    var datesSelected: SelectedState = .none
     var searchDelegate: AirportPickerVCDelegate?
+    
+    var datesSelected: SelectedState {
+        if departureDate == nil && returnDate == nil {
+            return .none
+        } else if departureDate != nil && returnDate == nil {
+            return .departure
+        } else if departureDate != nil && returnDate != nil {
+            return .departureAndReturn
+        }
+        departureDate = nil
+        returnDate = nil
+        return .none
+    }
     
     var origin: Airport? {
         didSet {
             if let origin = origin {
                 user.origin = origin
                 originTextField.text = origin.searchRepresentation
+            } else {
+                originTextField.text = ""
             }
         }
     }
@@ -37,6 +50,8 @@ class SearchVC: UIViewController, SearchVCDelegate {
             if let destination = destination {
                 user.destination = destination
                 destinationTextField.text = destination.searchRepresentation
+            } else {
+                destinationTextField.text = ""
             }
         }
     }
@@ -46,6 +61,8 @@ class SearchVC: UIViewController, SearchVCDelegate {
             if let departureDate = departureDate {
                 user.departureDate = departureDate
                 departureDateTextField.text = formatter.string(from: departureDate)
+            } else {
+                departureDateTextField.text = ""
             }
         }
     }
@@ -55,6 +72,8 @@ class SearchVC: UIViewController, SearchVCDelegate {
             if let returnDate = returnDate {
                 user.returnDate = returnDate
                 returnDateTextField.text = formatter.string(from: returnDate)
+            } else {
+                returnDateTextField.text = ""
             }
         }
     }
@@ -136,6 +155,11 @@ class SearchVC: UIViewController, SearchVCDelegate {
     }
     
     // MARK: Convenience
+    
+    func clearDates() {
+        departureDate = nil
+        returnDate = nil
+    }
     
     private func searchFlights(completion: @escaping ([FlightData]?) -> Void) {
         guard textFieldsContainData() else { return }

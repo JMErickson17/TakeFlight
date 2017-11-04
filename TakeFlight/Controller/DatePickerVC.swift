@@ -40,8 +40,6 @@ class DatePickerVC: UIViewController, DatePickerVCDelegate {
     func setupView() {
         let dismissTap = UITapGestureRecognizer(target: self, action: #selector(DatePickerVC.dismissViewContoller))
         backgroundView.addGestureRecognizer(dismissTap)
-        
-        
     }
     
     func setupCalendar() {
@@ -53,6 +51,10 @@ class DatePickerVC: UIViewController, DatePickerVCDelegate {
         
         calendarView.allowsMultipleSelection = true
         calendarView.isRangeSelectionUsed = true
+        
+        if let delegate = delegate, let departureDate = delegate.departureDate, let returnDate = delegate.returnDate {
+            calendarView.selectDates(from: departureDate, to: returnDate, triggerSelectionDelegate: false, keepSelectionIfMultiSelectionAllowed: true)
+        }
     }
     
     // MARK: Convenience
@@ -98,22 +100,19 @@ extension DatePickerVC: JTAppleCalendarViewDelegate {
         case .none:
             delegate!.departureDate = date
             cell.handleSelection(forState: cellState)
-            delegate!.datesSelected = .departure
             
         case .departure:
             if date < delegate!.departureDate! {
                 calendar.deselectAllDates()
-                delegate!.datesSelected = .none
                 break
             }
             
             delegate!.returnDate = date
             calendar.selectDates(from: delegate!.departureDate!, to: delegate!.returnDate!, triggerSelectionDelegate: false, keepSelectionIfMultiSelectionAllowed: true)
-            delegate!.datesSelected = .departureAndReturn
             
         case .departureAndReturn:
             calendar.deselectAllDates()
-            delegate!.datesSelected = .none
+            delegate!.clearDates()
         }
         calendar.reloadData()
     }
@@ -132,17 +131,50 @@ extension DatePickerVC: JTAppleCalendarViewDelegate {
  */
     func calendar(_ calendar: JTAppleCalendarView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTAppleCollectionReusableView {
         if let header = calendar.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: "MonthHeader", for: indexPath) as? MonthSectionHeaderView {
+            // TODO: Change header to xib file
+            
             header.configureHeader(withDate: range.start, delegate: self)
+            header.heightAnchor.constraint(equalToConstant: 55)
             return header
         }
         return JTAppleCollectionReusableView()
     }
     
+
+    
+    func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
+        guard delegate != nil else { return }
+        if let firstVisibleDate = visibleDates.indates.first?.date,
+           let lastVisibleDate = visibleDates.outdates.last?.date {
+        
+            let visibleDateRange = DateRange(startDate: firstVisibleDate, endDate: lastVisibleDate)
+            
+            switch delegate!.datesSelected {
+            case .none:
+                break
+            case .departure:
+                if let departureDate = delegate!.departureDate, visibleDateRange.contains(date: departureDate) {
+                    calendar.selectDates([departureDate], triggerSelectionDelegate: false, keepSelectionIfMultiSelectionAllowed: true)
+                }
+            case .departureAndReturn:
+                if let departureDate = delegate!.departureDate, let returnDate = delegate!.returnDate {
+                    calendar.selectDates(from: departureDate, to: returnDate, triggerSelectionDelegate: false, keepSelectionIfMultiSelectionAllowed: true)
+                }
+            }
+            calendar.reloadData()
+        }
+    }
+    
+    
+    func calendar(_ calendar: JTAppleCalendarView, shouldSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) -> Bool {
+        cell?.isUserInteractionEnabled = true
+        return true
+    }
 /*
      Configure the default month size for the calendarView.
  */
     func calendarSizeForMonths(_ calendar: JTAppleCalendarView?) -> MonthSize? {
-        return MonthSize(defaultSize: 50)
+        return MonthSize(defaultSize: 40)
     }
 }
 
