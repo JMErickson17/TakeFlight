@@ -94,6 +94,9 @@
                                 <constraint firstAttribute="height" constant="20" id="pG2-4p-320"/>
                             </constraints>
                             <state key="normal" image="DoneButton"/>
+                            <connections>
+                                <action selector="datesSelectedButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="edF-in-X7d"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -103,7 +106,6 @@
                         <constraint firstItem="KWr-ij-NdK" firstAttribute="leading" secondItem="l6M-HK-Qx5" secondAttribute="leading" constant="8" id="LVl-fX-cY9"/>
                         <constraint firstItem="Ycy-cj-w5V" firstAttribute="leading" secondItem="l6M-HK-Qx5" secondAttribute="leading" id="Vhq-Di-cmM"/>
                         <constraint firstItem="KWr-ij-NdK" firstAttribute="top" secondItem="l6M-HK-Qx5" secondAttribute="top" constant="4" id="aMU-MS-DYZ"/>
-                        <constraint firstAttribute="height" constant="55" id="c38-G2-MnF"/>
                         <constraint firstAttribute="trailing" secondItem="QYR-Iw-yEg" secondAttribute="trailing" constant="6" id="fvd-d5-m8E"/>
                         <constraint firstItem="QYR-Iw-yEg" firstAttribute="top" secondItem="l6M-HK-Qx5" secondAttribute="top" constant="4" id="jKT-ba-x3A"/>
                     </constraints>
@@ -118,6 +120,10 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="monthLabel" destination="8Rw-nm-8k8" id="gRR-Ju-9vf"/>
+                <outlet property="yearLabel" destination="TiE-mG-kVe" id="RsZ-d4-0Ta"/>
+            </connections>
             <point key="canvasLocation" x="24.5" y="357.5"/>
         </view>
     </objects>

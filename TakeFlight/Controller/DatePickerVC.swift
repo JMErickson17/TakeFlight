@@ -52,6 +52,8 @@ class DatePickerVC: UIViewController, DatePickerVCDelegate {
         calendarView.allowsMultipleSelection = true
         calendarView.isRangeSelectionUsed = true
         
+        calendarView.register(UINib(nibName: "MonthSectionHeaderView", bundle: nil), forSupplementaryViewOfKind: "UICollectionElementKindSectionHeader", withReuseIdentifier: "MonthSectionHeaderView")
+        
         if let delegate = delegate, let departureDate = delegate.departureDate, let returnDate = delegate.returnDate {
             calendarView.selectDates(from: departureDate, to: returnDate, triggerSelectionDelegate: false, keepSelectionIfMultiSelectionAllowed: true)
         }
@@ -130,11 +132,9 @@ extension DatePickerVC: JTAppleCalendarViewDelegate {
      Configure the MonthSectionHeaderView header.
  */
     func calendar(_ calendar: JTAppleCalendarView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTAppleCollectionReusableView {
-        if let header = calendar.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: "MonthHeader", for: indexPath) as? MonthSectionHeaderView {
-            // TODO: Change header to xib file
-            
+        
+        if let header = calendar.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: "MonthSectionHeaderView", for: indexPath) as? MonthSectionHeaderView {
             header.configureHeader(withDate: range.start, delegate: self)
-            header.heightAnchor.constraint(equalToConstant: 55)
             return header
         }
         return JTAppleCollectionReusableView()
