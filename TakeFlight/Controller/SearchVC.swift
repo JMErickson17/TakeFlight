@@ -49,11 +49,9 @@ class SearchVC: UIViewController, SearchVCDelegate {
             if let origin = origin {
                 user.origin = origin
                 originTextField.text = origin.searchRepresentation
-                print("The origin is \(origin)")
             } else {
                 originTextField.text = ""
                 user.origin = nil
-                print("The origin is nil")
             }
             originTextField.endEditing(true)
         }
@@ -64,11 +62,9 @@ class SearchVC: UIViewController, SearchVCDelegate {
             if let destination = destination {
                 user.destination = destination
                 destinationTextField.text = destination.searchRepresentation
-                print("The destination is \(destination)")
             } else {
                 destinationTextField.text = ""
                 user.destination = nil
-                print("The destination is nil")
             }
             destinationTextField.endEditing(true)
         }
@@ -331,18 +327,6 @@ extension SearchVC: UITextFieldDelegate {
         if airportPickerVC == nil {
             presentAirportPicker(withTag: textField.tag)
         }
-    }
-    
-    func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        switch textField.tag {
-        case 1:
-            self.origin = nil
-        case 2:
-            self.destination = nil
-        default:
-            break
-        }
-        return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
