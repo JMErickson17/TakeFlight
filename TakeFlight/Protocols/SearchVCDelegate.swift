@@ -10,6 +10,7 @@ import Foundation
 
 protocol SearchVCDelegate {
     var datesSelected: SelectedState { get }
+    var selectedSearchType: SearchType { get set }
     var origin: Airport? { get set }
     var destination: Airport? { get set }
     var departureDate: Date? { get set }

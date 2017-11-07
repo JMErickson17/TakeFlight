@@ -12,8 +12,6 @@ class AirportPickerVC: UIViewController {
     
     // MARK: Properties
     
-    @IBOutlet weak var backgroundView: UIView!
-    
     var delegate: SearchVCDelegate?
     var currentTextFieldTag: Int?
     
@@ -22,7 +20,6 @@ class AirportPickerVC: UIViewController {
     
     private var filteredAirports = [Airport]() {
         didSet {
-            tableView.isHidden = filteredAirports.isEmpty
             tableView.reloadData()
         }
     }
@@ -33,45 +30,31 @@ class AirportPickerVC: UIViewController {
         super.viewDidLoad()
 
         setupView()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
         setupTableView()
     }
 
     // MARK: Setup
     
     func setupView() {
-        let dismissTap = UITapGestureRecognizer(target: self, action: #selector(dismissViewController))
-        backgroundView.addGestureRecognizer(dismissTap)
+        
+        view.layer.borderWidth = 1
+        view.layer.cornerRadius = 5
+        view.layer.shadowOpacity = 0.7
+        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+        view.clipsToBounds = true
     }
     
     func setupTableView() {
         tableView = UITableView()
-        
         tableView.delegate = self
         tableView.dataSource = self
-        
-        let screenSize: CGRect = UIScreen.main.bounds
-        let tableViewWidth = Int(screenSize.width - 10)
-        let tableViewHeight = 200
-        
-        tableView.layer.cornerRadius = 5
-        tableView.frame = CGRect(x: 5, y: 90, width: tableViewWidth, height: tableViewHeight)
-        tableView.isHidden = filteredAirports.isEmpty
+        tableView.frame = view.frame
         
         tableView.register(UINib(nibName: Constants.AIRPORT_PICKER_CELL, bundle: nil), forCellReuseIdentifier: Constants.AIRPORT_PICKER_CELL)
         
-        self.view.addSubview(tableView)
+        view.addSubview(tableView)
     }
     
-    // MARK: Convenience
-    
-    @objc func dismissViewController() {
-        dismiss(animated: true, completion: nil)
-    }
 }
 
 // MARK: - UITableView
@@ -99,7 +82,7 @@ extension AirportPickerVC: UITableViewDelegate, UITableViewDataSource {
         default:
             return
         }
-        dismissViewController()
+        // Dismiss airportPickerVC
     }
     
     

@@ -88,9 +88,9 @@
                             </subviews>
                         </stackView>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QYR-Iw-yEg">
-                            <rect key="frame" x="329" y="4" width="40" height="25"/>
+                            <rect key="frame" x="340" y="5" width="25" height="25"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="40" id="jRe-f1-vQ1"/>
+                                <constraint firstAttribute="width" constant="25" id="jRe-f1-vQ1"/>
                                 <constraint firstAttribute="height" constant="25" id="pG2-4p-320"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -107,8 +107,8 @@
                         <constraint firstItem="KWr-ij-NdK" firstAttribute="leading" secondItem="l6M-HK-Qx5" secondAttribute="leading" constant="8" id="LVl-fX-cY9"/>
                         <constraint firstItem="Ycy-cj-w5V" firstAttribute="leading" secondItem="l6M-HK-Qx5" secondAttribute="leading" id="Vhq-Di-cmM"/>
                         <constraint firstItem="KWr-ij-NdK" firstAttribute="top" secondItem="l6M-HK-Qx5" secondAttribute="top" constant="4" id="aMU-MS-DYZ"/>
-                        <constraint firstAttribute="trailing" secondItem="QYR-Iw-yEg" secondAttribute="trailing" constant="6" id="fvd-d5-m8E"/>
-                        <constraint firstItem="QYR-Iw-yEg" firstAttribute="top" secondItem="l6M-HK-Qx5" secondAttribute="top" constant="4" id="jKT-ba-x3A"/>
+                        <constraint firstAttribute="trailing" secondItem="QYR-Iw-yEg" secondAttribute="trailing" constant="10" id="fvd-d5-m8E"/>
+                        <constraint firstItem="QYR-Iw-yEg" firstAttribute="top" secondItem="l6M-HK-Qx5" secondAttribute="top" constant="5" id="jKT-ba-x3A"/>
                     </constraints>
                 </view>
             </subviews>

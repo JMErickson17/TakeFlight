@@ -43,20 +43,34 @@ class DatePickerVC: UIViewController, DatePickerVCDelegate {
     }
     
     func setupCalendar() {
+        guard delegate != nil else { return dismissViewContoller() }
+        
         calendarView.calendarDelegate = self
         calendarView.calendarDataSource = self
         
         calendarView.minimumLineSpacing = 0
         calendarView.minimumInteritemSpacing = 0
         
-        calendarView.allowsMultipleSelection = true
-        calendarView.isRangeSelectionUsed = true
-        
         calendarView.register(UINib(nibName: "MonthSectionHeaderView", bundle: nil), forSupplementaryViewOfKind: "UICollectionElementKindSectionHeader", withReuseIdentifier: "MonthSectionHeaderView")
         
-        if let delegate = delegate, let departureDate = delegate.departureDate, let returnDate = delegate.returnDate {
-            calendarView.selectDates(from: departureDate, to: returnDate, triggerSelectionDelegate: false, keepSelectionIfMultiSelectionAllowed: true)
+        switch delegate!.selectedSearchType {
+        case .oneWay:
+            calendarView.allowsMultipleSelection = false
+            calendarView.isRangeSelectionUsed = false
+            
+            if let departureDate = delegate!.departureDate {
+                calendarView.selectDates([departureDate], triggerSelectionDelegate: false, keepSelectionIfMultiSelectionAllowed: true)
+            }
+            
+        case .roundTrip:
+            calendarView.allowsMultipleSelection = true
+            calendarView.isRangeSelectionUsed = true
+            
+            if let departureDate = delegate!.departureDate, let returnDate = delegate!.returnDate {
+                calendarView.selectDates(from: departureDate, to: returnDate, triggerSelectionDelegate: false, keepSelectionIfMultiSelectionAllowed: true)
+            }
         }
+        calendarView.deselectAllDates()
     }
     
     // MARK: Convenience
@@ -97,6 +111,12 @@ extension DatePickerVC: JTAppleCalendarViewDelegate {
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         guard let cell = cell as? DatePickerCell else { return }
         guard delegate != nil else { return }
+        
+        if delegate!.selectedSearchType == .oneWay {
+            delegate?.departureDate = date
+            cell.handleSelection(forState: cellState)
+            return
+        }
         
         switch delegate!.datesSelected {
         case .none:

@@ -60,4 +60,13 @@ final class UserDataService {
             defaults.set(newValue, forKey: Constants.USER_RETURN_DATE_KEY)
         }
     }
+    
+    var searchType: String? {
+        get {
+            return defaults.string(forKey: Constants.USER_SEARCH_TYPE_KEY)
+        }
+        set {
+            defaults.set(newValue, forKey: Constants.USER_SEARCH_TYPE_KEY)
+        }
+    }
 }

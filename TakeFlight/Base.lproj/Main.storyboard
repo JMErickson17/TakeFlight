@@ -32,13 +32,13 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="sOl-yY-4k4" userLabel="Destination Stack View">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
                                                 <subviews>
-                                                    <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="From" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Vlt-bU-zjx">
+                                                    <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="From" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Vlt-bU-zjx">
                                                         <rect key="frame" x="0.0" y="0.0" width="165" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="search"/>
                                                     </textField>
-                                                    <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="To" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="DcU-z0-LMh">
+                                                    <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="To" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="DcU-z0-LMh">
                                                         <rect key="frame" x="170" y="0.0" width="165" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -72,14 +72,14 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="28"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <state key="normal" title="Sort">
-                                                    <color key="titleColor" red="0.27450980390000002" green="0.66274509800000003" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleColor" red="0.1838448053" green="0.73393011720000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ACI-nM-SxV">
                                                 <rect key="frame" x="40" y="0.0" width="31" height="28"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <state key="normal" title="Filter">
-                                                    <color key="titleColor" red="0.27450980390000002" green="0.66274509800000003" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleColor" red="0.1838448053" green="0.73393011720000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </state>
                                             </button>
                                         </subviews>
@@ -91,14 +91,43 @@
                                             <constraint firstAttribute="width" constant="50" id="RtE-nV-aks"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal" title="Search"/>
+                                        <state key="normal" title="Search">
+                                            <color key="titleColor" red="0.1838448053" green="0.73393011720000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
                                         <connections>
                                             <action selector="searchButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UVz-LF-cwd"/>
                                         </connections>
                                     </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Rwd-hw-pLi">
+                                        <rect key="frame" x="222" y="131" width="133" height="28"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s82-Lx-tCF">
+                                                <rect key="frame" x="0.0" y="0.0" width="67" height="28"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <state key="normal" title="Round-Trip">
+                                                    <color key="titleColor" red="0.1838448053" green="0.73393011720000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="roundTripButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pqg-87-VuO"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DCR-nQ-lhF">
+                                                <rect key="frame" x="77" y="0.0" width="56" height="28"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <state key="normal" title="One-Way">
+                                                    <color key="titleColor" red="0.1838448053" green="0.73393011720000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="oneWayButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sYJ-MS-yVg"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.88414158938462251" green="0.88414158938462251" blue="0.88414158938462251" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Rwd-hw-pLi" secondAttribute="trailing" constant="20" id="27N-AE-kuW"/>
+                                    <constraint firstItem="Rwd-hw-pLi" firstAttribute="top" secondItem="sVa-0L-NBq" secondAttribute="bottom" constant="10" id="EjN-5T-X7C"/>
                                     <constraint firstAttribute="height" constant="160" id="GC8-mO-79e"/>
                                     <constraint firstItem="8Hc-2N-cqD" firstAttribute="top" secondItem="sVa-0L-NBq" secondAttribute="bottom" constant="10" id="JeD-79-13w"/>
                                     <constraint firstItem="bv1-9R-E6Y" firstAttribute="centerX" secondItem="GZy-mC-ZRT" secondAttribute="centerX" id="Nri-1S-y1J"/>
@@ -132,9 +161,10 @@
                         <outlet property="departureDateTextField" destination="kmW-AR-DQA" id="gy1-PV-QAy"/>
                         <outlet property="destinationTextField" destination="DcU-z0-LMh" id="MsI-Dd-BnP"/>
                         <outlet property="flightDataTableView" destination="ozK-l0-pfk" id="diL-2M-Ww3"/>
+                        <outlet property="oneWayButton" destination="DCR-nQ-lhF" id="3Hn-SV-sEw"/>
                         <outlet property="originTextField" destination="Vlt-bU-zjx" id="S1p-kV-H59"/>
                         <outlet property="returnDateTextField" destination="SMo-cG-Sc2" id="9WX-qw-eMJ"/>
-                        <segue destination="57y-9w-hja" kind="presentation" identifier="ToDatePicker" modalPresentationStyle="overCurrentContext" id="Gxn-TT-uwP"/>
+                        <outlet property="roundTripButton" destination="s82-Lx-tCF" id="CeB-Fw-vpJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

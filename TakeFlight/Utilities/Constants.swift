@@ -35,5 +35,6 @@ enum Constants {
     static let USER_DESTINATION_KEY = "userDestinationKey"
     static let USER_DEPARTURE_DATE_KEY = "userDepartureDateKey"
     static let USER_RETURN_DATE_KEY = "userReturnDateKey"
+    static let USER_SEARCH_TYPE_KEY = "userSearchTypeKey"
 }
 

@@ -18,11 +18,6 @@ class MonthSectionHeaderView: JTAppleCollectionReusableView {
     
     var delegate: DatePickerVCDelegate?
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        
-    }
     
     // MARK: Convenience
     

@@ -17,9 +17,19 @@ class SearchVC: UIViewController, SearchVCDelegate {
     @IBOutlet weak var returnDateTextField: UITextField!
     @IBOutlet weak var originTextField: UITextField!
     @IBOutlet weak var destinationTextField: UITextField!
+    @IBOutlet weak var roundTripButton: UIButton!
+    @IBOutlet weak var oneWayButton: UIButton!
     
     private var user = UserDataService.instance
+    private var airportPickerVC: AirportPickerVC?
+    
     var searchDelegate: AirportPickerVCDelegate?
+    
+    var selectedSearchType: SearchType = .oneWay {
+        didSet {
+            user.searchType = selectedSearchType.rawValue
+        }
+    }
     
     var datesSelected: SelectedState {
         if departureDate == nil && returnDate == nil {
@@ -39,10 +49,13 @@ class SearchVC: UIViewController, SearchVCDelegate {
             if let origin = origin {
                 user.origin = origin
                 originTextField.text = origin.searchRepresentation
+                print("The origin is \(origin)")
             } else {
                 originTextField.text = ""
                 user.origin = nil
+                print("The origin is nil")
             }
+            originTextField.endEditing(true)
         }
     }
     
@@ -51,10 +64,13 @@ class SearchVC: UIViewController, SearchVCDelegate {
             if let destination = destination {
                 user.destination = destination
                 destinationTextField.text = destination.searchRepresentation
+                print("The destination is \(destination)")
             } else {
                 destinationTextField.text = ""
                 user.destination = nil
+                print("The destination is nil")
             }
+            destinationTextField.endEditing(true)
         }
     }
     
@@ -93,6 +109,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
     private var flights = [FlightData]() {
         didSet {
             flightDataTableView.reloadData()
+            flightDataTableView.isHidden = flights.isEmpty
         }
     }
     
@@ -103,7 +120,16 @@ class SearchVC: UIViewController, SearchVCDelegate {
         
         setupView()
         setupTableView()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if originTextField.isEditing {
+            originTextField.endEditing(true)
+        }
         
+        if destinationTextField.isEditing {
+            destinationTextField.endEditing(true)
+        }
     }
 
     // MARK: Setup
@@ -133,6 +159,19 @@ class SearchVC: UIViewController, SearchVCDelegate {
         if let returnDate = user.returnDate {
             self.returnDate = returnDate
         }
+        
+        if let searchType = user.searchType {
+            self.selectedSearchType = SearchType(rawValue: searchType) ?? .oneWay
+        }
+        
+        switch selectedSearchType {
+        case .oneWay:
+            oneWayButton.layer.opacity = 1
+            roundTripButton.layer.opacity = 0.5
+        case .roundTrip:
+            oneWayButton.layer.opacity = 0.5
+            roundTripButton.layer.opacity = 1
+        }
     }
     
     private func setupTableView() {
@@ -141,6 +180,8 @@ class SearchVC: UIViewController, SearchVCDelegate {
         
         let roundTripCell = UINib(nibName: Constants.ROUND_TRIP_FLIGHT_DATA_CELL, bundle: nil)
         flightDataTableView.register(roundTripCell, forCellReuseIdentifier: Constants.ROUND_TRIP_FLIGHT_DATA_CELL)
+        
+        flightDataTableView.isHidden = flights.isEmpty
     }
     
     // MARK: Actions
@@ -151,6 +192,18 @@ class SearchVC: UIViewController, SearchVCDelegate {
                 self.flights = flights
             }
         }
+    }
+    
+    @IBAction func roundTripButtonTapped(_ sender: Any) {
+        selectedSearchType = .roundTrip
+        oneWayButton.layer.opacity = 0.5
+        roundTripButton.layer.opacity = 1
+    }
+    
+    @IBAction func oneWayButtonTapped(_ sender: Any) {
+        selectedSearchType = .oneWay
+        oneWayButton.layer.opacity = 1
+        roundTripButton.layer.opacity = 0.5
     }
     
     // MARK: Convenience
@@ -178,7 +231,9 @@ class SearchVC: UIViewController, SearchVCDelegate {
         guard origin != nil else { return false }
         guard destination != nil else { return false }
         guard departureDate != nil else { return false }
-        guard returnDate != nil else { return false }
+        if selectedSearchType == .roundTrip {
+            return !(returnDate == nil)
+        }
         
         return true
     }
@@ -192,12 +247,38 @@ class SearchVC: UIViewController, SearchVCDelegate {
     }
     
     private func presentAirportPicker(withTag tag: Int, completion: (() -> Void)? = nil) {
-        let airportPickerVC = AirportPickerVC(nibName: Constants.AIRPORT_PICKER_VC, bundle: nil)
-        airportPickerVC.delegate = self
-        airportPickerVC.currentTextFieldTag = tag
+        guard airportPickerVC == nil else { return }
+        
+        airportPickerVC = AirportPickerVC()
+        airportPickerVC?.delegate = self
+        airportPickerVC!.currentTextFieldTag = tag
         searchDelegate = airportPickerVC
-        airportPickerVC.modalPresentationStyle = .overCurrentContext
-        present(airportPickerVC, animated: false, completion: completion)
+            
+        addChildViewController(airportPickerVC!)
+        airportPickerVC!.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(airportPickerVC!.view)
+            
+        NSLayoutConstraint.activate([
+            airportPickerVC!.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
+            airportPickerVC!.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+            airportPickerVC!.view.topAnchor.constraint(equalTo: originTextField.bottomAnchor, constant: 5),
+            airportPickerVC!.view.heightAnchor.constraint(equalToConstant: 250)
+        ])
+            
+        airportPickerVC!.didMove(toParentViewController: self)
+        
+        if let completion = completion {
+            completion()
+        }
+    }
+    
+    private func dismissAirportPicker() {
+        guard airportPickerVC != nil else { return }
+        guard childViewControllers.contains(airportPickerVC!) else { return }
+        airportPickerVC!.willMove(toParentViewController: nil)
+        airportPickerVC!.view.removeFromSuperview()
+        airportPickerVC!.removeFromParentViewController()
+        airportPickerVC = nil
     }
 }
 
@@ -215,8 +296,15 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        // TODO: Make size dynamic depending on type of cell
-        return 175
+        let oneWayRowHeight: CGFloat = 100
+        let roundTripCellHeight : CGFloat = 175
+        
+        switch selectedSearchType {
+        case .oneWay:
+            return oneWayRowHeight
+        case .roundTrip :
+            return roundTripCellHeight
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -239,12 +327,13 @@ extension SearchVC: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         guard textField.tag == 1 || textField.tag == 2 else { return }
-        presentAirportPicker(withTag: textField.tag)
+        
+        if airportPickerVC == nil {
+            presentAirportPicker(withTag: textField.tag)
+        }
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        guard textField.text == "" else { return }
-        
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
         switch textField.tag {
         case 1:
             self.origin = nil
@@ -253,20 +342,34 @@ extension SearchVC: UITextFieldDelegate {
         default:
             break
         }
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        //TODO: Update origin and destination based on textField.text
+        
+        if textField.text == "" {
+            switch textField.tag {
+            case 1:
+                self.origin = nil
+            case 2:
+                self.destination = nil
+            default:
+                break
+            }
+        }
+        dismissAirportPicker()
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         guard let query = textField.text else { return }
         
-        if let topViewController = UIApplication.topViewController() {
-            if topViewController.isKind(of: AirportPickerVC.self) {
-                searchDelegate?.searchQueryDidChange(query: query)
-            } else {
-                presentAirportPicker(withTag: textField.tag, completion: {
-                    self.searchDelegate?.searchQueryDidChange(query: query)
-                    textField.becomeFirstResponder()
-                })
-            }
+        if airportPickerVC != nil && childViewControllers.contains(airportPickerVC!) {
+            searchDelegate?.searchQueryDidChange(query: query)
+        } else {
+            presentAirportPicker(withTag: textField.tag, completion: {
+                self.searchDelegate?.searchQueryDidChange(query: query)
+            })
         }
     }
 }
