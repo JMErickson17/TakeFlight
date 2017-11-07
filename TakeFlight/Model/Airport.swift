@@ -26,8 +26,8 @@ struct Airport: Codable {
         return "\(name) [\(iata.uppercased())]"
     }
     
-    public var cityAndState: String {
-        return "\(city), \(stateAbbreviation)"
+    public var cityAndCountry: String {
+        return "\(city), \(country)"
     }
     
     // MARK: Lifetime

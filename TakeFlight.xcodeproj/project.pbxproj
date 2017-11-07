@@ -28,7 +28,6 @@
 		CAA0C71C1FAC036600FAFD69 /* MonthSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAA0C71B1FAC036600FAFD69 /* MonthSectionHeaderView.xib */; };
 		CAA19A0A1FA3BDD800A479A8 /* AirportPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA19A081FA3BDD800A479A8 /* AirportPickerVC.swift */; };
 		CAA19A0E1FA3C08000A479A8 /* AirportPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA19A0C1FA3C08000A479A8 /* AirportPickerCell.swift */; };
-		CAA19A0F1FA3C08000A479A8 /* AirportPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAA19A0D1FA3C08000A479A8 /* AirportPickerCell.xib */; };
 		CAA19A111FA3D1CA00A479A8 /* AirportPickerVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA19A101FA3D1CA00A479A8 /* AirportPickerVCDelegate.swift */; };
 		CABA2C5C1FA3E5F9001D9743 /* UserDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABA2C5B1FA3E5F9001D9743 /* UserDataService.swift */; };
 		CAEC73AA1F813C29004D6F0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73A91F813C29004D6F0B /* AppDelegate.swift */; };
@@ -90,7 +89,6 @@
 		CAA0C71B1FAC036600FAFD69 /* MonthSectionHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MonthSectionHeaderView.xib; sourceTree = "<group>"; };
 		CAA19A081FA3BDD800A479A8 /* AirportPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportPickerVC.swift; sourceTree = "<group>"; };
 		CAA19A0C1FA3C08000A479A8 /* AirportPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportPickerCell.swift; sourceTree = "<group>"; };
-		CAA19A0D1FA3C08000A479A8 /* AirportPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AirportPickerCell.xib; sourceTree = "<group>"; };
 		CAA19A101FA3D1CA00A479A8 /* AirportPickerVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportPickerVCDelegate.swift; sourceTree = "<group>"; };
 		CABA2C5B1FA3E5F9001D9743 /* UserDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataService.swift; sourceTree = "<group>"; };
 		CAEC73A61F813C29004D6F0B /* TakeFlight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TakeFlight.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -272,7 +270,6 @@
 			children = (
 				CA8A2D1B1FAE498F00C8D5E0 /* FlightDataCell.xib */,
 				CAEC73DF1F8144D1004D6F0B /* RoundTripFlightDataCell.xib */,
-				CAA19A0D1FA3C08000A479A8 /* AirportPickerCell.xib */,
 				CAA0C71B1FAC036600FAFD69 /* MonthSectionHeaderView.xib */,
 			);
 			path = "XIB Files";
@@ -433,7 +430,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAEC73B41F813C29004D6F0B /* LaunchScreen.storyboard in Resources */,
-				CAA19A0F1FA3C08000A479A8 /* AirportPickerCell.xib in Resources */,
 				CA8A2D1D1FAE498F00C8D5E0 /* FlightDataCell.xib in Resources */,
 				CAA0C71C1FAC036600FAFD69 /* MonthSectionHeaderView.xib in Resources */,
 				CAEC73B11F813C29004D6F0B /* Assets.xcassets in Resources */,

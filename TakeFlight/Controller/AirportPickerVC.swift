@@ -49,8 +49,9 @@ class AirportPickerVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.frame = view.frame
+        tableView.rowHeight = 60
         
-        tableView.register(UINib(nibName: Constants.AIRPORT_PICKER_CELL, bundle: nil), forCellReuseIdentifier: Constants.AIRPORT_PICKER_CELL)
+        tableView.register(AirportPickerCell.self, forCellReuseIdentifier: Constants.AIRPORT_PICKER_CELL)
         
         view.addSubview(tableView)
     }
@@ -64,7 +65,7 @@ extension AirportPickerVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.AIRPORT_PICKER_CELL, for: indexPath) as? AirportPickerCell {
             let airport = filteredAirports[indexPath.row]
-            cell.configureCell(name: airport.searchRepresentation, location: airport.cityAndState)
+            cell.configureCell(name: airport.searchRepresentation, location: airport.cityAndCountry)
             return cell
         }
         return UITableViewCell()
@@ -85,6 +86,9 @@ extension AirportPickerVC: UITableViewDelegate, UITableViewDataSource {
         // Dismiss airportPickerVC
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredAirports.count > maxSearchResults ? maxSearchResults : filteredAirports.count
