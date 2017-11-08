@@ -52,6 +52,7 @@ class DatePickerVC: UIViewController, DatePickerVCDelegate {
         calendarView.minimumInteritemSpacing = 0
         
         calendarView.register(UINib(nibName: "MonthSectionHeaderView", bundle: nil), forSupplementaryViewOfKind: "UICollectionElementKindSectionHeader", withReuseIdentifier: "MonthSectionHeaderView")
+        calendarView.register(DatePickerCell.self, forCellWithReuseIdentifier: Constants.DATE_PICKER_CELL)
         
         switch delegate!.selectedSearchType {
         case .oneWay:

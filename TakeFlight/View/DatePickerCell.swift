@@ -13,32 +13,47 @@ class DatePickerCell: JTAppleCell {
     
     // MARK: Properties
     
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var selectedView: UIView!
+    private var dateLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.medium)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     // MARK: View Life Cycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.selectedView.isHidden = true
-        self.selectedView.layer.cornerRadius = (selectedView.frame.height / 2)
+       //self.selectedView.isHidden = true
+        //self.selectedView.layer.cornerRadius = (selectedView.frame.height / 2)
     }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        contentView.addSubview(dateLabel)
+        
+        NSLayoutConstraint.activate([
+            dateLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            dateLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            ])
+    }
+    
+    
     
     // MARK: Convienence
     
-/**
-     Configure the current cell
- */
     func configureCell(withDate date: String, isSelected: Bool, cellState: CellState) {
         self.dateLabel.text = date
         handleSelectedView(isSelected: isSelected)
         handleCellState(cellState)
     }
     
-/**
-     Configure the view of the cells selected state based on its position in the range of selected dates.
- */
     func handleSelection(forState state: CellState) {
         switch state.selectedPosition() {
         case .full, .left, .right:
@@ -50,16 +65,10 @@ class DatePickerCell: JTAppleCell {
         }
     }
     
-/**
-     Configure the cells selected views
- */
     private func handleSelectedView(isSelected: Bool) {
-        self.selectedView.isHidden = !isSelected
+        //self.selectedView.isHidden = !isSelected
     }
     
-/**
-     Configure the view of the cell based on its current cellState
- */
     private func handleCellState(_ cellState: CellState) {
         if cellState.dateBelongsTo == .thisMonth {
             dateLabel.layer.opacity = 1
