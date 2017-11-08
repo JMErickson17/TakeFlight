@@ -37,7 +37,8 @@ struct FlightData {
         public private(set) var code: String
         public private(set) var name: String
         
-        static func convertToAircraft(fromArray array: [JSONRepresentable]) -> [Aircraft]? {
+        static func convertToAircraft(fromArray array: [JSONRepresentable]?) -> [Aircraft]? {
+            guard let array = array else { return nil }
             var aircraftArray = [Aircraft]()
             
             for element in array {
@@ -57,7 +58,8 @@ struct FlightData {
         public private(set) var city: String
         public private(set) var name: String
         
-        static func convertToAirport(fromArray array: [JSONRepresentable]) -> [Airport]? {
+        static func convertToAirport(fromArray array: [JSONRepresentable]?) -> [Airport]? {
+            guard let array = array else { return nil }
             var airportArray = [Airport]()
             
             for element in array {
@@ -77,7 +79,8 @@ struct FlightData {
         public private(set) var code: String
         public private(set) var name: String
         
-        static func convertToCarrier(fromArray array: [JSONRepresentable]) -> [Carrier]? {
+        static func convertToCarrier(fromArray array: [JSONRepresentable]?) -> [Carrier]? {
+            guard let array = array else { return nil }
             var carrierArray = [Carrier]()
             
             for element in array {
@@ -139,9 +142,9 @@ struct FlightData {
     static func parseQPXExpressToAirports(fromData data: JSONRepresentable) -> [FlightData]? {
         guard let trips = data["trips"] as? JSONRepresentable else { return nil }
         guard let tripData = trips["data"] as? JSONRepresentable else { return nil }
-        guard let aircrafts = Aircraft.convertToAircraft(fromArray: tripData["aircraft"] as! [JSONRepresentable]) else { return nil }
-        guard let airports = Airport.convertToAirport(fromArray: tripData["airport"] as! [JSONRepresentable]) else { return nil }
-        guard let carriers = Carrier.convertToCarrier(fromArray: tripData["carrier"] as! [JSONRepresentable]) else { return nil }
+        guard let aircrafts = Aircraft.convertToAircraft(fromArray: tripData["aircraft"] as? [JSONRepresentable]) else { return nil }
+        guard let airports = Airport.convertToAirport(fromArray: tripData["airport"] as? [JSONRepresentable]) else { return nil }
+        guard let carriers = Carrier.convertToCarrier(fromArray: tripData["carrier"] as? [JSONRepresentable]) else { return nil }
         guard let tripOption = trips["tripOption"] as? [JSONRepresentable] else { return nil }
         
         var flightDataArray = [FlightData]()

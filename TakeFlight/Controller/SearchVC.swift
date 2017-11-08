@@ -22,6 +22,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     private var user = UserDataService.instance
     private var airportPickerVC: AirportPickerVC?
+    private var datePickerVC: DatePickerVC?
     
     var searchDelegate: AirportPickerVCDelegate?
     
@@ -126,6 +127,10 @@ class SearchVC: UIViewController, SearchVCDelegate {
         if destinationTextField.isEditing {
             destinationTextField.endEditing(true)
         }
+        
+        if datePickerVC != nil && childViewControllers.contains(datePickerVC!) {
+            dismissDatePicker()
+        }
     }
 
     // MARK: Setup
@@ -216,6 +221,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     private func searchFlights(completion: @escaping ([FlightData]?) -> Void) {
         guard searchDataIsValid() else { return completion(nil) }
+        print("Searching...")
         let request = QPXExpress(adultCount: 1, origin: origin!.iata, destination: destination!.iata, date: departureDate!)
         
         FlightDataService.instance.retrieveFlightData(forRequest: request) { (flightData) in
@@ -224,22 +230,47 @@ class SearchVC: UIViewController, SearchVCDelegate {
     }
     
     private func searchDataIsValid() -> Bool {
-        guard origin != nil else { return false }
-        guard destination != nil else { return false }
-        guard departureDate != nil else { return false }
-        if selectedSearchType == .roundTrip {
-            return !(returnDate == nil)
+        if let userOrigin = user.origin, let userDestination = user.destination,
+            let userDepartureDate = user.departureDate, let userReturnDate = user.returnDate {
+            return (originTextField.text == userOrigin.searchRepresentation) &&
+                (destinationTextField.text == userDestination.searchRepresentation) &&
+                (departureDateTextField.text == formatter.string(from: userDepartureDate)) &&
+                (selectedSearchType == .roundTrip ? returnDateTextField.text == formatter.string(from: userReturnDate) : true)
         }
-        
-        return true
+        return false
     }
     
     private func presentDatePicker(completion: (() -> Void)? = nil) {
-        if let datePickerVC = storyboard?.instantiateViewController(withIdentifier: Constants.DATE_PICKER_VC) as? DatePickerVC {
-            datePickerVC.delegate = self
-            datePickerVC.modalPresentationStyle = .overCurrentContext
-            present(datePickerVC, animated: true, completion: completion)
+        guard datePickerVC == nil else { return }
+        
+        datePickerVC = DatePickerVC()
+        datePickerVC?.delegate = self
+        
+        addChildViewController(datePickerVC!)
+        datePickerVC!.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(datePickerVC!.view)
+        
+        NSLayoutConstraint.activate([
+            datePickerVC!.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            datePickerVC!.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            datePickerVC!.view.topAnchor.constraint(equalTo: departureDateTextField.bottomAnchor, constant: 10),
+            datePickerVC!.view.heightAnchor.constraint(equalToConstant: 400)
+        ])
+        
+        datePickerVC!.didMove(toParentViewController: self)
+        
+        if let completion = completion {
+            completion()
         }
+    }
+    
+    func dismissDatePicker() {
+        guard datePickerVC != nil else { return }
+        guard childViewControllers.contains(datePickerVC!) else { return }
+        datePickerVC!.willMove(toParentViewController: nil)
+        datePickerVC!.view.removeFromSuperview()
+        datePickerVC!.removeFromParentViewController()
+        datePickerVC = nil
     }
     
     private func presentAirportPicker(withTag tag: Int, completion: (() -> Void)? = nil) {
@@ -268,7 +299,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
         }
     }
     
-    private func dismissAirportPicker() {
+    func dismissAirportPicker() {
         guard airportPickerVC != nil else { return }
         guard childViewControllers.contains(airportPickerVC!) else { return }
         airportPickerVC!.willMove(toParentViewController: nil)

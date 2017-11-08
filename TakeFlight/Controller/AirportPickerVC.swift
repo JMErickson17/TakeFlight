@@ -83,7 +83,7 @@ extension AirportPickerVC: UITableViewDelegate, UITableViewDataSource {
         default:
             return
         }
-        // Dismiss airportPickerVC
+        delegate?.dismissAirportPicker()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

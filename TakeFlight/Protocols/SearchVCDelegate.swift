@@ -17,4 +17,6 @@ protocol SearchVCDelegate {
     var returnDate: Date? { get set }
     
     func clearDates()
+    func dismissAirportPicker()
+    func dismissDatePicker()
 }

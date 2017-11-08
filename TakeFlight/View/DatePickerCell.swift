@@ -15,19 +15,19 @@ class DatePickerCell: JTAppleCell {
     
     private var dateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.medium)
+        label.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.light)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    // MARK: View Life Cycle
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-       //self.selectedView.isHidden = true
-        //self.selectedView.layer.cornerRadius = (selectedView.frame.height / 2)
-    }
+    private var selectedView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+        view.clipsToBounds = true
+        view.isHidden = true
+        return view
+    }()
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -36,12 +36,20 @@ class DatePickerCell: JTAppleCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        
+        contentView.addSubview(selectedView)
         contentView.addSubview(dateLabel)
         
         NSLayoutConstraint.activate([
             dateLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            dateLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
-            ])
+            dateLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            selectedView.heightAnchor.constraint(equalToConstant: contentView.frame.width - 10),
+            selectedView.widthAnchor.constraint(equalToConstant: contentView.frame.width - 10),
+            selectedView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            selectedView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        ])
+        
+        selectedView.layer.cornerRadius = (contentView.frame.width - 10) / 2
     }
     
     
@@ -66,7 +74,7 @@ class DatePickerCell: JTAppleCell {
     }
     
     private func handleSelectedView(isSelected: Bool) {
-        //self.selectedView.isHidden = !isSelected
+        self.selectedView.isHidden = !isSelected
     }
     
     private func handleCellState(_ cellState: CellState) {

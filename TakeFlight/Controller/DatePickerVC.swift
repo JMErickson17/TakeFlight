@@ -13,8 +13,7 @@ class DatePickerVC: UIViewController, DatePickerVCDelegate {
     
     // MARK: Properties
     
-    @IBOutlet weak var backgroundView: UIView!
-    @IBOutlet weak var calendarView: JTAppleCalendarView!
+    private var calendarView: JTAppleCalendarView!
     
     var delegate: SearchVCDelegate?
     
@@ -38,18 +37,36 @@ class DatePickerVC: UIViewController, DatePickerVCDelegate {
     // MARK: Setup
     
     func setupView() {
-        let dismissTap = UITapGestureRecognizer(target: self, action: #selector(DatePickerVC.dismissViewContoller))
-        backgroundView.addGestureRecognizer(dismissTap)
+        view.layer.cornerRadius = 10
+        view.layer.borderColor = UIColor.black.cgColor
+        view.layer.borderWidth = 1
+        view.clipsToBounds = true
     }
+    
     
     func setupCalendar() {
         guard delegate != nil else { return dismissViewContoller() }
+        
+        calendarView = JTAppleCalendarView()
+        calendarView.backgroundColor = UIColor.white
+        calendarView.translatesAutoresizingMaskIntoConstraints = false
         
         calendarView.calendarDelegate = self
         calendarView.calendarDataSource = self
         
         calendarView.minimumLineSpacing = 0
         calendarView.minimumInteritemSpacing = 0
+        
+        calendarView.scrollDirection = .horizontal
+        calendarView.isPagingEnabled = true
+        view.addSubview(calendarView)
+        
+        NSLayoutConstraint.activate([
+            calendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            calendarView.topAnchor.constraint(equalTo: view.topAnchor),
+            calendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            calendarView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
         
         calendarView.register(UINib(nibName: "MonthSectionHeaderView", bundle: nil), forSupplementaryViewOfKind: "UICollectionElementKindSectionHeader", withReuseIdentifier: "MonthSectionHeaderView")
         calendarView.register(DatePickerCell.self, forCellWithReuseIdentifier: Constants.DATE_PICKER_CELL)
@@ -72,12 +89,13 @@ class DatePickerVC: UIViewController, DatePickerVCDelegate {
             }
         }
         calendarView.deselectAllDates()
+        view.addSubview(calendarView)
     }
     
     // MARK: Convenience
     
     @objc func dismissViewContoller() {
-        dismiss(animated: true, completion: nil)
+        delegate?.dismissDatePicker()
     }
 }
 
