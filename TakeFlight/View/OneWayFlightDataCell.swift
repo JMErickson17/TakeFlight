@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FlightDataCell: UITableViewCell {
+class OneWayFlightDataCell: UITableViewCell {
     
     // MARK: Properties
     
@@ -22,16 +22,15 @@ class FlightDataCell: UITableViewCell {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var priceSourceLabel: UILabel!
 
-    // MARK: View Life Cycle
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
 
     func configureCell(withFlightData data: FlightData) {
-        
+        takeOffTimeLabel.text = data.departureTime.toTime()
+        landingTimeLabel.text = data.arrivalTime.toTime()
+        detailsLabel.text = "\(data.tripDetails) \(data.carrier)"
+        stopCountLabel.text = "\(data.numberOfStops) \(data.numberOfStops == 1 ? "stop" : "stops")"
+        flightTimeLabel.text = data.duration
+        priceLabel.text = data.saleTotal
+        priceSourceLabel.text = "Via \(data.carrier)"
     }
     
 }

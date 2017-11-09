@@ -38,17 +38,19 @@ class RoundTripFlightDataCell: UITableViewCell {
 
     // MARK: Convenience
     
+    
+    
 /**
      Configure the cell for a given IndexPath
  */
-    func configureCell(withFlightData data: FlightData) {
-        departingTakeOffTimeLabel.text = data.departureTime.toTime()
-        departingLandingTimeLabel.text = data.arrivalTime.toTime()
-        departingDetailsLabel.text = "\(data.tripDetails) \(data.carrier)"
-        departingStopCountLabel.text = "\(data.numberOfStops) \(data.numberOfStops == 1 ? "stop" : "stops")"
-        departingFlightTimeLabel.text = data.duration
-        priceLabel.text = data.saleTotal
-        priceSourceLabel.text = "Via \(data.carrier)"
+    func configureCell(withFlightDataContainer data: FlightDataContainer) {
+        departingTakeOffTimeLabel.text = data.departure.departureTime.toTime()
+        departingLandingTimeLabel.text = data.departure.arrivalTime.toTime()
+        departingDetailsLabel.text = "\(data.departure.tripDetails) \(data.departure.carrier)"
+        departingStopCountLabel.text = "\(data.departure.numberOfStops) \(data.departure.numberOfStops == 1 ? "stop" : "stops")"
+        departingFlightTimeLabel.text = data.departure.duration
+        priceLabel.text = data.departure.saleTotal
+        priceSourceLabel.text = "Via \(data.departure.carrier)"
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

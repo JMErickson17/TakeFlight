@@ -103,7 +103,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
         return dateFormatter
     }()
     
-    private var flights = [FlightData]() {
+    private var flights = [(departure: FlightData, return: FlightData?)]() {
         didSet {
             flightDataTableView.reloadData()
             flightDataTableView.isHidden = flights.isEmpty
@@ -179,6 +179,9 @@ class SearchVC: UIViewController, SearchVCDelegate {
         flightDataTableView.delegate = self
         flightDataTableView.dataSource = self
         
+        let oneWayCell = UINib(nibName: Constants.ONE_WAY_FLIGHT_DATA_CELL, bundle: nil)
+        flightDataTableView.register(oneWayCell, forCellReuseIdentifier: Constants.ONE_WAY_FLIGHT_DATA_CELL)
+        
         let roundTripCell = UINib(nibName: Constants.ROUND_TRIP_FLIGHT_DATA_CELL, bundle: nil)
         flightDataTableView.register(roundTripCell, forCellReuseIdentifier: Constants.ROUND_TRIP_FLIGHT_DATA_CELL)
         
@@ -189,8 +192,10 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     @IBAction func searchButtonTapped(_ sender: Any) {
         searchFlights { (flightData) in
-            if let flights = flightData {
-                self.flights = flights
+            guard let flightData = flightData else { return }
+            self.flights = []
+            for flight in flightData {
+                self.flights.append((departure: flight, return: nil))
             }
         }
     }
@@ -314,16 +319,24 @@ class SearchVC: UIViewController, SearchVCDelegate {
 extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.ROUND_TRIP_FLIGHT_DATA_CELL, for: indexPath) as? RoundTripFlightDataCell {
-            let flight = flights[indexPath.row]
-            cell.configureCell(withFlightData: flight)
-            return cell
+        if selectedSearchType == .oneWay {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.ONE_WAY_FLIGHT_DATA_CELL, for: indexPath) as? OneWayFlightDataCell {
+                let flight = flights[indexPath.row].departure
+                cell.configureCell(withFlightData: flight)
+                return cell
+            }
+        } else {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.ROUND_TRIP_FLIGHT_DATA_CELL, for: indexPath) as? RoundTripFlightDataCell {
+                let flightContainer = flights[indexPath.row]
+                cell.configureCell(withFlightDataContainer: flightContainer)
+                return cell
+            }
         }
         return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let oneWayRowHeight: CGFloat = 100
+        let oneWayRowHeight: CGFloat = 125
         let roundTripCellHeight : CGFloat = 175
         
         switch selectedSearchType {

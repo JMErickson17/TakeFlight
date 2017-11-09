@@ -10,6 +10,7 @@ import Foundation
 import Firebase
 
 typealias JSONRepresentable = [String: Any]
+typealias FlightDataContainer = (departure: FlightData, return: FlightData?)
 
 enum Constants {
     
@@ -18,6 +19,7 @@ enum Constants {
     static let DATE_PICKER_VC = "DatePickerVC"
     static let AIRPORT_PICKER_VC = "AirportPickerVC"
     static let ROUND_TRIP_FLIGHT_DATA_CELL = "RoundTripFlightDataCell"
+    static let ONE_WAY_FLIGHT_DATA_CELL = "OneWayFlightDataCell"
     static let DATE_PICKER_CELL = "DatePickerCell"
     static let AIRPORT_PICKER_CELL = "AirportPickerCell"
     static let MONTH_SECTION_HEADER_VIEW = "MonthSectionHeaderView"

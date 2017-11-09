@@ -179,12 +179,6 @@ extension DatePickerVC: JTAppleCalendarViewDelegate {
         return true
     }
     
-    func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
-        if let cell = cell as? DatePickerCell {
-            
-        }
-    }
-    
     func calendar(_ calendar: JTAppleCalendarView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTAppleCollectionReusableView {
         if let header = calendar.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: "MonthSectionHeaderView", for: indexPath) as? MonthSectionHeaderView {
             header.configureHeader(withDate: range.start, delegate: self)
