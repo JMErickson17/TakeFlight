@@ -36,7 +36,6 @@ class DatePickerCell: JTAppleCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        
         contentView.addSubview(selectedView)
         contentView.addSubview(dateLabel)
         
@@ -52,13 +51,11 @@ class DatePickerCell: JTAppleCell {
         selectedView.layer.cornerRadius = (contentView.frame.width - 10) / 2
     }
     
-    
-    
     // MARK: Convienence
     
-    func configureCell(withDate date: String, isSelected: Bool, cellState: CellState) {
-        self.dateLabel.text = date
-        handleSelectedView(isSelected: isSelected)
+    func configureCell(withCellState cellState: CellState) {
+        self.dateLabel.text = cellState.text
+        handleSelectedView(isSelected: cellState.isSelected)
         handleCellState(cellState)
     }
     

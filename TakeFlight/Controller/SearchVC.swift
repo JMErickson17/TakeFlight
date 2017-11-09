@@ -352,14 +352,6 @@ extension SearchVC: UITextFieldDelegate {
         return false
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        guard textField.tag == 1 || textField.tag == 2 else { return }
-        
-        if airportPickerVC == nil {
-            presentAirportPicker(withTag: textField.tag)
-        }
-    }
-    
     func textFieldDidEndEditing(_ textField: UITextField) {
         //TODO: Update origin and destination based on textField.text
         
