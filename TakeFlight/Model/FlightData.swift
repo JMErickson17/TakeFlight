@@ -152,7 +152,8 @@ struct FlightData {
         
         for trip in tripOption {
             guard let id = trip["id"] as? String else { continue }
-            guard let saleTotal = trip["saleTotal"] as? String else { continue }
+            guard var saleTotal = trip["saleTotal"] as? String else { continue }
+            saleTotal = saleTotal.replacingOccurrences(of: "USD", with: "$")
             guard let slices = trip["slice"] as? [JSONRepresentable] else { continue }
         
             var flightSegmentsArray = [FlightSegment]()
