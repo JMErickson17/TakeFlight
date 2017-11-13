@@ -121,11 +121,13 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if originTextField.isEditing {
-            originTextField.endEditing(true)
+            let oldOrigin = origin
+            origin = oldOrigin
         }
         
         if destinationTextField.isEditing {
-            destinationTextField.endEditing(true)
+            let oldDestination = destination
+            destination = oldDestination
         }
         
         if datePickerVC != nil && childViewControllers.contains(datePickerVC!) {
@@ -165,14 +167,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
             self.selectedSearchType = SearchType(rawValue: searchType) ?? .oneWay
         }
         
-        switch selectedSearchType {
-        case .oneWay:
-            oneWayButton.layer.opacity = 1
-            roundTripButton.layer.opacity = 0.5
-        case .roundTrip:
-            oneWayButton.layer.opacity = 0.5
-            roundTripButton.layer.opacity = 1
-        }
+        updateViewForSearchType(selectedSearchType)
     }
     
     private func setupTableView() {
@@ -222,6 +217,17 @@ class SearchVC: UIViewController, SearchVCDelegate {
     func clearDates() {
         departureDate = nil
         returnDate = nil
+    }
+    
+    private func updateViewForSearchType(_ searchType: SearchType) {
+        switch searchType {
+        case .oneWay:
+            oneWayButton.layer.opacity = 1
+            roundTripButton.layer.opacity = 0.5
+        case.roundTrip:
+            oneWayButton.layer.opacity = 0.5
+            roundTripButton.layer.opacity = 1
+        }
     }
     
     private func searchFlights(completion: @escaping ([FlightData]?) -> Void) {
@@ -385,8 +391,13 @@ extension SearchVC: UITextFieldDelegate {
         guard let query = textField.text else { return }
         
         if airportPickerVC != nil && childViewControllers.contains(airportPickerVC!) {
-            searchDelegate?.searchQueryDidChange(query: query)
+            if query.count > 1 {
+                searchDelegate?.searchQueryDidChange(query: query)
+            } else {
+                dismissAirportPicker()
+            }
         } else {
+            guard query.count > 1 else { return }
             presentAirportPicker(withTag: textField.tag, completion: {
                 self.searchDelegate?.searchQueryDidChange(query: query)
             })
