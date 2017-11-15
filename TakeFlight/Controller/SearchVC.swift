@@ -131,7 +131,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
         }
         
         if datePickerVC != nil && childViewControllers.contains(datePickerVC!) {
-            dismissDatePicker()
+            searchVC(self, shouldDismissDatePicker: true)
         }
     }
 
@@ -209,14 +209,18 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     // MARK: Convenience
     
-    func clearLocations() {
-        origin = nil
-        destination = nil
+    func searchVC(_ searchVC: SearchVC, shouldClearLocations: Bool) {
+        if shouldClearLocations {
+            origin = nil
+            destination = nil
+        }
     }
     
-    func clearDates() {
-        departureDate = nil
-        returnDate = nil
+    func searchVC(_ searchVC: SearchVC, shouldClearDates: Bool) {
+        if shouldClearDates {
+            departureDate = nil
+            returnDate = nil
+        }
     }
     
     private func updateViewForSearchType(_ searchType: SearchType) {
@@ -251,6 +255,43 @@ class SearchVC: UIViewController, SearchVCDelegate {
         return false
     }
     
+    private func presentAirportPicker(withTag tag: Int, completion: (() -> Void)? = nil) {
+        guard airportPickerVC == nil else { return }
+        
+        airportPickerVC = AirportPickerVC()
+        airportPickerVC?.delegate = self
+        airportPickerVC!.currentTextFieldTag = tag
+        searchDelegate = airportPickerVC
+        
+        addChildViewController(airportPickerVC!)
+        airportPickerVC!.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(airportPickerVC!.view)
+        
+        NSLayoutConstraint.activate([
+            airportPickerVC!.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
+            airportPickerVC!.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+            airportPickerVC!.view.topAnchor.constraint(equalTo: originTextField.bottomAnchor, constant: 5),
+            airportPickerVC!.view.heightAnchor.constraint(equalToConstant: 250)
+            ])
+        
+        airportPickerVC!.didMove(toParentViewController: self)
+        
+        if let completion = completion {
+            completion()
+        }
+    }
+    
+    func searchVC(_ searchVC: SearchVC, shouldDismissAirportPicker: Bool) {
+        if shouldDismissAirportPicker {
+            guard airportPickerVC != nil else { return }
+            guard childViewControllers.contains(airportPickerVC!) else { return }
+            airportPickerVC!.willMove(toParentViewController: nil)
+            airportPickerVC!.view.removeFromSuperview()
+            airportPickerVC!.removeFromParentViewController()
+            airportPickerVC = nil
+        }
+    }
+    
     private func presentDatePicker(completion: (() -> Void)? = nil) {
         guard datePickerVC == nil else { return }
         
@@ -275,48 +316,15 @@ class SearchVC: UIViewController, SearchVCDelegate {
         }
     }
     
-    func dismissDatePicker() {
-        guard datePickerVC != nil else { return }
-        guard childViewControllers.contains(datePickerVC!) else { return }
-        datePickerVC!.willMove(toParentViewController: nil)
-        datePickerVC!.view.removeFromSuperview()
-        datePickerVC!.removeFromParentViewController()
-        datePickerVC = nil
-    }
-    
-    private func presentAirportPicker(withTag tag: Int, completion: (() -> Void)? = nil) {
-        guard airportPickerVC == nil else { return }
-        
-        airportPickerVC = AirportPickerVC()
-        airportPickerVC?.delegate = self
-        airportPickerVC!.currentTextFieldTag = tag
-        searchDelegate = airportPickerVC
-            
-        addChildViewController(airportPickerVC!)
-        airportPickerVC!.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(airportPickerVC!.view)
-            
-        NSLayoutConstraint.activate([
-            airportPickerVC!.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
-            airportPickerVC!.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
-            airportPickerVC!.view.topAnchor.constraint(equalTo: originTextField.bottomAnchor, constant: 5),
-            airportPickerVC!.view.heightAnchor.constraint(equalToConstant: 250)
-        ])
-            
-        airportPickerVC!.didMove(toParentViewController: self)
-        
-        if let completion = completion {
-            completion()
+    func searchVC(_ searchVC: SearchVC, shouldDismissDatePicker: Bool) {
+        if shouldDismissDatePicker {
+            guard datePickerVC != nil else { return }
+            guard childViewControllers.contains(datePickerVC!) else { return }
+            datePickerVC!.willMove(toParentViewController: nil)
+            datePickerVC!.view.removeFromSuperview()
+            datePickerVC!.removeFromParentViewController()
+            datePickerVC = nil
         }
-    }
-    
-    func dismissAirportPicker() {
-        guard airportPickerVC != nil else { return }
-        guard childViewControllers.contains(airportPickerVC!) else { return }
-        airportPickerVC!.willMove(toParentViewController: nil)
-        airportPickerVC!.view.removeFromSuperview()
-        airportPickerVC!.removeFromParentViewController()
-        airportPickerVC = nil
     }
 }
 
@@ -339,6 +347,10 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "ToFlightDetailsVC", sender: nil)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -384,7 +396,7 @@ extension SearchVC: UITextFieldDelegate {
                 break
             }
         }
-        dismissAirportPicker()
+        searchVC(self, shouldDismissAirportPicker: true)
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -392,14 +404,14 @@ extension SearchVC: UITextFieldDelegate {
         
         if airportPickerVC != nil && childViewControllers.contains(airportPickerVC!) {
             if query.count > 1 {
-                searchDelegate?.searchQueryDidChange(query: query)
+                searchDelegate?.airportPickerVC(searchDelegate as! AirportPickerVC, searchQueryDidChange: true, withQuery: query)
             } else {
-                dismissAirportPicker()
+                searchVC(self, shouldDismissAirportPicker: true)
             }
         } else {
             guard query.count > 1 else { return }
             presentAirportPicker(withTag: textField.tag, completion: {
-                self.searchDelegate?.searchQueryDidChange(query: query)
+                self.searchDelegate?.airportPickerVC(self.searchDelegate as! AirportPickerVC, searchQueryDidChange: true, withQuery: query)
             })
         }
     }

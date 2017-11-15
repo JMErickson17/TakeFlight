@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol SearchVCDelegate {
+protocol SearchVCDelegate: class {
     var datesSelected: SelectedState { get }
     var selectedSearchType: SearchType { get set }
     var origin: Airport? { get set }
@@ -16,7 +16,8 @@ protocol SearchVCDelegate {
     var departureDate: Date? { get set }
     var returnDate: Date? { get set }
     
-    func clearDates()
-    func dismissAirportPicker()
-    func dismissDatePicker()
+    func searchVC(_ searchVC: SearchVC, shouldClearLocations: Bool)
+    func searchVC(_ searchVC: SearchVC, shouldClearDates: Bool)
+    func searchVC(_ searchVC: SearchVC, shouldDismissAirportPicker: Bool)
+    func searchVC(_ searchVC: SearchVC, shouldDismissDatePicker: Bool)
 }

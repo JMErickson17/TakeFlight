@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol AirportPickerVCDelegate {
-    func searchQueryDidChange(query: String)
+protocol AirportPickerVCDelegate: class {
+    func airportPickerVC(_ airportPickerVC: AirportPickerVC, searchQueryDidChange: Bool, withQuery query: String)
 }

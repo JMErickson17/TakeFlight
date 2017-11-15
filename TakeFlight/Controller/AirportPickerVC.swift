@@ -83,7 +83,7 @@ extension AirportPickerVC: UITableViewDelegate, UITableViewDataSource {
         default:
             return
         }
-        delegate?.dismissAirportPicker()
+        delegate?.searchVC(delegate as! SearchVC, shouldDismissAirportPicker: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -98,7 +98,10 @@ extension AirportPickerVC: UITableViewDelegate, UITableViewDataSource {
 // MARK: UISearchController
 
 extension AirportPickerVC: AirportPickerVCDelegate {
-    func searchQueryDidChange(query: String) {
-        filteredAirports = FlightDataService.instance.searchAirports(forQuery: query)
+    
+    func airportPickerVC(_ airportPickerVC: AirportPickerVC, searchQueryDidChange: Bool, withQuery query: String) {
+        if searchQueryDidChange {
+            filteredAirports = FlightDataService.instance.searchAirports(forQuery: query)
+        }
     }
 }

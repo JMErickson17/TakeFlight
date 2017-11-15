@@ -124,7 +124,7 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.88414158938462251" green="0.88414158938462251" blue="0.88414158938462251" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.88235294117647056" green="0.88235294117647056" blue="0.88235294117647056" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Rwd-hw-pLi" secondAttribute="trailing" constant="20" id="27N-AE-kuW"/>
                                     <constraint firstItem="Rwd-hw-pLi" firstAttribute="top" secondItem="sVa-0L-NBq" secondAttribute="bottom" constant="10" id="EjN-5T-X7C"/>
@@ -165,11 +165,51 @@
                         <outlet property="originTextField" destination="Vlt-bU-zjx" id="S1p-kV-H59"/>
                         <outlet property="returnDateTextField" destination="SMo-cG-Sc2" id="9WX-qw-eMJ"/>
                         <outlet property="roundTripButton" destination="s82-Lx-tCF" id="CeB-Fw-vpJ"/>
+                        <segue destination="Rn3-zA-4sA" kind="showDetail" identifier="ToFlightDetailsVC" id="gp0-Iu-6mj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-100" y="118.29085457271366"/>
+        </scene>
+        <!--Flight DetailsVC-->
+        <scene sceneID="6JE-UE-R1G">
+            <objects>
+                <viewController id="Rn3-zA-4sA" customClass="FlightDetailsVC" customModule="TakeFlight" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cZj-9a-Cjm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PMk-tV-u8r">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flight Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WCr-h0-uqE">
+                                        <rect key="frame" x="137.5" y="29" width="100" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.88235294117647056" green="0.88235294117647056" blue="0.88235294117647056" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="WCr-h0-uqE" secondAttribute="bottom" constant="20" id="RUe-Xc-jC5"/>
+                                    <constraint firstItem="WCr-h0-uqE" firstAttribute="centerX" secondItem="PMk-tV-u8r" secondAttribute="centerX" id="RdQ-77-Jkf"/>
+                                    <constraint firstAttribute="height" constant="70" id="hoY-4P-KAD"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="PMk-tV-u8r" firstAttribute="leading" secondItem="Y35-Jf-grX" secondAttribute="leading" id="5hV-4q-NyB"/>
+                            <constraint firstItem="PMk-tV-u8r" firstAttribute="top" secondItem="cZj-9a-Cjm" secondAttribute="top" id="LIr-L7-AeV"/>
+                            <constraint firstItem="Y35-Jf-grX" firstAttribute="trailing" secondItem="PMk-tV-u8r" secondAttribute="trailing" id="pAE-YF-cDh"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Y35-Jf-grX"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UVS-Y0-OL0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="672.79999999999995" y="117.39130434782609"/>
         </scene>
     </scenes>
 </document>

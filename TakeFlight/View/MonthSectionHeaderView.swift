@@ -16,8 +16,7 @@ class MonthSectionHeaderView: JTAppleCollectionReusableView {
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var yearLabel: UILabel!
     
-    var delegate: DatePickerVCDelegate?
-    
+    weak var delegate: DatePickerVCDelegate?
     
     // MARK: Convenience
     
@@ -30,6 +29,6 @@ class MonthSectionHeaderView: JTAppleCollectionReusableView {
     // MARK: Actions
     
     @IBAction func datesSelectedButtonTapped(_ sender: Any) {
-        delegate?.dismissViewContoller()
+        delegate?.datePickerVC(delegate as! DatePickerVC, shouldDismissViewController: true)
     }
 }

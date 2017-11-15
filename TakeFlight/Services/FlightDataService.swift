@@ -17,10 +17,6 @@ final class FlightDataService {
     // MARK: Properties
     
     public private(set) var airports = [Airport]()
-    
-    // Laminar API
-    private let LAMINAR_BASE_URL = "https://api.laminardata.aero/v1/"
-    private let LAMINAR_API_KEY = "e6e8e6e5695eb8405ee3a66f1a86d060"
 
     // Google QPX Express API
     private let GOOGLE_REQUEST_URI = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyDRrFNibpoBA2FELmAAHX_SEj1_yBaUN4E"

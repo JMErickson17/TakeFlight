@@ -55,7 +55,7 @@ class DatePickerVC: UIViewController, DatePickerVCDelegate {
     
     
     func setupCalendar() {
-        guard delegate != nil else { return dismissViewContoller() }
+        guard delegate != nil else { return datePickerVC(self, shouldDismissViewController: true) }
         
         calendarView.calendarDelegate = self
         calendarView.calendarDataSource = self
@@ -92,15 +92,18 @@ class DatePickerVC: UIViewController, DatePickerVCDelegate {
     
     // MARK: Convenience
     
-    @objc func dismissViewContoller() {
-        delegate?.dismissDatePicker()
+    @objc func datePickerVC(_ datePickerVC: DatePickerVC, shouldDismissViewController: Bool) {
+        if shouldDismissViewController {
+            delegate?.searchVC(delegate as! SearchVC, shouldDismissDatePicker: true)
+        }
     }
     
     private func clearAllDates() {
-        guard delegate != nil else { return }
-        calendarView.deselectAllDates()
-        delegate!.clearDates()
-        calendarView.reloadData()
+        if let delegate = delegate {
+            delegate.searchVC(delegate as! SearchVC, shouldClearDates: true)
+            calendarView.deselectAllDates()
+            calendarView.reloadData()
+        }
     }
 }
 

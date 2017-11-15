@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol DatePickerVCDelegate {
-    func dismissViewContoller()
+protocol DatePickerVCDelegate: class {
+    func datePickerVC(_ datePickerVC: DatePickerVC, shouldDismissViewController: Bool)
 }
