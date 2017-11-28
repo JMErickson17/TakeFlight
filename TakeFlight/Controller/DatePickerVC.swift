@@ -47,7 +47,7 @@ class DatePickerVC: UIViewController, DatePickerVCDelegate {
     // MARK: Setup
     
     func setupView() {
-        view.layer.cornerRadius = 10
+        view.layer.cornerRadius = 5
         view.layer.borderColor = UIColor.black.cgColor
         view.layer.borderWidth = 1
         view.clipsToBounds = true

@@ -29,20 +29,7 @@ class RoundTripFlightDataCell: UITableViewCell {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var priceSourceLabel: UILabel!
     
-    // MARK: View Life Cycle
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-    }
-
-    // MARK: Convenience
-    
-    
-    
-/**
-     Configure the cell for a given IndexPath
- */
     func configureCell(withFlightDataContainer data: FlightDataContainer) {
         departingTakeOffTimeLabel.text = data.departure.departureTime.toTime()
         departingLandingTimeLabel.text = data.departure.arrivalTime.toTime()
@@ -52,11 +39,6 @@ class RoundTripFlightDataCell: UITableViewCell {
         priceLabel.text = data.departure.saleTotal
         priceSourceLabel.text = "Via \(data.departure.carrier)"
     }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+ 
 
-        // Configure the view for the selected state
-    }
-    
 }

@@ -57,5 +57,6 @@ struct Airport: Codable {
         
         self.init(name: name, city: city, state: state, stateAbbreviation: stateAbbreviation, country: country, iata: iata, lat: Double(lat)!, lon: Double(lon)!, timeZone: timeZone)
     }
+    
 }
 

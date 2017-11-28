@@ -32,5 +32,5 @@ class OneWayFlightDataCell: UITableViewCell {
         priceLabel.text = data.saleTotal
         priceSourceLabel.text = "Via \(data.carrier)"
     }
-    
 }
+

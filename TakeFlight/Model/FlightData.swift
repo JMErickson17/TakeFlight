@@ -139,7 +139,7 @@ struct FlightData {
 /**
      Parses a QPXExpress response dictionary into an array of FlightData and passes it to the completion handler.
  */
-    static func parseQPXExpressToAirports(fromData data: JSONRepresentable) -> [FlightData]? {
+    static func parseQPXExpressToFlightData(fromData data: JSONRepresentable) -> [FlightData]? {
         guard let trips = data["trips"] as? JSONRepresentable else { return nil }
         guard let tripData = trips["data"] as? JSONRepresentable else { return nil }
         guard let aircrafts = Aircraft.convertToAircraft(fromArray: tripData["aircraft"] as? [JSONRepresentable]) else { return nil }

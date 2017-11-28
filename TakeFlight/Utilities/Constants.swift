@@ -24,9 +24,6 @@ enum Constants {
     static let AIRPORT_PICKER_CELL = "AirportPickerCell"
     static let MONTH_SECTION_HEADER_VIEW = "MonthSectionHeaderView"
     
-    // MARK: Segues
-    
-    static let TO_DATE_PICKER = "ToDatePicker"
     
     // MARK: Firebase
     

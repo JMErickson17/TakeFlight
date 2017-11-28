@@ -20,12 +20,9 @@ class DatePickerCell: JTAppleCell {
         return label
     }()
     
-    private var selectedView: UIView = {
-        let view = UIView()
+    private var selectedView: SelectedDateView = {
+        let view = SelectedDateView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
-        view.clipsToBounds = true
-        view.isHidden = true
         return view
     }()
     
@@ -42,13 +39,11 @@ class DatePickerCell: JTAppleCell {
         NSLayoutConstraint.activate([
             dateLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             dateLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            selectedView.heightAnchor.constraint(equalToConstant: contentView.frame.width - 10),
-            selectedView.widthAnchor.constraint(equalToConstant: contentView.frame.width - 10),
+            selectedView.heightAnchor.constraint(equalToConstant: contentView.frame.width),
+            selectedView.widthAnchor.constraint(equalToConstant: contentView.frame.width),
             selectedView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             selectedView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
-        
-        selectedView.layer.cornerRadius = (contentView.frame.width - 10) / 2
     }
     
     // MARK: Convienence
@@ -57,17 +52,7 @@ class DatePickerCell: JTAppleCell {
         self.dateLabel.text = cellState.text
         handleSelectedView(isSelected: cellState.isSelected)
         handleCellState(cellState)
-    }
-    
-    func handleSelection(forState state: CellState) {
-        switch state.selectedPosition() {
-        case .full, .left, .right:
-            self.handleSelectedView(isSelected: true)
-        case .middle:
-            self.handleSelectedView(isSelected: true)
-        default:
-            self.handleSelectedView(isSelected: false)
-        }
+        selectedView.drawView(forState: cellState)
     }
     
     private func handleSelectedView(isSelected: Bool) {

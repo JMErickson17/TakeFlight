@@ -10,9 +10,6 @@ import Foundation
 
 extension String {
     
-/**
-     Converts a QPXExpress Date String to a Date.
- */
     func qpxExpressStringToDate() -> Date? {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mmZZZZZ"
