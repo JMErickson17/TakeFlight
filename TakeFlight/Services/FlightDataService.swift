@@ -30,7 +30,6 @@ final class FlightDataService {
                        "grant_type": "client_credentials"]
         
         let requestURL = makeURL(fromInstaFlightRequest: request)
-        print(requestURL)
         Alamofire.request(requestURL, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             print(response)
         }
@@ -64,10 +63,6 @@ final class FlightDataService {
         return "\(instaFlightTestingEndpoint)?" + options.joined(separator: "&")
     }
     
-    
-    
-    
-    
     // MARK: Airports
     
     public private(set) var airports = [Airport]()
@@ -80,33 +75,5 @@ final class FlightDataService {
     
     func searchAirports(forQuery query: String) -> [Airport] {
         return airports.filter { $0.searchRepresentation.lowercased().contains(query.lowercased()) }
-    }
-    
-    // MARK: QPXExpress
-    
-    private let GOOGLE_REQUEST_URI = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyDRrFNibpoBA2FELmAAHX_SEj1_yBaUN4E"
-    
-/**
-     Performs a given request to the QPXExpress server and passes an array of FlightData to the completion handler.
-     
-     - Parameter forRequest: A QPXExpress object containing the request for flight information.
-     - Parameter completion: A completion handler that is passed an array of FlightData
- */
-    func retrieveFlightData(forRequest request: QPXExpress, completion: @escaping ([FlightData]?) -> Void) {
-        let headers = ["Content-Type": "application/json"]
-        let requestDict = request.dictionaryRepresentation
-        var flightData: [FlightData]?
-
-        DispatchQueue.global().async {
-            Alamofire.request(self.GOOGLE_REQUEST_URI, method: .post, parameters: requestDict, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
-                guard response.error == nil else { completion(nil); return }
-                guard let data = response.data else { completion(nil); return }
-                
-                if let json = try? JSONSerialization.jsonObject(with: data, options: []) as! [String: Any] {
-                    flightData = FlightData.parseQPXExpressToFlightData(fromData: json)
-                }
-                completion(flightData)
-            }
-        }
     }
 }

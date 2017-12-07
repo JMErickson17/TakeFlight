@@ -12,7 +12,7 @@ class AirportPickerCell: UITableViewCell {
     
     private var nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.light)
+        label.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -23,11 +23,6 @@ class AirportPickerCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

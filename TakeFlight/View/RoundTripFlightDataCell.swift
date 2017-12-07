@@ -8,36 +8,30 @@
 
 import UIKit
 
-class RoundTripFlightDataCell: UITableViewCell {
+class RoundTripFlightDataCell: FlightDataCell {
     
     // MARK: Properties
 
+    @IBOutlet weak var headerLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
+    
     @IBOutlet weak var departingAirlineImage: UIImageView!
-    @IBOutlet weak var departingTakeOffTimeLabel: UILabel!
-    @IBOutlet weak var departingLandingTimeLabel: UILabel!
-    @IBOutlet weak var departingDetailsLabel: UILabel!
+    @IBOutlet weak var departingTimeLabel: UILabel!
+    @IBOutlet weak var departingAirlineNameLabel: UILabel!
     @IBOutlet weak var departingStopCountLabel: UILabel!
-    @IBOutlet weak var departingFlightTimeLabel: UILabel!
+    @IBOutlet weak var departingDurationLabel: UILabel!
     
     @IBOutlet weak var returningAirlineImage: UIImageView!
-    @IBOutlet weak var returningTakeOffTimeLabel: UILabel!
-    @IBOutlet weak var returningLandingTimeLabel: UILabel!
-    @IBOutlet weak var returningDetailsLabel: UILabel!
+    @IBOutlet weak var returningTimeLabel: UILabel!
+    @IBOutlet weak var returningAirlineNameLabel: UILabel!
     @IBOutlet weak var returningStopCountLabel: UILabel!
-    @IBOutlet weak var returningFlightTimeLabel: UILabel!
+    @IBOutlet weak var returningDurationLabel: UILabel!
     
-    @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var priceSourceLabel: UILabel!
+    let height: CGFloat = 175
     
-    
-    func configureCell(withFlightDataContainer data: FlightDataContainer) {
-        departingTakeOffTimeLabel.text = data.departure.departureTime.toTime()
-        departingLandingTimeLabel.text = data.departure.arrivalTime.toTime()
-        departingDetailsLabel.text = "\(data.departure.tripDetails) \(data.departure.carrier)"
-        departingStopCountLabel.text = "\(data.departure.numberOfStops) \(data.departure.numberOfStops == 1 ? "stop" : "stops")"
-        departingFlightTimeLabel.text = data.departure.duration
-        priceLabel.text = data.departure.saleTotal
-        priceSourceLabel.text = "Via \(data.departure.carrier)"
+    func configureCell(withFlightData data: FlightData) {
+        
+        
     }
  
 

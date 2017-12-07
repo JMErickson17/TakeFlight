@@ -15,6 +15,18 @@ class DatePickerVC: UIViewController, DatePickerVCDelegate {
     
     var delegate: SearchVCDelegate?
     
+    private let centerTooltipLocation: CGFloat = 0.50
+    private let departureTooltipLocation: CGFloat = 0.25
+    private let returnTooltipLocation: CGFloat = 0.75
+    
+    private lazy var tooltipView: TooltipView = {
+        let view = TooltipView()
+        view.isOpaque = false
+        view.tooltipLocation = 0.25
+        view.contentMode = .redraw
+        return view
+    }()
+    
     private var calendarView: JTAppleCalendarView = {
         let calendar = JTAppleCalendarView()
         calendar.translatesAutoresizingMaskIntoConstraints = false
@@ -40,32 +52,35 @@ class DatePickerVC: UIViewController, DatePickerVCDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupView()
         setupCalendar()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        setupView()
     }
     
     // MARK: Setup
     
     func setupView() {
-        view.layer.cornerRadius = 5
-        view.layer.borderColor = UIColor.black.cgColor
-        view.layer.borderWidth = 1
-        view.clipsToBounds = true
+        tooltipView.frame = view.bounds
+        view.addSubview(tooltipView)
+        
+        tooltipView.addSubview(calendarView)
+        NSLayoutConstraint.activate([
+            calendarView.leadingAnchor.constraint(equalTo: tooltipView.leadingAnchor, constant: 3),
+            calendarView.topAnchor.constraint(equalTo: tooltipView.topAnchor, constant: 3),
+            calendarView.trailingAnchor.constraint(equalTo: tooltipView.trailingAnchor, constant: -3),
+            calendarView.bottomAnchor.constraint(equalTo: tooltipView.bottomAnchor, constant: -3)
+        ])
     }
-    
     
     func setupCalendar() {
         guard delegate != nil else { return datePickerVC(self, shouldDismissViewController: true) }
         
         calendarView.calendarDelegate = self
         calendarView.calendarDataSource = self
-        view.addSubview(calendarView)
-        NSLayoutConstraint.activate([
-            calendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            calendarView.topAnchor.constraint(equalTo: view.topAnchor),
-            calendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            calendarView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
         
         calendarView.register(UINib(nibName: Constants.MONTH_SECTION_HEADER_VIEW, bundle: nil), forSupplementaryViewOfKind: "UICollectionElementKindSectionHeader", withReuseIdentifier: Constants.MONTH_SECTION_HEADER_VIEW)
         calendarView.register(DatePickerCell.self, forCellWithReuseIdentifier: Constants.DATE_PICKER_CELL)
@@ -105,6 +120,19 @@ class DatePickerVC: UIViewController, DatePickerVCDelegate {
             calendarView.reloadData()
         }
     }
+    
+    func datePickerVC(_ datePickerVC: DatePickerVC, shouldMoveTooltip: Bool, forSelectedState selectedState: SelectedState) {
+        if shouldMoveTooltip {
+            switch selectedState {
+            case.none:
+                tooltipView.animateTooltip(to: departureTooltipLocation, withDuration: 1.0)
+            case .departure:
+                tooltipView.animateTooltip(to: returnTooltipLocation, withDuration: 1.0)
+            case .departureAndReturn:
+                tooltipView.animateTooltip(to: centerTooltipLocation, withDuration: 1.0)
+            }
+        }
+    }
 }
 
 // MARK: - JTAppleCalendarViewDelegate
@@ -131,7 +159,6 @@ extension DatePickerVC: JTAppleCalendarViewDelegate {
         if let firstVisibleDate = visibleDates.indates.first?.date,
             let lastVisibleDate = visibleDates.outdates.last?.date {
             let visibleDateRange = DateRange(startDate: firstVisibleDate, endDate: lastVisibleDate)
-            print(visibleDateRange)
             
             switch delegate!.datesSelected {
             case .none:
@@ -155,13 +182,15 @@ extension DatePickerVC: JTAppleCalendarViewDelegate {
 
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         guard delegate != nil else { return }
+        let datesSelected = delegate!.datesSelected
+        datePickerVC(self, shouldMoveTooltip: true, forSelectedState: datesSelected)
         
         if let cell = cell as? DatePickerCell {
             if delegate!.selectedSearchType == .oneWay {
                 delegate!.departureDate = date
                 cell.configureCell(withCellState: cellState)
             } else {
-                switch delegate!.datesSelected {
+                switch datesSelected {
                 case .none:
                     delegate!.departureDate = date
                     cell.configureCell(withCellState: cellState)
@@ -183,7 +212,7 @@ extension DatePickerVC: JTAppleCalendarViewDelegate {
     }
     
     func calendar(_ calendar: JTAppleCalendarView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTAppleCollectionReusableView {
-        if let header = calendar.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: "MonthSectionHeaderView", for: indexPath) as? MonthSectionHeaderView {
+        if let header = calendar.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: Constants.MONTH_SECTION_HEADER_VIEW, for: indexPath) as? MonthSectionHeaderView {
             header.configureHeader(withDate: range.start, delegate: self)
             return header
         }

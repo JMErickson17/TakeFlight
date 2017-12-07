@@ -15,8 +15,24 @@ class AirportPickerVC: UIViewController {
     var delegate: SearchVCDelegate?
     var currentTextFieldTag: Int?
     
-    private var tableView: UITableView!
     private var maxSearchResults = 20
+    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.rowHeight = 60
+        tableView.register(AirportPickerCell.self, forCellReuseIdentifier: Constants.AIRPORT_PICKER_CELL)
+        return tableView
+    }()
+    
+    private lazy var tooltipView: TooltipView = {
+        let view = TooltipView()
+        view.tooltipLocation = (currentTextFieldTag == 1 ? 0.25 : 0.75)
+        view.isOpaque = false
+        view.borderRadius = 5
+        return view
+    }()
     
     private var filteredAirports = [Airport]() {
         didSet {
@@ -26,36 +42,21 @@ class AirportPickerVC: UIViewController {
 
     // MARK: View Life Cycle
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        setupView()
-        setupTableView()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        setup()
     }
 
     // MARK: Setup
     
-    func setupView() {
+    func setup() {
+        tooltipView.frame = view.bounds
+        view.addSubview(tooltipView)
         
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 5
-        view.layer.shadowOpacity = 0.7
-        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-        view.clipsToBounds = true
+        tableView.frame = CGRect(x: 5, y: 5, width: tooltipView.bounds.width - 10, height: tooltipView.bounds.height - 10)
+        tooltipView.addSubview(tableView)
     }
-    
-    func setupTableView() {
-        tableView = UITableView()
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.frame = view.frame
-        tableView.rowHeight = 60
-        
-        tableView.register(AirportPickerCell.self, forCellReuseIdentifier: Constants.AIRPORT_PICKER_CELL)
-        
-        view.addSubview(tableView)
-    }
-    
 }
 
 // MARK: - UITableView

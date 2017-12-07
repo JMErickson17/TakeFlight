@@ -13,7 +13,6 @@ struct DateRange {
     var startDate: Date
     var endDate: Date
     
-    
     func contains(date: Date) -> Bool {
         return (min(self.startDate, self.endDate)...max(self.startDate, self.endDate)).contains(date)
     }

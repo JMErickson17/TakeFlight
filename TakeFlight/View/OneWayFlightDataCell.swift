@@ -8,29 +8,27 @@
 
 import UIKit
 
-class OneWayFlightDataCell: UITableViewCell {
+class OneWayFlightDataCell: FlightDataCell {
     
     // MARK: Properties
     
-    @IBOutlet weak var airlineImage: UIImageView!
-    @IBOutlet weak var takeOffTimeLabel: UILabel!
-    @IBOutlet weak var landingTimeLabel: UILabel!
-    @IBOutlet weak var detailsLabel: UILabel!
-    @IBOutlet weak var stopCountLabel: UILabel!
-    @IBOutlet weak var flightTimeLabel: UILabel!
-    
+    @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var priceSourceLabel: UILabel!
-
+    @IBOutlet weak var airlineImage: UIImageView!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var airlineNameLabel: UILabel!
+    @IBOutlet weak var stopCountLabel: UILabel!
+    @IBOutlet weak var durationLabel: UILabel!
+    
+    let height: CGFloat = 120
 
     func configureCell(withFlightData data: FlightData) {
-        takeOffTimeLabel.text = data.departureTime.toTime()
-        landingTimeLabel.text = data.arrivalTime.toTime()
-        detailsLabel.text = "\(data.tripDetails) \(data.carrier)"
-        stopCountLabel.text = "\(data.numberOfStops) \(data.numberOfStops == 1 ? "stop" : "stops")"
-        flightTimeLabel.text = data.duration
-        priceLabel.text = data.saleTotal
-        priceSourceLabel.text = "Via \(data.carrier)"
+        headerLabel.text = data.shortDescription
+        priceLabel.text = makePriceString(withPrice: data.saleTotal)
+        timeLabel.attributedText = makeTimeString(departureTime: data.departingFlight.departureTime, arrivalTime: data.departingFlight.arrivalTime)
+        airlineNameLabel.text = data.departingFlight.carrier
+        stopCountLabel.text = makeStopCountString(with: data.departingFlight.stopCount)
+        durationLabel.text = makeDurationString(withDuration: data.departingFlight.duration)
     }
 }
 

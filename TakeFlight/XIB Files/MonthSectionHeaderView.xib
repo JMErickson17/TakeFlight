@@ -17,14 +17,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MonthSectionHeaderView" customModule="TakeFlight" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="63"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l6M-HK-Qx5">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="63"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="KWr-ij-NdK">
-                            <rect key="frame" x="8" y="4" width="83" height="22"/>
+                            <rect key="frame" x="8" y="6.5" width="83" height="22"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Month" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Rw-nm-8k8">
                                     <rect key="frame" x="0.0" y="0.0" width="48" height="22"/>
@@ -41,7 +41,7 @@
                             </subviews>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Ycy-cj-w5V" userLabel="Day Stack View">
-                            <rect key="frame" x="0.0" y="30" width="375" height="19.5"/>
+                            <rect key="frame" x="0.0" y="38.5" width="375" height="19.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sun" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b2X-z2-afV">
                                     <rect key="frame" x="0.0" y="0.0" width="53.5" height="19.5"/>
@@ -87,14 +87,15 @@
                                 </label>
                             </subviews>
                         </stackView>
-                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QYR-Iw-yEg">
-                            <rect key="frame" x="340" y="5" width="25" height="25"/>
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QYR-Iw-yEg" customClass="PillButton" customModule="TakeFlight" customModuleProvider="target">
+                            <rect key="frame" x="295" y="5" width="70" height="25"/>
+                            <color key="backgroundColor" red="0.14901960784313725" green="0.50980392156862742" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="25" id="jRe-f1-vQ1"/>
+                                <constraint firstAttribute="width" constant="70" id="jRe-f1-vQ1"/>
                                 <constraint firstAttribute="height" constant="25" id="pG2-4p-320"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                            <state key="normal" image="DoneButton"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <state key="normal" title="Done"/>
                             <connections>
                                 <action selector="datesSelectedButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="edF-in-X7d"/>
                             </connections>
@@ -102,11 +103,11 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="Ycy-cj-w5V" firstAttribute="top" secondItem="KWr-ij-NdK" secondAttribute="bottom" constant="4" id="1ap-l4-PRd"/>
+                        <constraint firstItem="Ycy-cj-w5V" firstAttribute="top" secondItem="KWr-ij-NdK" secondAttribute="bottom" constant="10" id="1ap-l4-PRd"/>
                         <constraint firstAttribute="trailing" secondItem="Ycy-cj-w5V" secondAttribute="trailing" id="4da-tk-xee"/>
                         <constraint firstItem="KWr-ij-NdK" firstAttribute="leading" secondItem="l6M-HK-Qx5" secondAttribute="leading" constant="8" id="LVl-fX-cY9"/>
+                        <constraint firstItem="KWr-ij-NdK" firstAttribute="centerY" secondItem="QYR-Iw-yEg" secondAttribute="centerY" id="MAL-LL-q66"/>
                         <constraint firstItem="Ycy-cj-w5V" firstAttribute="leading" secondItem="l6M-HK-Qx5" secondAttribute="leading" id="Vhq-Di-cmM"/>
-                        <constraint firstItem="KWr-ij-NdK" firstAttribute="top" secondItem="l6M-HK-Qx5" secondAttribute="top" constant="4" id="aMU-MS-DYZ"/>
                         <constraint firstAttribute="trailing" secondItem="QYR-Iw-yEg" secondAttribute="trailing" constant="10" id="fvd-d5-m8E"/>
                         <constraint firstItem="QYR-Iw-yEg" firstAttribute="top" secondItem="l6M-HK-Qx5" secondAttribute="top" constant="5" id="jKT-ba-x3A"/>
                     </constraints>
@@ -125,10 +126,7 @@
                 <outlet property="monthLabel" destination="8Rw-nm-8k8" id="gRR-Ju-9vf"/>
                 <outlet property="yearLabel" destination="TiE-mG-kVe" id="RsZ-d4-0Ta"/>
             </connections>
-            <point key="canvasLocation" x="24.5" y="357.5"/>
+            <point key="canvasLocation" x="24.5" y="361.5"/>
         </view>
     </objects>
-    <resources>
-        <image name="DoneButton" width="30" height="31"/>
-    </resources>
 </document>
