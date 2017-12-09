@@ -30,9 +30,17 @@ class RoundTripFlightDataCell: FlightDataCell {
     let height: CGFloat = 175
     
     func configureCell(withFlightData data: FlightData) {
+        headerLabel.text = data.shortDescription
+        priceLabel.text = makePriceString(withPrice: data.saleTotal)
         
+        departingTimeLabel.attributedText = makeTimeString(departureTime: data.departingFlight.departureTime, arrivalTime: data.departingFlight.arrivalTime)
+        departingAirlineNameLabel.text = data.departingFlight.carrier
+        departingStopCountLabel.text = makeStopCountString(with: data.departingFlight.stopCount)
+        departingDurationLabel.text = makeDurationString(withDuration: data.departingFlight.duration)
         
+        returningTimeLabel.attributedText = makeTimeString(departureTime: data.returningFlight!.departureTime, arrivalTime: data.returningFlight!.arrivalTime)
+        returningAirlineNameLabel.text = data.returningFlight?.carrier
+        returningStopCountLabel.text = makeStopCountString(with: data.returningFlight?.stopCount ?? -1)
+        returningDurationLabel.text = makeDurationString(withDuration: data.returningFlight?.duration ?? -1)
     }
- 
-
 }

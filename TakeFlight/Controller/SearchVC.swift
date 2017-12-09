@@ -28,6 +28,8 @@ class SearchVC: UIViewController, SearchVCDelegate {
     @IBOutlet weak var searchContainerView: UIView!
     @IBOutlet weak var searchContainerViewTopAnchor: NSLayoutConstraint!
     
+    weak var searchDelegate: AirportPickerVCDelegate?
+    
     private var user = UserDataService.instance
     private var requestManager = QPXExpress()
     private var airportPickerVC: AirportPickerVC?
@@ -37,8 +39,6 @@ class SearchVC: UIViewController, SearchVCDelegate {
             flightDataTableView.isScrollEnabled = (flightDetailsVC == nil)
         }
     }
-    
-    weak var searchDelegate: AirportPickerVCDelegate?
     
     var selectedSearchType: SearchType = .oneWay {
         didSet {
@@ -163,11 +163,11 @@ class SearchVC: UIViewController, SearchVCDelegate {
     // MARK: Setup
     
     private func setupView() {
-        departureDateTextField.delegate = self
-        returnDateTextField.delegate = self
-        
         originTextField.delegate = self
         destinationTextField.delegate = self
+        
+        departureDateTextField.delegate = self
+        returnDateTextField.delegate = self
         
         originTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         destinationTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -249,16 +249,18 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     private func searchFlightsWithUserDefaults(completion: @escaping ([FlightData]?, Error?) -> Void) {
         guard searchDataIsValid() else { return completion(nil, FlightSearchError.invalidSearchData) }
+        var returnDate: Date?
+        if selectedSearchType == .roundTrip, let userReturnDate = user.returnDate {
+            returnDate = userReturnDate
+        }
         
         let userOptions = [QPXExpressOptions]()
-        let request = requestManager.makeQPXRequest(adultCount: 1, from: user.origin!, to: user.destination!, departing: user.departureDate!, returning: user.returnDate, withOptions: userOptions)
-        
+        let request = requestManager.makeQPXRequest(adultCount: 1, from: user.origin!, to: user.destination!, departing: user.departureDate!, returning: returnDate, withOptions: userOptions)
         print(request)
         
         requestManager.fetch(qpxRequest: request) { (flightData, error) in
             guard error == nil else { return completion(nil, error!) }
             if let flightData = flightData {
-//                print(flightData)
                 completion(flightData, nil)
             }
         }

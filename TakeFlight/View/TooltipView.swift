@@ -12,7 +12,7 @@ import CoreGraphics
 @IBDesignable
 class TooltipView: UIView {
     
-    var tooltipLocation: CGFloat = 0.5
+    var tooltipLocation: CGFloat = 0.7
     var tooltipWidth: CGFloat = 5
     var tooltipHeight: CGFloat = 5
 
@@ -28,9 +28,14 @@ class TooltipView: UIView {
     
     var width = 0
     var height = 0
+    
+    private var tooltipShapeLayer: CAShapeLayer?
 
     override func draw(_ rect: CGRect) {
-        drawTooltipView(atLocation: tooltipLocation)
+        tooltipShapeLayer = drawTooltipViewShape(atLocation: tooltipLocation)
+        if let tooltipShapeLayer = tooltipShapeLayer {
+            self.layer.insertSublayer(tooltipShapeLayer, at: 0)
+        }
     }
     
     private func topLeft(_ x: CGFloat, _ y: CGFloat) -> CGPoint {
@@ -47,6 +52,40 @@ class TooltipView: UIView {
     
     private func bottomRight(_ x: CGFloat, _ y: CGFloat) -> CGPoint {
         return CGPoint(x: CGFloat(width) - x, y: CGFloat(height) - y)
+    }
+    
+    private func drawTooltipViewShape(atLocation location: CGFloat) -> CAShapeLayer {
+        width = Int(bounds.width)
+        height = Int(bounds.height)
+        
+        let path = UIBezierPath()
+        
+        path.move(to: topLeft(0, borderRadius))
+        path.addCurve(to: topLeft(borderRadius, 0), controlPoint1: topLeft(0, borderRadius / 2), controlPoint2: topLeft(borderRadius / 2, 0))
+        
+        path.addLine(to: topRight(borderRadius, 0))
+        path.addCurve(to: topRight(0, borderRadius), controlPoint1: topRight(borderRadius / 2, 0), controlPoint2: topRight(0, borderRadius / 2))
+        
+        path.addLine(to: bottomRight(0, borderRadius))
+        path.addCurve(to: bottomRight(borderRadius, 0), controlPoint1: bottomRight(0, borderRadius / 2), controlPoint2: bottomRight(borderRadius / 2, 0))
+        
+        path.addLine(to: bottomLeft(borderRadius, 0))
+        path.addCurve(to: bottomLeft(0, borderRadius), controlPoint1: bottomLeft(borderRadius / 2, 0), controlPoint2: bottomLeft(0, borderRadius / 2))
+        path.close()
+        
+        let tipCenter = CGFloat.lerp(min: bounds.width, max: 0, norm: location)
+        path.move(to: topLeft((bounds.width - tipCenter) - tooltipWidth, 0))
+        path.addLine(to: topLeft((bounds.width - tipCenter), -tooltipHeight))
+        path.addLine(to: topLeft((bounds.width - tipCenter) + tooltipWidth, 0))
+        path.close()
+        
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = path.cgPath
+        shapeLayer.fillColor = fillColor.cgColor
+        shapeLayer.strokeColor = borderColor.cgColor
+        shapeLayer.lineWidth = CGFloat(borderWidth * 2)
+        
+        return shapeLayer
     }
     
     private func drawTooltipView(atLocation location: CGFloat) {
@@ -93,12 +132,22 @@ class TooltipView: UIView {
         fillShape.path = path.cgPath
         fillShape.fillColor = fillColor.cgColor
         
-        self.layer.insertSublayer(shadowShape, at: 0)
-        self.layer.insertSublayer(borderShape, at: 0)
-        self.layer.insertSublayer(fillShape, at: 0)
+//        self.layer.insertSublayer(shadowShape, at: 0)
+//        self.layer.insertSublayer(borderShape, at: 0)
+//        self.layer.insertSublayer(fillShape, at: 0)
     }
     
+    
     func animateTooltip(to location: CGFloat, withDuration duration: Double, completion: ((Bool) -> Void)? = nil) {
-        let animation = CABasicAnimation(keyPath: "tooltip")
+        guard let previousToolTipShape = tooltipShapeLayer else { return }
+        print("Animating from \(tooltipLocation) to \(location)")
+        
+        let newToolTipShape = drawTooltipViewShape(atLocation: location)
+        let animation = CABasicAnimation(keyPath: "path")
+        animation.fromValue = previousToolTipShape
+        animation.toValue = newToolTipShape
+        animation.duration = duration
+        self.layer.add(animation, forKey: "pathAnimation")
+        tooltipLocation = location
     }
 }

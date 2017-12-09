@@ -149,8 +149,6 @@ struct QPXExpress {
                 
                 let flightSegment = FlightSegment(id: id, flightNumber: flightNumber, carrier: carrier, cabin: cabin, bookingCode: bookingCode, bookingCodeCount: bookingCodeCount, marriedSegmentGroup: marriedSegmentGroup, subjectToGovernmentApproval: subjectToGovernmentApproval, duration: duration, connectionDuration: connectionDuration, legs: legs)
                 flightSegments.append(flightSegment)
-                
-                
             }
             sliceArray.append(flightSegments)
         }
