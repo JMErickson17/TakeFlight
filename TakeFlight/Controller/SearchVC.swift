@@ -142,6 +142,18 @@ class SearchVC: UIViewController, SearchVCDelegate {
         
         setupView()
         setupTableView()
+        
+        //let fakeIndexPath = IndexPath()
+        //presentFlightDetails(forCellAt: fakeIndexPath)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.title = "Search Flights"
+        let backButton = UIBarButtonItem()
+        backButton.title = "Back"
+        navigationItem.backBarButtonItem = backButton
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -163,6 +175,11 @@ class SearchVC: UIViewController, SearchVCDelegate {
     // MARK: Setup
     
     private func setupView() {
+        
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.barStyle = .black
+        
         originTextField.delegate = self
         destinationTextField.delegate = self
         
@@ -205,7 +222,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
             }
             if let flightData = flightData {
                 self?.flights = flightData
-                print(flightData)
+//                print(flightData)
             }
         }
     }
@@ -256,7 +273,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
         
         let userOptions = [QPXExpressOptions]()
         let request = requestManager.makeQPXRequest(adultCount: 1, from: user.origin!, to: user.destination!, departing: user.departureDate!, returning: returnDate, withOptions: userOptions)
-        print(request)
+//        print(request)
         
         requestManager.fetch(qpxRequest: request) { (flightData, error) in
             guard error == nil else { return completion(nil, error!) }
@@ -350,59 +367,10 @@ class SearchVC: UIViewController, SearchVCDelegate {
     }
     
     private func presentFlightDetails(forCellAt indexPath: IndexPath, completion: (() -> Void)? = nil) {
-        guard flightDetailsVC == nil else { return }
-        guard let cell = flightDataTableView.cellForRow(at: indexPath) else { return }
-        
-        flightDetailsVC = FlightDetailsVC()
-        // Setup Code
-        
-        addChildViewController(flightDetailsVC!)
-        flightDetailsVC!.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(flightDetailsVC!.view)
-        
-        NSLayoutConstraint.activate([
-            flightDetailsVC!.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            flightDetailsVC!.view.topAnchor.constraint(equalTo: flightDataTableView.topAnchor, constant: cell.frame.height),
-            flightDetailsVC!.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            flightDetailsVC!.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
-        if let completion = completion {
-            completion()
-        }
-    }
-    
-    func searchVC(_ searchVC: SearchVC, shouldDismissFlightDetails: Bool) {
-        if shouldDismissFlightDetails {
-            guard flightDetailsVC != nil else { return }
-            guard childViewControllers.contains(flightDetailsVC!) else { return }
-            flightDetailsVC!.willMove(toParentViewController: nil)
-            flightDetailsVC!.view.removeFromSuperview()
-            flightDetailsVC!.removeFromParentViewController()
-            flightDetailsVC = nil
-        }
-    }
-    
-    private func hideSearchContainerView(withDuration duration: TimeInterval = 1.0, completion: (() -> Void)? = nil) {
-        UIView.animate(withDuration: duration, animations: { [weak self] in
-            self?.searchContainerViewTopAnchor.constant = -(self?.searchContainerView.frame.height ?? 0)
-            self?.view.layoutIfNeeded()
-        }) { finished in
-            if finished, let completion = completion {
-                completion()
-            }
-        }
-    }
-    
-    private func showSearchContainerView(withDuration duration: TimeInterval = 1.0, completion: (() -> Void)? = nil) {
-        UIView.animate(withDuration: duration, animations: { [weak self] in
-            self?.searchContainerViewTopAnchor.constant = 0
-            self?.view.layoutIfNeeded()
-        }) { finished in
-            if finished, let completion = completion {
-                completion()
-            }
-        }
+        let data = flights[indexPath.row]
+        let flightDetailsVC = FlightDetailsVC()
+        flightDetailsVC.flightData = data
+        navigationController?.pushViewController(flightDetailsVC, animated: true)
     }
 }
 
@@ -411,7 +379,6 @@ class SearchVC: UIViewController, SearchVCDelegate {
 extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //return tableView.dequeueReusableCell(withIdentifier: Constants.ONE_WAY_FLIGHT_DATA_CELL) as! OneWayFlightDataCell
         if selectedSearchType == .oneWay {
             if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.ONE_WAY_FLIGHT_DATA_CELL, for: indexPath) as? OneWayFlightDataCell {
                 let flightData = flights[indexPath.row]
@@ -428,35 +395,8 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
         return UITableViewCell()
     }
     
-    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        guard let cell = tableView.cellForRow(at: indexPath) else { return nil }
-
-        if cell.isSelected {
-            tableView.deselectRow(at: indexPath, animated: true)
-            showSearchContainerView()
-            searchVC(self, shouldDismissFlightDetails: true)
-            tableView.reloadData()
-            return nil
-        }
-        return indexPath
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView.cellForRow(at: indexPath) == tableView.topCell {
-            hideSearchContainerView {
-                self.presentFlightDetails(forCellAt: indexPath, completion: nil)
-            }
-        } else {
-            hideSearchContainerView()
-            tableView.scrollToRow(at: indexPath, at: .top, withDuration: 1.0, completion: {
-                self.presentFlightDetails(forCellAt: indexPath, completion: nil)
-            })
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        showSearchContainerView()
-        tableView.reloadData()
+        presentFlightDetails(forCellAt: indexPath)
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

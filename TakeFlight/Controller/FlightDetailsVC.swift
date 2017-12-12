@@ -12,6 +12,8 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
     
     // MARK: Properties
     
+    var flightData: FlightData?
+    
     private lazy var scrollView: UIScrollView = {
         var scrollView = UIScrollView()
         scrollView.delegate = self
@@ -30,7 +32,16 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
         return view
     }()
     
-    private lazy var flightCardView: FlightCardView = {
+    private lazy var longDescription: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.light)
+        label.adjustsFontSizeToFitWidth = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var departingFlightCardView: FlightCardView = {
         var flightCard = FlightCardView()
         flightCard.translatesAutoresizingMaskIntoConstraints = false
         return flightCard
@@ -43,7 +54,9 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
     }
 
     private func setupView() {
-        view.backgroundColor = .white
+        guard let flightData = flightData else { return }
+        
+        view.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         
         view.addSubview(scrollView)
         NSLayoutConstraint.activate([
@@ -57,12 +70,21 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
         contentView.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
         scrollView.addSubview(contentView)
         
-        contentView.addSubview(flightCardView)
+        longDescription.text = flightData.longDescription
+        contentView.addSubview(longDescription)
         NSLayoutConstraint.activate([
-            flightCardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            flightCardView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            flightCardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            flightCardView.heightAnchor.constraint(equalToConstant: 400)
+            longDescription.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            longDescription.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            longDescription.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
+        ])
+        
+        departingFlightCardView.setupCard(withFlight: flightData.departingFlight)
+        contentView.addSubview(departingFlightCardView)
+        NSLayoutConstraint.activate([
+            departingFlightCardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            departingFlightCardView.topAnchor.constraint(equalTo: longDescription.bottomAnchor, constant: 20),
+            departingFlightCardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            departingFlightCardView.heightAnchor.constraint(equalToConstant: 400)
         ])
     }
 }

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Hue
 
 @IBDesignable class BlueGradientView: UIView {
     
@@ -23,13 +22,7 @@ import Hue
         }
     }
     
-    lazy var gradient = [primary, secondary].gradient { gradient in
-        gradient.startPoint = CGPoint(x: 0, y: 0)
-        gradient.endPoint = CGPoint(x: 1, y: 1)
-        
-        gradient.frame = self.bounds
-        return gradient
-    }
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -44,7 +37,7 @@ import Hue
     }
  
     func setGradient () {
-        self.layer.insertSublayer(gradient, at: 0)
+        //self.layer.insertSublayer(gradient, at: 0)
     }
     
 }

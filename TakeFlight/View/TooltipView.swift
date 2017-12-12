@@ -32,10 +32,7 @@ class TooltipView: UIView {
     private var tooltipShapeLayer: CAShapeLayer?
 
     override func draw(_ rect: CGRect) {
-        tooltipShapeLayer = drawTooltipViewShape(atLocation: tooltipLocation)
-        if let tooltipShapeLayer = tooltipShapeLayer {
-            self.layer.insertSublayer(tooltipShapeLayer, at: 0)
-        }
+        drawTooltipView(atLocation: tooltipLocation)
     }
     
     private func topLeft(_ x: CGFloat, _ y: CGFloat) -> CGPoint {
@@ -132,9 +129,9 @@ class TooltipView: UIView {
         fillShape.path = path.cgPath
         fillShape.fillColor = fillColor.cgColor
         
-//        self.layer.insertSublayer(shadowShape, at: 0)
-//        self.layer.insertSublayer(borderShape, at: 0)
-//        self.layer.insertSublayer(fillShape, at: 0)
+        self.layer.insertSublayer(shadowShape, at: 0)
+        self.layer.insertSublayer(borderShape, at: 0)
+        self.layer.insertSublayer(fillShape, at: 0)
     }
     
     
