@@ -9,7 +9,6 @@
 import Foundation
 
 struct DateRange {
-    
     var startDate: Date
     var endDate: Date
     

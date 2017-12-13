@@ -256,6 +256,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
         case .oneWay:
             oneWayButton.layer.opacity = 1
             roundTripButton.layer.opacity = 0.5
+            returnDate = nil
         case.roundTrip:
             oneWayButton.layer.opacity = 0.5
             roundTripButton.layer.opacity = 1

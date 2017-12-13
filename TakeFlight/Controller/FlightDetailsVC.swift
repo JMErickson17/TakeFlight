@@ -83,8 +83,7 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
         NSLayoutConstraint.activate([
             departingFlightCardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             departingFlightCardView.topAnchor.constraint(equalTo: longDescription.bottomAnchor, constant: 20),
-            departingFlightCardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            departingFlightCardView.heightAnchor.constraint(equalToConstant: 400)
+            departingFlightCardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
         ])
     }
 }
