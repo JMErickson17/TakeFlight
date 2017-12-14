@@ -213,8 +213,6 @@ extension DatePickerVC: JTAppleCalendarViewDelegate {
         return true
     }
     
-
-    
     func calendar(_ calendar: JTAppleCalendarView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTAppleCollectionReusableView {
         if let header = calendar.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: Constants.MONTH_SECTION_HEADER_VIEW, for: indexPath) as? MonthSectionHeaderView {
             header.configureHeader(withDate: range.start, delegate: self)

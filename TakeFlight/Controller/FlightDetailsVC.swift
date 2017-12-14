@@ -101,7 +101,7 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
                 returningFlightCardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
                 returningFlightCardView.topAnchor.constraint(equalTo: departingFlightCardView.bottomAnchor, constant: 20),
                 returningFlightCardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
-                ])
+            ])
         }
     }
 }

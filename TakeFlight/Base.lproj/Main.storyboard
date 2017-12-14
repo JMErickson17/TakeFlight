@@ -171,7 +171,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="PR0-4O-uL6">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.14901960784313725" green="0.50980392156862742" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="PrimaryBlue"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" name="PrimaryBlue"/>
                         <textAttributes key="titleTextAttributes">
@@ -190,7 +190,7 @@
     </scenes>
     <resources>
         <namedColor name="PrimaryBlue">
-            <color red="0.14900000393390656" green="0.50999999046325684" blue="0.87099999189376831" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.15700000524520874" green="0.37599998712539673" blue="0.87099999189376831" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

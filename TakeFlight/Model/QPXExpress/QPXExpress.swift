@@ -128,8 +128,8 @@ struct QPXExpress {
                 
                 for leg in segment.leg {
                     let id = leg.id
-                    let aircraft = leg.aircraft
-                    
+                    guard let aircraftIndex = supportingData.aircraft.index(where: { $0.code == leg.aircraft }) else { throw QPXExpressError.parseError }
+                    let aircraft = supportingData.aircraft[aircraftIndex]
                     guard let arrivalTime = convertToDate(fromString: leg.arrivalTime) else { throw QPXExpressError.parseError }
                     guard let departureTime = convertToDate(fromString: leg.departureTime) else { throw QPXExpressError.parseError }
                     let origin = leg.origin
@@ -143,7 +143,7 @@ struct QPXExpress {
                     let secure = leg.secure
                     let connectionDuration = leg.connectionDuration
                     
-                    let leg = FlightSegment.Leg(id: id, aircraft: aircraft, departureTime: departureTime, arrivalTime: arrivalTime, origin: origin, originTerminal: originTerminal, destination: destination, destinationTerminal: destinationTerminal, duration: duration, onTimePerformance: onTimePerformance, mileage: mileage, meal: meal, secure: secure, connectionDuration: connectionDuration)
+                    let leg = FlightSegment.Leg(id: id, aircraft: aircraft.name, departureTime: departureTime, arrivalTime: arrivalTime, origin: origin, originTerminal: originTerminal, destination: destination, destinationTerminal: destinationTerminal, duration: duration, onTimePerformance: onTimePerformance, mileage: mileage, meal: meal, secure: secure, connectionDuration: connectionDuration)
                     legs.append(leg)
                 }
                 

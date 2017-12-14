@@ -308,7 +308,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
             airportPickerVC!.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
             airportPickerVC!.view.topAnchor.constraint(equalTo: originTextField.bottomAnchor, constant: 5),
             airportPickerVC!.view.heightAnchor.constraint(equalToConstant: 250)
-            ])
+        ])
         
         airportPickerVC!.didMove(toParentViewController: self)
         

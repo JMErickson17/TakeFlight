@@ -228,12 +228,19 @@ extension FlightCardView {
         private var leg: FlightSegment.Leg?
         private let detailsStackViewXInset: CGFloat = 10
         private let detailsStackViewYInset: CGFloat = 10
+        private let detailImages: [String: UIImage] = [
+            "duration": #imageLiteral(resourceName: "ClockIcon"),
+            "meal": #imageLiteral(resourceName: "KnifeForkIcon"),
+            "wifi": #imageLiteral(resourceName: "WifiSignalIcon"),
+            "aircraft": #imageLiteral(resourceName: "AirplaneFrontIcon"),
+            "onTimePerformance": #imageLiteral(resourceName: "StopWatchIcon")
+        ]
         
         lazy var detailsStackView: UIStackView = {
             let stackView = UIStackView()
             stackView.translatesAutoresizingMaskIntoConstraints = false
             stackView.axis = .vertical
-            stackView.spacing = 5
+            stackView.spacing = 10
             return stackView
         }()
         
@@ -288,29 +295,33 @@ extension FlightCardView {
             self.leg = leg
             
             let legDetails: [String: String] = [
-                "Duration": String(leg.duration),
-                "Aircraft": leg.aircraft,
-                "Wifi": "",
-                "Meal": leg.meal ?? "None",
-                "On Time Performance": String(describing: leg.onTimePerformance)
+                "duration": makeString(withDuration: leg.duration),
+                "aircraft": leg.aircraft,
+                "wifi": "",
+                "meal": leg.meal ?? "",
+                "onTimePerformance": makeString(withOnTimePerformance: leg.onTimePerformance)
             ]
             
-            for (key, value) in legDetails {
-                let label = makeDetailLabel(withKey: key, value: value)
-                detailsStackView.addArrangedSubview(label)
+            for (key, value) in legDetails where value != "" {
+                let detailsView = IconAndLabelView()
+                detailsView.image = detailImages[key]
+                detailsView.text = value
+                detailsStackView.addArrangedSubview(detailsView)
             }
             
             setNeedsLayout()
             setNeedsDisplay()
         }
+
+        func makeString(withDuration duration: Int) -> String {
+            let hours = duration / 60
+            let minutes = duration % 60
+            return "\(hours)h \(minutes)m"
+        }
         
-        private func makeDetailLabel(withKey key: String, value: String) -> UILabel {
-            let label = UILabel()
-            label.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.light)
-            label.textColor = .white
-            label.textAlignment = .left
-            label.text = "\(key)  \(value)"
-            return label
+        func makeString(withOnTimePerformance onTimePerformance: Int?) -> String {
+            guard let onTimePerformance = onTimePerformance else { return "" }
+            return "\(onTimePerformance)% On Time"
         }
     }
 }
