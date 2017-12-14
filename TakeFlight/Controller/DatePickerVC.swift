@@ -46,7 +46,6 @@ class DatePickerVC: UIViewController, DatePickerVCDelegate {
         return dateFormatter
     }()
     
-    
     // MARK: View Life Cycle
     
     override func viewDidLoad() {
@@ -114,8 +113,8 @@ class DatePickerVC: UIViewController, DatePickerVCDelegate {
     }
     
     private func clearAllDates() {
-        if let delegate = delegate {
-            delegate.searchVC(delegate as! SearchVC, shouldClearDates: true)
+        if let delegate = delegate as? SearchVC {
+            delegate.searchVC(delegate, shouldClearDates: true)
             calendarView.deselectAllDates()
             calendarView.reloadData()
         }
@@ -183,7 +182,6 @@ extension DatePickerVC: JTAppleCalendarViewDelegate {
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         guard delegate != nil else { return }
         let datesSelected = delegate!.datesSelected
-        datePickerVC(self, shouldMoveTooltip: true, forSelectedState: datesSelected)
         
         if let cell = cell as? DatePickerCell {
             if delegate!.selectedSearchType == .oneWay {
@@ -207,9 +205,15 @@ extension DatePickerVC: JTAppleCalendarViewDelegate {
     }
     
     func calendar(_ calendar: JTAppleCalendarView, shouldDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState) -> Bool {
-        clearAllDates()
+        if let delegate = delegate {
+            if delegate.datesSelected != .none {
+                clearAllDates()
+            }
+        }
         return true
     }
+    
+
     
     func calendar(_ calendar: JTAppleCalendarView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTAppleCollectionReusableView {
         if let header = calendar.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: Constants.MONTH_SECTION_HEADER_VIEW, for: indexPath) as? MonthSectionHeaderView {

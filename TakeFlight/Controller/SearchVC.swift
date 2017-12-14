@@ -26,7 +26,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
     @IBOutlet weak var roundTripButton: UIButton!
     @IBOutlet weak var oneWayButton: UIButton!
     @IBOutlet weak var searchContainerView: UIView!
-    @IBOutlet weak var searchContainerViewTopAnchor: NSLayoutConstraint!
+    @IBOutlet weak var takeOffLoadingView: TakeoffLoadingView!
     
     weak var searchDelegate: AirportPickerVCDelegate?
     
@@ -118,10 +118,6 @@ class SearchVC: UIViewController, SearchVCDelegate {
         return dateFormatter
     }()
     
-    private var searchContainerIsVisible: Bool {
-        return searchContainerViewTopAnchor.constant == 0
-    }
-    
     private var flights = [FlightData]() {
         didSet {
             DispatchQueue.main.async {
@@ -142,9 +138,6 @@ class SearchVC: UIViewController, SearchVCDelegate {
         
         setupView()
         setupTableView()
-        
-        //let fakeIndexPath = IndexPath()
-        //presentFlightDetails(forCellAt: fakeIndexPath)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -186,6 +179,8 @@ class SearchVC: UIViewController, SearchVCDelegate {
         departureDateTextField.delegate = self
         returnDateTextField.delegate = self
         
+        takeOffLoadingView.delegate = self
+        
         originTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         destinationTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
@@ -221,8 +216,9 @@ class SearchVC: UIViewController, SearchVCDelegate {
                 return
             }
             if let flightData = flightData {
-                self?.flights = flightData
-//                print(flightData)
+                self?.takeOffLoadingView.performTakeoffAnimation(withCompletion: {
+                    self?.flights = flightData
+                })
             }
         }
     }
@@ -256,7 +252,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
         case .oneWay:
             oneWayButton.layer.opacity = 1
             roundTripButton.layer.opacity = 0.5
-            returnDate = nil
+//            returnDate = nil
         case.roundTrip:
             oneWayButton.layer.opacity = 0.5
             roundTripButton.layer.opacity = 1
@@ -424,7 +420,6 @@ extension SearchVC: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        //TODO: Update origin and destination based on textField.text
         if textField.text == "" {
             handleClearTextField(textField)
         }
@@ -462,4 +457,15 @@ extension SearchVC: UITextFieldDelegate {
             })
         }
     }
+}
+
+// MARK: SearchVC+TakeoffLoadingViewDelegate
+
+extension SearchVC: TakeoffLoadingViewDelegate {
+    
+    func takeoffLoadingView(_ takeoffLoadingView: TakeoffLoadingView, runwayWillAnimateOffScreen: Bool) {
+        
+    }
+    
+    
 }

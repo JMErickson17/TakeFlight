@@ -46,6 +46,12 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
         flightCard.translatesAutoresizingMaskIntoConstraints = false
         return flightCard
     }()
+    
+    private lazy var returningFlightCardView: FlightCardView = {
+        var flightCard = FlightCardView()
+        flightCard.translatesAutoresizingMaskIntoConstraints = false
+        return flightCard
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +63,8 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
         guard let flightData = flightData else { return }
         
         view.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        
+        self.title = flightData.shortDescription
         
         view.addSubview(scrollView)
         NSLayoutConstraint.activate([
@@ -85,5 +93,15 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
             departingFlightCardView.topAnchor.constraint(equalTo: longDescription.bottomAnchor, constant: 20),
             departingFlightCardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
         ])
+        
+        if let returningFlight = flightData.returningFlight {
+            returningFlightCardView.setupCard(withFlight: returningFlight)
+            contentView.addSubview(returningFlightCardView)
+            NSLayoutConstraint.activate([
+                returningFlightCardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+                returningFlightCardView.topAnchor.constraint(equalTo: departingFlightCardView.bottomAnchor, constant: 20),
+                returningFlightCardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
+                ])
+        }
     }
 }

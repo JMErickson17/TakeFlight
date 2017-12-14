@@ -33,12 +33,17 @@ class FlightDataCell: UITableViewCell {
         return "\(hours)h \(minutes)m"
     }
     
-    func makeStopCountString(with stops: Int) -> String {
+    func makeStopCountString(with stops: Int) -> NSAttributedString {
+        var string: String
+        var attributes = [NSAttributedStringKey: Any]()
         if stops == 0 {
-            return "Non-Stop"
+            string = "Non-Stop"
+            attributes[NSAttributedStringKey.foregroundColor] = UIColor(named: "StopCountGreen")
         } else {
-            return "\(stops) \((stops == 1 ? "stop" : "stops"))"
+            attributes[NSAttributedStringKey.foregroundColor] = UIColor(named: "StopCountRed")
+            string = "\(stops) \((stops == 1 ? "stop" : "stops"))"
         }
+        return NSAttributedString(string: string, attributes: attributes)
     }
 
 }

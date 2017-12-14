@@ -13,7 +13,6 @@ class TimelineView: UIView {
     // MARK: Properties
     
     var labelXInset: CGFloat = 5
-    var labelYInset: CGFloat = 5
     var circleXInset: CGFloat = 10
     var circleYInset: CGFloat = 5
     var circleDiameter: CGFloat = 20
@@ -40,7 +39,7 @@ class TimelineView: UIView {
     }
     
     var topLabelLocation: CGPoint {
-        return CGPoint(x: circleXInset + circleDiameter + labelXInset, y: labelYInset)
+        return CGPoint(x: circleXInset + circleDiameter + labelXInset, y: topCircleLocation.y + (circleDiameter / 2) - (labelFontSize / 2))
     }
     
     var bottomCircleLocation: CGPoint {
@@ -48,7 +47,7 @@ class TimelineView: UIView {
     }
     
     var bottomLabelLocation: CGPoint {
-        return CGPoint(x: circleXInset + circleDiameter + labelXInset, y: bounds.maxY - circleDiameter - labelYInset)
+        return CGPoint(x: circleXInset + circleDiameter + labelXInset, y: bottomCircleLocation.y + (circleDiameter / 2) - (labelFontSize / 2))
     }
     
     var connectingLineXInset: CGFloat {

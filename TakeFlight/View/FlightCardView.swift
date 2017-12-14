@@ -128,7 +128,7 @@ class FlightCardView: UIView {
             segmentStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             segmentStackView.topAnchor.constraint(equalTo: dividingLine.bottomAnchor),
             segmentStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            segmentStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            segmentStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
         ])
     }
     
@@ -159,7 +159,7 @@ extension FlightCardView {
             let stackView = UIStackView()
             stackView.translatesAutoresizingMaskIntoConstraints = false
             stackView.axis = .vertical
-            stackView.backgroundColor = .clear
+            stackView.spacing = 10
             return stackView
         }()
         
@@ -229,6 +229,14 @@ extension FlightCardView {
         private let detailsStackViewXInset: CGFloat = 10
         private let detailsStackViewYInset: CGFloat = 10
         
+        lazy var detailsStackView: UIStackView = {
+            let stackView = UIStackView()
+            stackView.translatesAutoresizingMaskIntoConstraints = false
+            stackView.axis = .vertical
+            stackView.spacing = 5
+            return stackView
+        }()
+        
         override var circleDiameter: CGFloat {
             get {
                 return 10
@@ -237,14 +245,6 @@ extension FlightCardView {
                 self.circleDiameter = newValue
             }
         }
-        
-        lazy var detailsStackView: UIStackView = {
-            let stackView = UIStackView()
-            stackView.translatesAutoresizingMaskIntoConstraints = false
-            stackView.axis = .vertical
-            stackView.spacing = 5
-            return stackView
-        }()
         
         // MARK: Licecycle
         
