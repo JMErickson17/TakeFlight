@@ -27,7 +27,7 @@ struct FlightData {
         }
         
         var stopCount: Int {
-            return segments.reduce(0, { $0 + $1.stopCount })
+            return segments.reduce(0, { $0 + $1.stopCount }) + (segments.count - 1)
         }
         
         var duration: Int {

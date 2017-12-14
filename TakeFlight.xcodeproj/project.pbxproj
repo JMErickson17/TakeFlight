@@ -43,6 +43,9 @@
 		CAAF0CDD1FCE3F120089BF74 /* QPXExpress+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF0CDC1FCE3F120089BF74 /* QPXExpress+Request.swift */; };
 		CABA2C5C1FA3E5F9001D9743 /* UserDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABA2C5B1FA3E5F9001D9743 /* UserDataService.swift */; };
 		CAD1A0321FE318C50052E16A /* IconAndLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD1A0311FE318C50052E16A /* IconAndLabelView.swift */; };
+		CAD1A0351FE328F30052E16A /* QPXExpressResponseExample.json in Resources */ = {isa = PBXBuildFile; fileRef = CAD1A0341FE328F30052E16A /* QPXExpressResponseExample.json */; };
+		CAD1A0371FE329060052E16A /* QPXExpressMCOtoLAXRoundTrip.json in Resources */ = {isa = PBXBuildFile; fileRef = CAD1A0361FE329060052E16A /* QPXExpressMCOtoLAXRoundTrip.json */; };
+		CAD1A0391FE3290F0052E16A /* QPXExpressMCOtoLAXOneWay.json in Resources */ = {isa = PBXBuildFile; fileRef = CAD1A0381FE3290F0052E16A /* QPXExpressMCOtoLAXOneWay.json */; };
 		CAD6FC291FE19B7300691A8B /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD6FC281FE19B7300691A8B /* TimelineView.swift */; };
 		CAEC73AA1F813C29004D6F0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73A91F813C29004D6F0B /* AppDelegate.swift */; };
 		CAEC73AC1F813C29004D6F0B /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73AB1F813C29004D6F0B /* SearchVC.swift */; };
@@ -124,6 +127,9 @@
 		CAAF0CDC1FCE3F120089BF74 /* QPXExpress+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QPXExpress+Request.swift"; sourceTree = "<group>"; };
 		CABA2C5B1FA3E5F9001D9743 /* UserDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataService.swift; sourceTree = "<group>"; };
 		CAD1A0311FE318C50052E16A /* IconAndLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconAndLabelView.swift; sourceTree = "<group>"; };
+		CAD1A0341FE328F30052E16A /* QPXExpressResponseExample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = QPXExpressResponseExample.json; sourceTree = "<group>"; };
+		CAD1A0361FE329060052E16A /* QPXExpressMCOtoLAXRoundTrip.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = QPXExpressMCOtoLAXRoundTrip.json; sourceTree = "<group>"; };
+		CAD1A0381FE3290F0052E16A /* QPXExpressMCOtoLAXOneWay.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = QPXExpressMCOtoLAXOneWay.json; sourceTree = "<group>"; };
 		CAD6FC281FE19B7300691A8B /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
 		CAEC73A61F813C29004D6F0B /* TakeFlight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TakeFlight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAEC73A91F813C29004D6F0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -211,6 +217,7 @@
 		CA3185E21FE0652C0055A1B1 /* QPXExpress */ = {
 			isa = PBXGroup;
 			children = (
+				CAD1A0331FE328D80052E16A /* Sample Data */,
 				CAEC73E91F8184D8004D6F0B /* QPXExpress.swift */,
 				CAAF0CDC1FCE3F120089BF74 /* QPXExpress+Request.swift */,
 				CAAF0CDA1FCE1F6A0089BF74 /* QPXExpress+Response.swift */,
@@ -253,6 +260,16 @@
 				CA882F811FD4C78200D2E8F3 /* Open_Sans */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		CAD1A0331FE328D80052E16A /* Sample Data */ = {
+			isa = PBXGroup;
+			children = (
+				CAD1A0381FE3290F0052E16A /* QPXExpressMCOtoLAXOneWay.json */,
+				CAD1A0361FE329060052E16A /* QPXExpressMCOtoLAXRoundTrip.json */,
+				CAD1A0341FE328F30052E16A /* QPXExpressResponseExample.json */,
+			);
+			path = "Sample Data";
 			sourceTree = "<group>";
 		};
 		CAEC739D1F813C29004D6F0B = {
@@ -537,10 +554,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAD1A0391FE3290F0052E16A /* QPXExpressMCOtoLAXOneWay.json in Resources */,
+				CAD1A0371FE329060052E16A /* QPXExpressMCOtoLAXRoundTrip.json in Resources */,
 				CAEC73B41F813C29004D6F0B /* LaunchScreen.storyboard in Resources */,
 				CA8A2D1D1FAE498F00C8D5E0 /* OneWayFlightDataCell.xib in Resources */,
 				CAA0C71C1FAC036600FAFD69 /* MonthSectionHeaderView.xib in Resources */,
 				CAEC73B11F813C29004D6F0B /* Assets.xcassets in Resources */,
+				CAD1A0351FE328F30052E16A /* QPXExpressResponseExample.json in Resources */,
 				CA8C6B791F9CF86000753E7D /* GoogleService-Info.plist in Resources */,
 				CA882F821FD4C78300D2E8F3 /* Open_Sans in Resources */,
 				CAEC73AF1F813C29004D6F0B /* Main.storyboard in Resources */,
