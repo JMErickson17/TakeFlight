@@ -19,6 +19,7 @@ class PillButton: UIButton {
     
     func setupView() {
         layer.cornerRadius = self.frame.height / 2
+        clipsToBounds = true
     }
     
     override func prepareForInterfaceBuilder() {

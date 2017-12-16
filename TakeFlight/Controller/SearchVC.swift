@@ -26,7 +26,6 @@ class SearchVC: UIViewController, SearchVCDelegate {
     @IBOutlet weak var roundTripButton: UIButton!
     @IBOutlet weak var oneWayButton: UIButton!
     @IBOutlet weak var searchContainerView: UIView!
-    @IBOutlet weak var takeOffLoadingView: TakeoffLoadingView!
     
     weak var searchDelegate: AirportPickerVCDelegate?
     
@@ -34,11 +33,8 @@ class SearchVC: UIViewController, SearchVCDelegate {
     private var requestManager = QPXExpress()
     private var airportPickerVC: AirportPickerVC?
     private var datePickerVC: DatePickerVC?
-    private var flightDetailsVC: FlightDetailsVC? {
-        didSet {
-            flightDataTableView.isScrollEnabled = (flightDetailsVC == nil)
-        }
-    }
+    private var takeoffLoadingView: TakeoffLoadingView?
+    private var flightDetailsVC: FlightDetailsVC?
     
     var selectedSearchType: SearchType = .oneWay {
         didSet {
@@ -121,8 +117,14 @@ class SearchVC: UIViewController, SearchVCDelegate {
     private var flights = [FlightData]() {
         didSet {
             DispatchQueue.main.async {
+                if self.flights.isEmpty && !self.flightDataTableView.isHidden {
+                    self.flightDataTableView.isHidden = true
+                    self.searchVC(self, flightDataTableView: self.flightDataTableView, didHide: true)
+                } else if !self.flights.isEmpty && self.flightDataTableView.isHidden {
+                    self.flightDataTableView.isHidden = false
+                    self.searchVC(self, flightDataTableView: self.flightDataTableView, didShow: true)
+                }
                 self.flightDataTableView.reloadData()
-                self.flightDataTableView.isHidden = self.flights.isEmpty
             }
         }
     }
@@ -179,7 +181,6 @@ class SearchVC: UIViewController, SearchVCDelegate {
         departureDateTextField.delegate = self
         returnDateTextField.delegate = self
         
-        takeOffLoadingView.delegate = self
         
         originTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         destinationTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -203,8 +204,6 @@ class SearchVC: UIViewController, SearchVCDelegate {
         
         let roundTripCell = UINib(nibName: Constants.ROUND_TRIP_FLIGHT_DATA_CELL, bundle: nil)
         flightDataTableView.register(roundTripCell, forCellReuseIdentifier: Constants.ROUND_TRIP_FLIGHT_DATA_CELL)
-        
-        flightDataTableView.isHidden = flights.isEmpty
     }
     
     // MARK: Actions
@@ -216,9 +215,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
                 return
             }
             if let flightData = flightData {
-                self?.takeOffLoadingView.performTakeoffAnimation(withCompletion: {
-                    self?.flights = flightData
-                })
+                self?.flights = flightData
             }
         }
     }
@@ -247,19 +244,37 @@ class SearchVC: UIViewController, SearchVCDelegate {
         }
     }
     
+    func searchVC(_ searchVC: SearchVC, flightDataTableView tableView: UITableView, didHide: Bool) {
+        if didHide && takeoffLoadingView == nil {
+            presentTakeoffLoadingView()
+        }
+    }
+    
+    func searchVC(_ searchVC: SearchVC, flightDataTableView tableView: UITableView, didShow: Bool) {
+        if didShow && takeoffLoadingView != nil {
+            dismissTakeoffLoadingView()
+        }
+    }
+    
+    // MARK: Convenience
+    
     private func updateViewForSearchType(_ searchType: SearchType) {
         switch searchType {
         case .oneWay:
             oneWayButton.layer.opacity = 1
             roundTripButton.layer.opacity = 0.5
-//            returnDate = nil
+            returnDate = nil
+            returnDateTextField.placeholder = "One Way"
         case.roundTrip:
             oneWayButton.layer.opacity = 0.5
             roundTripButton.layer.opacity = 1
+            returnDateTextField.placeholder = "Return Date"
         }
+        flights.removeAll()
+        
+        searchFlightsWithUserDefaults(completion: handleNewSearchResults(withFlightData:error:))
+        
     }
-    
-    // MARK: Convenience
     
     private func searchFlightsWithUserDefaults(completion: @escaping ([FlightData]?, Error?) -> Void) {
         guard searchDataIsValid() else { return completion(nil, FlightSearchError.invalidSearchData) }
@@ -270,13 +285,25 @@ class SearchVC: UIViewController, SearchVCDelegate {
         
         let userOptions = [QPXExpressOptions]()
         let request = requestManager.makeQPXRequest(adultCount: 1, from: user.origin!, to: user.destination!, departing: user.departureDate!, returning: returnDate, withOptions: userOptions)
-//        print(request)
         
         requestManager.fetch(qpxRequest: request) { (flightData, error) in
             guard error == nil else { return completion(nil, error!) }
             if let flightData = flightData {
                 completion(flightData, nil)
             }
+        }
+    }
+    
+    // TODO: Fix memory cycle possibility
+    private func handleNewSearchResults(withFlightData flightData: [FlightData]?, error: Error?) {
+        guard error == nil else {
+            print(error!.localizedDescription)
+            return
+        }
+        
+        if let flightData = flightData {
+            self.flights.removeAll()
+            self.flights = flightData
         }
     }
     
@@ -312,9 +339,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
         
         airportPickerVC!.didMove(toParentViewController: self)
         
-        if let completion = completion {
-            completion()
-        }
+        completion?()
     }
     
     func searchVC(_ searchVC: SearchVC, shouldDismissAirportPicker: Bool) {
@@ -347,9 +372,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
         
         datePickerVC!.didMove(toParentViewController: self)
         
-        if let completion = completion {
-            completion()
-        }
+        completion?()
     }
     
     func searchVC(_ searchVC: SearchVC, shouldDismissDatePicker: Bool) {
@@ -369,6 +392,29 @@ class SearchVC: UIViewController, SearchVCDelegate {
         flightDetailsVC.flightData = data
         navigationController?.pushViewController(flightDetailsVC, animated: true)
     }
+    
+    private func presentTakeoffLoadingView() {
+        guard takeoffLoadingView == nil else { return }
+        
+        takeoffLoadingView = TakeoffLoadingView(frame: CGRect.zero)
+        takeoffLoadingView?.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(takeoffLoadingView!)
+        NSLayoutConstraint.activate([
+            takeoffLoadingView!.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            takeoffLoadingView!.topAnchor.constraint(equalTo: searchContainerView.bottomAnchor),
+            takeoffLoadingView!.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            takeoffLoadingView!.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        view.layoutSubviews()
+    }
+    
+    private func dismissTakeoffLoadingView() {
+        guard takeoffLoadingView != nil else { return }
+        
+        takeoffLoadingView?.removeFromSuperview()
+        takeoffLoadingView = nil
+        view.layoutIfNeeded()
+    }
 }
 
 // MARK: - UITableView
@@ -376,15 +422,15 @@ class SearchVC: UIViewController, SearchVCDelegate {
 extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if selectedSearchType == .oneWay {
-            if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.ONE_WAY_FLIGHT_DATA_CELL, for: indexPath) as? OneWayFlightDataCell {
-                let flightData = flights[indexPath.row]
+        let flightData = flights[indexPath.row]
+        
+        if flightData.isRoundTrip {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.ROUND_TRIP_FLIGHT_DATA_CELL, for: indexPath) as? RoundTripFlightDataCell {
                 cell.configureCell(withFlightData: flightData)
                 return cell
             }
         } else {
-            if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.ROUND_TRIP_FLIGHT_DATA_CELL, for: indexPath) as? RoundTripFlightDataCell {
-                let flightData = flights[indexPath.row]
+            if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.ONE_WAY_FLIGHT_DATA_CELL, for: indexPath) as? OneWayFlightDataCell {
                 cell.configureCell(withFlightData: flightData)
                 return cell
             }
@@ -394,14 +440,6 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presentFlightDetails(forCellAt: indexPath)
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if selectedSearchType == .oneWay {
-            return 120
-        } else {
-            return 175
-        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -451,7 +489,7 @@ extension SearchVC: UITextFieldDelegate {
                 searchVC(self, shouldDismissAirportPicker: true)
             }
         } else {
-            guard query.count > 1 else { return }
+            guard query.count >= 1 else { return }
             presentAirportPicker(withTag: textField.tag, completion: {
                 self.searchDelegate?.airportPickerVC(self.searchDelegate as! AirportPickerVC, searchQueryDidChange: true, withQuery: query)
             })
@@ -462,10 +500,7 @@ extension SearchVC: UITextFieldDelegate {
 // MARK: SearchVC+TakeoffLoadingViewDelegate
 
 extension SearchVC: TakeoffLoadingViewDelegate {
-    
     func takeoffLoadingView(_ takeoffLoadingView: TakeoffLoadingView, runwayWillAnimateOffScreen: Bool) {
         
     }
-    
-    
 }

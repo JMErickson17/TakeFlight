@@ -6,7 +6,7 @@
 //  Copyright © 2017 Justin Erickson. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol SearchVCDelegate: class {
     var datesSelected: SelectedState { get }
@@ -20,4 +20,6 @@ protocol SearchVCDelegate: class {
     func searchVC(_ searchVC: SearchVC, shouldClearDates: Bool)
     func searchVC(_ searchVC: SearchVC, shouldDismissAirportPicker: Bool)
     func searchVC(_ searchVC: SearchVC, shouldDismissDatePicker: Bool)
+    func searchVC(_ searchVC: SearchVC, flightDataTableView tableView: UITableView, didHide: Bool)
+    func searchVC(_ searchVC: SearchVC, flightDataTableView tableView: UITableView, didShow: Bool)
 }

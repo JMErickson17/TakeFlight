@@ -121,11 +121,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HAf-9e-TkC" customClass="TakeoffLoadingView" customModule="TakeFlight" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="100" width="375" height="503"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ozK-l0-pfk">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ozK-l0-pfk">
                                 <rect key="frame" x="0.0" y="100" width="375" height="503"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
@@ -133,16 +129,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ozK-l0-pfk" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="53o-Jo-7aJ"/>
-                            <constraint firstItem="HAf-9e-TkC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9N1-uv-oXY"/>
-                            <constraint firstItem="HAf-9e-TkC" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="DSa-EA-kdz"/>
                             <constraint firstItem="GZy-mC-ZRT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Ems-9I-Hef"/>
                             <constraint firstItem="ozK-l0-pfk" firstAttribute="top" secondItem="GZy-mC-ZRT" secondAttribute="bottom" id="JQs-UK-Yp6"/>
                             <constraint firstItem="ozK-l0-pfk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="a3c-PJ-G1T"/>
                             <constraint firstItem="ozK-l0-pfk" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="aSw-MY-O1k"/>
                             <constraint firstItem="GZy-mC-ZRT" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="bA4-px-dsd"/>
-                            <constraint firstItem="HAf-9e-TkC" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="gVS-TO-mco"/>
                             <constraint firstItem="GZy-mC-ZRT" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="x2j-0r-bfI"/>
-                            <constraint firstItem="HAf-9e-TkC" firstAttribute="top" secondItem="GZy-mC-ZRT" secondAttribute="bottom" id="zEb-SX-0iE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -156,7 +148,6 @@
                         <outlet property="returnDateTextField" destination="SMo-cG-Sc2" id="9WX-qw-eMJ"/>
                         <outlet property="roundTripButton" destination="s82-Lx-tCF" id="CeB-Fw-vpJ"/>
                         <outlet property="searchContainerView" destination="GZy-mC-ZRT" id="9vZ-6k-YJ9"/>
-                        <outlet property="takeOffLoadingView" destination="HAf-9e-TkC" id="z2R-gY-dQe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

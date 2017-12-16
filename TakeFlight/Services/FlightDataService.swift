@@ -24,44 +24,7 @@ final class FlightDataService {
     let url = "https://api.test.sabre.com/v1/shop/flights?origin=JFK&destination=LAX&departuredate=2018-01-07&returndate=2018-01-08&onlineitinerariesonly=N&limit=10&offset=1&eticketsonly=N&sortby=totalfare&order=asc&sortby2=departuretime&order2=asc&pointofsalecountry=US"
     
     
-    func fetchFlightData(forInstaFlightRequest request: InstaFlightRequest) {
-        let headers = ["Authorization": authToken,
-                       "Content-Type": "application/x-www-form-urlencoded",
-                       "grant_type": "client_credentials"]
-        
-        let requestURL = makeURL(fromInstaFlightRequest: request)
-        Alamofire.request(requestURL, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
-            print(response)
-        }
-    }
-    
-    private func makeURL(fromInstaFlightRequest request: InstaFlightRequest) -> String {
-        var options = ["origin=\(request.origin)",
-                       "destination=\(request.destination)",
-                       "pointofsalecountry=\(request.pointOfSaleCountry)",
-                       "onlineitinerariesonly=\(request.onlineItinerariesOnly)",
-                       "limit=\(request.limit)",
-                       "sortby=\(request.sortBy)",
-                       "order=\(request.order)"]
-        
-        if let departureDate = request.departureDate {
-            options.append("departuredate=\(departureDate)")
-        }
-        
-        if let returnDate = request.returnDate {
-            options.append("returndate=\(returnDate)")
-        }
-        
-        if let minFare = request.minFare {
-            options.append("minfare=\(minFare)")
-        }
-        
-        if let maxFare = request.maxFare {
-            options.append("maxfare=\(maxFare)")
-        }
-        
-        return "\(instaFlightTestingEndpoint)?" + options.joined(separator: "&")
-    }
+
     
     // MARK: Airports
     
@@ -75,5 +38,12 @@ final class FlightDataService {
     
     func searchAirports(forQuery query: String) -> [Airport] {
         return airports.filter { $0.searchRepresentation.lowercased().contains(query.lowercased()) }
+    }
+    
+    func airport(forCode code: String) -> Airport? {
+        if let index = airports.index(where: { $0.iata == code }) {
+            return airports[index]
+        }
+        return nil
     }
 }

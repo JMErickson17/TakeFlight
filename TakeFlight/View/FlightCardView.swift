@@ -64,6 +64,14 @@ class FlightCardView: UIView {
         return lineView
     }()
     
+    private lazy var dateLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.regular)
+        label.textColor = .white
+        return label
+    }()
+    
     private lazy var segmentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -71,6 +79,12 @@ class FlightCardView: UIView {
         stackView.distribution = .equalSpacing
         stackView.spacing = 10
         return stackView
+    }()
+    
+    private lazy var formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .full
+        return formatter
     }()
     
     // MARK: Lifecycle
@@ -123,10 +137,16 @@ class FlightCardView: UIView {
             dividingLine.heightAnchor.constraint(equalToConstant: 20)
         ])
         
+        addSubview(dateLabel)
+        NSLayoutConstraint.activate([
+            dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
+            dateLabel.topAnchor.constraint(equalTo: dividingLine.bottomAnchor, constant: 10),
+        ])
+        
         addSubview(segmentStackView)
         NSLayoutConstraint.activate([
             segmentStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            segmentStackView.topAnchor.constraint(equalTo: dividingLine.bottomAnchor),
+            segmentStackView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 10),
             segmentStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             segmentStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
         ])
@@ -136,12 +156,40 @@ class FlightCardView: UIView {
         headerLabel.text = "\(flight.originAirportCode)-\(flight.destinationAirportCode)"
         carrierLabel.text = flight.carrier
         bookingCodeLabel.text = flight.bookingCode
+        dateLabel.text = flight.departureTime.toLocalDateAndTimeString(withFormatter: formatter)
         
         for segment in flight.segments {
             let segmentTimeline = SegmentTimelineView()
             segmentTimeline.configureSegmentTimelineView(withSegment: segment)
             segmentStackView.addArrangedSubview(segmentTimeline)
+            
+            if let connectionDuration = segment.connectionDuration {
+                let label = makeLayoverLabel(withDuration: connectionDuration, andAirport: segment.destinationAirport)
+                segmentStackView.addArrangedSubview(label)
+            }
         }
+    }
+    
+    func makeLayoverLabel(withDuration duration: Int, andAirport airport: Airport?) -> UILabel {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.light)
+        label.textColor = .white
+        label.textAlignment = .center
+        let durationString = makeString(withDuration: duration)
+        
+        if let airport = airport {
+            label.text = "\(durationString) layover in \(airport.city.capitalized), \(airport.state)"
+        } else {
+            label.text = "\(durationString) layover"
+        }
+        
+        return label
+    }
+    
+    func makeString(withDuration duration: Int) -> String {
+        let hours = duration / 60
+        let minutes = duration % 60
+        return "\(hours)h \(minutes)m"
     }
 }
 
@@ -210,9 +258,38 @@ extension FlightCardView {
                 let legTimelineView = LegTimeLineView()
                 legTimelineView.configureLegTimelineView(withLeg: leg)
                 legStackView.addArrangedSubview(legTimelineView)
+                
+                if let connectionDuration = leg.connectionDuration {
+                    let label = makeLayoverLabel(withDuration: connectionDuration, andAirport: leg.destinationAirport)
+                    legStackView.addArrangedSubview(label)
+                }
             }
             setNeedsLayout()
             setNeedsDisplay()
+        }
+        
+        // TODO: Consolidate makeLayoverLabel into single helper class
+        
+        func makeLayoverLabel(withDuration duration: Int, andAirport airport: Airport?) -> UILabel {
+            let label = UILabel()
+            label.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.light)
+            label.textColor = .white
+            label.textAlignment = .center
+            let durationString = makeString(withDuration: duration)
+            
+            if let airport = airport {
+                label.text = "\(durationString) layover in \(airport.city.capitalized), \(airport.state)"
+            } else {
+                label.text = "\(durationString) layover"
+            }
+            
+            return label
+        }
+        
+        func makeString(withDuration duration: Int) -> String {
+            let hours = duration / 60
+            let minutes = duration % 60
+            return "\(hours)h \(minutes)m"
         }
     }
 }
@@ -325,3 +402,4 @@ extension FlightCardView {
         }
     }
 }
+

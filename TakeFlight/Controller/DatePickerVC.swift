@@ -176,7 +176,7 @@ extension DatePickerVC: JTAppleCalendarViewDelegate {
     }
     
     func calendar(_ calendar: JTAppleCalendarView, shouldSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) -> Bool {
-        return date >= Date()
+        return Calendar.current.compare(date, to: Date(), toGranularity: .day) == .orderedDescending
     }
 
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {

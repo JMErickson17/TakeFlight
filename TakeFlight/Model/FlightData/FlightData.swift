@@ -10,6 +10,76 @@ import UIKit
 
 struct FlightData {
     
+    private(set) var departingFlight: Flight
+    private(set) var returningFlight: Flight?
+    
+    let createdTimeStamp: Date
+    let saleTotal: Double
+    let baseFareTotal: Double
+    let saleFareTotal: Double
+    let saleTaxTotal: Double
+    let fareCalculation: String
+    let latestTicketingTime: DateAndTimeZone
+    let refundable: Bool?
+    let taxCountry: String
+    
+    init(createdTimeStamp: Date, baseFareTotal: Double, saleFareTotal: Double, saleTaxTotal: Double,
+         saleTotal: Double, fareCalculation: String, latestTicketingTime: DateAndTimeZone, refundable: Bool,
+         taxCountry: String, departingFlightSegments: [FlightSegment], returningFlightSegments: [FlightSegment]? = nil) {
+        self.createdTimeStamp = createdTimeStamp
+        self.saleTotal = saleTotal
+        self.baseFareTotal = baseFareTotal
+        self.saleFareTotal = saleFareTotal
+        self.saleTaxTotal = saleTaxTotal
+        self.fareCalculation = fareCalculation
+        self.latestTicketingTime = latestTicketingTime
+        self.refundable = refundable
+        self.taxCountry = taxCountry
+        
+        self.departingFlight = Flight(segments: departingFlightSegments)
+        
+        if let returningFlightSegments = returningFlightSegments {
+            self.returningFlight = Flight(segments: returningFlightSegments)
+        }
+    }
+    
+    var longDescription: String {
+        return "Orlando Florida to Los Angeles California"
+    }
+    
+    var shortDescription: String {
+        return "\(departingFlight.originAirportCode)-\(departingFlight.destinationAirportCode)"
+    }
+    
+    var isRoundTrip: Bool {
+        return returningFlight != nil
+    }
+}
+
+extension FlightData: CustomStringConvertible {
+    
+    var description: String {
+        return """
+                ----------------------- Flight Data -----------------------
+                    Date Created: \(createdTimeStamp)
+                    Sale Total: \(saleTotal)
+                    Base Fare Total: \(baseFareTotal)
+                    Sale Fare Total: \(saleFareTotal)
+                    Sale Tax Total: \(saleTaxTotal)
+                    Fare Calculation: \(fareCalculation)
+                    Latest Ticketing Time: \(latestTicketingTime)
+                    Refundable: \(String(describing: refundable))
+                    Tax Country: \(taxCountry)\n
+                    -------------------- Departing Flight --------------------
+                        \(departingFlight)\n
+                    -------------------- Returning Flight --------------------
+                        \(String(describing: returningFlight))\n
+               """
+    }
+}
+
+
+extension FlightData {
     struct Flight {
         
         let segments: [FlightSegment]
@@ -50,68 +120,4 @@ struct FlightData {
             return (segments.last?.destinationAirportCode) ?? ""
         }
     }
-    
-    private(set) var departingFlight: Flight
-    private(set) var returningFlight: Flight?
-    
-    let createdTimeStamp: Date
-    let saleTotal: Double
-    let baseFareTotal: Double
-    let saleFareTotal: Double
-    let saleTaxTotal: Double
-    let fareCalculation: String
-    let latestTicketingTime: DateAndTimeZone
-    let refundable: Bool?
-    let taxCountry: String
-    
-    init(createdTimeStamp: Date, baseFareTotal: Double, saleFareTotal: Double, saleTaxTotal: Double, saleTotal: Double, fareCalculation: String, latestTicketingTime: DateAndTimeZone, refundable: Bool, taxCountry: String, departingFlightSegments: [FlightSegment], returningFlightSegments: [FlightSegment]? = nil) {
-        self.createdTimeStamp = createdTimeStamp
-        self.saleTotal = saleTotal
-        self.baseFareTotal = baseFareTotal
-        self.saleFareTotal = saleFareTotal
-        self.saleTaxTotal = saleTaxTotal
-        self.fareCalculation = fareCalculation
-        self.latestTicketingTime = latestTicketingTime
-        self.refundable = refundable
-        self.taxCountry = taxCountry
-        
-        self.departingFlight = Flight(segments: departingFlightSegments)
-        
-        if let returningFlightSegments = returningFlightSegments {
-            self.returningFlight = Flight(segments: returningFlightSegments)
-        }
-    }
-    
-    var longDescription: String {
-        return "Orlando Florida to Los Angeles California"
-    }
-    
-    var shortDescription: String {
-        return "\(departingFlight.originAirportCode)-\(departingFlight.destinationAirportCode)"
-    }
-}
-
-extension FlightData: CustomStringConvertible {
-    
-    var description: String {
-        return """
-                ---------------------------------------- Flight Data ----------------------------------------
-                    Date Created: \(createdTimeStamp)
-                    Sale Total: \(saleTotal)
-                    Base Fare Total: \(baseFareTotal)
-                    Sale Fare Total: \(saleFareTotal)
-                    Sale Tax Total: \(saleTaxTotal)
-                    Fare Calculation: \(fareCalculation)
-                    Latest Ticketing Time: \(latestTicketingTime)
-                    Refundable: \(String(describing: refundable))
-                    Tax Country: \(taxCountry)\n
-                    -------------------- Departing Flight --------------------
-                        \(departingFlight)\n
-                    -------------------- Returning Flight --------------------
-                        \(String(describing: returningFlight))\n
-               """
-    }
-    
-    
-    
 }

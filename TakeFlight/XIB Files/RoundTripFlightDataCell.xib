@@ -25,7 +25,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="174.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="0Nc-TX-U7e">
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="0Nc-TX-U7e" userLabel="Content Stack View">
                         <rect key="frame" x="16" y="69" width="343" height="85"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ChH-Zp-ijO" userLabel="Departing Flight Stack View">
@@ -159,6 +159,7 @@
                 <constraints>
                     <constraint firstItem="Z2S-sK-iYE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="2Kt-FE-7Mi"/>
                     <constraint firstItem="0Nc-TX-U7e" firstAttribute="top" secondItem="Z2S-sK-iYE" secondAttribute="bottom" constant="15" id="OsL-BJ-m24"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="0Nc-TX-U7e" secondAttribute="bottom" constant="10" id="T8D-ea-cAf"/>
                     <constraint firstAttribute="trailingMargin" secondItem="0Nc-TX-U7e" secondAttribute="trailing" id="bgR-VK-WuP"/>
                     <constraint firstAttribute="trailingMargin" secondItem="Z2S-sK-iYE" secondAttribute="trailing" id="eDk-Tm-Ulm"/>
                     <constraint firstItem="Z2S-sK-iYE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="fnO-MB-PBT"/>

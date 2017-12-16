@@ -65,5 +65,11 @@ class DatePickerCell: JTAppleCell {
         } else {
             dateLabel.layer.opacity = 0.5
         }
+        
+        if Calendar.current.compare(cellState.date, to: Date(), toGranularity: .day) == .orderedSame {
+            dateLabel.textColor = UIColor(named: "StopCountGreen")
+        } else {
+            dateLabel.textColor = UIColor.black
+        }
     }
 }

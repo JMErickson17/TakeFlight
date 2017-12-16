@@ -73,7 +73,20 @@ class TakeoffLoadingView: UIView, CAAnimationDelegate {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        clipsToBounds = true
+        setupView()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        setupView()
+    }
+    
+    // MARK: Setup
+    
+    private func setupView() {
+        self.clipsToBounds = true
+        self.backgroundColor = .white
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleAnimationTap)))
         runwayAnimation.delegate = self
     }
@@ -88,7 +101,6 @@ class TakeoffLoadingView: UIView, CAAnimationDelegate {
     // MARK: Public API
     
     func performTakeoffAnimation(withCompletion completion: (() -> Void)? = nil) {
-        
         CATransaction.begin()
         CATransaction.setCompletionBlock {
             completion?()

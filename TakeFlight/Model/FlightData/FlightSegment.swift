@@ -25,6 +25,14 @@ struct FlightSegment {
         let meal: String?
         let secure: Bool?
         let connectionDuration: Int?
+        
+        var originAirport: Airport? {
+            return FlightDataService.instance.airport(forCode: origin)
+        }
+        
+        var destinationAirport: Airport? {
+            return FlightDataService.instance.airport(forCode: destination)
+        }
     }
     
     let id: String
@@ -43,8 +51,16 @@ struct FlightSegment {
         return (legs.first?.origin) ?? ""
     }
     
+    var originAirport: Airport? {
+        return legs.first?.originAirport
+    }
+    
     var destinationAirportCode: String {
         return (legs.last?.destination) ?? ""
+    }
+    
+    var destinationAirport: Airport? {
+        return legs.last?.destinationAirport
     }
 
     var stopCount: Int {
