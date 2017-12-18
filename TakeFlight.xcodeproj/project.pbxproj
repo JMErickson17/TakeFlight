@@ -25,6 +25,8 @@
 		CA825CD81F93A8BB006871B2 /* DatePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA825CD71F93A8BB006871B2 /* DatePickerVC.swift */; };
 		CA825CDA1F93A954006871B2 /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA825CD91F93A954006871B2 /* DatePickerCell.swift */; };
 		CA825CDD1F93BFBF006871B2 /* FirebaseDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA825CDC1F93BFBF006871B2 /* FirebaseDataService.swift */; };
+		CA85590B1FE747D800E72913 /* ExploreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA85590A1FE747D800E72913 /* ExploreVC.swift */; };
+		CA85590D1FE747EA00E72913 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA85590C1FE747EA00E72913 /* ProfileVC.swift */; };
 		CA882F821FD4C78300D2E8F3 /* Open_Sans in Resources */ = {isa = PBXBuildFile; fileRef = CA882F811FD4C78200D2E8F3 /* Open_Sans */; };
 		CA8923D21F93F5F50091968B /* Airport.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8923D11F93F5F50091968B /* Airport.swift */; };
 		CA8A2D1C1FAE498F00C8D5E0 /* OneWayFlightDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8A2D1A1FAE498F00C8D5E0 /* OneWayFlightDataCell.swift */; };
@@ -110,6 +112,8 @@
 		CA825CD91F93A954006871B2 /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
 		CA825CDB1F93BDCA006871B2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CA825CDC1F93BFBF006871B2 /* FirebaseDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDataService.swift; sourceTree = "<group>"; };
+		CA85590A1FE747D800E72913 /* ExploreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreVC.swift; sourceTree = "<group>"; };
+		CA85590C1FE747EA00E72913 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		CA882F811FD4C78200D2E8F3 /* Open_Sans */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Open_Sans; sourceTree = "<group>"; };
 		CA8923D11F93F5F50091968B /* Airport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Airport.swift; sourceTree = "<group>"; };
 		CA8A2D1A1FAE498F00C8D5E0 /* OneWayFlightDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneWayFlightDataCell.swift; sourceTree = "<group>"; };
@@ -254,6 +258,33 @@
 			path = FlightData;
 			sourceTree = "<group>";
 		};
+		CA8559071FE7466200E72913 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				CAEC73AB1F813C29004D6F0B /* SearchVC.swift */,
+				CA825CD71F93A8BB006871B2 /* DatePickerVC.swift */,
+				CAA19A081FA3BDD800A479A8 /* AirportPickerVC.swift */,
+				CA7C3A1F1FBA42FF00E4CD40 /* FlightDetailsVC.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		CA8559081FE7467A00E72913 /* Explore */ = {
+			isa = PBXGroup;
+			children = (
+				CA85590A1FE747D800E72913 /* ExploreVC.swift */,
+			);
+			path = Explore;
+			sourceTree = "<group>";
+		};
+		CA8559091FE7468100E72913 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				CA85590C1FE747EA00E72913 /* ProfileVC.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		CA9E4A7E1FD49E83001B7E61 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -336,10 +367,9 @@
 		CAEC73D71F813C4F004D6F0B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				CAEC73AB1F813C29004D6F0B /* SearchVC.swift */,
-				CA825CD71F93A8BB006871B2 /* DatePickerVC.swift */,
-				CAA19A081FA3BDD800A479A8 /* AirportPickerVC.swift */,
-				CA7C3A1F1FBA42FF00E4CD40 /* FlightDetailsVC.swift */,
+				CA8559081FE7467A00E72913 /* Explore */,
+				CA8559071FE7466200E72913 /* Search */,
+				CA8559091FE7468100E72913 /* Profile */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -763,6 +793,7 @@
 				CAEC73E61F81638F004D6F0B /* FlightData.swift in Sources */,
 				CA32901B1F9D5B650083EED7 /* Date+Strings.swift in Sources */,
 				CAD6FC291FE19B7300691A8B /* TimelineView.swift in Sources */,
+				CA85590D1FE747EA00E72913 /* ProfileVC.swift in Sources */,
 				CAF35CB61FE22EBA0074B60B /* TakeoffLoadingViewDelegate.swift in Sources */,
 				CAFF4A311FD2452F0036083C /* String+AlphanumericCharacters.swift in Sources */,
 				CAEC73E01F8144D1004D6F0B /* RoundTripFlightDataCell.swift in Sources */,
@@ -771,6 +802,7 @@
 				CA27EDA61FBD218D005AC65B /* IFLink.swift in Sources */,
 				CAAD01FD1FD0E23A00E76B88 /* NetworkManager.swift in Sources */,
 				CA53248A1FD8BF67002ABBC3 /* PillButton.swift in Sources */,
+				CA85590B1FE747D800E72913 /* ExploreVC.swift in Sources */,
 				CAAF0CDB1FCE1F6A0089BF74 /* QPXExpress+Response.swift in Sources */,
 				CAF3714E1FA232EE002C3455 /* SelectedState.swift in Sources */,
 				CAA19A0A1FA3BDD800A479A8 /* AirportPickerVC.swift in Sources */,
