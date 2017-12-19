@@ -268,6 +268,16 @@
 			path = FlightData;
 			sourceTree = "<group>";
 		};
+		CA55C0EE1FE98CC0008990C8 /* MyFlightsView */ = {
+			isa = PBXGroup;
+			children = (
+				CA5B598D1FE85A3400B08A9D /* MyFlightsView.swift */,
+				CA5B598F1FE85C1500B08A9D /* TicketScrollView.swift */,
+				CA5B59911FE8608100B08A9D /* TicketView.swift */,
+			);
+			path = MyFlightsView;
+			sourceTree = "<group>";
+		};
 		CA5B598A1FE83AAC00B08A9D /* FlightCardView */ = {
 			isa = PBXGroup;
 			children = (
@@ -401,15 +411,13 @@
 				CA3185E31FE065670055A1B1 /* FlightDataCell */,
 				CA3185E41FE065900055A1B1 /* DatePicker */,
 				CA5B598A1FE83AAC00B08A9D /* FlightCardView */,
+				CA55C0EE1FE98CC0008990C8 /* MyFlightsView */,
 				CAA19A0C1FA3C08000A479A8 /* AirportPickerCell.swift */,
 				CA18454A1FD8667E003B56C6 /* TooltipView.swift */,
 				CA5324891FD8BF67002ABBC3 /* PillButton.swift */,
 				CAF35CB31FE1F4850074B60B /* TakeoffLoadingView.swift */,
 				CA5328221FE7571D00867E35 /* FlightDataTableViewHeaderView.swift */,
 				CA5B598B1FE83BE800B08A9D /* ProfileImageView.swift */,
-				CA5B598D1FE85A3400B08A9D /* MyFlightsView.swift */,
-				CA5B598F1FE85C1500B08A9D /* TicketScrollView.swift */,
-				CA5B59911FE8608100B08A9D /* TicketView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

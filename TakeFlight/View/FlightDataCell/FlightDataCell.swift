@@ -14,6 +14,10 @@ class FlightDataCell: UITableViewCell {
         let price = price as NSNumber
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
+        formatter.roundingMode = .up
+        formatter.roundingIncrement = 1
+        print("Raw Price: \(price)")
+        print("Rounded Price: \(formatter.string(from: price)!)\n")
         return formatter.string(from: price) ?? ""
     }
     
@@ -45,5 +49,4 @@ class FlightDataCell: UITableViewCell {
         }
         return NSAttributedString(string: string, attributes: attributes)
     }
-
 }
