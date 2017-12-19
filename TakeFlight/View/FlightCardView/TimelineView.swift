@@ -92,7 +92,7 @@ class TimelineView: UIView {
             contentView.topAnchor.constraint(equalTo: topAnchor, constant: contentViewYInset),
             contentView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -contentViewXInset),
             contentView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -contentViewYInset)
-            ])
+        ])
     }
     
     // MARK: Convenience

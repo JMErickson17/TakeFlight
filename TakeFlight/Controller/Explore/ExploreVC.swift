@@ -11,10 +11,6 @@ import UIKit
 class ExploreVC: UIViewController {
     
     // MARK: Lifecycle
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

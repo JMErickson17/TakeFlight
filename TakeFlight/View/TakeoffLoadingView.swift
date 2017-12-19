@@ -68,6 +68,8 @@ class TakeoffLoadingView: UIView, CAAnimationDelegate {
         return animation
     }()
     
+    
+    
     // MARK: Lifecycle
     
     required init?(coder aDecoder: NSCoder) {

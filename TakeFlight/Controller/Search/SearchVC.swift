@@ -124,14 +124,20 @@ class SearchVC: UIViewController, SearchVCDelegate {
                     self.flightDataTableView.isHidden = false
                     self.searchVC(self, flightDataTableView: self.flightDataTableView, didShow: true)
                 }
+                self.activitySpinner.stopAnimating()
                 self.flightDataTableView.reloadData()
             }
         }
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
+    private lazy var activitySpinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        spinner.activityIndicatorViewStyle = .whiteLarge
+        spinner.hidesWhenStopped = true
+        spinner.color = UIColor(named: "PrimaryBlue")
+        return spinner
+    }()
     
     // MARK: View Life Cycle
 
@@ -278,6 +284,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     private func searchFlightsWithUserDefaults(completion: @escaping ([FlightData]?, Error?) -> Void) {
         guard searchDataIsValid() else { return completion(nil, FlightSearchError.invalidSearchData) }
+        activitySpinner.startAnimating()
         var returnDate: Date?
         if selectedSearchType == .roundTrip, let userReturnDate = user.returnDate {
             returnDate = userReturnDate
@@ -286,7 +293,8 @@ class SearchVC: UIViewController, SearchVCDelegate {
         let userOptions = [QPXExpressOptions]()
         let request = requestManager.makeQPXRequest(adultCount: 1, from: user.origin!, to: user.destination!, departing: user.departureDate!, returning: returnDate, withOptions: userOptions)
         
-        requestManager.fetch(qpxRequest: request) { (flightData, error) in
+        requestManager.fetch(qpxRequest: request) { [weak self] (flightData, error) in
+            self?.activitySpinner.stopAnimating()
             guard error == nil else { return completion(nil, error!) }
             if let flightData = flightData {
                 completion(flightData, nil)
@@ -405,12 +413,19 @@ class SearchVC: UIViewController, SearchVCDelegate {
             takeoffLoadingView!.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             takeoffLoadingView!.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        
+        takeoffLoadingView?.addSubview(activitySpinner)
+        NSLayoutConstraint.activate([
+            activitySpinner.centerXAnchor.constraint(equalTo: takeoffLoadingView!.centerXAnchor),
+            activitySpinner.centerYAnchor.constraint(equalTo: takeoffLoadingView!.centerYAnchor, constant: 25)
+        ])
         view.layoutSubviews()
     }
     
     private func dismissTakeoffLoadingView() {
         guard takeoffLoadingView != nil else { return }
         
+        activitySpinner.removeFromSuperview()
         takeoffLoadingView?.removeFromSuperview()
         takeoffLoadingView = nil
         view.layoutIfNeeded()
@@ -436,6 +451,24 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = FlightDataTableViewHeaderView()
+        let attributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)]
+        let count = NSAttributedString(string: String(flights.count), attributes: attributes)
+        let sortedBy = NSAttributedString(string: "Price", attributes: attributes)
+        let title = NSMutableAttributedString(string: "Showing ")
+        title.append(count)
+        title.append(NSAttributedString(string: " results, sorted by "))
+        title.append(sortedBy)
+        
+        header.attributedText = title
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

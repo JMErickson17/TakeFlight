@@ -9,12 +9,13 @@
 import UIKit
 
 class ProfileVC: UIViewController {
-
-    // MARK: Lifecycle
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
+    // MARK: Properties
+    
+    @IBOutlet weak var myFlightsView: MyFlightsView!
+    
+    
+    // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,12 @@ class ProfileVC: UIViewController {
     // MARK: Setup
     
     private func setupView() {
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
+        myFlightsView.updateScrollViewContentSize()
     }
 }

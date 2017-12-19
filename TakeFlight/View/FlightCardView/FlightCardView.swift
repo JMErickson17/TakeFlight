@@ -385,7 +385,6 @@ extension FlightCardView {
                 detailsView.text = value
                 detailsStackView.addArrangedSubview(detailsView)
             }
-            
             setNeedsLayout()
             setNeedsDisplay()
         }
