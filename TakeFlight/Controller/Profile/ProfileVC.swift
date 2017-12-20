@@ -33,17 +33,13 @@ class ProfileVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        handleAuthStateDidChange = Auth.auth().addStateDidChangeListener({ (auth, user) in
-            if let user = user {
-                self.configureView(forUser: user)
-            }
-        })
+        addAuthListener()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        Auth.auth().removeStateDidChangeListener(handleAuthStateDidChange!)
+        removeAuthListener()
     }
     
     // MARK: Setup
@@ -55,11 +51,22 @@ class ProfileVC: UIViewController {
     // MARK: Actions
     
     @IBAction func signOutButtonTapped(_ sender: UIButton) {
-        attemptSignOutCurrentUser()
+        signOutCurrentUser()
     }
     
     // MARK: Convenience
     
+    private func addAuthListener() {
+        handleAuthStateDidChange = Auth.auth().addStateDidChangeListener({ (auth, user) in
+            if let user = user {
+                self.configureView(forUser: user)
+            }
+        })
+    }
+    
+    private func removeAuthListener() {
+        Auth.auth().removeStateDidChangeListener(handleAuthStateDidChange!)
+    }
     
     private func configureView(forUser user: User?) {
         if let user = user {
@@ -71,7 +78,7 @@ class ProfileVC: UIViewController {
         }
     }
     
-    private func attemptSignOutCurrentUser() {
+    private func signOutCurrentUser() {
         do {
             try FirebaseDataService.instance.signOutCurrentUser()
             configureView(forUser: nil)

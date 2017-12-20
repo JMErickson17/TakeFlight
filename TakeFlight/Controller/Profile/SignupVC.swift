@@ -15,6 +15,7 @@ class SignupVC: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
+    @IBOutlet weak var activitySpinner: UIActivityIndicatorView!
     
     private var email: String? {
         if emailTextField.text != "" {
@@ -37,25 +38,37 @@ class SignupVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
-    
+    // MARK: Actions
     
     @IBAction func signupButtonWasTapped(_ sender: OutlineButton) {
-        attemptCreateNewUser()
+        createNewUser()
     }
     
-    private func attemptCreateNewUser() {
+    // MARK: Convenience
+    
+    private func createNewUser() {
         if let email = email, let password = password {
-            if passwordsMatch {
-                FirebaseDataService.instance.createNewUser(withEmail: email, password: password, completion: { [weak self] (user, error) in
-                    if let error = error {
-                        print(error)
-                        return
-                    }
-                    self?.navigationController?.popToRootViewController(animated: true)
-                })
+            guard passwordsMatch else {
+                if let navigationController = self.navigationController {
+                    let notification = DropDownNotification(text: "The passwords do not match.")
+                    notification.presentNotification(onNavigationController: navigationController, forDuration: 3)
+                }
+                return
             }
+            activitySpinner.startAnimating()
+            FirebaseDataService.instance.createNewUser(withEmail: email, password: password, completion: { [weak self] (user, error) in
+                self?.activitySpinner.stopAnimating()
+                if let error = error {
+                    if let navigationController = self?.navigationController {
+                        let notification = DropDownNotification(text: error.localizedDescription)
+                        notification.presentNotification(onNavigationController: navigationController, forDuration: 3)
+                    }
+                    return
+                }
+                self?.navigationController?.popToRootViewController(animated: true)
+            })
         }
+        activitySpinner.stopAnimating()
     }
 }

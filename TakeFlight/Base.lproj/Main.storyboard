@@ -314,13 +314,13 @@
                                         <rect key="frame" x="0.0" y="0.0" width="275" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="email"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4YW-of-NQZ">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="4YW-of-NQZ">
                                         <rect key="frame" x="0.0" y="55" width="275" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                     </textField>
                                 </subviews>
                             </stackView>
@@ -343,6 +343,9 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ICx-rW-sOD">
+                                <rect key="frame" x="169" y="227.5" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" name="PrimaryBlue"/>
                         <constraints>
@@ -352,11 +355,14 @@
                             <constraint firstItem="xaV-ae-2sz" firstAttribute="top" secondItem="jVV-tu-iBe" secondAttribute="top" constant="50" id="U0K-i5-8Ch"/>
                             <constraint firstItem="zgx-se-JR9" firstAttribute="top" secondItem="xPS-9a-OEg" secondAttribute="bottom" constant="20" id="UCW-kt-XaS"/>
                             <constraint firstItem="xaV-ae-2sz" firstAttribute="leading" secondItem="jVV-tu-iBe" secondAttribute="leading" constant="50" id="ZSf-cp-XDX"/>
+                            <constraint firstItem="ICx-rW-sOD" firstAttribute="top" secondItem="zgx-se-JR9" secondAttribute="bottom" constant="20" id="leP-h7-8M9"/>
+                            <constraint firstItem="ICx-rW-sOD" firstAttribute="centerX" secondItem="fAq-NX-aQY" secondAttribute="centerX" id="mDW-vc-J7F"/>
                             <constraint firstItem="xPS-9a-OEg" firstAttribute="top" secondItem="xaV-ae-2sz" secondAttribute="bottom" constant="8" id="qRJ-Je-7cr"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jVV-tu-iBe"/>
                     </view>
                     <connections>
+                        <outlet property="activitySpinner" destination="ICx-rW-sOD" id="bJS-U1-QaM"/>
                         <outlet property="emailTextField" destination="GbP-Mp-HDs" id="ztc-w4-XAi"/>
                         <outlet property="forgotPasswordLabel" destination="xPS-9a-OEg" id="lFi-A4-uus"/>
                         <outlet property="passwordTextField" destination="4YW-of-NQZ" id="MrN-3d-25X"/>
@@ -381,19 +387,19 @@
                                         <rect key="frame" x="0.0" y="0.0" width="275" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardType="emailAddress" textContentType="email"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dGx-BA-A2V">
                                         <rect key="frame" x="0.0" y="50" width="275" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oeg-VV-rEq">
                                         <rect key="frame" x="0.0" y="100" width="275" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                     </textField>
                                 </subviews>
                             </stackView>
@@ -410,18 +416,24 @@
                                     <action selector="signupButtonWasTapped:" destination="il9-oR-JOQ" eventType="touchUpInside" id="T7m-2o-REU"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="gUW-6C-gmU">
+                                <rect key="frame" x="169" y="255" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" name="PrimaryBlue"/>
                         <constraints>
                             <constraint firstItem="uco-Q9-vRX" firstAttribute="top" secondItem="SoO-dN-qlA" secondAttribute="top" constant="50" id="8ux-dP-BAX"/>
+                            <constraint firstItem="gUW-6C-gmU" firstAttribute="top" secondItem="5Yp-HI-hTf" secondAttribute="bottom" constant="20" id="OQg-wf-0fo"/>
                             <constraint firstItem="5Yp-HI-hTf" firstAttribute="top" secondItem="uco-Q9-vRX" secondAttribute="bottom" constant="25" id="OlE-kz-iph"/>
                             <constraint firstItem="5Yp-HI-hTf" firstAttribute="centerX" secondItem="0Ep-sL-cC7" secondAttribute="centerX" id="PAd-Pw-uVs"/>
+                            <constraint firstItem="gUW-6C-gmU" firstAttribute="centerX" secondItem="0Ep-sL-cC7" secondAttribute="centerX" id="PZg-R9-hwB"/>
                             <constraint firstItem="uco-Q9-vRX" firstAttribute="leading" secondItem="SoO-dN-qlA" secondAttribute="leading" constant="50" id="dvr-PB-OYw"/>
                             <constraint firstItem="SoO-dN-qlA" firstAttribute="trailing" secondItem="uco-Q9-vRX" secondAttribute="trailing" constant="50" id="zdv-Es-G6x"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SoO-dN-qlA"/>
                     </view>
                     <connections>
+                        <outlet property="activitySpinner" destination="gUW-6C-gmU" id="WCR-Qk-9PJ"/>
                         <outlet property="confirmPasswordTextField" destination="oeg-VV-rEq" id="j8V-Qb-CXh"/>
                         <outlet property="emailTextField" destination="Low-c2-1ql" id="RTf-oo-q4u"/>
                         <outlet property="passwordTextField" destination="dGx-BA-A2V" id="YHh-Nk-z6X"/>

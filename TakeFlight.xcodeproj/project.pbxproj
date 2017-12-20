@@ -72,6 +72,7 @@
 		CAEC73E61F81638F004D6F0B /* FlightData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E51F81638F004D6F0B /* FlightData.swift */; };
 		CAEC73E81F816BF1004D6F0B /* FlightDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E71F816BF1004D6F0B /* FlightDataService.swift */; };
 		CAEC73EA1F8184D8004D6F0B /* QPXExpress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E91F8184D8004D6F0B /* QPXExpress.swift */; };
+		CAECB8741FEA019A00F84359 /* DropDownNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAECB8731FEA019A00F84359 /* DropDownNotification.swift */; };
 		CAEDB6A41FCCB7CC0041878F /* UITableView+TopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEDB6A31FCCB7CC0041878F /* UITableView+TopCell.swift */; };
 		CAEDB6A61FCCCD450041878F /* FlightCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEDB6A51FCCCD450041878F /* FlightCardView.swift */; };
 		CAEDB6A81FCCD4900041878F /* SelectedDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEDB6A71FCCD4900041878F /* SelectedDateView.swift */; };
@@ -174,6 +175,7 @@
 		CAEC73E51F81638F004D6F0B /* FlightData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightData.swift; sourceTree = "<group>"; };
 		CAEC73E71F816BF1004D6F0B /* FlightDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDataService.swift; sourceTree = "<group>"; };
 		CAEC73E91F8184D8004D6F0B /* QPXExpress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QPXExpress.swift; sourceTree = "<group>"; };
+		CAECB8731FEA019A00F84359 /* DropDownNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownNotification.swift; sourceTree = "<group>"; };
 		CAEDB6A31FCCB7CC0041878F /* UITableView+TopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+TopCell.swift"; sourceTree = "<group>"; };
 		CAEDB6A51FCCCD450041878F /* FlightCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightCardView.swift; sourceTree = "<group>"; };
 		CAEDB6A71FCCD4900041878F /* SelectedDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedDateView.swift; sourceTree = "<group>"; };
@@ -419,6 +421,7 @@
 		CAEC73D71F813C4F004D6F0B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				CAECB8731FEA019A00F84359 /* DropDownNotification.swift */,
 				CA8559081FE7467A00E72913 /* Explore */,
 				CA8559071FE7466200E72913 /* Search */,
 				CA8559091FE7468100E72913 /* Profile */,
@@ -879,6 +882,7 @@
 				CA825CDD1F93BFBF006871B2 /* FirebaseDataService.swift in Sources */,
 				CA5328231FE7571D00867E35 /* FlightDataTableViewHeaderView.swift in Sources */,
 				CA9B20831FD5F4990008447C /* FlightDataCell.swift in Sources */,
+				CAECB8741FEA019A00F84359 /* DropDownNotification.swift in Sources */,
 				CA55C0F01FE99163008990C8 /* OutlineButton.swift in Sources */,
 				CA18454B1FD8667E003B56C6 /* TooltipView.swift in Sources */,
 				CA8923D21F93F5F50091968B /* Airport.swift in Sources */,

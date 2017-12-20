@@ -16,6 +16,7 @@ class LoginVC: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var forgotPasswordLabel: UILabel!
+    @IBOutlet weak var activitySpinner: UIActivityIndicatorView!
     
     private var email: String? {
         if emailTextField.text != "" {
@@ -36,26 +37,31 @@ class LoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
     
     // MARK: Actions
 
     @IBAction func loginButtonWasTapped(_ sender: OutlineButton) {
-        attemptLoginUser()
+        activitySpinner.startAnimating()
+        loginUser()
     }
     
     // MARK: Convenience
     
-    private func attemptLoginUser() {
+    private func loginUser() {
         if let email = email, let password = password {
             FirebaseDataService.instance.signInUser(withEmail: email, password: password, completion: { [weak self] (user, error) in
+                self?.activitySpinner.stopAnimating()
                 if let error = error {
-                    print(error)
+                    if let navigationController = self?.navigationController {
+                        let notification = DropDownNotification(text: error.localizedDescription)
+                        notification.presentNotification(onNavigationController: navigationController, forDuration: 3)
+                    }
                     return
                 }
                 self?.navigationController?.popToRootViewController(animated: true)
             })
         }
+        activitySpinner.stopAnimating()
     }
 }
