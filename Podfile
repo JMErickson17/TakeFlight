@@ -11,6 +11,7 @@ target 'TakeFlight' do
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
+  pod 'Firebase/Firestore'
 
   target 'TakeFlightTests' do
     inherit! :search_paths

@@ -129,7 +129,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         label.numberOfLines = 0
         label.isHidden = true
-        label.text = "Looks like were missing some information."
+        label.text = "Looks like were missing some information needed for this search."
         return label
     }()
     
@@ -211,7 +211,8 @@ class SearchVC: UIViewController, SearchVCDelegate {
         self.view.addSubview(emptyFlightsLabel)
         NSLayoutConstraint.activate([
             emptyFlightsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            emptyFlightsLabel.centerYAnchor.constraint(equalTo: flightDataTableView.centerYAnchor)
+            emptyFlightsLabel.centerYAnchor.constraint(equalTo: flightDataTableView.centerYAnchor),
+            emptyFlightsLabel.widthAnchor.constraint(lessThanOrEqualTo: flightDataTableView.widthAnchor, multiplier: 0.90)
         ])
     }
     
