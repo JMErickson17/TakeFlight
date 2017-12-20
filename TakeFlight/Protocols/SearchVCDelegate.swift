@@ -20,6 +20,4 @@ protocol SearchVCDelegate: class {
     func searchVC(_ searchVC: SearchVC, shouldClearDates: Bool)
     func searchVC(_ searchVC: SearchVC, shouldDismissAirportPicker: Bool)
     func searchVC(_ searchVC: SearchVC, shouldDismissDatePicker: Bool)
-    func searchVC(_ searchVC: SearchVC, flightDataTableView tableView: UITableView, didHide: Bool)
-    func searchVC(_ searchVC: SearchVC, flightDataTableView tableView: UITableView, didShow: Bool)
 }

@@ -10,15 +10,21 @@ import UIKit
 
 class DropDownNotification {
     
+    // MARK: Properties
+    
     lazy var notificationView: NotificationView = {
         let notificationView = NotificationView()
         notificationView.translatesAutoresizingMaskIntoConstraints = false
         return notificationView
     }()
     
+    // MARK: Lifecycle
+    
     init(text: String) {
         notificationView.text = text
     }
+    
+    // MARK: Convenience
     
     func presentNotification(onViewController viewController: UIViewController, forDuration duration: Double, completion: (() -> Void)? = nil) {
         viewController.view.addSubview(notificationView)
@@ -84,6 +90,8 @@ class DropDownNotification {
 
 class NotificationView: UIView {
     
+    // MARK: Properties
+    
     var text: String? {
         didSet {
             label.text = text ?? nil
@@ -101,8 +109,11 @@ class NotificationView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 12, weight: .light)
+        label.numberOfLines = 0
         return label
     }()
+    
+    // MARK: Lifecycle
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -112,6 +123,8 @@ class NotificationView: UIView {
         super.init(frame: frame)
         setupView()
     }
+    
+    // MARK: Setup
     
     private func setupView() {
         self.backgroundColor = .white
@@ -124,7 +137,8 @@ class NotificationView: UIView {
         self.addSubview(label)
         NSLayoutConstraint.activate([
             label.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            label.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            label.widthAnchor.constraint(lessThanOrEqualTo: self.widthAnchor, multiplier: 0.90)
         ])
     }
 }

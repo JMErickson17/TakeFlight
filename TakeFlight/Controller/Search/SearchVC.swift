@@ -117,18 +117,21 @@ class SearchVC: UIViewController, SearchVCDelegate {
     private var flights = [FlightData]() {
         didSet {
             DispatchQueue.main.async {
-                if self.flights.isEmpty && !self.flightDataTableView.isHidden {
-                    self.flightDataTableView.isHidden = true
-                    self.searchVC(self, flightDataTableView: self.flightDataTableView, didHide: true)
-                } else if !self.flights.isEmpty && self.flightDataTableView.isHidden {
-                    self.flightDataTableView.isHidden = false
-                    self.searchVC(self, flightDataTableView: self.flightDataTableView, didShow: true)
-                }
-                self.activitySpinner.stopAnimating()
                 self.flightDataTableView.reloadData()
             }
         }
     }
+    
+    private lazy var emptyFlightsLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.numberOfLines = 0
+        label.isHidden = true
+        label.text = "Looks like were missing some information."
+        return label
+    }()
     
     private lazy var activitySpinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView()
@@ -187,7 +190,6 @@ class SearchVC: UIViewController, SearchVCDelegate {
         departureDateTextField.delegate = self
         returnDateTextField.delegate = self
         
-        
         originTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         destinationTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
@@ -199,6 +201,18 @@ class SearchVC: UIViewController, SearchVCDelegate {
         if let searchType = user.searchType {
             self.selectedSearchType = SearchType(rawValue: searchType) ?? .oneWay
         }
+        
+        view.addSubview(activitySpinner)
+        NSLayoutConstraint.activate([
+            activitySpinner.centerXAnchor.constraint(equalTo: flightDataTableView.centerXAnchor),
+            activitySpinner.centerYAnchor.constraint(equalTo: flightDataTableView.centerYAnchor)
+        ])
+        
+        self.view.addSubview(emptyFlightsLabel)
+        NSLayoutConstraint.activate([
+            emptyFlightsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emptyFlightsLabel.centerYAnchor.constraint(equalTo: flightDataTableView.centerYAnchor)
+        ])
     }
     
     private func setupTableView() {
@@ -217,7 +231,12 @@ class SearchVC: UIViewController, SearchVCDelegate {
     @IBAction func searchButtonTapped(_ sender: UIButton) {
         searchFlightsWithUserDefaults { [weak self] (flightData, error) in
             if let error = error {
-                print(error.localizedDescription)
+                if let navigationController = self?.navigationController {
+                    let notification = DropDownNotification(text: error.localizedDescription)
+                    notification.presentNotification(onNavigationController: navigationController, forDuration: 3)
+                }
+                self?.flights.removeAll()
+                self?.showEmptyFlightsLabel()
                 return
             }
             if let flightData = flightData {
@@ -250,18 +269,6 @@ class SearchVC: UIViewController, SearchVCDelegate {
         }
     }
     
-    func searchVC(_ searchVC: SearchVC, flightDataTableView tableView: UITableView, didHide: Bool) {
-        if didHide && takeoffLoadingView == nil {
-            presentTakeoffLoadingView()
-        }
-    }
-    
-    func searchVC(_ searchVC: SearchVC, flightDataTableView tableView: UITableView, didShow: Bool) {
-        if didShow && takeoffLoadingView != nil {
-            dismissTakeoffLoadingView()
-        }
-    }
-    
     // MARK: Convenience
     
     private func updateViewForSearchType(_ searchType: SearchType) {
@@ -277,14 +284,17 @@ class SearchVC: UIViewController, SearchVCDelegate {
             returnDateTextField.placeholder = "Return Date"
         }
         flights.removeAll()
-        
+        showEmptyFlightsLabel()
         searchFlightsWithUserDefaults(completion: handleNewSearchResults(withFlightData:error:))
         
     }
     
     private func searchFlightsWithUserDefaults(completion: @escaping ([FlightData]?, Error?) -> Void) {
         guard searchDataIsValid() else { return completion(nil, FlightSearchError.invalidSearchData) }
+        self.flights.removeAll()
+        self.hideEmptyFlightsLabel()
         activitySpinner.startAnimating()
+        
         var returnDate: Date?
         if selectedSearchType == .roundTrip, let userReturnDate = user.returnDate {
             returnDate = userReturnDate
@@ -295,7 +305,10 @@ class SearchVC: UIViewController, SearchVCDelegate {
         
         requestManager.fetch(qpxRequest: request) { [weak self] (flightData, error) in
             self?.activitySpinner.stopAnimating()
-            guard error == nil else { return completion(nil, error!) }
+            if let error = error {
+                self?.showEmptyFlightsLabel()
+                return completion(nil, error)
+            }
             if let flightData = flightData {
                 completion(flightData, nil)
             }
@@ -304,8 +317,11 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     // TODO: Fix memory cycle possibility
     private func handleNewSearchResults(withFlightData flightData: [FlightData]?, error: Error?) {
-        guard error == nil else {
-            print(error!.localizedDescription)
+        if let error = error {
+            if let navigationController = self.navigationController {
+                let notification = DropDownNotification(text: error.localizedDescription)
+                notification.presentNotification(onNavigationController: navigationController, forDuration: 3)
+            }
             return
         }
         
@@ -401,34 +417,16 @@ class SearchVC: UIViewController, SearchVCDelegate {
         navigationController?.pushViewController(flightDetailsVC, animated: true)
     }
     
-    private func presentTakeoffLoadingView() {
-        guard takeoffLoadingView == nil else { return }
-        
-        takeoffLoadingView = TakeoffLoadingView(frame: CGRect.zero)
-        takeoffLoadingView?.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(takeoffLoadingView!)
-        NSLayoutConstraint.activate([
-            takeoffLoadingView!.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            takeoffLoadingView!.topAnchor.constraint(equalTo: searchContainerView.bottomAnchor),
-            takeoffLoadingView!.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            takeoffLoadingView!.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
-        takeoffLoadingView?.addSubview(activitySpinner)
-        NSLayoutConstraint.activate([
-            activitySpinner.centerXAnchor.constraint(equalTo: takeoffLoadingView!.centerXAnchor),
-            activitySpinner.centerYAnchor.constraint(equalTo: takeoffLoadingView!.centerYAnchor, constant: 25)
-        ])
-        view.layoutSubviews()
+    private func showEmptyFlightsLabel() {
+        DispatchQueue.main.async {
+            self.emptyFlightsLabel.isHidden = false
+        }
     }
     
-    private func dismissTakeoffLoadingView() {
-        guard takeoffLoadingView != nil else { return }
-        
-        activitySpinner.removeFromSuperview()
-        takeoffLoadingView?.removeFromSuperview()
-        takeoffLoadingView = nil
-        view.layoutIfNeeded()
+    private func hideEmptyFlightsLabel() {
+        DispatchQueue.main.async {
+            self.emptyFlightsLabel.isHidden = true
+        }
     }
 }
 
