@@ -27,7 +27,7 @@ final class FirebaseDataService {
     func getAirports(completion: @escaping ([Airport]) -> Void) {
         var airports = [Airport]()
         
-        DispatchQueue.global().async {
+        DispatchQueue.global(qos: .default).async {
             self.REF_AIRPORTS.observeSingleEvent(of: .value, with: { (snapshot) in
                 if let snapshot = snapshot.value as? [[String: Any]] {
                     for snap in snapshot {
@@ -38,6 +38,36 @@ final class FirebaseDataService {
                 }
                 completion(airports)
             })
+        }
+    }
+    
+/**
+     Sign up a new user with email and password
+ */
+    func createNewUser(withEmail email: String, password: String, completion: AuthResultCallback? = nil) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            Auth.auth().createUser(withEmail: email, password: password, completion: completion)
+        }
+    }
+    
+/**
+     Sign in an existing user with email and password
+ */
+    func signInUser(withEmail email: String, password: String, completion: AuthResultCallback? = nil) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            Auth.auth().signIn(withEmail: email, password: password, completion: completion)
+        }
+    }
+    
+/**
+     Sign out the current user
+ */
+    func signOutCurrentUser() throws {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+        } catch {
+            throw error
         }
     }
 }

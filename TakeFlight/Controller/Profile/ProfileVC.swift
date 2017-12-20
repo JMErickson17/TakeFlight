@@ -7,13 +7,20 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ProfileVC: UIViewController {
     
+    private struct Constants {
+        static let toLoginVC = "ToLoginVC"
+        static let toSignupVC = "ToSignupVC"
+    }
+    
     // MARK: Properties
     
-    @IBOutlet weak var myFlightsView: MyFlightsView!
+    @IBOutlet weak var userStatusView: LoggedInStatusView!
     
+    private var handleAuthStateDidChange: AuthStateDidChangeListenerHandle?
     
     // MARK: Lifecycle
     
@@ -23,15 +30,66 @@ class ProfileVC: UIViewController {
         setupView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        handleAuthStateDidChange = Auth.auth().addStateDidChangeListener({ (auth, user) in
+            if let user = user {
+                self.configureView(forUser: user)
+            }
+        })
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        Auth.auth().removeStateDidChangeListener(handleAuthStateDidChange!)
+    }
+    
     // MARK: Setup
     
     private func setupView() {
-
+        userStatusView.delegate = self
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        myFlightsView.updateScrollViewContentSize()
+    // MARK: Actions
+    
+    @IBAction func signOutButtonTapped(_ sender: UIButton) {
+        attemptSignOutCurrentUser()
+    }
+    
+    // MARK: Convenience
+    
+    
+    private func configureView(forUser user: User?) {
+        if let user = user {
+            userStatusView.isLoggedIn = true
+            userStatusView.email = user.email
+        } else {
+            userStatusView.isLoggedIn = false
+            userStatusView.email = nil
+        }
+    }
+    
+    private func attemptSignOutCurrentUser() {
+        do {
+            try FirebaseDataService.instance.signOutCurrentUser()
+            configureView(forUser: nil)
+        } catch {
+            print(error)
+        }
+    }
+}
+
+// MARK:- LoggedInStatusViewDelegate
+
+extension ProfileVC: LoggedInStatusViewDelegate {
+    
+    func loggedInStatusView(_ loggedInStatusView: LoggedInStatusView, loginButtonWasTapped: Bool) {
+        performSegue(withIdentifier: Constants.toLoginVC, sender: nil)
+    }
+    
+    func loggedInStatusView(_ loggedInStatusView: LoggedInStatusView, signupButtonWasTapped: Bool) {
+        performSegue(withIdentifier: Constants.toSignupVC, sender: nil)
     }
 }
