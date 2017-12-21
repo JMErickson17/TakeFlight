@@ -267,7 +267,11 @@
                         <viewLayoutGuide key="safeArea" id="mqY-rs-bhS"/>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="jy7-pC-6uu">
-                        <barButtonItem key="rightBarButtonItem" image="SettingsIcon" style="plain" id="kTu-KK-BdQ"/>
+                        <barButtonItem key="rightBarButtonItem" image="SettingsIcon" style="plain" id="kTu-KK-BdQ">
+                            <connections>
+                                <segue destination="UUv-c9-roQ" kind="show" id="YeH-GQ-tZv"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="signOutButton" destination="PsM-T5-Xx4" id="KRa-Ou-B14"/>
@@ -277,30 +281,8 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eKG-J0-oP8" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" id="9gO-il-oaQ" userLabel="Upcoming Flights Stack View">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="148.5"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upcoming" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6OI-Bz-44P">
-                            <rect key="frame" x="0.0" y="0.0" width="79" height="20.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IPj-Pa-BRh">
-                            <rect key="frame" x="0.0" y="20.5" width="240" height="128"/>
-                            <subviews>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tvJ-ru-GoK">
-                                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </view>
-                            </subviews>
-                        </stackView>
-                    </subviews>
-                    <viewLayoutGuide key="safeArea" id="FQV-GE-EMQ"/>
-                </stackView>
             </objects>
-            <point key="canvasLocation" x="340" y="865"/>
+            <point key="canvasLocation" x="340" y="883"/>
         </scene>
         <!--Login-->
         <scene sceneID="Scr-gW-5oU">
@@ -373,7 +355,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GSn-5r-xav" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1377" y="1298"/>
+            <point key="canvasLocation" x="1244" y="1265"/>
         </scene>
         <!--Signup-->
         <scene sceneID="ad7-WF-9hO">
@@ -444,7 +426,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nJD-xh-bhl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1377" y="530"/>
+            <point key="canvasLocation" x="1244" y="477"/>
         </scene>
         <!--Explore-->
         <scene sceneID="65x-YU-ltj">
@@ -509,6 +491,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KbH-YT-brx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-586" y="883"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="46H-U5-qEk">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Settings" id="UUv-c9-roQ" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fz6-zT-EQL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1244" y="860"/>
         </scene>
     </scenes>
     <resources>
