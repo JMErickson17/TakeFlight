@@ -51,14 +51,13 @@ class SignupVC: UIViewController {
         if let email = email, let password = password {
             guard passwordsMatch else {
                 if let navigationController = self.navigationController {
-                    let notification = DropDownNotification(text: "The passwords do not match.")
+                    let notification = DropDownNotification(text: "The passwords entered do not match.")
                     notification.presentNotification(onNavigationController: navigationController, forDuration: 3)
                 }
                 return
             }
             activitySpinner.startAnimating()
-            FirebaseDataService.instance.createNewUser(withEmail: email, password: password, completion: { [weak self] (user, error) in
-                self?.activitySpinner.stopAnimating()
+            UserDataService.instance.createNewUser(withEmail: email, password: password, completion: { [weak self] (user, error) in
                 if let error = error {
                     if let navigationController = self?.navigationController {
                         let notification = DropDownNotification(text: error.localizedDescription)
@@ -66,7 +65,7 @@ class SignupVC: UIViewController {
                     }
                     return
                 }
-                self?.navigationController?.popToRootViewController(animated: true)
+                self?.navigationController?.popViewController(animated: true)
             })
         }
         activitySpinner.stopAnimating()

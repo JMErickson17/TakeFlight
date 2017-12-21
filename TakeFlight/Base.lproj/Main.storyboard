@@ -270,6 +270,7 @@
                         <barButtonItem key="rightBarButtonItem" image="SettingsIcon" style="plain" id="kTu-KK-BdQ"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="signOutButton" destination="PsM-T5-Xx4" id="KRa-Ou-B14"/>
                         <outlet property="userStatusView" destination="HYM-lK-I99" id="gWD-Tg-5uU"/>
                         <segue destination="jii-gI-mK2" kind="show" identifier="ToLoginVC" id="p8S-e3-9dx"/>
                         <segue destination="il9-oR-JOQ" kind="show" identifier="ToSignupVC" id="1l8-jU-NWX"/>

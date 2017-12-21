@@ -50,7 +50,7 @@ class LoginVC: UIViewController {
     
     private func loginUser() {
         if let email = email, let password = password {
-            FirebaseDataService.instance.signInUser(withEmail: email, password: password, completion: { [weak self] (user, error) in
+            UserDataService.instance.signInUser(withEmail: email, password: password, completion: { [weak self] (user, error) in
                 self?.activitySpinner.stopAnimating()
                 if let error = error {
                     if let navigationController = self?.navigationController {

@@ -29,7 +29,8 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     weak var searchDelegate: AirportPickerVCDelegate?
     
-    private var user = UserDataService.instance
+    private lazy var userDataService = UserDataService.instance
+    
     private var requestManager = QPXExpress()
     private var airportPickerVC: AirportPickerVC?
     private var datePickerVC: DatePickerVC?
@@ -38,7 +39,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     var selectedSearchType: SearchType = .oneWay {
         didSet {
-            user.searchType = selectedSearchType.rawValue
+            userDataService.searchType = selectedSearchType.rawValue
             updateViewForSearchType(selectedSearchType)
         }
     }
@@ -59,11 +60,11 @@ class SearchVC: UIViewController, SearchVCDelegate {
     var origin: Airport? {
         didSet {
             if let origin = origin {
-                user.origin = origin
+                userDataService.origin = origin
                 originTextField.text = origin.searchRepresentation
             } else {
                 originTextField.text = ""
-                user.origin = nil
+                userDataService.origin = nil
             }
             originTextField.endEditing(true)
         }
@@ -72,11 +73,11 @@ class SearchVC: UIViewController, SearchVCDelegate {
     var destination: Airport? {
         didSet {
             if let destination = destination {
-                user.destination = destination
+                userDataService.destination = destination
                 destinationTextField.text = destination.searchRepresentation
             } else {
                 destinationTextField.text = ""
-                user.destination = nil
+                userDataService.destination = nil
             }
             destinationTextField.endEditing(true)
         }
@@ -85,11 +86,11 @@ class SearchVC: UIViewController, SearchVCDelegate {
     var departureDate: Date? {
         didSet {
             if let departureDate = departureDate {
-                user.departureDate = departureDate
+                userDataService.departureDate = departureDate
                 departureDateTextField.text = formatter.string(from: departureDate)
             } else {
                 departureDateTextField.text = ""
-                user.departureDate = nil
+                userDataService.departureDate = nil
             }
         }
     }
@@ -97,11 +98,11 @@ class SearchVC: UIViewController, SearchVCDelegate {
     var returnDate: Date? {
         didSet {
             if let returnDate = returnDate {
-                user.returnDate = returnDate
+                userDataService.returnDate = returnDate
                 returnDateTextField.text = formatter.string(from: returnDate)
             } else {
                 returnDateTextField.text = ""
-                user.returnDate = nil
+                userDataService.returnDate = nil
             }
         }
     }
@@ -193,12 +194,12 @@ class SearchVC: UIViewController, SearchVCDelegate {
         originTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         destinationTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
-        if let origin = user.origin { self.origin = origin }
-        if let destination = user.destination { self.destination = destination }
-        if let departureDate = user.departureDate { self.departureDate = departureDate }
-        if let returnDate = user.returnDate { self.returnDate = returnDate }
+        if let origin = userDataService.origin { self.origin = origin }
+        if let destination = userDataService.destination { self.destination = destination }
+        if let departureDate = userDataService.departureDate { self.departureDate = departureDate }
+        if let returnDate = userDataService.returnDate { self.returnDate = returnDate }
         
-        if let searchType = user.searchType {
+        if let searchType = userDataService.searchType {
             self.selectedSearchType = SearchType(rawValue: searchType) ?? .oneWay
         }
         
@@ -297,12 +298,12 @@ class SearchVC: UIViewController, SearchVCDelegate {
         activitySpinner.startAnimating()
         
         var returnDate: Date?
-        if selectedSearchType == .roundTrip, let userReturnDate = user.returnDate {
+        if selectedSearchType == .roundTrip, let userReturnDate = userDataService.returnDate {
             returnDate = userReturnDate
         }
         
         let userOptions = [QPXExpressOptions]()
-        let request = requestManager.makeQPXRequest(adultCount: 1, from: user.origin!, to: user.destination!, departing: user.departureDate!, returning: returnDate, withOptions: userOptions)
+        let request = requestManager.makeQPXRequest(adultCount: 1, from: userDataService.origin!, to: userDataService.destination!, departing: userDataService.departureDate!, returning: returnDate, withOptions: userOptions)
         
         requestManager.fetch(qpxRequest: request) { [weak self] (flightData, error) in
             self?.activitySpinner.stopAnimating()
@@ -333,12 +334,12 @@ class SearchVC: UIViewController, SearchVCDelegate {
     }
     
     private func searchDataIsValid() -> Bool {
-        if let userOrigin = user.origin, let userDestination = user.destination,
-            let userDepartureDate = user.departureDate {
+        if let userOrigin = userDataService.origin, let userDestination = userDataService.destination,
+            let userDepartureDate = userDataService.departureDate {
             return (originTextField.text == userOrigin.searchRepresentation) &&
                 (destinationTextField.text == userDestination.searchRepresentation) &&
                 (departureDateTextField.text == formatter.string(from: userDepartureDate)) &&
-                (selectedSearchType == .roundTrip ? returnDateTextField.text == formatter.string(from: user.returnDate ?? Date()) : true)
+                (selectedSearchType == .roundTrip ? returnDateTextField.text == formatter.string(from: userDataService.returnDate ?? Date()) : true)
         }
         return false
     }

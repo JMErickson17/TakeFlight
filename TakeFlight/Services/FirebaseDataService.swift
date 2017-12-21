@@ -40,34 +40,4 @@ final class FirebaseDataService {
             })
         }
     }
-    
-/**
-     Sign up a new user with email and password
- */
-    func createNewUser(withEmail email: String, password: String, completion: AuthResultCallback? = nil) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            Auth.auth().createUser(withEmail: email, password: password, completion: completion)
-        }
-    }
-    
-/**
-     Sign in an existing user with email and password
- */
-    func signInUser(withEmail email: String, password: String, completion: AuthResultCallback? = nil) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            Auth.auth().signIn(withEmail: email, password: password, completion: completion)
-        }
-    }
-    
-/**
-     Sign out the current user
- */
-    func signOutCurrentUser() throws {
-        let firebaseAuth = Auth.auth()
-        do {
-            try firebaseAuth.signOut()
-        } catch {
-            throw error
-        }
-    }
 }

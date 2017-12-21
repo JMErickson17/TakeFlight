@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
+        let _ = Firestore.firestore()
+        
         FlightDataService.instance.populateAirportData()
         return true
     }

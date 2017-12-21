@@ -17,6 +17,8 @@
 		CA27EDA41FBD1F18005AC65B /* InstaFlightResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA27EDA31FBD1F18005AC65B /* InstaFlightResponse.swift */; };
 		CA27EDA61FBD218D005AC65B /* IFLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA27EDA51FBD218D005AC65B /* IFLink.swift */; };
 		CA29AA1B1F9D6A5E0047B2F1 /* SearchVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA29AA1A1F9D6A5E0047B2F1 /* SearchVCDelegate.swift */; };
+		CA2BE2CA1FEB160400DAF73F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2BE2C91FEB160400DAF73F /* User.swift */; };
+		CA2BE2CC1FEB463900DAF73F /* Notification+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2BE2CB1FEB463900DAF73F /* Notification+Name.swift */; };
 		CA3290171F9D2E650083EED7 /* MonthSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3290161F9D2E650083EED7 /* MonthSectionHeaderView.swift */; };
 		CA32901B1F9D5B650083EED7 /* Date+Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA32901A1F9D5B650083EED7 /* Date+Strings.swift */; };
 		CA53248A1FD8BF67002ABBC3 /* PillButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5324891FD8BF67002ABBC3 /* PillButton.swift */; };
@@ -114,6 +116,8 @@
 		CA27EDA31FBD1F18005AC65B /* InstaFlightResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstaFlightResponse.swift; sourceTree = "<group>"; };
 		CA27EDA51FBD218D005AC65B /* IFLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IFLink.swift; sourceTree = "<group>"; };
 		CA29AA1A1F9D6A5E0047B2F1 /* SearchVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVCDelegate.swift; sourceTree = "<group>"; };
+		CA2BE2C91FEB160400DAF73F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		CA2BE2CB1FEB463900DAF73F /* Notification+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name.swift"; sourceTree = "<group>"; };
 		CA3290161F9D2E650083EED7 /* MonthSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthSectionHeaderView.swift; sourceTree = "<group>"; };
 		CA32901A1F9D5B650083EED7 /* Date+Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Strings.swift"; sourceTree = "<group>"; };
 		CA5324891FD8BF67002ABBC3 /* PillButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillButton.swift; sourceTree = "<group>"; };
@@ -458,6 +462,7 @@
 				CAA0C7191FABE77B00FAFD69 /* DateRange.swift */,
 				CA8A2D1E1FAE4CA700C8D5E0 /* SearchType.swift */,
 				CA18454E1FD89AAD003B56C6 /* DateAndTimeZone.swift */,
+				CA2BE2C91FEB160400DAF73F /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -499,6 +504,7 @@
 				CAEDB6A31FCCB7CC0041878F /* UITableView+TopCell.swift */,
 				CAFF4A301FD2452F0036083C /* String+AlphanumericCharacters.swift */,
 				CA18454C1FD86D3B003B56C6 /* CGFloat+Lerp.swift */,
+				CA2BE2CB1FEB463900DAF73F /* Notification+Name.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -865,6 +871,7 @@
 				CA3290171F9D2E650083EED7 /* MonthSectionHeaderView.swift in Sources */,
 				CA29AA1B1F9D6A5E0047B2F1 /* SearchVCDelegate.swift in Sources */,
 				CA5B59921FE8608100B08A9D /* TicketView.swift in Sources */,
+				CA2BE2CC1FEB463900DAF73F /* Notification+Name.swift in Sources */,
 				CAA0C71A1FABE77B00FAFD69 /* DateRange.swift in Sources */,
 				CAEC73E61F81638F004D6F0B /* FlightData.swift in Sources */,
 				CA55C0FB1FE9C985008990C8 /* SignupVC.swift in Sources */,
@@ -873,6 +880,7 @@
 				CA85590D1FE747EA00E72913 /* ProfileVC.swift in Sources */,
 				CAF35CB61FE22EBA0074B60B /* TakeoffLoadingViewDelegate.swift in Sources */,
 				CAFF4A311FD2452F0036083C /* String+AlphanumericCharacters.swift in Sources */,
+				CA2BE2CA1FEB160400DAF73F /* User.swift in Sources */,
 				CAEC73E01F8144D1004D6F0B /* RoundTripFlightDataCell.swift in Sources */,
 				CAEC73E81F816BF1004D6F0B /* FlightDataService.swift in Sources */,
 				CAA19A111FA3D1CA00A479A8 /* AirportPickerVCDelegate.swift in Sources */,

@@ -19,8 +19,9 @@ class ProfileVC: UIViewController {
     // MARK: Properties
     
     @IBOutlet weak var userStatusView: LoggedInStatusView!
+    @IBOutlet weak var signOutButton: UIButton!
     
-    private var handleAuthStateDidChange: AuthStateDidChangeListenerHandle?
+    private var authListener: NSObjectProtocol?
     
     // MARK: Lifecycle
     
@@ -32,13 +33,14 @@ class ProfileVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         addAuthListener()
+        updateViewForAuthChanges()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+
         removeAuthListener()
     }
     
@@ -57,31 +59,41 @@ class ProfileVC: UIViewController {
     // MARK: Convenience
     
     private func addAuthListener() {
-        handleAuthStateDidChange = Auth.auth().addStateDidChangeListener({ (auth, user) in
-            if let user = user {
-                self.configureView(forUser: user)
-            }
+        authListener = NotificationCenter.default.addObserver(forName: .authStatusDidChange, object: nil, queue: OperationQueue.main, using: { _ in
+            self.updateViewForAuthChanges()
         })
     }
     
     private func removeAuthListener() {
-        Auth.auth().removeStateDidChangeListener(handleAuthStateDidChange!)
+        if let authListener = authListener {
+            NotificationCenter.default.removeObserver(authListener)
+        }
     }
     
-    private func configureView(forUser user: User?) {
-        if let user = user {
-            userStatusView.isLoggedIn = true
-            userStatusView.email = user.email
+    private func updateViewForAuthChanges() {
+        if let currentUser = UserDataService.instance.currentUser {
+            self.configureView(forUser: currentUser)
         } else {
-            userStatusView.isLoggedIn = false
-            userStatusView.email = nil
+            self.configureViewForLoggedOut()
         }
+    }
+    
+    private func configureView(forUser user: User) {
+        userStatusView.isLoggedIn = true
+        userStatusView.email = user.email
+        signOutButton.isHidden = false
+    }
+    
+    private func configureViewForLoggedOut() {
+        userStatusView.isLoggedIn = false
+        userStatusView.email = nil
+        signOutButton.isHidden = true
     }
     
     private func signOutCurrentUser() {
         do {
-            try FirebaseDataService.instance.signOutCurrentUser()
-            configureView(forUser: nil)
+            try UserDataService.instance.signOutCurrentUser()
+            configureViewForLoggedOut()
         } catch {
             print(error)
         }

@@ -62,7 +62,6 @@ class LoggedInStatusView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .fill
-        
         stackView.spacing = 20
         stackView.addArrangedSubview(loginButton)
         stackView.addArrangedSubview(signupButton)
