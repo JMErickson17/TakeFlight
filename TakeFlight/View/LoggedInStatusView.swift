@@ -13,48 +13,50 @@ class LoggedInStatusView: UIView {
     
     weak var delegate: LoggedInStatusViewDelegate?
     
-    var isLoggedIn: Bool = false {
-        didSet {
-            configureView(forLoggedInStatus: isLoggedIn)
-        }
-    }
-    
-    var email: String? {
-        didSet {
-            userEmailLabel.text = email
-        }
-    }
-
-    private lazy var loggedInStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        stackView.distribution = .fillEqually
-        stackView.addArrangedSubview(loggedInAsLabel)
-        stackView.addArrangedSubview(userEmailLabel)
-        stackView.spacing = 2
-        stackView.isHidden = true
-        return stackView
+    private lazy var containerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        return view
     }()
     
-    private lazy var loggedInAsLabel: UILabel = {
+    private lazy var loggedInView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        return view
+    }()
+    
+    private lazy var loggedInLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 12, weight: .light)
         label.textColor = UIColor.white
-        label.text = "Logged in as"
+        label.numberOfLines = 2
         return label
     }()
     
-    private lazy var userEmailLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        label.textColor = UIColor.white
-        return label
+    private var loggedInAsText: NSMutableAttributedString {
+        let attributes: [NSAttributedStringKey: Any] = [
+            NSAttributedStringKey.font: UIFont.systemFont(ofSize: 12, weight: .light),
+            NSAttributedStringKey.foregroundColor: UIColor.white
+        ]
+        return NSMutableAttributedString(string: "Logged in as\n", attributes: attributes)
+    }
+    
+    private var emailLabelAttributes: [NSAttributedStringKey: Any] {
+        return [
+            NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14, weight: .regular),
+            NSAttributedStringKey.foregroundColor: UIColor.white
+        ]
+    }
+    
+    private lazy var loggedOutView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        return view
     }()
     
     private lazy var loginButtonsStackView: UIStackView = {
@@ -65,7 +67,6 @@ class LoggedInStatusView: UIView {
         stackView.spacing = 20
         stackView.addArrangedSubview(loginButton)
         stackView.addArrangedSubview(signupButton)
-        stackView.isHidden = true
         return stackView
     }()
     
@@ -99,38 +100,83 @@ class LoggedInStatusView: UIView {
         setupView()
     }
     
+    
     private func setupView() {
-        self.addSubview(loggedInStackView)
+        
+        self.addSubview(containerView)
         NSLayoutConstraint.activate([
-            loggedInStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            loggedInStackView.topAnchor.constraint(equalTo: topAnchor),
-            loggedInStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            loggedInStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            containerView.topAnchor.constraint(equalTo: topAnchor),
+            containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            containerView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         
-        self.addSubview(loginButtonsStackView)
+        containerView.addSubview(loggedInView)
         NSLayoutConstraint.activate([
-            loginButtonsStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            loginButtonsStackView.topAnchor.constraint(equalTo: topAnchor),
-            loginButtonsStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            loginButtonsStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            loggedInView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            loggedInView.topAnchor.constraint(equalTo: containerView.topAnchor),
+            loggedInView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            loggedInView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+        ])
+        
+        loggedInView.addSubview(loggedInLabel)
+        NSLayoutConstraint.activate([
+            loggedInLabel.centerXAnchor.constraint(equalTo: loggedInView.centerXAnchor),
+            loggedInLabel.centerYAnchor.constraint(equalTo: loggedInView.centerYAnchor),
+            loggedInLabel.widthAnchor.constraint(equalTo: loggedInView.widthAnchor, multiplier: 0.90)
+        ])
+        
+        containerView.addSubview(loggedOutView)
+        NSLayoutConstraint.activate([
+            loggedOutView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            loggedOutView.topAnchor.constraint(equalTo: containerView.topAnchor),
+            loggedOutView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            loggedOutView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+        ])
+        
+        loggedOutView.addSubview(loginButtonsStackView)
+        NSLayoutConstraint.activate([
+            loginButtonsStackView.leadingAnchor.constraint(equalTo: loggedOutView.leadingAnchor),
+            loginButtonsStackView.topAnchor.constraint(equalTo: loggedOutView.topAnchor),
+            loginButtonsStackView.trailingAnchor.constraint(equalTo: loggedOutView.trailingAnchor),
+            loginButtonsStackView.bottomAnchor.constraint(equalTo: loggedOutView.bottomAnchor)
         ])
         
         loginButton.addTarget(self, action: #selector(loginButtonWasTapped), for: .touchUpInside)
         signupButton.addTarget(self, action: #selector(signupButtonWasTapped), for: .touchUpInside)
         
-        configureView(forLoggedInStatus: isLoggedIn)
+        configureViewForCurrentUser()
     }
-
-    private func configureView(forLoggedInStatus isLoggedIn: Bool) {
-        if isLoggedIn {
-            loggedInStackView.isHidden = false
-            loginButtonsStackView.isHidden = true
+    
+    func configureViewForCurrentUser() {
+        if let currentUser = UserDataService.instance.currentUser {
+            transitionToLoggedInView()
+            setUserEmail(to: currentUser.email)
         } else {
-            loggedInStackView.isHidden = true
-            loginButtonsStackView.isHidden = false
+            transitionToLoggedOutView()
+            setUserEmail(to: "")
         }
-        layoutIfNeeded()
+    }
+    
+    private func transitionToLoggedInView() {
+        UIView.transition(with: containerView, duration: 1.0, options: [.transitionFlipFromTop], animations: {
+            self.loggedOutView.isHidden = true
+            self.loggedInView.isHidden = false
+        })
+    }
+    
+    private func transitionToLoggedOutView() {
+        UIView.transition(with: containerView, duration: 1.0, options: [.transitionFlipFromBottom], animations: {
+            self.loggedOutView.isHidden = false
+            self.loggedInView.isHidden = true
+        })
+    }
+    
+    private func setUserEmail(to email: String) {
+        let attributedText = loggedInAsText
+        let email = NSMutableAttributedString(string: email, attributes: emailLabelAttributes)
+        attributedText.append(email)
+        loggedInLabel.attributedText = attributedText
     }
     
     @objc private func loginButtonWasTapped() {

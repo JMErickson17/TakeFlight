@@ -19,7 +19,6 @@ class ProfileVC: UIViewController {
     // MARK: Properties
     
     @IBOutlet weak var userStatusView: LoggedInStatusView!
-    @IBOutlet weak var signOutButton: UIButton!
     
     private var authListener: NSObjectProtocol?
     
@@ -34,26 +33,20 @@ class ProfileVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        addAuthListener()
+        //addAuthListener()
         updateViewForAuthChanges()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        removeAuthListener()
+        //removeAuthListener()
     }
     
     // MARK: Setup
     
     private func setupView() {
         userStatusView.delegate = self
-    }
-    
-    // MARK: Actions
-    
-    @IBAction func signOutButtonTapped(_ sender: UIButton) {
-        signOutCurrentUser()
     }
     
     // MARK: Convenience
@@ -71,31 +64,11 @@ class ProfileVC: UIViewController {
     }
     
     private func updateViewForAuthChanges() {
+        userStatusView.configureViewForCurrentUser()
         if let currentUser = UserDataService.instance.currentUser {
-            self.configureView(forUser: currentUser)
+            
         } else {
-            self.configureViewForLoggedOut()
-        }
-    }
-    
-    private func configureView(forUser user: User) {
-        userStatusView.isLoggedIn = true
-        userStatusView.email = user.email
-        signOutButton.isHidden = false
-    }
-    
-    private func configureViewForLoggedOut() {
-        userStatusView.isLoggedIn = false
-        userStatusView.email = nil
-        signOutButton.isHidden = true
-    }
-    
-    private func signOutCurrentUser() {
-        do {
-            try UserDataService.instance.signOutCurrentUser()
-            configureViewForLoggedOut()
-        } catch {
-            print(error)
+            
         }
     }
 }

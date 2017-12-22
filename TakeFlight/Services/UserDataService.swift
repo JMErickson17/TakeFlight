@@ -137,6 +137,12 @@ final class UserDataService {
             }
         }
     }
+    
+    func clearCurrentUserSearchHistory(completion: ((Error?) -> Void)?) {
+        completion?(nil)
+    }
+    
+    
 }
 
 // MARK: UserDataService+UserDefaults

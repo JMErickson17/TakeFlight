@@ -222,9 +222,12 @@
                                     <constraint firstAttribute="width" constant="100" id="Ybw-ev-5Sh"/>
                                 </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYM-lK-I99" userLabel="User Status View" customClass="LoggedInStatusView" customModule="TakeFlight" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYM-lK-I99" customClass="LoggedInStatusView" customModule="TakeFlight" customModuleProvider="target">
                                 <rect key="frame" x="77.5" y="120" width="220" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="l7m-NV-aT2"/>
+                                </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LPE-Hd-icy" userLabel="Divider">
                                 <rect key="frame" x="16" y="162" width="343" height="1"/>
@@ -239,23 +242,11 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PsM-T5-Xx4">
-                                <rect key="frame" x="310" y="8" width="49" height="27"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="Sign Out">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="signOutButtonTapped:" destination="gtq-OJ-Mev" eventType="touchUpInside" id="kBA-Yl-fth"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" name="PrimaryBlue"/>
                         <constraints>
                             <constraint firstItem="LPE-Hd-icy" firstAttribute="leading" secondItem="zb4-aj-G0n" secondAttribute="leadingMargin" id="9GP-cz-JSq"/>
                             <constraint firstItem="HYM-lK-I99" firstAttribute="top" secondItem="vEO-Dn-8IA" secondAttribute="bottom" constant="12" id="Er2-BT-ZLX"/>
-                            <constraint firstItem="mqY-rs-bhS" firstAttribute="trailing" secondItem="PsM-T5-Xx4" secondAttribute="trailing" constant="16" id="Grf-yW-x2N"/>
-                            <constraint firstItem="PsM-T5-Xx4" firstAttribute="top" secondItem="mqY-rs-bhS" secondAttribute="top" constant="8" id="PxN-OU-YOC"/>
                             <constraint firstItem="LPE-Hd-icy" firstAttribute="trailing" secondItem="zb4-aj-G0n" secondAttribute="trailingMargin" id="S5v-EN-ES3"/>
                             <constraint firstItem="LPE-Hd-icy" firstAttribute="top" secondItem="HYM-lK-I99" secondAttribute="bottom" constant="12" id="XSk-ue-3TQ"/>
                             <constraint firstItem="HYM-lK-I99" firstAttribute="centerX" secondItem="zb4-aj-G0n" secondAttribute="centerX" id="aGX-3O-M5o"/>
@@ -274,7 +265,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="signOutButton" destination="PsM-T5-Xx4" id="KRa-Ou-B14"/>
                         <outlet property="userStatusView" destination="HYM-lK-I99" id="gWD-Tg-5uU"/>
                         <segue destination="jii-gI-mK2" kind="show" identifier="ToLoginVC" id="p8S-e3-9dx"/>
                         <segue destination="il9-oR-JOQ" kind="show" identifier="ToSignupVC" id="1l8-jU-NWX"/>

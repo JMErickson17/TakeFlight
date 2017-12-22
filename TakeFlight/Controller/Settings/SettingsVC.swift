@@ -12,6 +12,14 @@ class SettingsVC: UITableViewController {
     
     // MARK: Types
     
+    private struct Constants {
+        static let clearSearchHistoryAlertTitle = "Clear Search History"
+        static let clearSearchHistoryAlertMessage = "Are you sure you want to clear all search history?"
+        static let toCurrencyPickerVC = "toCurrencyPickerVC"
+        static let toLanguagePickerVC = "toLanguagePickerVC"
+        static let toBillingCountryPickerVC = "toBillingCountryPickerVC"
+    }
+    
     private enum SectionType {
         case account
         case regional
@@ -76,10 +84,11 @@ class SettingsVC: UITableViewController {
         case .billingCountry:
             handleChangeBillingCountry()
         case .clearSearchHistory:
-            break
+            handleClearHistory()
         case .notifications:
             break
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: Convenience
@@ -97,14 +106,31 @@ class SettingsVC: UITableViewController {
     }
     
     private func handleChangeCurrency() {
-        performSegue(withIdentifier: "toCurrencyPickerVC", sender: nil)
+        performSegue(withIdentifier: Constants.toCurrencyPickerVC, sender: nil)
     }
     
     private func handleChangeLanguage() {
-        performSegue(withIdentifier: "toLanguagePickerVC", sender: nil)
+        performSegue(withIdentifier: Constants.toLanguagePickerVC, sender: nil)
     }
     
     private func handleChangeBillingCountry() {
-        performSegue(withIdentifier: "toBillingCountryPickerVC", sender: nil)
+        performSegue(withIdentifier: Constants.toBillingCountryPickerVC, sender: nil)
+    }
+    
+    private func handleClearHistory() {
+        let alert = UIAlertController(title: Constants.clearSearchHistoryAlertTitle, message: Constants.clearSearchHistoryAlertMessage, preferredStyle: .alert)
+        let clearSearchHistoryAction = UIAlertAction(title: "Clear", style: .destructive) { alert in
+            UserDataService.instance.clearCurrentUserSearchHistory { error in
+                if let error = error { return print(error) }
+                
+                if let navigationController = self.navigationController {
+                    let notification = DropDownNotification(text: "Search history cleared.")
+                    notification.presentNotification(onNavigationController: navigationController, forDuration: 3)
+                }
+            }
+        }
+        alert.addAction(clearSearchHistoryAction)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
     }
 }
