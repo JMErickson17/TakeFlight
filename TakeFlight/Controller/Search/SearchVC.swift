@@ -14,6 +14,13 @@ class SearchVC: UIViewController, SearchVCDelegate {
         case invalidSearchData
         case invalidRequest
         case invalidReponse
+        case invalidUserSearchRequest
+    }
+    
+    enum SearchState {
+        case noResults
+        case searching
+        case someResults
     }
     
     // MARK: Properties
@@ -34,14 +41,24 @@ class SearchVC: UIViewController, SearchVCDelegate {
     private var requestManager = QPXExpress()
     private var airportPickerVC: AirportPickerVC?
     private var datePickerVC: DatePickerVC?
-    private var takeoffLoadingView: TakeoffLoadingView?
-    private var flightDetailsVC: FlightDetailsVC?
     
     var selectedSearchType: SearchType = .oneWay {
         didSet {
             userDataService.searchType = selectedSearchType.rawValue
-            updateViewForSearchType(selectedSearchType)
+            configureViewForSearchType(selectedSearchType)
         }
+    }
+    
+    var currentSearchState: SearchState? {
+        didSet {
+            if let currentSearchState = currentSearchState {
+                configureViewForSearchState(currentSearchState)
+            }
+        }
+    }
+    
+    var shouldSearch: Bool {
+        return airportPickerVC == nil && datePickerVC == nil && self.view.window != nil
     }
     
     var datesSelected: SelectedState {
@@ -92,6 +109,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
                 departureDateTextField.text = ""
                 userDataService.departureDate = nil
             }
+            
         }
     }
     
@@ -155,10 +173,15 @@ class SearchVC: UIViewController, SearchVCDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.title = "Search Flights"
         let backButton = UIBarButtonItem()
         backButton.title = "Back"
         navigationItem.backBarButtonItem = backButton
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        searchFlightsWithUserDefaults()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -231,20 +254,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
     // MARK: Actions
     
     @IBAction func searchButtonTapped(_ sender: UIButton) {
-        searchFlightsWithUserDefaults { [weak self] (flightData, error) in
-            if let error = error {
-                if let navigationController = self?.navigationController {
-                    let notification = DropDownNotification(text: error.localizedDescription)
-                    notification.presentNotification(onNavigationController: navigationController, forDuration: 3)
-                }
-                self?.flights.removeAll()
-                self?.showEmptyFlightsLabel()
-                return
-            }
-            if let flightData = flightData {
-                self?.flights = flightData
-            }
-        }
+        searchFlightsWithUserDefaults()
     }
     
     @IBAction func roundTripButtonTapped(_ sender: UIButton) {
@@ -271,9 +281,9 @@ class SearchVC: UIViewController, SearchVCDelegate {
         }
     }
     
-    // MARK: Convenience
+    // MARK: View Configuration
     
-    private func updateViewForSearchType(_ searchType: SearchType) {
+    private func configureViewForSearchType(_ searchType: SearchType) {
         switch searchType {
         case .oneWay:
             oneWayButton.layer.opacity = 1
@@ -286,63 +296,111 @@ class SearchVC: UIViewController, SearchVCDelegate {
             returnDateTextField.placeholder = "Return Date"
         }
         flights.removeAll()
-        showEmptyFlightsLabel()
-        searchFlightsWithUserDefaults(completion: handleNewSearchResults(withFlightData:error:))
-        
+        searchFlightsWithUserDefaults()
     }
     
-    private func searchFlightsWithUserDefaults(completion: @escaping ([FlightData]?, Error?) -> Void) {
-        guard searchDataIsValid() else { return completion(nil, FlightSearchError.invalidSearchData) }
+    private func configureViewForSearchState(_ searchState: SearchState) {
+        switch searchState {
+        case .noResults:
+            showEmptyFlightsLabel()
+            activitySpinner.stopAnimating()
+        case .searching:
+            flights.removeAll()
+            hideEmptyFlightsLabel()
+            activitySpinner.startAnimating()
+        case .someResults:
+            hideEmptyFlightsLabel()
+            activitySpinner.stopAnimating()
+        }
+    }
+    
+    private func showEmptyFlightsLabel() {
+        DispatchQueue.main.async {
+            self.emptyFlightsLabel.isHidden = false
+        }
+    }
+    
+    private func hideEmptyFlightsLabel() {
+        DispatchQueue.main.async {
+            self.emptyFlightsLabel.isHidden = true
+        }
+    }
+    
+    // MARK: Search Methods
+    
+    private func searchFlightsWithUserDefaults() {
+        guard shouldSearch else { return }
+        guard canSearchWithUserDefaults() else { return handleSearchError(FlightSearchError.invalidSearchData) }
+        if let userSearchRequest = makeUserSearchRequestFromUserDefaults() {
+            currentSearchState = .searching
+            
+            let qpxRequest = requestManager.makeQPXRequest(adultCount: 1,
+                                                           from: userSearchRequest.origin,
+                                                           to: userSearchRequest.destination,
+                                                           departing: userSearchRequest.departureDate,
+                                                           returning: userSearchRequest.returnDate)
+            
+            requestManager.fetch(qpxRequest: qpxRequest, completion: { [weak self] (flightData, error) in
+                if let error = error, let searchVC = self { return searchVC.handleSearchError(error) }
+                if let flightData = flightData {
+                    self?.saveToCurrentUser(userSearchRequest: userSearchRequest)
+                    self?.handleNewFlightData(flightData)
+                } else {
+                    self?.handleSearchError(FlightSearchError.invalidReponse)
+                }
+            })
+        }
+    }
+    
+    private func handleNewFlightData(_ flightData: [FlightData]) {
+        self.flights = flightData
+        if flights.count == 0 {
+            currentSearchState = .noResults
+        } else {
+            currentSearchState = .someResults
+        }
+    }
+    
+    private func handleSearchError(_ error: Error) {
         self.flights.removeAll()
-        self.hideEmptyFlightsLabel()
-        activitySpinner.startAnimating()
-        
-        var returnDate: Date?
-        if selectedSearchType == .roundTrip, let userReturnDate = userDataService.returnDate {
-            returnDate = userReturnDate
-        }
-        
-        let userOptions = [QPXExpressOptions]()
-        let request = requestManager.makeQPXRequest(adultCount: 1, from: userDataService.origin!, to: userDataService.destination!, departing: userDataService.departureDate!, returning: returnDate, withOptions: userOptions)
-        
-        requestManager.fetch(qpxRequest: request) { [weak self] (flightData, error) in
-            self?.activitySpinner.stopAnimating()
-            if let error = error {
-                self?.showEmptyFlightsLabel()
-                return completion(nil, error)
-            }
-            if let flightData = flightData {
-                completion(flightData, nil)
-            }
-        }
+        currentSearchState = .noResults
+        print(error)
     }
     
-    // TODO: Fix memory cycle possibility
-    private func handleNewSearchResults(withFlightData flightData: [FlightData]?, error: Error?) {
-        if let error = error {
-            if let navigationController = self.navigationController {
-                let notification = DropDownNotification(text: error.localizedDescription)
-                notification.presentNotification(onNavigationController: navigationController, forDuration: 3)
-            }
-            return
-        }
-        
-        if let flightData = flightData {
-            self.flights.removeAll()
-            self.flights = flightData
-        }
-    }
-    
-    private func searchDataIsValid() -> Bool {
+    private func canSearchWithUserDefaults() -> Bool {
         if let userOrigin = userDataService.origin, let userDestination = userDataService.destination,
             let userDepartureDate = userDataService.departureDate {
-            return (originTextField.text == userOrigin.searchRepresentation) &&
-                (destinationTextField.text == userDestination.searchRepresentation) &&
-                (departureDateTextField.text == formatter.string(from: userDepartureDate)) &&
-                (selectedSearchType == .roundTrip ? returnDateTextField.text == formatter.string(from: userDataService.returnDate ?? Date()) : true)
+            guard originTextField.text == userOrigin.searchRepresentation else { return false }
+            guard destinationTextField.text == userDestination.searchRepresentation else { return false }
+            guard departureDateTextField.text == formatter.string(from: userDepartureDate) else { return false }
+            
+            if selectedSearchType == .roundTrip {
+                guard let userReturnDate = userDataService.returnDate else { return false }
+                guard returnDateTextField.text == formatter.string(from: userReturnDate) else { return false }
+            }
+            return true
         }
         return false
     }
+    
+    private func makeUserSearchRequestFromUserDefaults() -> UserSearchRequest? {
+        guard canSearchWithUserDefaults() else { return nil }
+        return UserSearchRequest(timeStamp: Date(),
+                                 origin: userDataService.origin!,
+                                 destination: userDataService.destination!,
+                                 departureDate: userDataService.departureDate!,
+                                 returnDate: userDataService.returnDate)
+    }
+    
+    // MARK: Database
+    
+    private func saveToCurrentUser(userSearchRequest request: UserSearchRequest) {
+        userDataService.saveToCurrentUser(userSearchRequest: request) { (error) in
+            if let error = error { print(error) }
+        }
+    }
+    
+    // MARK: Container View Controllers
     
     private func presentAirportPicker(withTag tag: Int, completion: (() -> Void)? = nil) {
         guard airportPickerVC == nil else { return }
@@ -376,6 +434,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
             airportPickerVC!.view.removeFromSuperview()
             airportPickerVC!.removeFromParentViewController()
             airportPickerVC = nil
+            searchFlightsWithUserDefaults()
         }
     }
     
@@ -409,6 +468,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
             datePickerVC!.view.removeFromSuperview()
             datePickerVC!.removeFromParentViewController()
             datePickerVC = nil
+            searchFlightsWithUserDefaults()
         }
     }
     
@@ -417,18 +477,6 @@ class SearchVC: UIViewController, SearchVCDelegate {
         let flightDetailsVC = FlightDetailsVC()
         flightDetailsVC.flightData = data
         navigationController?.pushViewController(flightDetailsVC, animated: true)
-    }
-    
-    private func showEmptyFlightsLabel() {
-        DispatchQueue.main.async {
-            self.emptyFlightsLabel.isHidden = false
-        }
-    }
-    
-    private func hideEmptyFlightsLabel() {
-        DispatchQueue.main.async {
-            self.emptyFlightsLabel.isHidden = true
-        }
     }
 }
 
@@ -473,6 +521,7 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presentFlightDetails(forCellAt: indexPath)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -527,13 +576,5 @@ extension SearchVC: UITextFieldDelegate {
                 self.searchDelegate?.airportPickerVC(self.searchDelegate as! AirportPickerVC, searchQueryDidChange: true, withQuery: query)
             })
         }
-    }
-}
-
-// MARK: SearchVC+TakeoffLoadingViewDelegate
-
-extension SearchVC: TakeoffLoadingViewDelegate {
-    func takeoffLoadingView(_ takeoffLoadingView: TakeoffLoadingView, runwayWillAnimateOffScreen: Bool) {
-        
     }
 }

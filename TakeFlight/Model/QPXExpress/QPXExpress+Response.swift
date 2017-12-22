@@ -139,7 +139,7 @@ extension QPXExpress {
             private(set) var onTimePerformance: Int?
             private(set) var mileage: Int
             private(set) var meal: String?
-            private(set) var secure: Bool
+            private(set) var secure: Bool?
             private(set) var connectionDuration: Int?
             
             enum CodingKeys: String, CodingKey {

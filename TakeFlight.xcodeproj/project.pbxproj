@@ -21,6 +21,8 @@
 		CA2BE2CC1FEB463900DAF73F /* Notification+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2BE2CB1FEB463900DAF73F /* Notification+Name.swift */; };
 		CA3290171F9D2E650083EED7 /* MonthSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3290161F9D2E650083EED7 /* MonthSectionHeaderView.swift */; };
 		CA32901B1F9D5B650083EED7 /* Date+Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA32901A1F9D5B650083EED7 /* Date+Strings.swift */; };
+		CA49BB8D1FED8BFF00C3940C /* LocationTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA49BB8C1FED8BFF00C3940C /* LocationTextField.swift */; };
+		CA49BB8F1FED8D2600C3940C /* DateTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA49BB8E1FED8D2600C3940C /* DateTextField.swift */; };
 		CA53248A1FD8BF67002ABBC3 /* PillButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5324891FD8BF67002ABBC3 /* PillButton.swift */; };
 		CA5328231FE7571D00867E35 /* FlightDataTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5328221FE7571D00867E35 /* FlightDataTableViewHeaderView.swift */; };
 		CA55C0F01FE99163008990C8 /* OutlineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA55C0EF1FE99163008990C8 /* OutlineButton.swift */; };
@@ -126,6 +128,8 @@
 		CA2BE2CB1FEB463900DAF73F /* Notification+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name.swift"; sourceTree = "<group>"; };
 		CA3290161F9D2E650083EED7 /* MonthSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthSectionHeaderView.swift; sourceTree = "<group>"; };
 		CA32901A1F9D5B650083EED7 /* Date+Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Strings.swift"; sourceTree = "<group>"; };
+		CA49BB8C1FED8BFF00C3940C /* LocationTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTextField.swift; sourceTree = "<group>"; };
+		CA49BB8E1FED8D2600C3940C /* DateTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTextField.swift; sourceTree = "<group>"; };
 		CA5324891FD8BF67002ABBC3 /* PillButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillButton.swift; sourceTree = "<group>"; };
 		CA5328221FE7571D00867E35 /* FlightDataTableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDataTableViewHeaderView.swift; sourceTree = "<group>"; };
 		CA55C0EF1FE99163008990C8 /* OutlineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineButton.swift; sourceTree = "<group>"; };
@@ -296,6 +300,23 @@
 			path = FlightData;
 			sourceTree = "<group>";
 		};
+		CA49BB891FED7E2F00C3940C /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				CAECB8731FEA019A00F84359 /* DropDownNotification.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		CA49BB901FED8D3D00C3940C /* TextFields */ = {
+			isa = PBXGroup;
+			children = (
+				CA49BB8C1FED8BFF00C3940C /* LocationTextField.swift */,
+				CA49BB8E1FED8D2600C3940C /* DateTextField.swift */,
+			);
+			path = TextFields;
+			sourceTree = "<group>";
+		};
 		CA55C0EE1FE98CC0008990C8 /* MyFlightsView */ = {
 			isa = PBXGroup;
 			children = (
@@ -410,6 +431,7 @@
 		CAEC73A81F813C29004D6F0B /* TakeFlight */ = {
 			isa = PBXGroup;
 			children = (
+				CA49BB891FED7E2F00C3940C /* Notifications */,
 				CAEC73EC1F818CFA004D6F0B /* Protocols */,
 				CAEC73EB1F818CB0004D6F0B /* Extensions */,
 				CAEC73E21F814F1D004D6F0B /* Utilities */,
@@ -449,7 +471,6 @@
 		CAEC73D71F813C4F004D6F0B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				CAECB8731FEA019A00F84359 /* DropDownNotification.swift */,
 				CA8559081FE7467A00E72913 /* Explore */,
 				CA8559071FE7466200E72913 /* Search */,
 				CA8559091FE7468100E72913 /* Profile */,
@@ -466,6 +487,7 @@
 				CA5B598A1FE83AAC00B08A9D /* FlightCardView */,
 				CA55C0EE1FE98CC0008990C8 /* MyFlightsView */,
 				CA55C0F11FE9959E008990C8 /* Buttons */,
+				CA49BB901FED8D3D00C3940C /* TextFields */,
 				CAA19A0C1FA3C08000A479A8 /* AirportPickerCell.swift */,
 				CA18454A1FD8667E003B56C6 /* TooltipView.swift */,
 				CAF35CB31FE1F4850074B60B /* TakeoffLoadingView.swift */,
@@ -907,6 +929,7 @@
 				CA55C0FB1FE9C985008990C8 /* SignupVC.swift in Sources */,
 				CA32901B1F9D5B650083EED7 /* Date+Strings.swift in Sources */,
 				CA98C48F1FEC4FCF0009D326 /* CurrencyPickerVC.swift in Sources */,
+				CA49BB8D1FED8BFF00C3940C /* LocationTextField.swift in Sources */,
 				CAD6FC291FE19B7300691A8B /* TimelineView.swift in Sources */,
 				CA85590D1FE747EA00E72913 /* ProfileVC.swift in Sources */,
 				CAF35CB61FE22EBA0074B60B /* TakeoffLoadingViewDelegate.swift in Sources */,
@@ -928,6 +951,7 @@
 				CA9B28631FCF71C700AACF29 /* FlightSegment.swift in Sources */,
 				CA7C3A201FBA42FF00E4CD40 /* FlightDetailsVC.swift in Sources */,
 				CA825CD81F93A8BB006871B2 /* DatePickerVC.swift in Sources */,
+				CA49BB8F1FED8D2600C3940C /* DateTextField.swift in Sources */,
 				CA55C0F91FE9C974008990C8 /* LoginVC.swift in Sources */,
 				CAA19A0E1FA3C08000A479A8 /* AirportPickerCell.swift in Sources */,
 				CA825CDD1F93BFBF006871B2 /* FirebaseDataService.swift in Sources */,

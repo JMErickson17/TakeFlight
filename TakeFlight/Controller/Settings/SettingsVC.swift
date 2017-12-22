@@ -64,6 +64,13 @@ class SettingsVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupView()
+    }
+    
+    private func setupView() {
+        nameTextField.delegate = self
+        emailTextField.delegate = self
+        phoneNumberTextField.delegate = self
     }
 
     // MARK: UITableView Delegate
@@ -132,5 +139,19 @@ class SettingsVC: UITableViewController {
         alert.addAction(clearSearchHistoryAction)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true)
+    }
+}
+
+// MARK: SettingsVC+UITextFieldDelegate
+
+extension SettingsVC: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        // TODO: Save new user data
     }
 }

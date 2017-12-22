@@ -26,6 +26,20 @@ final class UserDataService {
     private var usersCollectionRef: CollectionReference {
         return database.collection("users")
     }
+    
+    private var currentUserRef: DocumentReference? {
+        if let currentUser = currentUser {
+            return usersCollectionRef.document(currentUser.uid)
+        }
+        return nil
+    }
+    
+    private var currentUserSearchHistoryCollectionRef: CollectionReference? {
+        if let currentUserRef = currentUserRef {
+            return currentUserRef.collection("searchRequests")
+        }
+        return nil
+    }
 
     // MARK: Lifecycle
     
@@ -134,6 +148,17 @@ final class UserDataService {
                         completion(user, nil)
                     }
                 }
+            }
+        }
+    }
+    
+    func saveToCurrentUser(userSearchRequest request: UserSearchRequest, completion: ErrorCompletionHandler?) {
+        DispatchQueue.global().async {
+            if let currentUserSearchHistoryCollectionRef = self.currentUserSearchHistoryCollectionRef {
+                currentUserSearchHistoryCollectionRef.addDocument(data: request.dictionaryRepresentation, completion: { (error) in
+                    // Nofify UserDidChange
+                    completion?(error)
+                })
             }
         }
     }

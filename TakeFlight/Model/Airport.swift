@@ -30,6 +30,10 @@ struct Airport: Codable {
         return "\(city), \(country)"
     }
     
+    public var identifier: String {
+        return iata
+    }
+    
     // MARK: Lifetime
     
     init(name: String, city: String, state: String, stateAbbreviation: String, country: String, iata: String, lat: Double, lon: Double, timeZone: String) {

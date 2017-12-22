@@ -9,8 +9,19 @@
 import Foundation
 
 struct UserSearchRequest {
-    var departureDate: Date?
+    var timeStamp: Date
+    var origin: Airport
+    var destination: Airport
+    var departureDate: Date
     var returnDate: Date?
-    var origin: String
-    var destination: String
+    
+    var dictionaryRepresentation: [String: Any] {
+        return [
+            "timeStamp": timeStamp,
+            "origin": origin.identifier,
+            "destination": destination.identifier,
+            "departureDate": departureDate,
+            "returnDate": returnDate as Any
+        ]
+    }
 }

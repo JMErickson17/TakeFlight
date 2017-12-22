@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -89,7 +90,7 @@
                         </stackView>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QYR-Iw-yEg" customClass="PillButton" customModule="TakeFlight" customModuleProvider="target">
                             <rect key="frame" x="295" y="5" width="70" height="25"/>
-                            <color key="backgroundColor" red="0.14901960784313725" green="0.50980392156862742" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="backgroundColor" name="PrimaryBlue"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="70" id="jRe-f1-vQ1"/>
                                 <constraint firstAttribute="height" constant="25" id="pG2-4p-320"/>
@@ -129,4 +130,9 @@
             <point key="canvasLocation" x="24.5" y="361.5"/>
         </view>
     </objects>
+    <resources>
+        <namedColor name="PrimaryBlue">
+            <color red="0.15700000524520874" green="0.37599998712539673" blue="0.87099999189376831" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

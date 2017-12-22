@@ -11,6 +11,7 @@ import Firebase
 
 typealias JSONRepresentable = [String: Any]
 typealias FlightDataContainer = (departure: FlightData, return: FlightData?)
+typealias ErrorCompletionHandler = (Error?) -> Void
 
 enum Constants {
     
