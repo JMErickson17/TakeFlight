@@ -21,6 +21,7 @@
 		CA2BE2CC1FEB463900DAF73F /* Notification+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2BE2CB1FEB463900DAF73F /* Notification+Name.swift */; };
 		CA3290171F9D2E650083EED7 /* MonthSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3290161F9D2E650083EED7 /* MonthSectionHeaderView.swift */; };
 		CA32901B1F9D5B650083EED7 /* Date+Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA32901A1F9D5B650083EED7 /* Date+Strings.swift */; };
+		CA488D851FEDD06F00CA06D2 /* UpdatableUserProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA488D841FEDD06F00CA06D2 /* UpdatableUserProperties.swift */; };
 		CA49BB8D1FED8BFF00C3940C /* LocationTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA49BB8C1FED8BFF00C3940C /* LocationTextField.swift */; };
 		CA49BB8F1FED8D2600C3940C /* DateTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA49BB8E1FED8D2600C3940C /* DateTextField.swift */; };
 		CA53248A1FD8BF67002ABBC3 /* PillButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5324891FD8BF67002ABBC3 /* PillButton.swift */; };
@@ -128,6 +129,7 @@
 		CA2BE2CB1FEB463900DAF73F /* Notification+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name.swift"; sourceTree = "<group>"; };
 		CA3290161F9D2E650083EED7 /* MonthSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthSectionHeaderView.swift; sourceTree = "<group>"; };
 		CA32901A1F9D5B650083EED7 /* Date+Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Strings.swift"; sourceTree = "<group>"; };
+		CA488D841FEDD06F00CA06D2 /* UpdatableUserProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatableUserProperties.swift; sourceTree = "<group>"; };
 		CA49BB8C1FED8BFF00C3940C /* LocationTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTextField.swift; sourceTree = "<group>"; };
 		CA49BB8E1FED8D2600C3940C /* DateTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTextField.swift; sourceTree = "<group>"; };
 		CA5324891FD8BF67002ABBC3 /* PillButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillButton.swift; sourceTree = "<group>"; };
@@ -298,6 +300,16 @@
 				CAEC73E51F81638F004D6F0B /* FlightData.swift */,
 			);
 			path = FlightData;
+			sourceTree = "<group>";
+		};
+		CA488D831FEDD04800CA06D2 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				CA2BE2C91FEB160400DAF73F /* User.swift */,
+				CA98C4891FEC4DE60009D326 /* UserSearchRequest.swift */,
+				CA488D841FEDD06F00CA06D2 /* UpdatableUserProperties.swift */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 		CA49BB891FED7E2F00C3940C /* Notifications */ = {
@@ -501,6 +513,7 @@
 		CAEC73D91F813C69004D6F0B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CA488D831FEDD04800CA06D2 /* User */,
 				CA3185E51FE065E00055A1B1 /* FlightData */,
 				CA3185E21FE0652C0055A1B1 /* QPXExpress */,
 				CA132B941FC6223E0097FDAB /* InstaFlight */,
@@ -509,8 +522,6 @@
 				CAA0C7191FABE77B00FAFD69 /* DateRange.swift */,
 				CA8A2D1E1FAE4CA700C8D5E0 /* SearchType.swift */,
 				CA18454E1FD89AAD003B56C6 /* DateAndTimeZone.swift */,
-				CA2BE2C91FEB160400DAF73F /* User.swift */,
-				CA98C4891FEC4DE60009D326 /* UserSearchRequest.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -969,6 +980,7 @@
 				CA8A2D1F1FAE4CA700C8D5E0 /* SearchType.swift in Sources */,
 				CA825CDA1F93A954006871B2 /* DatePickerCell.swift in Sources */,
 				CA5B598E1FE85A3400B08A9D /* MyFlightsView.swift in Sources */,
+				CA488D851FEDD06F00CA06D2 /* UpdatableUserProperties.swift in Sources */,
 				CABA2C5C1FA3E5F9001D9743 /* UserDataService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

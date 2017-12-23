@@ -23,6 +23,13 @@ class User {
     private(set) var billingCountry: String?
 //    private(set) var searchHistory: [UserSearchRequest]?
     
+    var fullName: String? {
+        if let firstName = firstName, let lastName = lastName {
+            return "\(firstName) \(lastName)"
+        }
+        return nil
+    }
+    
     
     var dictionaryRepresentation: [String: Any] {
         let dictionary: [String: Any] = [

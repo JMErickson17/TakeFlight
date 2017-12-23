@@ -15,9 +15,18 @@ final class UserDataService {
     
     // MARK: Properties
     
-    var currentUser: User?
+    var currentUser: User? {
+        didSet {
+            if currentUser != nil && userDidUpdateListener == nil {
+                addUserDidUpdateListener()
+            } else if currentUser == nil && userDidUpdateListener != nil {
+                removeUserDidUpdateListener()
+            }
+        }
+    }
     
     private var handleAuthStateDidChange: AuthStateDidChangeListenerHandle?
+    private var userDidUpdateListener: ListenerRegistration?
     
     private var database: Firestore {
         return Firestore.firestore()
@@ -51,7 +60,7 @@ final class UserDataService {
         removeAuthListener()
     }
     
-    // MARK: Authentication
+    // MARK: Listeners
     
     private func addAuthListener() {
         handleAuthStateDidChange = Auth.auth().addStateDidChangeListener({ (auth, firUser) in
@@ -60,12 +69,16 @@ final class UserDataService {
                     if let _ = error { return /* Log Error */ }
                     if let user = user {
                         self.currentUser = user
-                        NotificationCenter.default.post(name: .authStatusDidChange, object: user)
+                        DispatchQueue.main.async {
+                            NotificationCenter.default.post(name: .authStatusDidChange, object: user)
+                        }
                     }
                 })
             } else {
-                self.currentUser = nil
-                NotificationCenter.default.post(name: .authStatusDidChange, object: nil)
+                DispatchQueue.main.async {
+                    self.currentUser = nil
+                    NotificationCenter.default.post(name: .authStatusDidChange, object: nil)
+                }
             }
         })
     }
@@ -75,6 +88,32 @@ final class UserDataService {
             Auth.auth().removeStateDidChangeListener(handleAuthStateDidChange)
         }
     }
+    
+    private func addUserDidUpdateListener() {
+        DispatchQueue.global().async {
+            if let currentUserRef = self.currentUserRef {
+                self.userDidUpdateListener = currentUserRef.addSnapshotListener({ (documentSnapshot, error) in
+                    if let error = error { print(error) }
+                    if let documentSnapshot = documentSnapshot {
+                        guard documentSnapshot.exists else { return print("Document does not exist") }
+                        let documentData = documentSnapshot.data()
+                        if let updatedUser = User(data: documentData) {
+                            self.currentUser = updatedUser
+                            DispatchQueue.main.async {
+                                NotificationCenter.default.post(name: .userPropertiesDidChange, object: updatedUser)
+                            }
+                        }
+                    }
+                })
+            }
+        }
+    }
+    
+    private func removeUserDidUpdateListener() {
+        userDidUpdateListener?.remove()
+    }
+    
+    // MARK: Authentication
     
     func createNewUser(withEmail email: String, password: String, completion: @escaping (User?, Error?) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
@@ -133,7 +172,7 @@ final class UserDataService {
     
     // MARK: Firestore
     
-    private func saveUserToDatabase(_ user: User, completion: ((Error?) -> Void)?) {
+    private func saveUserToDatabase(_ user: User, completion: ErrorCompletionHandler?) {
         usersCollectionRef.document(user.uid).setData(user.dictionaryRepresentation, completion: completion)
     }
     
@@ -152,12 +191,31 @@ final class UserDataService {
         }
     }
     
+    func saveToCurrentUser(updatedProperties: [UpdatableUserProperties: Any], completion: ErrorCompletionHandler?) {
+        DispatchQueue.global().async {
+            var propertiesDictionary = [String: Any]()
+            for (key, value) in updatedProperties {
+                    propertiesDictionary[key.rawValue] = value
+            }
+            
+            if let currentUserRef = self.currentUserRef {
+                currentUserRef.setData(propertiesDictionary, options: SetOptions.merge(), completion: { error in
+                    DispatchQueue.main.async {
+                        if let completion = completion {
+                            completion(nil)
+                        }
+                    }
+                })
+            }
+        }
+    }
+    
     func saveToCurrentUser(userSearchRequest request: UserSearchRequest, completion: ErrorCompletionHandler?) {
         DispatchQueue.global().async {
             if let currentUserSearchHistoryCollectionRef = self.currentUserSearchHistoryCollectionRef {
                 currentUserSearchHistoryCollectionRef.addDocument(data: request.dictionaryRepresentation, completion: { (error) in
+                    if let error = error, let completion = completion { return completion(error) }
                     // Nofify UserDidChange
-                    completion?(error)
                 })
             }
         }
@@ -166,8 +224,6 @@ final class UserDataService {
     func clearCurrentUserSearchHistory(completion: ((Error?) -> Void)?) {
         completion?(nil)
     }
-    
-    
 }
 
 // MARK: UserDataService+UserDefaults

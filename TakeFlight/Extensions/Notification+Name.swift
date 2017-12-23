@@ -10,4 +10,5 @@ import Foundation
 
 extension Notification.Name {
     static let authStatusDidChange = Notification.Name(rawValue: "authStatusDidChange")
+    static let userPropertiesDidChange = Notification.Name("userPropertiesDidChange")
 }

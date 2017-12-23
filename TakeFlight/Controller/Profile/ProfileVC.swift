@@ -52,7 +52,7 @@ class ProfileVC: UIViewController {
     // MARK: Convenience
     
     private func addAuthListener() {
-        authListener = NotificationCenter.default.addObserver(forName: .authStatusDidChange, object: nil, queue: OperationQueue.main, using: { _ in
+        authListener = NotificationCenter.default.addObserver(forName: .authStatusDidChange, object: nil, queue: nil, using: { _ in
             self.updateViewForAuthChanges()
         })
     }

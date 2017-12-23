@@ -27,7 +27,8 @@ class SettingsVC: UITableViewController {
     }
     
     private enum Item {
-        case name
+        case firstName
+        case lastName
         case email
         case phone
         case changePassword
@@ -46,13 +47,31 @@ class SettingsVC: UITableViewController {
 
     // MARK: Properties
     
-    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var firstNameTextField: UITextField!
+    @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var phoneNumberTextField: UITextField!
     
+    private var userDidUpdateListener: NSObjectProtocol?
+    
+    private lazy var saveButton: UIBarButtonItem = {
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(handleSaveUserDetails))
+        return saveButton
+    }()
+    
+    private var updatedValues = [UpdatableUserProperties: String]() {
+        didSet {
+            if updatedValues.count > 0 {
+                addSaveButton()
+            } else {
+                removeSaveButton()
+            }
+        }
+    }
+    
     private lazy var sections: [Section] = {
         let sections = [
-            Section(type: .account, items: [.name, .email, .phone, .changePassword, .logout]),
+            Section(type: .account, items: [.firstName, .lastName, .email, .phone, .changePassword, .logout]),
             Section(type: .regional, items: [.currency, .language, .billingCountry]),
             Section(type: .privacy, items: [.clearSearchHistory, .notifications])
         ]
@@ -67,17 +86,74 @@ class SettingsVC: UITableViewController {
         setupView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        addUserDidUpdateListener()
+        configureViewForCurrentUser()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        removeUserDidUpdateListener()
+    }
+    
+    // MARK: Setup
+    
     private func setupView() {
-        nameTextField.delegate = self
+        firstNameTextField.delegate = self
+        lastNameTextField.delegate = self
         emailTextField.delegate = self
         phoneNumberTextField.delegate = self
+    }
+    
+    private func addUserDidUpdateListener() {
+        userDidUpdateListener = NotificationCenter.default.addObserver(forName: .userPropertiesDidChange, object: nil, queue: nil, using: { _ in
+            self.configureViewForCurrentUser()
+        })
+    }
+    
+    private func removeUserDidUpdateListener() {
+        if let userDidUpdateListener = userDidUpdateListener {
+            NotificationCenter.default.removeObserver(userDidUpdateListener)
+        }
+    }
+    
+    func configureViewForCurrentUser() {
+        if let user = UserDataService.instance.currentUser {
+            if let firstName = user.firstName { firstNameTextField.text = firstName }
+            if let lastName = user.lastName { lastNameTextField.text = lastName }
+            if let phoneNumber = user.phoneNumber { phoneNumberTextField.text = phoneNumber }
+            emailTextField.text = user.email
+        }
+    }
+    
+    private func addSaveButton() {
+        self.navigationItem.setRightBarButton(saveButton, animated: true)
+    }
+    
+    private func removeSaveButton() {
+        self.navigationItem.setRightBarButton(nil, animated: true)
+    }
+    
+    @objc private func handleSaveUserDetails() {
+        UserDataService.instance.saveToCurrentUser(updatedProperties: updatedValues) { [weak self] error in
+            if let error = error {
+                if let navigationController = self?.navigationController {
+                    let notification = DropDownNotification(text: "Could not save changes.\n\(error)")
+                    notification.presentNotification(onNavigationController: navigationController, forDuration: 3)
+                }
+            }
+        }
     }
 
     // MARK: UITableView Delegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch sections[indexPath.section].items[indexPath.row] {
-        case .name: break
+        case .firstName: break
+        case .lastName: break
         case .email: break
         case .phone: break
         case .changePassword:
@@ -85,11 +161,14 @@ class SettingsVC: UITableViewController {
         case .logout:
             handleLogOutCurrentUser()
         case .currency:
-            handleChangeCurrency()
+            break
+//            handleChangeCurrency()
         case .language:
-            handleChangeLanguage()
+            break
+//            handleChangeLanguage()
         case .billingCountry:
-            handleChangeBillingCountry()
+            break
+//            handleChangeBillingCountry()
         case .clearSearchHistory:
             handleClearHistory()
         case .notifications:
@@ -151,7 +230,29 @@ extension SettingsVC: UITextFieldDelegate {
         return true
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        //addSaveButton()
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
-        // TODO: Save new user data
+        guard let currentUser = UserDataService.instance.currentUser else { return }
+        
+        let newText = textField.text
+        switch textField.tag {
+        case 0:
+            if currentUser.firstName != newText { updatedValues[.firstName] = newText }
+        case 1:
+            if currentUser.lastName != newText { updatedValues[.lastName] = newText }
+        case 2:
+            if currentUser.email != newText { updatedValues[.email] = newText }
+        case 3:
+            if currentUser.phoneNumber != newText { updatedValues[.phoneNumber] = newText }
+        default:
+            break
+        }
+        
+        if updatedValues.count == 0 {
+            removeSaveButton()
+        }
     }
 }
