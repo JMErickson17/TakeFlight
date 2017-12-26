@@ -33,14 +33,13 @@ class ProfileVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        //addAuthListener()
-        updateViewForAuthChanges()
+        addAuthListener()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        //removeAuthListener()
+        removeAuthListener()
     }
     
     // MARK: Setup
@@ -64,12 +63,7 @@ class ProfileVC: UIViewController {
     }
     
     private func updateViewForAuthChanges() {
-        userStatusView.configureViewForCurrentUser()
-        if let currentUser = UserDataService.instance.currentUser {
-            
-        } else {
-            
-        }
+        userStatusView.configureViewForCurrentUser(animated: true)
     }
 }
 

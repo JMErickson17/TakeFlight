@@ -100,7 +100,6 @@ class LoggedInStatusView: UIView {
         setupView()
     }
     
-    
     private func setupView() {
         
         self.addSubview(containerView)
@@ -145,31 +144,41 @@ class LoggedInStatusView: UIView {
         loginButton.addTarget(self, action: #selector(loginButtonWasTapped), for: .touchUpInside)
         signupButton.addTarget(self, action: #selector(signupButtonWasTapped), for: .touchUpInside)
         
-        configureViewForCurrentUser()
+        configureViewForCurrentUser(animated: false)
     }
     
-    func configureViewForCurrentUser() {
+    func configureViewForCurrentUser(animated: Bool) {
         if let currentUser = UserDataService.instance.currentUser {
-            transitionToLoggedInView()
             setUserEmail(to: currentUser.email)
+            transitionToLoggedInView(animated: animated)
         } else {
-            transitionToLoggedOutView()
             setUserEmail(to: "")
+            transitionToLoggedOutView(animated: animated)
         }
     }
     
-    private func transitionToLoggedInView() {
-        UIView.transition(with: containerView, duration: 1.0, options: [.transitionFlipFromTop], animations: {
+    private func transitionToLoggedInView(animated: Bool) {
+        if animated {
+            UIView.transition(with: containerView, duration: 1.0, options: [.transitionFlipFromTop], animations: {
+                self.loggedOutView.isHidden = true
+                self.loggedInView.isHidden = false
+            })
+        } else {
             self.loggedOutView.isHidden = true
             self.loggedInView.isHidden = false
-        })
+        }
     }
     
-    private func transitionToLoggedOutView() {
-        UIView.transition(with: containerView, duration: 1.0, options: [.transitionFlipFromBottom], animations: {
+    private func transitionToLoggedOutView(animated: Bool) {
+        if animated {
+            UIView.transition(with: containerView, duration: 1.0, options: [.transitionFlipFromBottom], animations: {
+                self.loggedOutView.isHidden = false
+                self.loggedInView.isHidden = true
+            })
+        } else {
             self.loggedOutView.isHidden = false
             self.loggedInView.isHidden = true
-        })
+        }
     }
     
     private func setUserEmail(to email: String) {
