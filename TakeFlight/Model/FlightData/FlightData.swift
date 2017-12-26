@@ -44,7 +44,7 @@ struct FlightData {
     }
     
     var longDescription: String {
-        return "Orlando Florida to Los Angeles California"
+        return "\(departingFlight.originCityAndState) to \(departingFlight.destinationCityAndState)"
     }
     
     var shortDescription: String {
@@ -78,8 +78,10 @@ extension FlightData: CustomStringConvertible {
     }
 }
 
+// MARK: FlightData+Flight
 
 extension FlightData {
+    
     struct Flight {
         
         let segments: [FlightSegment]
@@ -118,6 +120,14 @@ extension FlightData {
         
         var destinationAirportCode: String {
             return (segments.last?.destinationAirportCode) ?? ""
+        }
+        
+        var originCityAndState: String {
+            return (segments.first?.originAirport?.cityAndState) ?? ""
+        }
+        
+        var destinationCityAndState: String {
+            return (segments.last?.destinationAirport?.cityAndState) ?? ""
         }
     }
 }

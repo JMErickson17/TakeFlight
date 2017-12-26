@@ -30,6 +30,10 @@ struct Airport: Codable {
         return "\(city), \(country)"
     }
     
+    public var cityAndState: String {
+        return "\(city), \(state)"
+    }
+    
     public var identifier: String {
         return iata
     }
