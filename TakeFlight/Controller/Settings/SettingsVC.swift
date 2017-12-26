@@ -106,6 +106,11 @@ class SettingsVC: UITableViewController {
         lastNameTextField.delegate = self
         emailTextField.delegate = self
         phoneNumberTextField.delegate = self
+        
+        firstNameTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        lastNameTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        emailTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        phoneNumberTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
     
     private func addUserDidUpdateListener() {
@@ -143,8 +148,11 @@ class SettingsVC: UITableViewController {
                 if let navigationController = self?.navigationController {
                     let notification = DropDownNotification(text: "Could not save changes.\n\(error)")
                     notification.presentNotification(onNavigationController: navigationController, forDuration: 3)
+                    return
                 }
             }
+            self?.view.endEditing(true)
+            self?.removeSaveButton()
         }
     }
 
@@ -230,11 +238,7 @@ extension SettingsVC: UITextFieldDelegate {
         return true
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        //addSaveButton()
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    @objc func textFieldDidChange(_ textField: UITextField) {
         guard let currentUser = UserDataService.instance.currentUser else { return }
         
         let newText = textField.text
@@ -255,4 +259,26 @@ extension SettingsVC: UITextFieldDelegate {
             removeSaveButton()
         }
     }
+    
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        guard let currentUser = UserDataService.instance.currentUser else { return }
+//
+//        let newText = textField.text
+//        switch textField.tag {
+//        case 0:
+//            if currentUser.firstName != newText { updatedValues[.firstName] = newText }
+//        case 1:
+//            if currentUser.lastName != newText { updatedValues[.lastName] = newText }
+//        case 2:
+//            if currentUser.email != newText { updatedValues[.email] = newText }
+//        case 3:
+//            if currentUser.phoneNumber != newText { updatedValues[.phoneNumber] = newText }
+//        default:
+//            break
+//        }
+//
+//        if updatedValues.count == 0 {
+//            removeSaveButton()
+//        }
+//    }
 }

@@ -224,10 +224,11 @@
                                     <constraint firstAttribute="width" constant="100" id="Ybw-ev-5Sh"/>
                                 </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HYM-lK-I99" customClass="LoggedInStatusView" customModule="TakeFlight" customModuleProvider="target">
-                                <rect key="frame" x="77.5" y="120" width="220" height="30"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYM-lK-I99" customClass="LoggedInStatusView" customModule="TakeFlight" customModuleProvider="target">
+                                <rect key="frame" x="78" y="120" width="220" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" constant="220" id="5uy-kz-ibc"/>
                                     <constraint firstAttribute="height" constant="30" id="l7m-NV-aT2"/>
                                 </constraints>
                             </view>
@@ -239,7 +240,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Flights" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gdr-Ma-Ilt">
-                                <rect key="frame" x="148" y="171" width="79" height="20.5"/>
+                                <rect key="frame" x="148" y="171" width="79" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -305,7 +306,7 @@
                                 <rect key="frame" x="137" y="177.5" width="100" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="LEF-bi-J7D"/>
-                                    <constraint firstAttribute="width" constant="100" id="Zuf-et-CPz"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="Zuf-et-CPz"/>
                                 </constraints>
                                 <state key="normal" title="Login">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -384,7 +385,7 @@
                                 <rect key="frame" x="137" y="205" width="100" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="MJa-ab-aXb"/>
-                                    <constraint firstAttribute="width" constant="100" id="NiW-Vp-uyl"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="NiW-Vp-uyl"/>
                                 </constraints>
                                 <state key="normal" title="Signup">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

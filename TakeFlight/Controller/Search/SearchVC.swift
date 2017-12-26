@@ -58,7 +58,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
     }
     
     var shouldSearch: Bool {
-        return airportPickerVC == nil && datePickerVC == nil && self.view.window != nil
+        return airportPickerVC == nil && datePickerVC == nil && self.view.window != nil && flights.isEmpty
     }
     
     var datesSelected: SelectedState {
