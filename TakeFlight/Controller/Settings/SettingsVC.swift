@@ -18,6 +18,8 @@ class SettingsVC: UITableViewController {
         static let toCurrencyPickerVC = "toCurrencyPickerVC"
         static let toLanguagePickerVC = "toLanguagePickerVC"
         static let toBillingCountryPickerVC = "toBillingCountryPickerVC"
+        static let noUserTextFieldPlaceholder = "Login to add"
+        static let userTextFieldPlaceholder = "Tap to add"
     }
     
     private enum SectionType {
@@ -51,6 +53,13 @@ class SettingsVC: UITableViewController {
     @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var phoneNumberTextField: UITextField!
+    
+    private lazy var textFields = [
+        firstNameTextField,
+        lastNameTextField,
+        emailTextField,
+        phoneNumberTextField
+    ]
     
     private var userDidUpdateListener: NSObjectProtocol?
     
@@ -113,6 +122,8 @@ class SettingsVC: UITableViewController {
         phoneNumberTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
     
+    // MARK: Listeners
+    
     private func addUserDidUpdateListener() {
         userDidUpdateListener = NotificationCenter.default.addObserver(forName: .userPropertiesDidChange, object: nil, queue: nil, using: { _ in
             self.configureViewForCurrentUser()
@@ -131,8 +142,24 @@ class SettingsVC: UITableViewController {
             if let lastName = user.lastName { lastNameTextField.text = lastName }
             if let phoneNumber = user.phoneNumber { phoneNumberTextField.text = phoneNumber }
             emailTextField.text = user.email
+            for textField in textFields {
+                textField?.placeholder = Constants.userTextFieldPlaceholder
+                textField?.isUserInteractionEnabled = true
+            }
+        } else {
+            configureViewForNoUser()
         }
     }
+    
+    private func configureViewForNoUser() {
+        for textField in textFields {
+            textField?.text = ""
+            textField?.placeholder = Constants.noUserTextFieldPlaceholder
+            textField?.isUserInteractionEnabled = false
+        }
+    }
+    
+    // MARK: Convenience
     
     private func addSaveButton() {
         self.navigationItem.setRightBarButton(saveButton, animated: true)
@@ -140,20 +167,6 @@ class SettingsVC: UITableViewController {
     
     private func removeSaveButton() {
         self.navigationItem.setRightBarButton(nil, animated: true)
-    }
-    
-    @objc private func handleSaveUserDetails() {
-        UserDataService.instance.saveToCurrentUser(updatedProperties: updatedValues) { [weak self] error in
-            if let error = error {
-                if let navigationController = self?.navigationController {
-                    let notification = DropDownNotification(text: "Could not save changes.\n\(error)")
-                    notification.presentNotification(onNavigationController: navigationController, forDuration: 3)
-                    return
-                }
-            }
-            self?.view.endEditing(true)
-            self?.removeSaveButton()
-        }
     }
 
     // MARK: UITableView Delegate
@@ -168,14 +181,11 @@ class SettingsVC: UITableViewController {
             handleChangePassword()
         case .logout:
             handleLogOutCurrentUser()
-        case .currency:
-            break
+        case .currency: break
 //            handleChangeCurrency()
-        case .language:
-            break
+        case .language: break
 //            handleChangeLanguage()
-        case .billingCountry:
-            break
+        case .billingCountry: break
 //            handleChangeBillingCountry()
         case .clearSearchHistory:
             handleClearHistory()
@@ -185,17 +195,31 @@ class SettingsVC: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    // MARK: Convenience
+    // MARK: Property Change Handlers
+    
+    @objc private func handleSaveUserDetails() {
+        UserDataService.instance.saveToCurrentUser(updatedProperties: updatedValues) { [weak self] error in
+            if let error = error {
+                if let navigationController = self?.navigationController {
+                    let notification = DropDownNotification(text: "Could not save changes.\n\(error)")
+                    notification.presentNotification(onNavigationController: navigationController, forDuration: 3)
+                    return
+                }
+            }
+            self?.view.endEditing(true)
+            self?.removeSaveButton()
+        }
+    }
     
     private func handleChangePassword() {
         // Implement change password functionality
     }
     
     private func handleLogOutCurrentUser() {
-        do {
-            try UserDataService.instance.signOutCurrentUser()
-        } catch{
-            print(error)
+        UserDataService.instance.signOutCurrentUser { error in
+            if let error = error { return print(error) }
+            
+            self.configureViewForNoUser()
         }
     }
     
@@ -259,26 +283,4 @@ extension SettingsVC: UITextFieldDelegate {
             removeSaveButton()
         }
     }
-    
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//        guard let currentUser = UserDataService.instance.currentUser else { return }
-//
-//        let newText = textField.text
-//        switch textField.tag {
-//        case 0:
-//            if currentUser.firstName != newText { updatedValues[.firstName] = newText }
-//        case 1:
-//            if currentUser.lastName != newText { updatedValues[.lastName] = newText }
-//        case 2:
-//            if currentUser.email != newText { updatedValues[.email] = newText }
-//        case 3:
-//            if currentUser.phoneNumber != newText { updatedValues[.phoneNumber] = newText }
-//        default:
-//            break
-//        }
-//
-//        if updatedValues.count == 0 {
-//            removeSaveButton()
-//        }
-//    }
 }

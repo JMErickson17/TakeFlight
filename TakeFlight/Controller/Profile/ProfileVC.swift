@@ -33,6 +33,7 @@ class ProfileVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        updateViewForAuthChanges()
         addAuthListener()
     }
 
@@ -63,8 +64,22 @@ class ProfileVC: UIViewController {
     }
     
     private func updateViewForAuthChanges() {
-        userStatusView.configureViewForCurrentUser(animated: true)
+        if let _ = UserDataService.instance.currentUser {
+            if userStatusView.loggedInViewIsVisible {
+                userStatusView.configureViewForCurrentUser(animated: false)
+            } else {
+                userStatusView.configureViewForCurrentUser(animated: true)
+            }
+        } else {
+            if userStatusView.loggedInViewIsVisible {
+                userStatusView.configureViewForCurrentUser(animated: true)
+            } else {
+                userStatusView.configureViewForCurrentUser(animated: false)
+            }
+        }
     }
+    
+    
 }
 
 // MARK:- LoggedInStatusViewDelegate

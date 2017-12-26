@@ -13,6 +13,10 @@ class LoggedInStatusView: UIView {
     
     weak var delegate: LoggedInStatusViewDelegate?
     
+    var loggedInViewIsVisible: Bool {
+        return !loggedInView.isHidden
+    }
+    
     private lazy var containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false

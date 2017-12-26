@@ -139,12 +139,12 @@ final class UserDataService {
         }
     }
     
-    func signOutCurrentUser() throws {
-        let firebaseAuth = Auth.auth()
+    func signOutCurrentUser(completion: ErrorCompletionHandler? = nil) {
         do {
-            try firebaseAuth.signOut()
+            try Auth.auth().signOut()
+            completion?(nil)
         } catch {
-            throw error
+            completion?(error)
         }
     }
     
