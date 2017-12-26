@@ -215,14 +215,33 @@ final class UserDataService {
             if let currentUserSearchHistoryCollectionRef = self.currentUserSearchHistoryCollectionRef {
                 currentUserSearchHistoryCollectionRef.addDocument(data: request.dictionaryRepresentation, completion: { (error) in
                     if let error = error, let completion = completion { return completion(error) }
-                    // Nofify UserDidChange
+                    DispatchQueue.main.async {
+                        // NotificationCenter.default.post(name: .userPropertiesDidChange, object: nil)
+                    }
                 })
             }
         }
     }
     
-    func clearCurrentUserSearchHistory(completion: ((Error?) -> Void)?) {
-        completion?(nil)
+    func clearCurrentUserSearchHistory(completion: ErrorCompletionHandler?) {
+        DispatchQueue.global().async {
+            if let currentUserSearchHistoryCollectionRef = self.currentUserSearchHistoryCollectionRef {
+                currentUserSearchHistoryCollectionRef.limit(to: 100).getDocuments(completion: { (documents, error) in
+                    if let error = error, let completion = completion { return completion(error) }
+                    if let documents = documents {
+                        if documents.isEmpty, let completion = completion { return completion(nil) }
+                        
+                        let batch = currentUserSearchHistoryCollectionRef.firestore.batch()
+                        documents.documents.forEach { batch.deleteDocument($0.reference) }
+                        
+                        batch.commit(completion: { batchError in
+                            if let batchError = batchError, let completion = completion { return completion(batchError) }
+                            self.clearCurrentUserSearchHistory(completion: completion)
+                        })
+                    }
+                })
+            }
+        }
     }
 }
 
