@@ -89,16 +89,16 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m45-XX-P8U">
-                                        <rect key="frame" x="10" y="66" width="50" height="28"/>
+                                        <rect key="frame" x="10" y="66" width="61" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="bKb-ZS-bDv"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal" title="Search">
+                                        <state key="normal" title="Sort/Filter">
                                             <color key="titleColor" red="0.1838448053" green="0.73393011720000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
                                         <connections>
-                                            <action selector="searchButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UVz-LF-cwd"/>
+                                            <action selector="sortAndFilterButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LoH-1c-ALq"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -153,6 +153,7 @@
                         <outlet property="returnDateTextField" destination="SMo-cG-Sc2" id="9WX-qw-eMJ"/>
                         <outlet property="roundTripButton" destination="s82-Lx-tCF" id="CeB-Fw-vpJ"/>
                         <outlet property="searchContainerView" destination="GZy-mC-ZRT" id="9vZ-6k-YJ9"/>
+                        <segue destination="Xjo-1b-Y6k" kind="show" identifier="toSortFilterVC" id="Wlb-er-lyD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -348,7 +349,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GSn-5r-xav" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1244" y="1265"/>
+            <point key="canvasLocation" x="1244" y="1273"/>
         </scene>
         <!--Signup-->
         <scene sceneID="ad7-WF-9hO">
@@ -419,7 +420,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nJD-xh-bhl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1244" y="477"/>
+            <point key="canvasLocation" x="1244" y="468"/>
         </scene>
         <!--Explore-->
         <scene sceneID="65x-YU-ltj">
@@ -491,7 +492,15 @@
                 <viewControllerPlaceholder storyboardName="Settings" id="UUv-c9-roQ" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fz6-zT-EQL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1244" y="859"/>
+            <point key="canvasLocation" x="1244" y="860"/>
+        </scene>
+        <!--SortFilter-->
+        <scene sceneID="lzb-UK-zVv">
+            <objects>
+                <viewControllerPlaceholder storyboardName="SortFilter" id="Xjo-1b-Y6k" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JtV-xO-ZJD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1016" y="115"/>
         </scene>
     </scenes>
     <resources>

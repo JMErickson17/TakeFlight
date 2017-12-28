@@ -17,3 +17,15 @@ struct DateAndTimeZone {
         return formatter.string(from: self.date)
     }
 }
+
+extension DateAndTimeZone: Equatable {
+    static func ==(lhs: DateAndTimeZone, rhs: DateAndTimeZone) -> Bool {
+        return lhs.date == rhs.date
+    }
+}
+
+extension DateAndTimeZone: Comparable {
+    static func <(lhs: DateAndTimeZone, rhs: DateAndTimeZone) -> Bool {
+        return lhs.date < rhs.date
+    }
+}

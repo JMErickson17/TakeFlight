@@ -36,6 +36,17 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     weak var searchDelegate: AirportPickerVCDelegate?
     
+    var sortFilterOptions: SortFilterOptions? {
+        didSet {
+            if let sortFilterOptions = sortFilterOptions {
+                guard !flights.isEmpty else { return }
+                flightDataTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, withDuration: 2, completion: {
+                    self.flights = self.sortandFilter(flightData: self.flights, withOptions: sortFilterOptions)
+                })
+            }
+        }
+    }
+    
     private lazy var userDataService = UserDataService.instance
     
     private var requestManager = QPXExpress()
@@ -58,7 +69,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
     }
     
     var shouldSearch: Bool {
-        return airportPickerVC == nil && datePickerVC == nil && self.view.window != nil && flights.isEmpty
+        return airportPickerVC == nil && datePickerVC == nil && self.view.window != nil
     }
     
     var datesSelected: SelectedState {
@@ -137,8 +148,15 @@ class SearchVC: UIViewController, SearchVCDelegate {
         didSet {
             DispatchQueue.main.async {
                 self.flightDataTableView.reloadData()
+                self.sortFilterOptions?.setCarriers(to: self.carriers)
             }
         }
+    }
+    
+    private var filteredFlights: [FlightData]?
+    
+    private var carriers: [String] {
+        return flights.map({ $0.departingFlight.carrier })
     }
     
     private lazy var emptyFlightsLabel: UILabel = {
@@ -176,12 +194,15 @@ class SearchVC: UIViewController, SearchVCDelegate {
         let backButton = UIBarButtonItem()
         backButton.title = "Back"
         navigationItem.backBarButtonItem = backButton
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        searchFlightsWithUserDefaults()
+        if flights.isEmpty {
+            searchFlightsWithUserDefaults()
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -253,9 +274,10 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     // MARK: Actions
     
-    @IBAction func searchButtonTapped(_ sender: UIButton) {
-        searchFlightsWithUserDefaults()
+    @IBAction func sortAndFilterButtonTapped(_ sender: Any) {
+        performSegue(withIdentifier: "toSortFilterVC", sender: nil)
     }
+    
     
     @IBAction func roundTripButtonTapped(_ sender: UIButton) {
         selectedSearchType = .roundTrip
@@ -392,11 +414,43 @@ class SearchVC: UIViewController, SearchVCDelegate {
                                  returnDate: userDataService.returnDate)
     }
     
+    // MARK: Sort and Filter
+    
+    private func sortandFilter(flightData: [FlightData], withOptions options: SortFilterOptions) -> [FlightData] {
+        guard !flightData.isEmpty else { return [FlightData]() }
+        var flightData = flightData
+        
+        switch options.selectedSortOption {
+        case .price:
+            flightData.sort { $0.saleTotal < $1.saleTotal}
+        case .duration:
+            flightData.sort { $0.departingFlight.duration < $1.departingFlight.duration }
+        case .takeoffTime:
+            flightData.sort { $0.departingFlight.departureTime < $1.departingFlight.departureTime }
+        case .landingTime:
+            flightData.sort { $0.departingFlight.arrivalTime < $1.departingFlight.arrivalTime }
+        }
+        
+        // Implement Filter Options
+        
+        return flightData
+    }
+    
     // MARK: Database
     
     private func saveToCurrentUser(userSearchRequest request: UserSearchRequest) {
         userDataService.saveToCurrentUser(userSearchRequest: request) { (error) in
             if let error = error { print(error) }
+        }
+    }
+    
+    // MARK: Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? SortFilterVC {
+            destination.delegate = self
+            destination.sortFilterOptions = sortFilterOptions ?? SortFilterOptions()
+            destination.sortFilterOptions?.setCarriers(to: self.carriers)
         }
     }
     
@@ -505,7 +559,8 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
         let header = FlightDataTableViewHeaderView()
         let attributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)]
         let count = NSAttributedString(string: String(flights.count), attributes: attributes)
-        let sortedBy = NSAttributedString(string: "Price", attributes: attributes)
+        let sortedByString = sortFilterOptions?.selectedSortOption.rawValue ?? "Price"
+        let sortedBy = NSAttributedString(string: sortedByString, attributes: attributes)
         let title = NSMutableAttributedString(string: "Showing ")
         title.append(count)
         title.append(NSAttributedString(string: " results, sorted by "))
@@ -577,4 +632,10 @@ extension SearchVC: UITextFieldDelegate {
             })
         }
     }
+}
+
+// MARK: - SearchVC+SortFilterVCDelegate
+
+extension SearchVC: SortFilterVCDelegate {
+    
 }

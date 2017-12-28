@@ -53,6 +53,27 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
         flightCard.translatesAutoresizingMaskIntoConstraints = false
         return flightCard
     }()
+    
+    private lazy var bookFlightContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    private lazy var priceLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        return label
+    }()
+    
+    private lazy var bookFlightButton: BookNowButton = {
+        let button = BookNowButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,16 +90,39 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
     private func setupView() {
         guard let flightData = flightData else { return }
         
-        view.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-        
+        view.backgroundColor = #colorLiteral(red: 0.927077513, green: 0.927077513, blue: 0.927077513, alpha: 1)
+        self.tabBarController?.tabBar.isHidden = true
+        priceLabel.text = "$\(flightData.saleTotal)"
         self.title = flightData.shortDescription
+        
+        view.addSubview(bookFlightContainerView)
+        NSLayoutConstraint.activate([
+            bookFlightContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bookFlightContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            bookFlightContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            bookFlightContainerView.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        bookFlightContainerView.addSubview(priceLabel)
+        NSLayoutConstraint.activate([
+            priceLabel.leadingAnchor.constraint(equalTo: bookFlightContainerView.leadingAnchor, constant: 20),
+            priceLabel.centerYAnchor.constraint(equalTo: bookFlightContainerView.centerYAnchor)
+        ])
+        
+        bookFlightContainerView.addSubview(bookFlightButton)
+        NSLayoutConstraint.activate([
+            bookFlightButton.trailingAnchor.constraint(equalTo: bookFlightContainerView.trailingAnchor, constant: -20),
+            bookFlightButton.centerYAnchor.constraint(equalTo: bookFlightContainerView.centerYAnchor),
+            bookFlightButton.heightAnchor.constraint(equalTo: bookFlightContainerView.heightAnchor, multiplier: 0.70),
+            bookFlightButton.widthAnchor.constraint(equalTo: bookFlightContainerView.widthAnchor, multiplier: 0.30)
+        ])
         
         view.addSubview(scrollView)
         NSLayoutConstraint.activate([
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            scrollView.bottomAnchor.constraint(equalTo: bookFlightContainerView.topAnchor)
         ])
         
         scrollView.addSubview(contentView)

@@ -61,10 +61,24 @@
 		CAA19A0A1FA3BDD800A479A8 /* AirportPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA19A081FA3BDD800A479A8 /* AirportPickerVC.swift */; };
 		CAA19A0E1FA3C08000A479A8 /* AirportPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA19A0C1FA3C08000A479A8 /* AirportPickerCell.swift */; };
 		CAA19A111FA3D1CA00A479A8 /* AirportPickerVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA19A101FA3D1CA00A479A8 /* AirportPickerVCDelegate.swift */; };
+		CAA6561E1FF40D2F00DB59C4 /* SortFilterVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA6561D1FF40D2F00DB59C4 /* SortFilterVCDelegate.swift */; };
+		CAA656201FF4153700DB59C4 /* CarrierFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA6561F1FF4153700DB59C4 /* CarrierFilterVC.swift */; };
+		CAA656221FF416E000DB59C4 /* StopFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA656211FF416E000DB59C4 /* StopFilterVC.swift */; };
+		CAA656241FF4175500DB59C4 /* DurationFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA656231FF4175500DB59C4 /* DurationFilterVC.swift */; };
+		CAA656271FF419C900DB59C4 /* SortFilter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAA656261FF419C900DB59C4 /* SortFilter.storyboard */; };
+		CAA656291FF423A300DB59C4 /* CarrierPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA656281FF423A300DB59C4 /* CarrierPickerCell.swift */; };
+		CAA6562D1FF444B600DB59C4 /* FilterableCarrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA6562C1FF444B600DB59C4 /* FilterableCarrier.swift */; };
+		CAA6562F1FF44FD700DB59C4 /* CarrierPickerCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA6562E1FF44FD700DB59C4 /* CarrierPickerCellDelegate.swift */; };
 		CAAD01FD1FD0E23A00E76B88 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAD01FC1FD0E23A00E76B88 /* NetworkManager.swift */; };
 		CAAF0CDB1FCE1F6A0089BF74 /* QPXExpress+Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF0CDA1FCE1F6A0089BF74 /* QPXExpress+Response.swift */; };
 		CAAF0CDD1FCE3F120089BF74 /* QPXExpress+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF0CDC1FCE3F120089BF74 /* QPXExpress+Request.swift */; };
 		CABA2C5C1FA3E5F9001D9743 /* UserDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABA2C5B1FA3E5F9001D9743 /* UserDataService.swift */; };
+		CAC6BA741FF2D64E005307C1 /* BookNowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC6BA731FF2D64E005307C1 /* BookNowButton.swift */; };
+		CAC6BA761FF2F4D1005307C1 /* SortFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC6BA751FF2F4D1005307C1 /* SortFilterVC.swift */; };
+		CAC6BA781FF303E5005307C1 /* SortOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC6BA771FF303E5005307C1 /* SortOptionCell.swift */; };
+		CAC6BA7A1FF3055C005307C1 /* FilterOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC6BA791FF3055C005307C1 /* FilterOptionCell.swift */; };
+		CAC6BA7C1FF30F26005307C1 /* SortFilterOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC6BA7B1FF30F26005307C1 /* SortFilterOptions.swift */; };
+		CACB0EA51FF55CDE00500D10 /* CarrierFilterVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACB0EA41FF55CDE00500D10 /* CarrierFilterVCDelegate.swift */; };
 		CAD1A0321FE318C50052E16A /* IconAndLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD1A0311FE318C50052E16A /* IconAndLabelView.swift */; };
 		CAD1A0351FE328F30052E16A /* QPXExpressResponseExample.json in Resources */ = {isa = PBXBuildFile; fileRef = CAD1A0341FE328F30052E16A /* QPXExpressResponseExample.json */; };
 		CAD1A0371FE329060052E16A /* QPXExpressMCOtoLAXRoundTrip.json in Resources */ = {isa = PBXBuildFile; fileRef = CAD1A0361FE329060052E16A /* QPXExpressMCOtoLAXRoundTrip.json */; };
@@ -169,10 +183,24 @@
 		CAA19A081FA3BDD800A479A8 /* AirportPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportPickerVC.swift; sourceTree = "<group>"; };
 		CAA19A0C1FA3C08000A479A8 /* AirportPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportPickerCell.swift; sourceTree = "<group>"; };
 		CAA19A101FA3D1CA00A479A8 /* AirportPickerVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportPickerVCDelegate.swift; sourceTree = "<group>"; };
+		CAA6561D1FF40D2F00DB59C4 /* SortFilterVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortFilterVCDelegate.swift; sourceTree = "<group>"; };
+		CAA6561F1FF4153700DB59C4 /* CarrierFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrierFilterVC.swift; sourceTree = "<group>"; };
+		CAA656211FF416E000DB59C4 /* StopFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopFilterVC.swift; sourceTree = "<group>"; };
+		CAA656231FF4175500DB59C4 /* DurationFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationFilterVC.swift; sourceTree = "<group>"; };
+		CAA656261FF419C900DB59C4 /* SortFilter.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SortFilter.storyboard; sourceTree = "<group>"; };
+		CAA656281FF423A300DB59C4 /* CarrierPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrierPickerCell.swift; sourceTree = "<group>"; };
+		CAA6562C1FF444B600DB59C4 /* FilterableCarrier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterableCarrier.swift; sourceTree = "<group>"; };
+		CAA6562E1FF44FD700DB59C4 /* CarrierPickerCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrierPickerCellDelegate.swift; sourceTree = "<group>"; };
 		CAAD01FC1FD0E23A00E76B88 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		CAAF0CDA1FCE1F6A0089BF74 /* QPXExpress+Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QPXExpress+Response.swift"; sourceTree = "<group>"; };
 		CAAF0CDC1FCE3F120089BF74 /* QPXExpress+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QPXExpress+Request.swift"; sourceTree = "<group>"; };
 		CABA2C5B1FA3E5F9001D9743 /* UserDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataService.swift; sourceTree = "<group>"; };
+		CAC6BA731FF2D64E005307C1 /* BookNowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookNowButton.swift; sourceTree = "<group>"; };
+		CAC6BA751FF2F4D1005307C1 /* SortFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortFilterVC.swift; sourceTree = "<group>"; };
+		CAC6BA771FF303E5005307C1 /* SortOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOptionCell.swift; sourceTree = "<group>"; };
+		CAC6BA791FF3055C005307C1 /* FilterOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionCell.swift; sourceTree = "<group>"; };
+		CAC6BA7B1FF30F26005307C1 /* SortFilterOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortFilterOptions.swift; sourceTree = "<group>"; };
+		CACB0EA41FF55CDE00500D10 /* CarrierFilterVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrierFilterVCDelegate.swift; sourceTree = "<group>"; };
 		CAD1A0311FE318C50052E16A /* IconAndLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconAndLabelView.swift; sourceTree = "<group>"; };
 		CAD1A0341FE328F30052E16A /* QPXExpressResponseExample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = QPXExpressResponseExample.json; sourceTree = "<group>"; };
 		CAD1A0361FE329060052E16A /* QPXExpressMCOtoLAXRoundTrip.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = QPXExpressMCOtoLAXRoundTrip.json; sourceTree = "<group>"; };
@@ -344,6 +372,7 @@
 			children = (
 				CA5324891FD8BF67002ABBC3 /* PillButton.swift */,
 				CA55C0EF1FE99163008990C8 /* OutlineButton.swift */,
+				CAC6BA731FF2D64E005307C1 /* BookNowButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -406,6 +435,37 @@
 				CA882F811FD4C78200D2E8F3 /* Open_Sans */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		CAA656251FF4197300DB59C4 /* SortFilter */ = {
+			isa = PBXGroup;
+			children = (
+				CAA656261FF419C900DB59C4 /* SortFilter.storyboard */,
+				CAC6BA751FF2F4D1005307C1 /* SortFilterVC.swift */,
+				CAA6561F1FF4153700DB59C4 /* CarrierFilterVC.swift */,
+				CAA656211FF416E000DB59C4 /* StopFilterVC.swift */,
+				CAA656231FF4175500DB59C4 /* DurationFilterVC.swift */,
+			);
+			path = SortFilter;
+			sourceTree = "<group>";
+		};
+		CAA6562A1FF442EB00DB59C4 /* SortFilter */ = {
+			isa = PBXGroup;
+			children = (
+				CAC6BA7B1FF30F26005307C1 /* SortFilterOptions.swift */,
+				CAA6562C1FF444B600DB59C4 /* FilterableCarrier.swift */,
+			);
+			path = SortFilter;
+			sourceTree = "<group>";
+		};
+		CAA6562B1FF4431D00DB59C4 /* SortFilterCells */ = {
+			isa = PBXGroup;
+			children = (
+				CAC6BA771FF303E5005307C1 /* SortOptionCell.swift */,
+				CAC6BA791FF3055C005307C1 /* FilterOptionCell.swift */,
+				CAA656281FF423A300DB59C4 /* CarrierPickerCell.swift */,
+			);
+			path = SortFilterCells;
 			sourceTree = "<group>";
 		};
 		CAD1A0331FE328D80052E16A /* Sample Data */ = {
@@ -485,6 +545,7 @@
 			children = (
 				CA8559081FE7467A00E72913 /* Explore */,
 				CA8559071FE7466200E72913 /* Search */,
+				CAA656251FF4197300DB59C4 /* SortFilter */,
 				CA8559091FE7468100E72913 /* Profile */,
 				CA98C48B1FEC4EAF0009D326 /* Settings */,
 			);
@@ -500,6 +561,7 @@
 				CA55C0EE1FE98CC0008990C8 /* MyFlightsView */,
 				CA55C0F11FE9959E008990C8 /* Buttons */,
 				CA49BB901FED8D3D00C3940C /* TextFields */,
+				CAA6562B1FF4431D00DB59C4 /* SortFilterCells */,
 				CAA19A0C1FA3C08000A479A8 /* AirportPickerCell.swift */,
 				CA18454A1FD8667E003B56C6 /* TooltipView.swift */,
 				CAF35CB31FE1F4850074B60B /* TakeoffLoadingView.swift */,
@@ -517,6 +579,7 @@
 				CA3185E51FE065E00055A1B1 /* FlightData */,
 				CA3185E21FE0652C0055A1B1 /* QPXExpress */,
 				CA132B941FC6223E0097FDAB /* InstaFlight */,
+				CAA6562A1FF442EB00DB59C4 /* SortFilter */,
 				CA8923D11F93F5F50091968B /* Airport.swift */,
 				CAF3714D1FA232EE002C3455 /* SelectedState.swift */,
 				CAA0C7191FABE77B00FAFD69 /* DateRange.swift */,
@@ -576,6 +639,9 @@
 				CAA19A101FA3D1CA00A479A8 /* AirportPickerVCDelegate.swift */,
 				CAF35CB51FE22EBA0074B60B /* TakeoffLoadingViewDelegate.swift */,
 				CA55C0F41FE99F2D008990C8 /* LoggedInStatusViewDelegate.swift */,
+				CAA6561D1FF40D2F00DB59C4 /* SortFilterVCDelegate.swift */,
+				CAA6562E1FF44FD700DB59C4 /* CarrierPickerCellDelegate.swift */,
+				CACB0EA41FF55CDE00500D10 /* CarrierFilterVCDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -714,6 +780,7 @@
 				CAA0C71C1FAC036600FAFD69 /* MonthSectionHeaderView.xib in Resources */,
 				CAEC73B11F813C29004D6F0B /* Assets.xcassets in Resources */,
 				CAD1A0351FE328F30052E16A /* QPXExpressResponseExample.json in Resources */,
+				CAA656271FF419C900DB59C4 /* SortFilter.storyboard in Resources */,
 				CA8C6B791F9CF86000753E7D /* GoogleService-Info.plist in Resources */,
 				CA882F821FD4C78300D2E8F3 /* Open_Sans in Resources */,
 				CAEC73AF1F813C29004D6F0B /* Main.storyboard in Resources */,
@@ -919,10 +986,13 @@
 				CA5B59901FE85C1500B08A9D /* TicketScrollView.swift in Sources */,
 				CA5B598C1FE83BE800B08A9D /* ProfileImageView.swift in Sources */,
 				CA55C0F51FE99F2D008990C8 /* LoggedInStatusViewDelegate.swift in Sources */,
+				CAA6561E1FF40D2F00DB59C4 /* SortFilterVCDelegate.swift in Sources */,
+				CAA6562D1FF444B600DB59C4 /* FilterableCarrier.swift in Sources */,
 				CA55C0F31FE99965008990C8 /* LoggedInStatusView.swift in Sources */,
 				CA98C4931FEC55840009D326 /* BillingCountryPickerVC.swift in Sources */,
 				CAF371501FA2426E002C3455 /* DatePickerVCDelegate.swift in Sources */,
 				CA18454D1FD86D3B003B56C6 /* CGFloat+Lerp.swift in Sources */,
+				CAA656221FF416E000DB59C4 /* StopFilterVC.swift in Sources */,
 				CAEDB6A41FCCB7CC0041878F /* UITableView+TopCell.swift in Sources */,
 				CA8A2D1C1FAE498F00C8D5E0 /* OneWayFlightDataCell.swift in Sources */,
 				CAEC73EA1F8184D8004D6F0B /* QPXExpress.swift in Sources */,
@@ -930,12 +1000,14 @@
 				CA98C4911FEC52EA0009D326 /* LanguagePickerVC.swift in Sources */,
 				CAF35CB41FE1F4850074B60B /* TakeoffLoadingView.swift in Sources */,
 				CA27EDA41FBD1F18005AC65B /* InstaFlightResponse.swift in Sources */,
+				CAC6BA761FF2F4D1005307C1 /* SortFilterVC.swift in Sources */,
 				CAAF0CDD1FCE3F120089BF74 /* QPXExpress+Request.swift in Sources */,
 				CA3290171F9D2E650083EED7 /* MonthSectionHeaderView.swift in Sources */,
 				CA29AA1B1F9D6A5E0047B2F1 /* SearchVCDelegate.swift in Sources */,
 				CA5B59921FE8608100B08A9D /* TicketView.swift in Sources */,
 				CA2BE2CC1FEB463900DAF73F /* Notification+Name.swift in Sources */,
 				CAA0C71A1FABE77B00FAFD69 /* DateRange.swift in Sources */,
+				CAC6BA781FF303E5005307C1 /* SortOptionCell.swift in Sources */,
 				CAEC73E61F81638F004D6F0B /* FlightData.swift in Sources */,
 				CA55C0FB1FE9C985008990C8 /* SignupVC.swift in Sources */,
 				CA32901B1F9D5B650083EED7 /* Date+Strings.swift in Sources */,
@@ -944,14 +1016,18 @@
 				CAD6FC291FE19B7300691A8B /* TimelineView.swift in Sources */,
 				CA85590D1FE747EA00E72913 /* ProfileVC.swift in Sources */,
 				CAF35CB61FE22EBA0074B60B /* TakeoffLoadingViewDelegate.swift in Sources */,
+				CAA656201FF4153700DB59C4 /* CarrierFilterVC.swift in Sources */,
 				CAFF4A311FD2452F0036083C /* String+AlphanumericCharacters.swift in Sources */,
 				CA2BE2CA1FEB160400DAF73F /* User.swift in Sources */,
 				CAEC73E01F8144D1004D6F0B /* RoundTripFlightDataCell.swift in Sources */,
 				CAEC73E81F816BF1004D6F0B /* FlightDataService.swift in Sources */,
 				CAA19A111FA3D1CA00A479A8 /* AirportPickerVCDelegate.swift in Sources */,
+				CAA656241FF4175500DB59C4 /* DurationFilterVC.swift in Sources */,
 				CA27EDA61FBD218D005AC65B /* IFLink.swift in Sources */,
+				CAA656291FF423A300DB59C4 /* CarrierPickerCell.swift in Sources */,
 				CAAD01FD1FD0E23A00E76B88 /* NetworkManager.swift in Sources */,
 				CA53248A1FD8BF67002ABBC3 /* PillButton.swift in Sources */,
+				CAC6BA7A1FF3055C005307C1 /* FilterOptionCell.swift in Sources */,
 				CA85590B1FE747D800E72913 /* ExploreVC.swift in Sources */,
 				CAAF0CDB1FCE1F6A0089BF74 /* QPXExpress+Response.swift in Sources */,
 				CAF3714E1FA232EE002C3455 /* SelectedState.swift in Sources */,
@@ -962,8 +1038,11 @@
 				CA9B28631FCF71C700AACF29 /* FlightSegment.swift in Sources */,
 				CA7C3A201FBA42FF00E4CD40 /* FlightDetailsVC.swift in Sources */,
 				CA825CD81F93A8BB006871B2 /* DatePickerVC.swift in Sources */,
+				CAC6BA741FF2D64E005307C1 /* BookNowButton.swift in Sources */,
 				CA49BB8F1FED8D2600C3940C /* DateTextField.swift in Sources */,
+				CACB0EA51FF55CDE00500D10 /* CarrierFilterVCDelegate.swift in Sources */,
 				CA55C0F91FE9C974008990C8 /* LoginVC.swift in Sources */,
+				CAC6BA7C1FF30F26005307C1 /* SortFilterOptions.swift in Sources */,
 				CAA19A0E1FA3C08000A479A8 /* AirportPickerCell.swift in Sources */,
 				CA825CDD1F93BFBF006871B2 /* FirebaseDataService.swift in Sources */,
 				CA5328231FE7571D00867E35 /* FlightDataTableViewHeaderView.swift in Sources */,
@@ -977,6 +1056,7 @@
 				CAD1A0321FE318C50052E16A /* IconAndLabelView.swift in Sources */,
 				CAEC73E41F814F2E004D6F0B /* Constants.swift in Sources */,
 				CA18454F1FD89AAD003B56C6 /* DateAndTimeZone.swift in Sources */,
+				CAA6562F1FF44FD700DB59C4 /* CarrierPickerCellDelegate.swift in Sources */,
 				CA8A2D1F1FAE4CA700C8D5E0 /* SearchType.swift in Sources */,
 				CA825CDA1F93A954006871B2 /* DatePickerCell.swift in Sources */,
 				CA5B598E1FE85A3400B08A9D /* MyFlightsView.swift in Sources */,
