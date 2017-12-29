@@ -675,7 +675,6 @@ extension SearchVC: SortFilterVCDelegate {
     func sortFilterVC(_ sortFilterVC: SortFilterVC, sortOptionDidChangeTo option: SortOptions.Option) {
         self.sortOptions.setSelectedSortOption(to: option)
         self.sortProcessedFlights()
-        self.flightDataTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
     }
     
     func sortFilterVC(_ sortFilterVC: SortFilterVC, filterOptionsDidChange options: FilterOptions?) {
