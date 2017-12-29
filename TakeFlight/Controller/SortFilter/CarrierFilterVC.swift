@@ -18,28 +18,9 @@ class CarrierFilterVC: UITableViewController {
     
     // MARK: Properties
     
-    var filterableCarriers: [FilterableCarrier]?
     weak var delegate: CarrierFilterVCDelegate?
     
-    private var containsFilteredCarriers: Bool {
-        var containsFilters = false
-        filterableCarriers?.forEach { carrier in
-            if carrier.isFiltered {
-                containsFilters = true
-            }
-        }
-        return containsFilters
-    }
-
-    // MARK: Lifecycle
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        if let filterableCarriers = filterableCarriers {
-            delegate?.carrierFilterVC(self, setFilteredCarriersTo: filterableCarriers)
-        }
-    }
+    var filterableCarriers: [FilterableCarrier]?
 
     // MARK: Table view data source
     
@@ -62,10 +43,10 @@ class CarrierFilterVC: UITableViewController {
 // MARK: - CarrierFilterVC+CarrierPickerCellDelegate
 
 extension CarrierFilterVC: CarrierPickerCellDelegate {
-    func carrierPickerCell(_ carrierPickerCell: CarrierPickerCell, didUpdateFilterValueTo isSelected: Bool, for carrier: FilterableCarrier) {
-        guard let filterableCarriers = filterableCarriers else { return }
-        if let carrierIndex = filterableCarriers.index(where: { $0.name == carrier.name }) {
-            self.filterableCarriers?[carrierIndex].isFiltered = !isSelected
+    func carrierPickerCell(_ carrierPickerCell: CarrierPickerCell, didUpdateCarrier carrier: FilterableCarrier) {
+        if let index = filterableCarriers?.index(where: { $0.name == carrier.name }) {
+            filterableCarriers?[index] = carrier
+            delegate?.carrierFilterVC(self, didUpdateCarrier: carrier)
         }
     }
 }

@@ -30,20 +30,21 @@ class SortFilterVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     weak var delegate: SortFilterVCDelegate?
-    private var tableData: [Section]?
+    
+    var selectedSortOption: SortOptions.Option?
+    var filterOptions: FilterOptions?
+    
+    private var tableData: [Section]!
     
     private let filterSegues = [Constants.toCarrierFilterVC, Constants.toStopFilterVC, Constants.toDurationFilterVC]
     
-    var sortFilterOptions: SortFilterOptions? {
-        didSet {
-            if let sortFilterOptions = sortFilterOptions {
-                tableData = [
-                    Section(title: "Sort", items: sortFilterOptions.sortOptions),
-                    Section(title: "Filter", items: sortFilterOptions.filterOptions)
-                ]
-            }
-        }
-    }
+    private lazy var resetButton: UIBarButtonItem = {
+        let button = UIBarButtonItem()
+        button.title = "Reset"
+        button.target = self
+        button.action = #selector(handleResetButtonTapped)
+        return button
+    }()
     
     // MARK: Lifecycle
     
@@ -53,12 +54,6 @@ class SortFilterVC: UIViewController {
         self.setupView()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        delegate?.sortFilterOptions = sortFilterOptions
-    }
-    
     // MARK: Setup
 
     private func setupView() {
@@ -66,6 +61,17 @@ class SortFilterVC: UIViewController {
         tableView.dataSource = self
         tableView.register(SortOptionCell.self, forCellReuseIdentifier: Constants.sortOptionCell)
         tableView.register(FilterOptionCell.self, forCellReuseIdentifier: Constants.filterOptionCell)
+        setupTableData()
+        navigationItem.rightBarButtonItem = resetButton
+    }
+    
+    private func setupTableData() {
+        let sortOptions: [SortOptions.Option] = [.price, .duration, .takeoffTime, .landingTime]
+        let filterOptions: [FilterOptions.Option] = [.airlines, .stops, .duration]
+        tableData = [
+            Section(title: "Sort", items: sortOptions),
+            Section(title: "Filter", items: filterOptions)
+        ]
     }
     
     // MARK: Navigation
@@ -76,14 +82,24 @@ class SortFilterVC: UIViewController {
         switch identifier {
         case Constants.toCarrierFilterVC:
             if let destination = segue.destination as? CarrierFilterVC {
-                destination.filterableCarriers = sortFilterOptions?.filterableCarriers
                 destination.delegate = self
+                destination.filterableCarriers = filterOptions?.filterableCarriers
             }
         case Constants.toStopFilterVC: break
         case Constants.toDurationFilterVC: break
         default: break
             
         }
+    }
+    
+    // MARK: Convenience
+    
+    @objc private func handleResetButtonTapped() {
+        selectedSortOption = .price
+        filterOptions?.resetFilters()
+        delegate?.sortFilterVC(self, sortOptionDidChangeTo: selectedSortOption!)
+        delegate?.sortFilterVC(self, filterOptionsDidChange: filterOptions)
+        tableView.reloadData()
     }
 }
 
@@ -93,15 +109,15 @@ extension SortFilterVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.sortOptionCell, for: indexPath) as? SortOptionCell,
-                let sortOption = tableData?[0].items[indexPath.row] as? SortFilterOptions.SortOption {
-                cell.configureCell(labelText: sortOption.rawValue, isSelected: (sortOption == sortFilterOptions?.selectedSortOption))
+            if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.sortOptionCell, for: indexPath) as? SortOptionCell {
+                let option = tableData[0].items[indexPath.row] as! SortOptions.Option
+                cell.configureCell(labelText: option.rawValue, isSelected: option == selectedSortOption)
                 return cell
             }
         } else if indexPath.section == 1 {
-            if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.filterOptionCell, for: indexPath) as? FilterOptionCell,
-                let filterOption = tableData?[1].items[indexPath.row] as? SortFilterOptions.FilterOption {
-                cell.configureCell(labelText: filterOption.rawValue)
+            if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.filterOptionCell, for: indexPath) as? FilterOptionCell {
+                let option = tableData[1].items[indexPath.row] as! FilterOptions.Option
+                cell.configureCell(labelText: option.rawValue)
                 return cell
             }
         }
@@ -110,10 +126,10 @@ extension SortFilterVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            if let newSortOption = tableData?[0].items[indexPath.row] {
-                sortFilterOptions?.selectedSortOption = newSortOption as! SortFilterOptions.SortOption
-                tableView.reloadSections(IndexSet(integer: 0) , with: .none)
-            }
+            let newSortOption = tableData[0].items[indexPath.row] as! SortOptions.Option
+            selectedSortOption = newSortOption
+            delegate?.sortFilterVC(self, sortOptionDidChangeTo: newSortOption)
+            tableView.reloadData()
         } else if indexPath.section == 1 {
             performSegue(withIdentifier: filterSegues[indexPath.row], sender: nil)
         }
@@ -121,23 +137,24 @@ extension SortFilterVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return tableData?[section].title
+        return tableData[section].title
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableData?[section].items.count ?? 0
+        return tableData[section].items.count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return tableData?.count ?? 0
+        return tableData.count
     }
 }
 
 // MARK: SortFilterVC+CarrierFilterVCDelegate
 
 extension SortFilterVC: CarrierFilterVCDelegate {
-    func carrierFilterVC(_ carrierFilterVC: CarrierFilterVC, setFilteredCarriersTo carriers: [FilterableCarrier]) {
-        // TODO: Update filtered carriers
+    func carrierFilterVC(_ carrierFilterVC: CarrierFilterVC, didUpdateCarrier carrier: FilterableCarrier) {
+        filterOptions?.update(carrier)
+        delegate?.sortFilterVC(self, filterOptionsDidChange: filterOptions)
     }
 }
 

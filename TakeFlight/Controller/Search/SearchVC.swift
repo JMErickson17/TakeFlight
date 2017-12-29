@@ -36,16 +36,8 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     weak var searchDelegate: AirportPickerVCDelegate?
     
-    var sortFilterOptions: SortFilterOptions? {
-        didSet {
-            if let sortFilterOptions = sortFilterOptions {
-                guard !flights.isEmpty else { return }
-                flightDataTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, withDuration: 2, completion: {
-                    self.flights = self.sortandFilter(flightData: self.flights, withOptions: sortFilterOptions)
-                })
-            }
-        }
-    }
+    private var sortOptions = SortOptions()
+    private var filterOptions: FilterOptions?
     
     private lazy var userDataService = UserDataService.instance
     
@@ -146,14 +138,19 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     private var flights = [FlightData]() {
         didSet {
-            DispatchQueue.main.async {
-                self.flightDataTableView.reloadData()
-                self.sortFilterOptions?.setCarriers(to: self.carriers)
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.processedFlights = self.sort(flightData: self.flights, by: self.sortOptions.selectedSortOption)
             }
         }
     }
     
-    private var filteredFlights: [FlightData]?
+    private var processedFlights = [FlightData]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.flightDataTableView.reloadData()
+            }
+        }
+    }
     
     private var carriers: [String] {
         return flights.map({ $0.departingFlight.carrier })
@@ -274,7 +271,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     // MARK: Actions
     
-    @IBAction func sortAndFilterButtonTapped(_ sender: Any) {
+    @IBAction func refineButtonTapped(_ sender: Any) {
         performSegue(withIdentifier: "toSortFilterVC", sender: nil)
     }
     
@@ -416,24 +413,55 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     // MARK: Sort and Filter
     
-    private func sortandFilter(flightData: [FlightData], withOptions options: SortFilterOptions) -> [FlightData] {
-        guard !flightData.isEmpty else { return [FlightData]() }
+    private func sortProcessedFlights() {
+        self.processedFlights = sort(flightData: processedFlights, by: sortOptions.selectedSortOption)
+        self.flightDataTableView.reloadData()
+    }
+    
+    private func filterProcessedFlights() {
+        let filteredFlights = filter(flightData: flights, with: filterOptions)
+        self.processedFlights = sort(flightData: filteredFlights, by: sortOptions.selectedSortOption)
+        self.flightDataTableView.reloadData()
+    }
+    
+    private func sort(flightData: [FlightData], by sortOption: SortOptions.Option) -> [FlightData] {
+        guard !flightData.isEmpty else { return flightData }
         var flightData = flightData
         
-        switch options.selectedSortOption {
-        case .price:
-            flightData.sort { $0.saleTotal < $1.saleTotal}
-        case .duration:
-            flightData.sort { $0.departingFlight.duration < $1.departingFlight.duration }
-        case .takeoffTime:
-            flightData.sort { $0.departingFlight.departureTime < $1.departingFlight.departureTime }
-        case .landingTime:
-            flightData.sort { $0.departingFlight.arrivalTime < $1.departingFlight.arrivalTime }
+        switch sortOption {
+        case .price: flightData.sort { $0.saleTotal < $1.saleTotal}
+        case .duration: flightData.sort { $0.departingFlight.duration < $1.departingFlight.duration }
+        case .takeoffTime: flightData.sort { $0.departingFlight.departureTime < $1.departingFlight.departureTime }
+        case .landingTime: flightData.sort { $0.departingFlight.arrivalTime < $1.departingFlight.arrivalTime }
         }
-        
-        // Implement Filter Options
-        
         return flightData
+    }
+    
+    private func filter(flightData: [FlightData], with filterOptions: FilterOptions?) -> [FlightData] {
+        if flightData.isEmpty || filterOptions == nil { return flightData }
+        var flightData = flightData
+        
+        filterOptions?.selectedFilterOptions.forEach({ option in
+            switch option {
+            case .airlines: flightData = filter(flightData: flightData, byCarriers: filterOptions!.activeCarrierFilters)
+            case .stops: break
+            case .duration: break
+            }
+        })
+        return flightData
+    }
+    
+    private func filter(flightData: [FlightData], byCarriers carriers: [FilterableCarrier]) -> [FlightData] {
+        if flightData.isEmpty || carriers.isEmpty { return flightData }
+        let carrierNames = carriers.map({ $0.name })
+        var filteredFlightData = [FlightData]()
+        
+        for flight in flightData {
+            if !carrierNames.contains(flight.departingFlight.carrier) {
+                filteredFlightData.append(flight)
+            }
+        }
+        return filteredFlightData
     }
     
     // MARK: Database
@@ -449,8 +477,14 @@ class SearchVC: UIViewController, SearchVCDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? SortFilterVC {
             destination.delegate = self
-            destination.sortFilterOptions = sortFilterOptions ?? SortFilterOptions()
-            destination.sortFilterOptions?.setCarriers(to: self.carriers)
+            destination.selectedSortOption = self.sortOptions.selectedSortOption
+            if let filterOptions = filterOptions {
+                destination.filterOptions = filterOptions
+            } else {
+                var filterOptions = FilterOptions()
+                filterOptions.setupCarriers(with: carriers)
+                destination.filterOptions = filterOptions
+            }
         }
     }
     
@@ -527,7 +561,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
     }
     
     private func presentFlightDetails(forCellAt indexPath: IndexPath, completion: (() -> Void)? = nil) {
-        let data = flights[indexPath.row]
+        let data = processedFlights[indexPath.row]
         let flightDetailsVC = FlightDetailsVC()
         flightDetailsVC.flightData = data
         navigationController?.pushViewController(flightDetailsVC, animated: true)
@@ -539,7 +573,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
 extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let flightData = flights[indexPath.row]
+        let flightData = processedFlights[indexPath.row]
         
         if flightData.isRoundTrip {
             if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.ROUND_TRIP_FLIGHT_DATA_CELL, for: indexPath) as? RoundTripFlightDataCell {
@@ -558,8 +592,8 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = FlightDataTableViewHeaderView()
         let attributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)]
-        let count = NSAttributedString(string: String(flights.count), attributes: attributes)
-        let sortedByString = sortFilterOptions?.selectedSortOption.rawValue ?? "Price"
+        let count = NSAttributedString(string: String(processedFlights.count), attributes: attributes)
+        let sortedByString = sortOptions.selectedSortOption.rawValue
         let sortedBy = NSAttributedString(string: sortedByString, attributes: attributes)
         let title = NSMutableAttributedString(string: "Showing ")
         title.append(count)
@@ -580,7 +614,7 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return flights.count
+        return processedFlights.count
     }
 }
 
@@ -638,4 +672,14 @@ extension SearchVC: UITextFieldDelegate {
 
 extension SearchVC: SortFilterVCDelegate {
     
+    func sortFilterVC(_ sortFilterVC: SortFilterVC, sortOptionDidChangeTo option: SortOptions.Option) {
+        self.sortOptions.setSelectedSortOption(to: option)
+        self.sortProcessedFlights()
+        self.flightDataTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+    }
+    
+    func sortFilterVC(_ sortFilterVC: SortFilterVC, filterOptionsDidChange options: FilterOptions?) {
+        self.filterOptions = options
+        self.filterProcessedFlights()
+    }
 }

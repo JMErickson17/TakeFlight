@@ -9,5 +9,5 @@
 import Foundation
 
 protocol CarrierPickerCellDelegate: class {
-    func carrierPickerCell(_ carrierPickerCell: CarrierPickerCell, didUpdateFilterValueTo isSelected: Bool, for carrier: FilterableCarrier)
+    func carrierPickerCell(_ carrierPickerCell: CarrierPickerCell, didUpdateCarrier carrier: FilterableCarrier)
 }

@@ -8,7 +8,6 @@
 
 import UIKit
 
-@IBDesignable
 class LoggedInStatusView: UIView {
     
     weak var delegate: LoggedInStatusViewDelegate?
@@ -198,9 +197,5 @@ class LoggedInStatusView: UIView {
     
     @objc private func signupButtonWasTapped() {
         delegate?.loggedInStatusView(self, signupButtonWasTapped: true)
-    }
-    
-    override func prepareForInterfaceBuilder() {
-        setupView()
     }
 }

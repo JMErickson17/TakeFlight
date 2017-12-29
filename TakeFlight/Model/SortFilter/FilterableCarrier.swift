@@ -12,3 +12,11 @@ struct FilterableCarrier {
     let name: String
     var isFiltered: Bool
 }
+
+// MARK: - FilterableCarrier+Equatable
+
+extension FilterableCarrier: Equatable {
+    static func ==(lhs: FilterableCarrier, rhs: FilterableCarrier) -> Bool {
+        return lhs.name == rhs.name && lhs.isFiltered == rhs.isFiltered
+    }
+}

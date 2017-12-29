@@ -8,7 +8,6 @@
 
 import UIKit
 
-@IBDesignable
 class ProfileImageView: UIImageView {
     
     override func awakeFromNib() {
@@ -22,7 +21,4 @@ class ProfileImageView: UIImageView {
         self.clipsToBounds = true
     }
     
-    override func prepareForInterfaceBuilder() {
-        setupView()
-    }
 }

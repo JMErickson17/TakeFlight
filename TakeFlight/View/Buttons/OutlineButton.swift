@@ -8,7 +8,6 @@
 
 import UIKit
 
-@IBDesignable
 class OutlineButton: UIButton {
 
     required init?(coder aDecoder: NSCoder) {
@@ -30,9 +29,5 @@ class OutlineButton: UIButton {
         self.layer.borderColor = UIColor.white.cgColor
         self.backgroundColor = .clear
         self.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .light)
-    }
-
-    override func prepareForInterfaceBuilder() {
-        setupView()
     }
 }

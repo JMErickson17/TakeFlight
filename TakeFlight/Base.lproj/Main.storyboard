@@ -66,7 +66,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Rwd-hw-pLi" userLabel="Flight Type Stack View">
                                         <rect key="frame" x="232" y="66" width="133" height="28"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s82-Lx-tCF">
+                                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s82-Lx-tCF">
                                                 <rect key="frame" x="0.0" y="0.0" width="67" height="28"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <state key="normal" title="Round-Trip">
@@ -76,7 +76,7 @@
                                                     <action selector="roundTripButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pqg-87-VuO"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DCR-nQ-lhF">
+                                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DCR-nQ-lhF">
                                                 <rect key="frame" x="77" y="0.0" width="56" height="28"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <state key="normal" title="One-Way">
@@ -89,16 +89,16 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m45-XX-P8U">
-                                        <rect key="frame" x="10" y="66" width="61" height="28"/>
+                                        <rect key="frame" x="10" y="66" width="50" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="bKb-ZS-bDv"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal" title="Sort/Filter">
+                                        <state key="normal" title="Refine">
                                             <color key="titleColor" red="0.1838448053" green="0.73393011720000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
                                         <connections>
-                                            <action selector="sortAndFilterButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LoH-1c-ALq"/>
+                                            <action selector="refineButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LoH-1c-ALq"/>
                                         </connections>
                                     </button>
                                 </subviews>

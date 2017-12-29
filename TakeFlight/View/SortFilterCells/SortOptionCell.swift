@@ -20,6 +20,8 @@ class SortOptionCell: UITableViewCell {
     private lazy var checkMarkImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 20).isActive = true
         imageView.contentMode = .scaleAspectFit
         imageView.image = #imageLiteral(resourceName: "BlueCheckMark")
         imageView.isHidden = true

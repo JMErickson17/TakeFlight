@@ -6,14 +6,15 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Sort/Filter-->
+        <!--Refine-->
         <scene sceneID="eLZ-NF-JKw">
             <objects>
-                <viewController title="Sort/Filter" id="t3T-4W-tZS" customClass="SortFilterVC" customModule="TakeFlight" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Refine" id="t3T-4W-tZS" customClass="SortFilterVC" customModule="TakeFlight" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5wf-Ok-J3q">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -85,13 +86,14 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z2f-H2-Ggz">
-                                            <rect key="frame" x="16" y="14" width="35.5" height="17"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <rect key="frame" x="16" y="13.5" width="37.5" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bmi-II-wLE">
                                             <rect key="frame" x="310" y="7" width="51" height="31"/>
+                                            <color key="onTintColor" name="PrimaryBlue"/>
                                             <connections>
                                                 <action selector="filterCarrierSwitchDidChange:" destination="0ZN-a6-lLM" eventType="valueChanged" id="rdq-Jm-C0k"/>
                                             </connections>
@@ -105,8 +107,8 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="carrierFilterSwitch" destination="bmi-II-wLE" id="ZdU-Le-ust"/>
                                     <outlet property="carrierLabel" destination="z2f-H2-Ggz" id="gVp-EB-77u"/>
-                                    <outlet property="carrierSelectedSwitch" destination="bmi-II-wLE" id="ZdU-Le-ust"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -146,4 +148,9 @@
             <point key="canvasLocation" x="2206" y="447"/>
         </scene>
     </scenes>
+    <resources>
+        <namedColor name="PrimaryBlue">
+            <color red="0.15700000524520874" green="0.37599998712539673" blue="0.87099999189376831" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>
