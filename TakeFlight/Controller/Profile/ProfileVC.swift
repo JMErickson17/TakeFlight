@@ -22,7 +22,6 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var profileImageView: ProfileImageView!
     @IBOutlet weak var userStatusView: LoggedInStatusView!
     
-    private var authListener: NSObjectProtocol?
     private var userPropertiesDidChangeListener: NSObjectProtocol?
     
     private lazy var imagePicker: UIImagePickerController = {
@@ -51,7 +50,7 @@ class ProfileVC: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        removeuserPropertiesDidChangeListener()
+        removeUserPropertiesDidChangeListener()
     }
     
     // MARK: Setup
@@ -63,25 +62,13 @@ class ProfileVC: UIViewController {
     
     // MARK: Convenience
     
-    private func addAuthListener() {
-        authListener = NotificationCenter.default.addObserver(forName: .authStatusDidChange, object: nil, queue: nil, using: { _ in
-            self.updateViewForCurrentUser()
-        })
-    }
-    
-    private func removeAuthListener() {
-        if let authListener = authListener {
-            NotificationCenter.default.removeObserver(authListener)
-        }
-    }
-    
     private func addUserPropertiesDidChangeListener() {
         userPropertiesDidChangeListener = NotificationCenter.default.addObserver(forName: .userPropertiesDidChange, object: nil, queue: nil, using: { _ in
             self.updateViewForCurrentUser()
         })
     }
     
-    private func removeuserPropertiesDidChangeListener() {
+    private func removeUserPropertiesDidChangeListener() {
         if let userPropertiesDidChangeListener = userPropertiesDidChangeListener {
             NotificationCenter.default.removeObserver(userPropertiesDidChangeListener)
         }

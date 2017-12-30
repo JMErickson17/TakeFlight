@@ -50,7 +50,7 @@ class User {
     
     // MARK: Lifecycle
     
-    fileprivate func downloadUserProfileImage(_ uid: String) {
+    private func downloadUserProfileImage(forUID uid: String) {
         FirebaseStorageService.instance.download(userProfileImageWithUID: uid) { (imageData, error) in
             if let error = error { print(error) }
             if let imageData = imageData, let profileImage = UIImage(data: imageData) {
@@ -75,7 +75,7 @@ class User {
         self.billingCountry = billingCountry
         
         DispatchQueue.global().async {
-            self.downloadUserProfileImage(uid)
+            self.downloadUserProfileImage(forUID: uid)
         }
     }
     
