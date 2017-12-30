@@ -13,6 +13,8 @@
 		CA18454B1FD8667E003B56C6 /* TooltipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA18454A1FD8667E003B56C6 /* TooltipView.swift */; };
 		CA18454D1FD86D3B003B56C6 /* CGFloat+Lerp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA18454C1FD86D3B003B56C6 /* CGFloat+Lerp.swift */; };
 		CA18454F1FD89AAD003B56C6 /* DateAndTimeZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA18454E1FD89AAD003B56C6 /* DateAndTimeZone.swift */; };
+		CA192CF51FF7244100943C74 /* MaxStops.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA192CF41FF7244100943C74 /* MaxStops.swift */; };
+		CA192CF71FF726B300943C74 /* StopFilterVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA192CF61FF726B300943C74 /* StopFilterVCDelegate.swift */; };
 		CA27ED9E1FBD1885005AC65B /* InstaFlightRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA27ED9D1FBD1885005AC65B /* InstaFlightRequest.swift */; };
 		CA27EDA41FBD1F18005AC65B /* InstaFlightResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA27EDA31FBD1F18005AC65B /* InstaFlightResponse.swift */; };
 		CA27EDA61FBD218D005AC65B /* IFLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA27EDA51FBD218D005AC65B /* IFLink.swift */; };
@@ -139,6 +141,8 @@
 		CA18454A1FD8667E003B56C6 /* TooltipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipView.swift; sourceTree = "<group>"; };
 		CA18454C1FD86D3B003B56C6 /* CGFloat+Lerp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Lerp.swift"; sourceTree = "<group>"; };
 		CA18454E1FD89AAD003B56C6 /* DateAndTimeZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAndTimeZone.swift; sourceTree = "<group>"; };
+		CA192CF41FF7244100943C74 /* MaxStops.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxStops.swift; sourceTree = "<group>"; };
+		CA192CF61FF726B300943C74 /* StopFilterVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopFilterVCDelegate.swift; sourceTree = "<group>"; };
 		CA27ED9D1FBD1885005AC65B /* InstaFlightRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstaFlightRequest.swift; sourceTree = "<group>"; };
 		CA27EDA31FBD1F18005AC65B /* InstaFlightResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstaFlightResponse.swift; sourceTree = "<group>"; };
 		CA27EDA51FBD218D005AC65B /* IFLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IFLink.swift; sourceTree = "<group>"; };
@@ -463,6 +467,7 @@
 				CAA6562C1FF444B600DB59C4 /* FilterableCarrier.swift */,
 				CA9DB6381FF597BB0036B227 /* SortOptions.swift */,
 				CA9DB63A1FF598300036B227 /* FilterOptions.swift */,
+				CA192CF41FF7244100943C74 /* MaxStops.swift */,
 			);
 			path = SortFilter;
 			sourceTree = "<group>";
@@ -654,6 +659,7 @@
 				CAA6562E1FF44FD700DB59C4 /* CarrierPickerCellDelegate.swift */,
 				CACB0EA41FF55CDE00500D10 /* CarrierFilterVCDelegate.swift */,
 				CA9DB63C1FF5A87C0036B227 /* SortFilterOption.swift */,
+				CA192CF61FF726B300943C74 /* StopFilterVCDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1004,6 +1010,7 @@
 				CAA6562D1FF444B600DB59C4 /* FilterableCarrier.swift in Sources */,
 				CA55C0F31FE99965008990C8 /* LoggedInStatusView.swift in Sources */,
 				CA98C4931FEC55840009D326 /* BillingCountryPickerVC.swift in Sources */,
+				CA192CF71FF726B300943C74 /* StopFilterVCDelegate.swift in Sources */,
 				CAF371501FA2426E002C3455 /* DatePickerVCDelegate.swift in Sources */,
 				CA18454D1FD86D3B003B56C6 /* CGFloat+Lerp.swift in Sources */,
 				CAA656221FF416E000DB59C4 /* StopFilterVC.swift in Sources */,
@@ -1035,6 +1042,7 @@
 				CA5732541FF7107300D10DAD /* UIImage+JPEGQuality.swift in Sources */,
 				CAF35CB61FE22EBA0074B60B /* TakeoffLoadingViewDelegate.swift in Sources */,
 				CAA656201FF4153700DB59C4 /* CarrierFilterVC.swift in Sources */,
+				CA192CF51FF7244100943C74 /* MaxStops.swift in Sources */,
 				CAFF4A311FD2452F0036083C /* String+AlphanumericCharacters.swift in Sources */,
 				CA2BE2CA1FEB160400DAF73F /* User.swift in Sources */,
 				CAEC73E01F8144D1004D6F0B /* RoundTripFlightDataCell.swift in Sources */,

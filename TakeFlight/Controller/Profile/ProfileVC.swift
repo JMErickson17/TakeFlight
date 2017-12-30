@@ -96,12 +96,13 @@ class ProfileVC: UIViewController {
     }
     
     private func setProfileImage() {
-        if let profileImage = UserDataService.instance.currentUser?.profileImage {
-            self.profileImageView.image = profileImage
-        } else {
-            self.profileImageView.image = #imageLiteral(resourceName: "DefaultProfileImage")
+        DispatchQueue.main.async {
+            if let profileImage = UserDataService.instance.currentUser?.profileImage {
+                self.profileImageView.image = profileImage
+            } else {
+                self.profileImageView.image = #imageLiteral(resourceName: "DefaultProfileImage")
+            }
         }
-        
     }
     
     @objc private func handleEditProfileImage() {

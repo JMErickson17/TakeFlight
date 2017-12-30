@@ -441,13 +441,20 @@ class SearchVC: UIViewController, SearchVCDelegate {
         if flightData.isEmpty || filterOptions == nil { return flightData }
         var flightData = flightData
         
-        filterOptions?.selectedFilterOptions.forEach({ option in
+        for option in filterOptions!.selectedFilterOptions {
             switch option {
-            case .airlines: flightData = filter(flightData: flightData, byCarriers: filterOptions!.activeCarrierFilters)
-            case .stops: break
-            case .duration: break
+            case .airlines:
+                flightData = filter(flightData: flightData, byCarriers: filterOptions!.activeCarrierFilters)
+                
+            case .stops:
+                guard let maxStops = filterOptions?.maxStops?.rawValue else { continue }
+                flightData = self.flights.filter({ $0.departingFlight.stopCount <= maxStops })
+                
+            case .duration:
+                break
             }
-        })
+        }
+        
         return flightData
     }
     
@@ -679,6 +686,7 @@ extension SearchVC: SortFilterVCDelegate {
     
     func sortFilterVC(_ sortFilterVC: SortFilterVC, filterOptionsDidChange options: FilterOptions?) {
         self.filterOptions = options
+        print("FilterOptions did change to: \(options)")
         self.filterProcessedFlights()
     }
 }

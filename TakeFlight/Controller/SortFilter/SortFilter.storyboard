@@ -44,26 +44,29 @@
             </objects>
             <point key="canvasLocation" x="1255" y="-299"/>
         </scene>
-        <!--Filter Stops-->
+        <!--Max Stops-->
         <scene sceneID="701-Ts-cEf">
             <objects>
-                <viewController title="Filter Stops" id="1nt-ti-YmH" sceneMemberID="viewController">
+                <viewController title="Max Stops" id="1nt-ti-YmH" customClass="StopFilterVC" customModule="TakeFlight" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hLi-D7-YGr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="HnG-Y6-8qW">
-                                <rect key="frame" x="6" y="70" width="363" height="31"/>
-                            </slider>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wTQ-Iq-qdK">
+                                <rect key="frame" x="0.0" y="120" width="375" height="216"/>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="NdC-5h-pxc" firstAttribute="trailing" secondItem="HnG-Y6-8qW" secondAttribute="trailing" constant="8" id="7Bd-1U-93k"/>
-                            <constraint firstItem="HnG-Y6-8qW" firstAttribute="top" secondItem="NdC-5h-pxc" secondAttribute="top" constant="50" id="CbS-WC-iHv"/>
-                            <constraint firstItem="HnG-Y6-8qW" firstAttribute="leading" secondItem="NdC-5h-pxc" secondAttribute="leading" constant="8" id="T6h-lL-gdE"/>
+                            <constraint firstItem="wTQ-Iq-qdK" firstAttribute="leading" secondItem="NdC-5h-pxc" secondAttribute="leading" id="BHB-ip-GWj"/>
+                            <constraint firstItem="wTQ-Iq-qdK" firstAttribute="trailing" secondItem="NdC-5h-pxc" secondAttribute="trailing" id="HzJ-Uf-fu2"/>
+                            <constraint firstItem="wTQ-Iq-qdK" firstAttribute="top" secondItem="NdC-5h-pxc" secondAttribute="top" constant="100" id="dIP-Se-BX6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="NdC-5h-pxc"/>
                     </view>
+                    <connections>
+                        <outlet property="maxStopPicker" destination="wTQ-Iq-qdK" id="bJw-Dz-Tmg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yto-fN-k8F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
