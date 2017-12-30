@@ -13,4 +13,5 @@ enum UpdatableUserProperties: String {
     case lastName = "lastName"
     case email = "email"
     case phoneNumber = "phoneNumber"
+    case profileImageURL = "profileImageURL"
 }

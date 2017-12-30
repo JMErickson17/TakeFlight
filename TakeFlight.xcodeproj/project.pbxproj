@@ -31,11 +31,13 @@
 		CA55C0F51FE99F2D008990C8 /* LoggedInStatusViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA55C0F41FE99F2D008990C8 /* LoggedInStatusViewDelegate.swift */; };
 		CA55C0F91FE9C974008990C8 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA55C0F81FE9C974008990C8 /* LoginVC.swift */; };
 		CA55C0FB1FE9C985008990C8 /* SignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA55C0FA1FE9C985008990C8 /* SignupVC.swift */; };
+		CA5732541FF7107300D10DAD /* UIImage+JPEGQuality.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5732531FF7107300D10DAD /* UIImage+JPEGQuality.swift */; };
 		CA5B598C1FE83BE800B08A9D /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5B598B1FE83BE800B08A9D /* ProfileImageView.swift */; };
 		CA5B598E1FE85A3400B08A9D /* MyFlightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5B598D1FE85A3400B08A9D /* MyFlightsView.swift */; };
 		CA5B59901FE85C1500B08A9D /* TicketScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5B598F1FE85C1500B08A9D /* TicketScrollView.swift */; };
 		CA5B59921FE8608100B08A9D /* TicketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5B59911FE8608100B08A9D /* TicketView.swift */; };
 		CA6655F51FDF4E5E00918502 /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6655F41FDF4E5E00918502 /* LineView.swift */; };
+		CA79FBB91FF6F18D00FEEE4B /* FirebaseStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79FBB81FF6F18D00FEEE4B /* FirebaseStorageService.swift */; };
 		CA7C3A201FBA42FF00E4CD40 /* FlightDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7C3A1F1FBA42FF00E4CD40 /* FlightDetailsVC.swift */; };
 		CA825CD81F93A8BB006871B2 /* DatePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA825CD71F93A8BB006871B2 /* DatePickerVC.swift */; };
 		CA825CDA1F93A954006871B2 /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA825CD91F93A954006871B2 /* DatePickerCell.swift */; };
@@ -155,11 +157,13 @@
 		CA55C0F41FE99F2D008990C8 /* LoggedInStatusViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInStatusViewDelegate.swift; sourceTree = "<group>"; };
 		CA55C0F81FE9C974008990C8 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		CA55C0FA1FE9C985008990C8 /* SignupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupVC.swift; sourceTree = "<group>"; };
+		CA5732531FF7107300D10DAD /* UIImage+JPEGQuality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+JPEGQuality.swift"; sourceTree = "<group>"; };
 		CA5B598B1FE83BE800B08A9D /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		CA5B598D1FE85A3400B08A9D /* MyFlightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFlightsView.swift; sourceTree = "<group>"; };
 		CA5B598F1FE85C1500B08A9D /* TicketScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketScrollView.swift; sourceTree = "<group>"; };
 		CA5B59911FE8608100B08A9D /* TicketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketView.swift; sourceTree = "<group>"; };
 		CA6655F41FDF4E5E00918502 /* LineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
+		CA79FBB81FF6F18D00FEEE4B /* FirebaseStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageService.swift; sourceTree = "<group>"; };
 		CA7C3A1F1FBA42FF00E4CD40 /* FlightDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDetailsVC.swift; sourceTree = "<group>"; };
 		CA825CD71F93A8BB006871B2 /* DatePickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerVC.swift; sourceTree = "<group>"; };
 		CA825CD91F93A954006871B2 /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
@@ -601,6 +605,7 @@
 				CA825CDC1F93BFBF006871B2 /* FirebaseDataService.swift */,
 				CABA2C5B1FA3E5F9001D9743 /* UserDataService.swift */,
 				CAAD01FC1FD0E23A00E76B88 /* NetworkManager.swift */,
+				CA79FBB81FF6F18D00FEEE4B /* FirebaseStorageService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -632,6 +637,7 @@
 				CAFF4A301FD2452F0036083C /* String+AlphanumericCharacters.swift */,
 				CA18454C1FD86D3B003B56C6 /* CGFloat+Lerp.swift */,
 				CA2BE2CB1FEB463900DAF73F /* Notification+Name.swift */,
+				CA5732531FF7107300D10DAD /* UIImage+JPEGQuality.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -854,6 +860,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/RSKImageCropper/RSKImageCropper.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
@@ -869,6 +876,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RSKImageCropper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
@@ -1009,6 +1017,7 @@
 				CA27EDA41FBD1F18005AC65B /* InstaFlightResponse.swift in Sources */,
 				CAC6BA761FF2F4D1005307C1 /* SortFilterVC.swift in Sources */,
 				CAAF0CDD1FCE3F120089BF74 /* QPXExpress+Request.swift in Sources */,
+				CA79FBB91FF6F18D00FEEE4B /* FirebaseStorageService.swift in Sources */,
 				CA3290171F9D2E650083EED7 /* MonthSectionHeaderView.swift in Sources */,
 				CA29AA1B1F9D6A5E0047B2F1 /* SearchVCDelegate.swift in Sources */,
 				CA5B59921FE8608100B08A9D /* TicketView.swift in Sources */,
@@ -1023,6 +1032,7 @@
 				CA49BB8D1FED8BFF00C3940C /* LocationTextField.swift in Sources */,
 				CAD6FC291FE19B7300691A8B /* TimelineView.swift in Sources */,
 				CA85590D1FE747EA00E72913 /* ProfileVC.swift in Sources */,
+				CA5732541FF7107300D10DAD /* UIImage+JPEGQuality.swift in Sources */,
 				CAF35CB61FE22EBA0074B60B /* TakeoffLoadingViewDelegate.swift in Sources */,
 				CAA656201FF4153700DB59C4 /* CarrierFilterVC.swift in Sources */,
 				CAFF4A311FD2452F0036083C /* String+AlphanumericCharacters.swift in Sources */,

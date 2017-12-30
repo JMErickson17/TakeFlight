@@ -28,6 +28,8 @@ final class UserDataService {
     private var handleAuthStateDidChange: AuthStateDidChangeListenerHandle?
     private var userDidUpdateListener: ListenerRegistration?
     
+    // MARK: Firestore/Database Properties
+    
     private var database: Firestore {
         return Firestore.firestore()
     }
@@ -202,8 +204,28 @@ final class UserDataService {
                 currentUserRef.setData(propertiesDictionary, options: SetOptions.merge(), completion: { error in
                     DispatchQueue.main.async {
                         if let completion = completion {
+                            if let error = error { return completion(error) }
                             completion(nil)
                         }
+                    }
+                })
+            }
+        }
+    }
+    
+    func saveToCurrentUser(profileImage image: UIImage, completion: ErrorCompletionHandler?) {
+        DispatchQueue.global().async {
+            if let imageData = UIImageJPEGRepresentation(image, UIImage.JPEGQuality.medium.rawValue), let currentUser = self.currentUser {
+                FirebaseStorageService.instance.upload(userProfileImage: imageData, forUser: currentUser, completion: { url, error in
+                    if let error = error, let completion = completion { return completion(error) }
+                    if let url = url {
+                        let updatedProfileImageURL = [UpdatableUserProperties.profileImageURL: url.absoluteString]
+                        self.saveToCurrentUser(updatedProperties: updatedProfileImageURL, completion: { (error) in
+                            if let completion = completion {
+                                if let error = error { return completion(error) }
+                                completion(nil)
+                            }
+                        })
                     }
                 })
             }

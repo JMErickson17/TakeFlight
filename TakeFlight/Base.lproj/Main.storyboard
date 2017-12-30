@@ -217,7 +217,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DefaultProfileImage" translatesAutoresizingMaskIntoConstraints="NO" id="vEO-Dn-8IA" userLabel="User Profile Image" customClass="ProfileImageView" customModule="TakeFlight" customModuleProvider="target">
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DefaultProfileImage" translatesAutoresizingMaskIntoConstraints="NO" id="vEO-Dn-8IA" userLabel="User Profile Image" customClass="ProfileImageView" customModule="TakeFlight" customModuleProvider="target">
                                 <rect key="frame" x="137" y="8" width="100" height="100"/>
                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -269,6 +269,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="profileImageView" destination="vEO-Dn-8IA" id="FUV-KW-BAN"/>
                         <outlet property="userStatusView" destination="HYM-lK-I99" id="gWD-Tg-5uU"/>
                         <segue destination="jii-gI-mK2" kind="show" identifier="ToLoginVC" id="p8S-e3-9dx"/>
                         <segue destination="il9-oR-JOQ" kind="show" identifier="ToSignupVC" id="1l8-jU-NWX"/>
