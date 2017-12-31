@@ -33,11 +33,14 @@ class SearchVC: UIViewController, SearchVCDelegate {
     @IBOutlet weak var roundTripButton: UIButton!
     @IBOutlet weak var oneWayButton: UIButton!
     @IBOutlet weak var searchContainerView: UIView!
+    @IBOutlet weak var refineButton: StatusButton!
     
     weak var searchDelegate: AirportPickerVCDelegate?
     
     private var sortOptions = SortOptions()
-    private var filterOptions: FilterOptions?
+    private var filterOptions: FilterOptions? {
+        didSet { configureRefineButtonForFilterState() }
+    }
     
     private lazy var userDataService = UserDataService.instance
     
@@ -269,6 +272,8 @@ class SearchVC: UIViewController, SearchVCDelegate {
         flightDataTableView.register(roundTripCell, forCellReuseIdentifier: Constants.ROUND_TRIP_FLIGHT_DATA_CELL)
     }
     
+    
+    
     // MARK: Actions
     
     @IBAction func refineButtonTapped(_ sender: Any) {
@@ -330,6 +335,12 @@ class SearchVC: UIViewController, SearchVCDelegate {
         case .someResults:
             hideEmptyFlightsLabel()
             activitySpinner.stopAnimating()
+        }
+    }
+    
+    private func configureRefineButtonForFilterState() {
+        if let filterOptions = filterOptions {
+            refineButton.status = filterOptions.hasActiveFilters
         }
     }
     
@@ -695,6 +706,5 @@ extension SearchVC: SortFilterVCDelegate {
     func sortFilterVC(_ sortFilterVC: SortFilterVC, filterOptionsDidChange options: FilterOptions?) {
         self.filterOptions = options
         self.filterProcessedFlights()
-        print("FilterOptions did change: \(filterOptions)")
     }
 }

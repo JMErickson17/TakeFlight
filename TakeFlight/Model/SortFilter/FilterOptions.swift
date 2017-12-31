@@ -20,6 +20,12 @@ struct FilterOptions {
     private(set) var maxStops: MaxStops?
     private(set) var maxDuration: Hour?
     
+    var hasActiveFilters: Bool {
+        return activeCarrierFilters.count > 0 ||
+                maxStops != nil ||
+                maxDuration != nil
+    }
+    
     var activeCarrierFilters: [FilterableCarrier] {
         var carriers = [FilterableCarrier]()
         filterableCarriers?.forEach({ carrier in

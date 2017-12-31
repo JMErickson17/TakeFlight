@@ -88,14 +88,20 @@
                                             </button>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m45-XX-P8U">
-                                        <rect key="frame" x="10" y="66" width="50" height="28"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m45-XX-P8U" customClass="StatusButton" customModule="TakeFlight" customModuleProvider="target">
+                                        <rect key="frame" x="10" y="66" width="60" height="27.5"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="bKb-ZS-bDv"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="bKb-ZS-bDv"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal" title="Refine">
-                                            <color key="titleColor" red="0.1838448053" green="0.73393011720000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <state key="normal">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="Refine">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.18431372549019609" green="0.73333333333333328" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <font key="NSFont" metaFont="system"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
                                         </state>
                                         <connections>
                                             <action selector="refineButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LoH-1c-ALq"/>
@@ -150,6 +156,7 @@
                         <outlet property="flightDataTableView" destination="ozK-l0-pfk" id="diL-2M-Ww3"/>
                         <outlet property="oneWayButton" destination="DCR-nQ-lhF" id="3Hn-SV-sEw"/>
                         <outlet property="originTextField" destination="Vlt-bU-zjx" id="S1p-kV-H59"/>
+                        <outlet property="refineButton" destination="m45-XX-P8U" id="Jyt-dx-oB8"/>
                         <outlet property="returnDateTextField" destination="SMo-cG-Sc2" id="9WX-qw-eMJ"/>
                         <outlet property="roundTripButton" destination="s82-Lx-tCF" id="CeB-Fw-vpJ"/>
                         <outlet property="searchContainerView" destination="GZy-mC-ZRT" id="9vZ-6k-YJ9"/>

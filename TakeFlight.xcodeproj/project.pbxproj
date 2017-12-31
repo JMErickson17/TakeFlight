@@ -34,6 +34,7 @@
 		CA55C0F91FE9C974008990C8 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA55C0F81FE9C974008990C8 /* LoginVC.swift */; };
 		CA55C0FB1FE9C985008990C8 /* SignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA55C0FA1FE9C985008990C8 /* SignupVC.swift */; };
 		CA5732541FF7107300D10DAD /* UIImage+JPEGQuality.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5732531FF7107300D10DAD /* UIImage+JPEGQuality.swift */; };
+		CA5B224E1FF967D200F36B7E /* StatusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5B224D1FF967D200F36B7E /* StatusButton.swift */; };
 		CA5B598C1FE83BE800B08A9D /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5B598B1FE83BE800B08A9D /* ProfileImageView.swift */; };
 		CA5B598E1FE85A3400B08A9D /* MyFlightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5B598D1FE85A3400B08A9D /* MyFlightsView.swift */; };
 		CA5B59901FE85C1500B08A9D /* TicketScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5B598F1FE85C1500B08A9D /* TicketScrollView.swift */; };
@@ -163,6 +164,7 @@
 		CA55C0F81FE9C974008990C8 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		CA55C0FA1FE9C985008990C8 /* SignupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupVC.swift; sourceTree = "<group>"; };
 		CA5732531FF7107300D10DAD /* UIImage+JPEGQuality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+JPEGQuality.swift"; sourceTree = "<group>"; };
+		CA5B224D1FF967D200F36B7E /* StatusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusButton.swift; sourceTree = "<group>"; };
 		CA5B598B1FE83BE800B08A9D /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		CA5B598D1FE85A3400B08A9D /* MyFlightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFlightsView.swift; sourceTree = "<group>"; };
 		CA5B598F1FE85C1500B08A9D /* TicketScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketScrollView.swift; sourceTree = "<group>"; };
@@ -387,6 +389,7 @@
 				CA5324891FD8BF67002ABBC3 /* PillButton.swift */,
 				CA55C0EF1FE99163008990C8 /* OutlineButton.swift */,
 				CAC6BA731FF2D64E005307C1 /* BookNowButton.swift */,
+				CA5B224D1FF967D200F36B7E /* StatusButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -1033,6 +1036,7 @@
 				CA98C4911FEC52EA0009D326 /* LanguagePickerVC.swift in Sources */,
 				CAF35CB41FE1F4850074B60B /* TakeoffLoadingView.swift in Sources */,
 				CA27EDA41FBD1F18005AC65B /* InstaFlightResponse.swift in Sources */,
+				CA5B224E1FF967D200F36B7E /* StatusButton.swift in Sources */,
 				CAC6BA761FF2F4D1005307C1 /* SortFilterVC.swift in Sources */,
 				CAAF0CDD1FCE3F120089BF74 /* QPXExpress+Request.swift in Sources */,
 				CA79FBB91FF6F18D00FEEE4B /* FirebaseStorageService.swift in Sources */,
