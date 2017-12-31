@@ -133,18 +133,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="A7L-yu-Htt">
-                                <rect key="frame" x="6" y="70" width="363" height="31"/>
-                            </slider>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L6S-j8-CxX">
+                                <rect key="frame" x="0.0" y="120" width="375" height="216"/>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="A7L-yu-Htt" firstAttribute="leading" secondItem="KTY-iE-hTE" secondAttribute="leading" constant="8" id="0sD-I8-RJP"/>
-                            <constraint firstItem="KTY-iE-hTE" firstAttribute="trailing" secondItem="A7L-yu-Htt" secondAttribute="trailing" constant="8" id="TaH-YC-d9u"/>
-                            <constraint firstItem="A7L-yu-Htt" firstAttribute="top" secondItem="KTY-iE-hTE" secondAttribute="top" constant="50" id="f6L-PR-foh"/>
+                            <constraint firstItem="L6S-j8-CxX" firstAttribute="trailing" secondItem="KTY-iE-hTE" secondAttribute="trailing" id="F4s-Si-jcN"/>
+                            <constraint firstItem="L6S-j8-CxX" firstAttribute="leading" secondItem="KTY-iE-hTE" secondAttribute="leading" id="QuP-ce-eso"/>
+                            <constraint firstItem="L6S-j8-CxX" firstAttribute="top" secondItem="KTY-iE-hTE" secondAttribute="top" constant="100" id="qUU-ER-lST"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="KTY-iE-hTE"/>
                     </view>
+                    <connections>
+                        <outlet property="durationPicker" destination="L6S-j8-CxX" id="WSN-qV-97B"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cVT-hE-x2n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

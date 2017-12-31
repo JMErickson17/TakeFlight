@@ -114,6 +114,14 @@ extension FlightData {
             }
         }
         
+        var segmentDescription: String {
+            var segmentArray = [String]()
+            for segment in segments {
+                segmentArray.append("\(segment.originAirportCode)-\(segment.destinationAirportCode)")
+            }
+            return segmentArray.joined(separator: ", ")
+        }
+        
         var originAirportCode: String {
             return (segments.first?.originAirportCode) ?? ""
         }

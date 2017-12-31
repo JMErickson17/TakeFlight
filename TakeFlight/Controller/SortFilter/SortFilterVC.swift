@@ -90,7 +90,11 @@ class SortFilterVC: UIViewController {
                 destination.delegate = self
                 destination.selectedMaxStops = filterOptions?.maxStops
             }
-        case Constants.toDurationFilterVC: break
+        case Constants.toDurationFilterVC:
+            if let destination = segue.destination as? DurationFilterVC {
+                destination.delegate = self
+                destination.selectedMaxDuration = filterOptions?.maxDuration
+            }
         default: break
             
         }
@@ -167,6 +171,15 @@ extension SortFilterVC: CarrierFilterVCDelegate {
 extension SortFilterVC: StopFilterVCDelegate {
     func stopFilterVC(_ stopFilterVC: StopFilterVC, didUpdateMaxStopsTo maxStops: MaxStops) {
         filterOptions?.update(maxStops)
+        delegate?.sortFilterVC(self, filterOptionsDidChange: filterOptions)
+    }
+}
+
+// MARK:- SortFilterVC+DurationFilterVCDelegate
+
+extension SortFilterVC: DurationFilterVCDelegate {
+    func durationFilterVC(_ durationFilterVC: DurationFilterVC, didUpdateMaxDurationTo maxDuration: Hour) {
+        filterOptions?.update(maxDuration)
         delegate?.sortFilterVC(self, filterOptionsDidChange: filterOptions)
     }
 }

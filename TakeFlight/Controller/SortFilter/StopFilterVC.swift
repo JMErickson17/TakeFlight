@@ -10,6 +10,8 @@ import UIKit
 
 class StopFilterVC: UIViewController {
     
+    // MARK: Properties
+    
     @IBOutlet weak var maxStopPicker: UIPickerView!
     
     weak var delegate: StopFilterVCDelegate?
@@ -26,6 +28,8 @@ class StopFilterVC: UIViewController {
         .six
     ]
     
+    // MARK: Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -41,10 +45,11 @@ class StopFilterVC: UIViewController {
             maxStopPicker.selectRow(maxStops.last!.rawValue, inComponent: 0, animated: false)
         }
     }
+    
+    // MARK: Setup
 
     private func setupView() {
         maxStopPicker.delegate = self
-        
     }
 }
 

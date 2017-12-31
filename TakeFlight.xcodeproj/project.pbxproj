@@ -39,6 +39,7 @@
 		CA5B59901FE85C1500B08A9D /* TicketScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5B598F1FE85C1500B08A9D /* TicketScrollView.swift */; };
 		CA5B59921FE8608100B08A9D /* TicketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5B59911FE8608100B08A9D /* TicketView.swift */; };
 		CA6655F51FDF4E5E00918502 /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6655F41FDF4E5E00918502 /* LineView.swift */; };
+		CA6F70521FF8668900DD9C08 /* UserDataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6F70511FF8668900DD9C08 /* UserDataServiceTests.swift */; };
 		CA79FBB91FF6F18D00FEEE4B /* FirebaseStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79FBB81FF6F18D00FEEE4B /* FirebaseStorageService.swift */; };
 		CA7C3A201FBA42FF00E4CD40 /* FlightDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7C3A1F1FBA42FF00E4CD40 /* FlightDetailsVC.swift */; };
 		CA825CD81F93A8BB006871B2 /* DatePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA825CD71F93A8BB006871B2 /* DatePickerVC.swift */; };
@@ -46,12 +47,12 @@
 		CA825CDD1F93BFBF006871B2 /* FirebaseDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA825CDC1F93BFBF006871B2 /* FirebaseDataService.swift */; };
 		CA85590B1FE747D800E72913 /* ExploreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA85590A1FE747D800E72913 /* ExploreVC.swift */; };
 		CA85590D1FE747EA00E72913 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA85590C1FE747EA00E72913 /* ProfileVC.swift */; };
-		CA882F821FD4C78300D2E8F3 /* Open_Sans in Resources */ = {isa = PBXBuildFile; fileRef = CA882F811FD4C78200D2E8F3 /* Open_Sans */; };
 		CA8923D21F93F5F50091968B /* Airport.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8923D11F93F5F50091968B /* Airport.swift */; };
 		CA8A2D1C1FAE498F00C8D5E0 /* OneWayFlightDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8A2D1A1FAE498F00C8D5E0 /* OneWayFlightDataCell.swift */; };
 		CA8A2D1D1FAE498F00C8D5E0 /* OneWayFlightDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA8A2D1B1FAE498F00C8D5E0 /* OneWayFlightDataCell.xib */; };
 		CA8A2D1F1FAE4CA700C8D5E0 /* SearchType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8A2D1E1FAE4CA700C8D5E0 /* SearchType.swift */; };
 		CA8C6B791F9CF86000753E7D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CA825CDB1F93BDCA006871B2 /* GoogleService-Info.plist */; };
+		CA900CA41FF93D2700EBA3D0 /* DurationFilterVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA900CA31FF93D2700EBA3D0 /* DurationFilterVCDelegate.swift */; };
 		CA98C4881FEC22AA0009D326 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98C4871FEC22AA0009D326 /* SettingsVC.swift */; };
 		CA98C48A1FEC4DE60009D326 /* UserSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98C4891FEC4DE60009D326 /* UserSearchRequest.swift */; };
 		CA98C48D1FEC4EFE0009D326 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA98C48C1FEC4EFE0009D326 /* Settings.storyboard */; };
@@ -167,6 +168,7 @@
 		CA5B598F1FE85C1500B08A9D /* TicketScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketScrollView.swift; sourceTree = "<group>"; };
 		CA5B59911FE8608100B08A9D /* TicketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketView.swift; sourceTree = "<group>"; };
 		CA6655F41FDF4E5E00918502 /* LineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
+		CA6F70511FF8668900DD9C08 /* UserDataServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataServiceTests.swift; sourceTree = "<group>"; };
 		CA79FBB81FF6F18D00FEEE4B /* FirebaseStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageService.swift; sourceTree = "<group>"; };
 		CA7C3A1F1FBA42FF00E4CD40 /* FlightDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDetailsVC.swift; sourceTree = "<group>"; };
 		CA825CD71F93A8BB006871B2 /* DatePickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerVC.swift; sourceTree = "<group>"; };
@@ -175,11 +177,11 @@
 		CA825CDC1F93BFBF006871B2 /* FirebaseDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDataService.swift; sourceTree = "<group>"; };
 		CA85590A1FE747D800E72913 /* ExploreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreVC.swift; sourceTree = "<group>"; };
 		CA85590C1FE747EA00E72913 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
-		CA882F811FD4C78200D2E8F3 /* Open_Sans */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Open_Sans; sourceTree = "<group>"; };
 		CA8923D11F93F5F50091968B /* Airport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Airport.swift; sourceTree = "<group>"; };
 		CA8A2D1A1FAE498F00C8D5E0 /* OneWayFlightDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneWayFlightDataCell.swift; sourceTree = "<group>"; };
 		CA8A2D1B1FAE498F00C8D5E0 /* OneWayFlightDataCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OneWayFlightDataCell.xib; sourceTree = "<group>"; };
 		CA8A2D1E1FAE4CA700C8D5E0 /* SearchType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchType.swift; sourceTree = "<group>"; };
+		CA900CA31FF93D2700EBA3D0 /* DurationFilterVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationFilterVCDelegate.swift; sourceTree = "<group>"; };
 		CA98C4871FEC22AA0009D326 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		CA98C4891FEC4DE60009D326 /* UserSearchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchRequest.swift; sourceTree = "<group>"; };
 		CA98C48C1FEC4EFE0009D326 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -400,6 +402,29 @@
 			path = FlightCardView;
 			sourceTree = "<group>";
 		};
+		CA6F704F1FF8607900DD9C08 /* SortFilter Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				CAA6561D1FF40D2F00DB59C4 /* SortFilterVCDelegate.swift */,
+				CAA6562E1FF44FD700DB59C4 /* CarrierPickerCellDelegate.swift */,
+				CACB0EA41FF55CDE00500D10 /* CarrierFilterVCDelegate.swift */,
+				CA9DB63C1FF5A87C0036B227 /* SortFilterOption.swift */,
+				CA192CF61FF726B300943C74 /* StopFilterVCDelegate.swift */,
+				CA900CA31FF93D2700EBA3D0 /* DurationFilterVCDelegate.swift */,
+			);
+			path = "SortFilter Delegates";
+			sourceTree = "<group>";
+		};
+		CA6F70501FF860AA00DD9C08 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				CA825CDC1F93BFBF006871B2 /* FirebaseDataService.swift */,
+				CABA2C5B1FA3E5F9001D9743 /* UserDataService.swift */,
+				CA79FBB81FF6F18D00FEEE4B /* FirebaseStorageService.swift */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
 		CA8559071FE7466200E72913 /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -441,14 +466,6 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		CA9E4A7E1FD49E83001B7E61 /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-				CA882F811FD4C78200D2E8F3 /* Open_Sans */,
-			);
-			path = Fonts;
-			sourceTree = "<group>";
-		};
 		CAA656251FF4197300DB59C4 /* SortFilter */ = {
 			isa = PBXGroup;
 			children = (
@@ -464,9 +481,9 @@
 		CAA6562A1FF442EB00DB59C4 /* SortFilter */ = {
 			isa = PBXGroup;
 			children = (
+				CA9DB63A1FF598300036B227 /* FilterOptions.swift */,
 				CAA6562C1FF444B600DB59C4 /* FilterableCarrier.swift */,
 				CA9DB6381FF597BB0036B227 /* SortOptions.swift */,
-				CA9DB63A1FF598300036B227 /* FilterOptions.swift */,
 				CA192CF41FF7244100943C74 /* MaxStops.swift */,
 			);
 			path = SortFilter;
@@ -539,6 +556,7 @@
 		CAEC73BD1F813C29004D6F0B /* TakeFlightTests */ = {
 			isa = PBXGroup;
 			children = (
+				CA6F70511FF8668900DD9C08 /* UserDataServiceTests.swift */,
 				CAEC73BE1F813C29004D6F0B /* TakeFlightTests.swift */,
 				CAEC73C01F813C29004D6F0B /* Info.plist */,
 			);
@@ -606,11 +624,9 @@
 		CAEC73DA1F813C72004D6F0B /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				CA6F70501FF860AA00DD9C08 /* Firebase */,
 				CAEC73E71F816BF1004D6F0B /* FlightDataService.swift */,
-				CA825CDC1F93BFBF006871B2 /* FirebaseDataService.swift */,
-				CABA2C5B1FA3E5F9001D9743 /* UserDataService.swift */,
 				CAAD01FC1FD0E23A00E76B88 /* NetworkManager.swift */,
-				CA79FBB81FF6F18D00FEEE4B /* FirebaseStorageService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -628,7 +644,6 @@
 		CAEC73E21F814F1D004D6F0B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				CA9E4A7E1FD49E83001B7E61 /* Fonts */,
 				CAEC73E31F814F2E004D6F0B /* Constants.swift */,
 			);
 			path = Utilities;
@@ -650,16 +665,12 @@
 		CAEC73EC1F818CFA004D6F0B /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				CA6F704F1FF8607900DD9C08 /* SortFilter Delegates */,
 				CA29AA1A1F9D6A5E0047B2F1 /* SearchVCDelegate.swift */,
 				CAF3714F1FA2426E002C3455 /* DatePickerVCDelegate.swift */,
 				CAA19A101FA3D1CA00A479A8 /* AirportPickerVCDelegate.swift */,
 				CAF35CB51FE22EBA0074B60B /* TakeoffLoadingViewDelegate.swift */,
 				CA55C0F41FE99F2D008990C8 /* LoggedInStatusViewDelegate.swift */,
-				CAA6561D1FF40D2F00DB59C4 /* SortFilterVCDelegate.swift */,
-				CAA6562E1FF44FD700DB59C4 /* CarrierPickerCellDelegate.swift */,
-				CACB0EA41FF55CDE00500D10 /* CarrierFilterVCDelegate.swift */,
-				CA9DB63C1FF5A87C0036B227 /* SortFilterOption.swift */,
-				CA192CF61FF726B300943C74 /* StopFilterVCDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -800,7 +811,6 @@
 				CAD1A0351FE328F30052E16A /* QPXExpressResponseExample.json in Resources */,
 				CAA656271FF419C900DB59C4 /* SortFilter.storyboard in Resources */,
 				CA8C6B791F9CF86000753E7D /* GoogleService-Info.plist in Resources */,
-				CA882F821FD4C78300D2E8F3 /* Open_Sans in Resources */,
 				CAEC73AF1F813C29004D6F0B /* Main.storyboard in Resources */,
 				CAEC73E11F8144D1004D6F0B /* RoundTripFlightDataCell.xib in Resources */,
 			);
@@ -1018,6 +1028,7 @@
 				CAEDB6A41FCCB7CC0041878F /* UITableView+TopCell.swift in Sources */,
 				CA8A2D1C1FAE498F00C8D5E0 /* OneWayFlightDataCell.swift in Sources */,
 				CAEC73EA1F8184D8004D6F0B /* QPXExpress.swift in Sources */,
+				CA900CA41FF93D2700EBA3D0 /* DurationFilterVCDelegate.swift in Sources */,
 				CAEC73AC1F813C29004D6F0B /* SearchVC.swift in Sources */,
 				CA98C4911FEC52EA0009D326 /* LanguagePickerVC.swift in Sources */,
 				CAF35CB41FE1F4850074B60B /* TakeoffLoadingView.swift in Sources */,
@@ -1095,6 +1106,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA6F70521FF8668900DD9C08 /* UserDataServiceTests.swift in Sources */,
 				CAEC73BF1F813C29004D6F0B /* TakeFlightTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1289,6 +1301,19 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LCHZAHJK5X;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseAnalytics\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseAuth\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseCore\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseDatabase\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseFirestore\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseInstanceID\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseStorage\"",
+					"\"${PODS_ROOT}/Firebase/Core/Sources\"",
+				);
 				INFOPLIST_FILE = TakeFlightTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustinErickson.TakeFlightTests;
@@ -1307,6 +1332,19 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LCHZAHJK5X;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseAnalytics\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseAuth\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseCore\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseDatabase\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseFirestore\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseInstanceID\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseStorage\"",
+					"\"${PODS_ROOT}/Firebase/Core/Sources\"",
+				);
 				INFOPLIST_FILE = TakeFlightTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustinErickson.TakeFlightTests;

@@ -23,7 +23,7 @@ class OneWayFlightDataCell: FlightDataCell {
     let height: CGFloat = 120
 
     func configureCell(withFlightData data: FlightData) {
-        headerLabel.text = data.shortDescription
+        headerLabel.text = data.departingFlight.segmentDescription
         priceLabel.text = makePriceString(withPrice: data.saleTotal)
         timeLabel.attributedText = makeTimeString(departureTime: data.departingFlight.departureTime, arrivalTime: data.departingFlight.arrivalTime)
         airlineNameLabel.text = data.departingFlight.carrier

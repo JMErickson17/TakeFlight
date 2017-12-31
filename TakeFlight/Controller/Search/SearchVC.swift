@@ -422,6 +422,10 @@ class SearchVC: UIViewController, SearchVCDelegate {
         let filteredFlights = filter(flightData: flights, with: filterOptions)
         self.processedFlights = sort(flightData: filteredFlights, by: sortOptions.selectedSortOption)
         self.flightDataTableView.reloadData()
+        // TODO: Fix TableView not scrolling
+        if !self.processedFlights.isEmpty {
+            self.flightDataTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+        }
     }
     
     private func sort(flightData: [FlightData], by sortOption: SortOptions.Option) -> [FlightData] {
@@ -439,36 +443,30 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     private func filter(flightData: [FlightData], with filterOptions: FilterOptions?) -> [FlightData] {
         if flightData.isEmpty || filterOptions == nil { return flightData }
-        var flightData = flightData
         
-        for option in filterOptions!.selectedFilterOptions {
-            switch option {
-            case .airlines:
-                flightData = filter(flightData: flightData, byCarriers: filterOptions!.activeCarrierFilters)
-                
-            case .stops:
-                guard let maxStops = filterOptions?.maxStops?.rawValue else { continue }
-                flightData = self.flights.filter({ $0.departingFlight.stopCount <= maxStops })
-                
-            case .duration:
-                break
+        return flightData.filter { flight -> Bool in
+            var isIncluded = true
+            
+            if let activeCarrierFilters = filterOptions?.activeCarrierFilters {
+                let carriers = activeCarrierFilters.map({ $0.name })
+                if carriers.contains(flight.departingFlight.carrier) {
+                    isIncluded = false
+                }
             }
-        }
-        
-        return flightData
-    }
-    
-    private func filter(flightData: [FlightData], byCarriers carriers: [FilterableCarrier]) -> [FlightData] {
-        if flightData.isEmpty || carriers.isEmpty { return flightData }
-        let carrierNames = carriers.map({ $0.name })
-        var filteredFlightData = [FlightData]()
-        
-        for flight in flightData {
-            if !carrierNames.contains(flight.departingFlight.carrier) {
-                filteredFlightData.append(flight)
+            
+            if let maxStops = filterOptions?.maxStops?.rawValue {
+                if flight.departingFlight.stopCount > maxStops {
+                    isIncluded = false
+                }
             }
+            
+            if let maxDuration = filterOptions?.maxDuration {
+                if flight.departingFlight.duration > maxDuration * 60 {
+                    isIncluded = false
+                }
+            }
+            return isIncluded
         }
-        return filteredFlightData
     }
     
     // MARK: Database
@@ -499,6 +497,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     private func presentAirportPicker(withTag tag: Int, completion: (() -> Void)? = nil) {
         guard airportPickerVC == nil else { return }
+        if datePickerVC != nil { searchVC(self, shouldDismissDatePicker: true) }
         
         airportPickerVC = AirportPickerVC()
         airportPickerVC?.delegate = self
@@ -535,6 +534,9 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     private func presentDatePicker(completion: (() -> Void)? = nil) {
         guard datePickerVC == nil else { return }
+        if airportPickerVC != nil { searchVC(self, shouldDismissAirportPicker: true) }
+        originTextField.resignFirstResponder()
+        destinationTextField.resignFirstResponder()
         
         datePickerVC = DatePickerVC()
         datePickerVC?.delegate = self
@@ -635,6 +637,12 @@ extension SearchVC: UITextFieldDelegate {
         return false
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField.tag == 1 || textField.tag == 2 {
+            searchVC(self, shouldDismissDatePicker: true)
+        }
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.text == "" {
             handleClearTextField(textField)
@@ -686,7 +694,7 @@ extension SearchVC: SortFilterVCDelegate {
     
     func sortFilterVC(_ sortFilterVC: SortFilterVC, filterOptionsDidChange options: FilterOptions?) {
         self.filterOptions = options
-        print("FilterOptions did change to: \(options)")
         self.filterProcessedFlights()
+        print("FilterOptions did change: \(filterOptions)")
     }
 }

@@ -18,13 +18,7 @@ struct FilterOptions {
     
     private(set) var filterableCarriers: [FilterableCarrier]?
     private(set) var maxStops: MaxStops?
-    
-    var selectedFilterOptions: [Option] {
-        var options = [Option]()
-        if !activeCarrierFilters.isEmpty { options.append(.airlines) }
-        if let _ = maxStops { options.append(.stops) }
-        return options
-    }
+    private(set) var maxDuration: Hour?
     
     var activeCarrierFilters: [FilterableCarrier] {
         var carriers = [FilterableCarrier]()
@@ -59,11 +53,17 @@ struct FilterOptions {
         self.maxStops = maxStops
     }
     
+    mutating func update(_ maxDuration: Hour) {
+        self.maxDuration = maxDuration
+    }
+    
     mutating func resetFilters() {
         filterableCarriers = filterableCarriers?.map({ carrier -> FilterableCarrier in
             var carrier = carrier
             carrier.isFiltered = false
             return carrier
         })
+        maxStops = nil
+        maxDuration = nil
     }
 }
