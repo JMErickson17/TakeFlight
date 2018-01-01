@@ -247,12 +247,6 @@
                                     <constraint firstAttribute="height" constant="1" id="1fI-um-fpF"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Flights" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gdr-Ma-Ilt">
-                                <rect key="frame" x="148" y="171" width="79" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" name="PrimaryBlue"/>
                         <constraints>
@@ -261,10 +255,8 @@
                             <constraint firstItem="LPE-Hd-icy" firstAttribute="trailing" secondItem="zb4-aj-G0n" secondAttribute="trailingMargin" id="S5v-EN-ES3"/>
                             <constraint firstItem="LPE-Hd-icy" firstAttribute="top" secondItem="HYM-lK-I99" secondAttribute="bottom" constant="12" id="XSk-ue-3TQ"/>
                             <constraint firstItem="HYM-lK-I99" firstAttribute="centerX" secondItem="zb4-aj-G0n" secondAttribute="centerX" id="aGX-3O-M5o"/>
-                            <constraint firstItem="Gdr-Ma-Ilt" firstAttribute="centerX" secondItem="zb4-aj-G0n" secondAttribute="centerX" id="fIl-0r-fGm"/>
                             <constraint firstItem="vEO-Dn-8IA" firstAttribute="centerX" secondItem="zb4-aj-G0n" secondAttribute="centerX" id="hbw-oE-gOg"/>
                             <constraint firstItem="vEO-Dn-8IA" firstAttribute="top" secondItem="mqY-rs-bhS" secondAttribute="top" constant="8" id="lzu-fr-A1b"/>
-                            <constraint firstItem="Gdr-Ma-Ilt" firstAttribute="top" secondItem="LPE-Hd-icy" secondAttribute="bottom" constant="8" id="pnd-9a-PfG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mqY-rs-bhS"/>
                     </view>
@@ -284,7 +276,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eKG-J0-oP8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="340" y="883"/>
+            <point key="canvasLocation" x="340" y="882.90854572713647"/>
         </scene>
         <!--Login-->
         <scene sceneID="Scr-gW-5oU">
@@ -508,11 +500,11 @@
                 <viewControllerPlaceholder storyboardName="SortFilter" id="Xjo-1b-Y6k" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JtV-xO-ZJD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1016" y="115"/>
+            <point key="canvasLocation" x="1243" y="-109"/>
         </scene>
     </scenes>
     <resources>
-        <image name="DefaultProfileImage" width="64" height="81"/>
+        <image name="DefaultProfileImage" width="52" height="57"/>
         <image name="ExploreIcon" width="21" height="21"/>
         <image name="ProfileIcon" width="17" height="21"/>
         <image name="SearchIcon" width="22" height="21"/>

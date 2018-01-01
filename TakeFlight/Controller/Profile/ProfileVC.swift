@@ -32,6 +32,21 @@ class ProfileVC: UIViewController {
         return imagePicker
     }()
     
+    private lazy var editProfileImageRecognizer: UILongPressGestureRecognizer = {
+        let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleEditProfileImage))
+        recognizer.minimumPressDuration = 0.5
+        recognizer.numberOfTouchesRequired = 1
+        return recognizer
+    }()
+    
+    private lazy var editProfileImageAlertController: UIAlertController = {
+        let controller = UIAlertController(title: "Edit Profile Photo", message: nil, preferredStyle: .actionSheet)
+        controller.addAction(UIAlertAction(title: "Choose from Library", style: .default, handler: handleChooseImageFromLibrary))
+        controller.addAction(UIAlertAction(title: "Remove Current Photo", style: .destructive, handler: handleRemoveProfileImage))
+        controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        return controller
+    }()
+    
     // MARK: Lifecycle
     
     override func viewDidLoad() {
@@ -57,7 +72,10 @@ class ProfileVC: UIViewController {
     
     private func setupView() {
         userStatusView.delegate = self
-        profileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleEditProfileImage)))
+        profileImageView.addGestureRecognizer(editProfileImageRecognizer)
+        profileImageView.layer.shadowColor = UIColor.black.cgColor
+        profileImageView.layer.shadowOffset = CGSize.zero
+        profileImageView.layer.shadowRadius = 10
     }
     
     // MARK: Convenience
@@ -105,8 +123,18 @@ class ProfileVC: UIViewController {
         }
     }
     
-    @objc private func handleEditProfileImage() {
+    @objc private func handleEditProfileImage(_ recognizer: UILongPressGestureRecognizer) {
+        if recognizer.state == .began {
+            present(editProfileImageAlertController, animated: true, completion: nil)
+        }
+    }
+    
+    private func handleChooseImageFromLibrary(_ action: UIAlertAction) {
         present(imagePicker, animated: true, completion: nil)
+    }
+    
+    private func handleRemoveProfileImage(_ action: UIAlertAction) {
+        print("Remove Photo")
     }
     
     private func handleSave(profileImage: UIImage) {

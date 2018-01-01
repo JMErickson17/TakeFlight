@@ -33,10 +33,18 @@ class DurationFilterVC: UIViewController {
         return Array(stride(from: Constants.minDuration, to: Constants.maxDuration + 1, by: 1))
     }()
     
+    private lazy var applyButton: UIBarButtonItem = {
+        let button = UIBarButtonItem()
+        button.title = "Apply"
+        button.target = self
+        button.action = #selector(handleApplyButtonWasTapped)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        durationPicker.delegate = self
+        setupView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,7 +54,21 @@ class DurationFilterVC: UIViewController {
             durationPicker.selectRow(durations.index(of: selectedMaxDuration)!, inComponent: 0, animated: false)
         } else {
             durationPicker.selectRow(durations.index(of: durations.last!)!, inComponent: 0, animated: false)
-            
+        }
+    }
+    
+    private func setupView() {
+        durationPicker.delegate = self
+        navigationItem.rightBarButtonItem = applyButton
+        if selectedMaxDuration == nil {
+            selectedMaxDuration = durations.last!
+        }
+    }
+    
+    @objc private func handleApplyButtonWasTapped() {
+        if let selectedMaxDuration = selectedMaxDuration {
+            delegate?.durationFilterVC(self, didUpdateMaxDurationTo: selectedMaxDuration)
+            navigationController?.popViewController(animated: true)
         }
     }
 }
@@ -56,7 +78,7 @@ class DurationFilterVC: UIViewController {
 extension DurationFilterVC: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        delegate?.durationFilterVC(self, didUpdateMaxDurationTo: durations[row])
+        selectedMaxDuration = durations[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {

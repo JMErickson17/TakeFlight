@@ -91,6 +91,7 @@ class DatePickerVC: UIViewController, DatePickerVCDelegate {
             
             if let departureDate = delegate!.departureDate {
                 calendarView.selectDates([departureDate], triggerSelectionDelegate: false, keepSelectionIfMultiSelectionAllowed: true)
+                calendarView.scrollToHeaderForDate(departureDate)
             }
             
         case .roundTrip:

@@ -22,15 +22,14 @@ class StatusButton: UIButton {
         return CGPoint(x: bounds.maxX - 10, y: bounds.minY + 5)
     }
     
-    var status: Bool = false {
+    var shouldShowstatusIndicator: Bool = false {
         didSet {
-            if status {
+            if shouldShowstatusIndicator {
                 statusShape.position = statusShapeLocation
                 self.layer.addSublayer(statusShape)
             } else {
                 statusShape.removeFromSuperlayer()
             }
-            
         }
     }
 }

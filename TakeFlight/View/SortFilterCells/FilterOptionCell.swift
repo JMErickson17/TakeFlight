@@ -17,6 +17,14 @@ class FilterOptionCell: UITableViewCell {
         return label
     }()
     
+    private lazy var detailLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.textColor = .lightGray
+        return label
+    }()
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
@@ -35,9 +43,17 @@ class FilterOptionCell: UITableViewCell {
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             label.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
+        
+        addSubview(detailLabel)
+        NSLayoutConstraint.activate([
+            detailLabel.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 40),
+            detailLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            detailLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
     }
     
-    func configureCell(labelText: String) {
+    func configureCell(labelText: String, detailText: String?) {
         label.text = labelText
+        detailLabel.text = detailText
     }
 }

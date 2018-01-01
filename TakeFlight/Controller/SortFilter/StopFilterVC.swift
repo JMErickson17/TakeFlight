@@ -28,6 +28,14 @@ class StopFilterVC: UIViewController {
         .six
     ]
     
+    private lazy var applyButton: UIBarButtonItem = {
+        let button = UIBarButtonItem()
+        button.title = "Apply"
+        button.target = self
+        button.action = #selector(handleApplyButtonWasTapped)
+        return button
+    }()
+    
     // MARK: Lifecycle
     
     override func viewDidLoad() {
@@ -50,6 +58,19 @@ class StopFilterVC: UIViewController {
 
     private func setupView() {
         maxStopPicker.delegate = self
+        navigationItem.rightBarButtonItem = applyButton
+        if selectedMaxStops == nil {
+            selectedMaxStops = maxStops.last!
+        }
+    }
+    
+    // MARK: Convenience
+    
+    @objc private func handleApplyButtonWasTapped() {
+        if let selectedMaxStops = selectedMaxStops {
+            delegate?.stopFilterVC(self, didUpdateMaxStopsTo: selectedMaxStops)
+            navigationController?.popViewController(animated: true)
+        }
     }
 }
 
@@ -58,8 +79,7 @@ class StopFilterVC: UIViewController {
 extension StopFilterVC: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let newMaxStops = maxStops[row]
-        delegate?.stopFilterVC(self, didUpdateMaxStopsTo: newMaxStops)
+        selectedMaxStops = maxStops[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {

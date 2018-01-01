@@ -25,6 +25,7 @@ class OneWayFlightDataCell: FlightDataCell {
     func configureCell(withFlightData data: FlightData) {
         headerLabel.text = data.departingFlight.segmentDescription
         priceLabel.text = makePriceString(withPrice: data.saleTotal)
+        airlineImage.image = data.departingFlight.carrierLogo
         timeLabel.attributedText = makeTimeString(departureTime: data.departingFlight.departureTime, arrivalTime: data.departingFlight.arrivalTime)
         airlineNameLabel.text = data.departingFlight.carrier
         stopCountLabel.attributedText = makeStopCountString(with: data.departingFlight.stopCount)

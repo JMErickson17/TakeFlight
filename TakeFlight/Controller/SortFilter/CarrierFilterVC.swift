@@ -34,6 +34,10 @@ class CarrierFilterVC: UITableViewController {
         }
         return UITableViewCell()
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filterableCarriers?.count ?? 0

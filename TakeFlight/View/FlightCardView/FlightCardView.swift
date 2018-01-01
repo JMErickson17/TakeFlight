@@ -18,8 +18,8 @@ class FlightCardView: UIView {
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.image = #imageLiteral(resourceName: "SkyHeaderImage")
-        imageView.layer.shadowColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-        imageView.layer.shadowRadius = 15
+        imageView.layer.shadowColor = #colorLiteral(red: 0.4087824948, green: 0.4343314007, blue: 0.4343314007, alpha: 1)
+        imageView.layer.shadowRadius = 10
         imageView.layer.shadowOpacity = 0.7
         return imageView
     }()
@@ -31,6 +31,13 @@ class FlightCardView: UIView {
         label.textAlignment = .center
         label.textColor = .white
         return label
+    }()
+    
+    private lazy var carrierImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        return imageView
     }()
     
     private lazy var carrierLabel: UILabel = {
@@ -102,9 +109,10 @@ class FlightCardView: UIView {
     // MARK: Setup
     
     private func setupView() {
-        backgroundColor = #colorLiteral(red: 0.7779760424, green: 0.7779760424, blue: 0.7779760424, alpha: 1)
+        backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         layer.cornerRadius = 5
         clipsToBounds = true
+        addShadow()
         
         addSubview(headerImage)
         NSLayoutConstraint.activate([
@@ -122,10 +130,18 @@ class FlightCardView: UIView {
             headerLabel.bottomAnchor.constraint(equalTo: headerImage.bottomAnchor)
         ])
         
+        addSubview(carrierImage)
+        NSLayoutConstraint.activate([
+            carrierImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            carrierImage.topAnchor.constraint(equalTo: headerImage.bottomAnchor, constant: 20),
+            carrierImage.heightAnchor.constraint(equalToConstant: 40),
+            carrierImage.widthAnchor.constraint(equalToConstant: 40)
+        ])
+        
         addSubview(carrierStackView)
         NSLayoutConstraint.activate([
-            carrierStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            carrierStackView.topAnchor.constraint(equalTo: headerImage.bottomAnchor, constant: 20),
+            carrierStackView.leadingAnchor.constraint(equalTo: carrierImage.trailingAnchor, constant: 20),
+            carrierStackView.centerYAnchor.constraint(equalTo: carrierImage.centerYAnchor),
             carrierStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
         
@@ -152,8 +168,16 @@ class FlightCardView: UIView {
         ])
     }
     
+    private func addShadow() {
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOpacity = 1
+        self.layer.shadowOffset = CGSize.zero
+        self.layer.shadowRadius = 10
+    }
+    
     func setupCard(withFlight flight: FlightData.Flight) {
         headerLabel.text = "\(flight.originAirportCode)-\(flight.destinationAirportCode)"
+        carrierImage.image = flight.carrierLogo
         carrierLabel.text = flight.carrier
         bookingCodeLabel.text = flight.bookingCode
         dateLabel.text = flight.departureTime.toLocalDateAndTimeString(withFormatter: formatter)
@@ -306,11 +330,11 @@ extension FlightCardView {
         private let detailsStackViewXInset: CGFloat = 10
         private let detailsStackViewYInset: CGFloat = 10
         private let detailImages: [String: UIImage] = [
-            "duration": #imageLiteral(resourceName: "ClockIcon"),
-            "meal": #imageLiteral(resourceName: "KnifeForkIcon"),
-            "wifi": #imageLiteral(resourceName: "WifiSignalIcon"),
-            "aircraft": #imageLiteral(resourceName: "AirplaneFrontIcon"),
-            "onTimePerformance": #imageLiteral(resourceName: "StopWatchIcon")
+            "duration": #imageLiteral(resourceName: "DetailsClockIcon"),
+            "meal": #imageLiteral(resourceName: "DetailsKnifeForkIcon"),
+            "wifi": #imageLiteral(resourceName: "DetailsWifiIcon"),
+            "aircraft": #imageLiteral(resourceName: "DetailsAirplaneIcon"),
+            "onTimePerformance": #imageLiteral(resourceName: "DetailsStopWatchIcon")
         ]
         
         lazy var detailsStackView: UIStackView = {

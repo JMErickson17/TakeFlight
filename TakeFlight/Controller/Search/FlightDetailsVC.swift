@@ -58,6 +58,9 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowRadius = 3
+        view.layer.shadowOpacity = 0.7
         return view
     }()
     
@@ -72,6 +75,10 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
     private lazy var bookFlightButton: BookNowButton = {
         let button = BookNowButton()
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowRadius = 5
+        button.layer.shadowOpacity = 0.5
+        button.layer.shadowOffset = CGSize.zero
         return button
     }()
 
@@ -90,9 +97,9 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
     private func setupView() {
         guard let flightData = flightData else { return }
         
-        view.backgroundColor = #colorLiteral(red: 0.927077513, green: 0.927077513, blue: 0.927077513, alpha: 1)
+        view.backgroundColor = #colorLiteral(red: 0.9254901961, green: 0.9254901961, blue: 0.9254901961, alpha: 1)
         self.tabBarController?.tabBar.isHidden = true
-        priceLabel.text = "$\(flightData.saleTotal)"
+        self.setPrice(to: flightData.saleTotal)
         self.title = flightData.shortDescription
         
         view.addSubview(bookFlightContainerView)
@@ -164,5 +171,12 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
             ])
         }
         view.layoutSubviews()
+    }
+    
+    private func setPrice(to price: Double) {
+        let price = price as NSNumber
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        priceLabel.text = formatter.string(from: price)
     }
 }

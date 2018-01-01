@@ -19,6 +19,8 @@ class ProfileImageView: UIImageView {
     private func setupView() {
         self.layer.cornerRadius = frame.width / 2
         self.clipsToBounds = true
+        self.layer.borderColor = UIColor.white.cgColor
+        self.layer.borderWidth = 1
     }
     
 }

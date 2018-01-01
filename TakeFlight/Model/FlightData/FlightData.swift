@@ -86,8 +86,26 @@ extension FlightData {
         
         let segments: [FlightSegment]
         
+        private let carrierImages: [String: UIImage] = [
+            "AS": #imageLiteral(resourceName: "AlaskaAirlinesLogo"),
+            "B6": #imageLiteral(resourceName: "JetBlueAirlinesLogo"),
+            "F9": #imageLiteral(resourceName: "FrontierAirlinesLogo"),
+            "NK": #imageLiteral(resourceName: "SpiritAirlinesLogo"),
+            "SY": #imageLiteral(resourceName: "SunCountryAirlinesLogo"),
+            "UA": #imageLiteral(resourceName: "UnitedAirlinesLogo"),
+            "DL": #imageLiteral(resourceName: "DeltaAirlinesLogo"),
+            "WN": #imageLiteral(resourceName: "SouthwestAirlinesLogo"),
+            "AA": #imageLiteral(resourceName: "AmericanAirlinesLogo"),
+            "VX": #imageLiteral(resourceName: "VirginAirlinesLogo"),
+            "VS": #imageLiteral(resourceName: "VirginAirlinesLogo")
+        ]
+        
         var carrier: String {
             return (segments.first?.carrier.name) ?? ""
+        }
+        
+        var carrierLogo: UIImage? {
+            return carrierImages[segments[0].carrier.code]
         }
         
         var departureTime: DateAndTimeZone {

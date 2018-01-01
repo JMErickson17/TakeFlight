@@ -31,7 +31,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="mei-Xq-McS" userLabel="Logo and Time Stack View">
                                 <rect key="frame" x="0.0" y="0.0" width="273" height="35"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DeltaIcon" translatesAutoresizingMaskIntoConstraints="NO" id="eYZ-44-sRD">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DefaultAirlineImage" translatesAutoresizingMaskIntoConstraints="NO" id="eYZ-44-sRD">
                                         <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="dZK-ue-AJV"/>
@@ -121,6 +121,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="DeltaIcon" width="209" height="167"/>
+        <image name="DefaultAirlineImage" width="32" height="37"/>
     </resources>
 </document>

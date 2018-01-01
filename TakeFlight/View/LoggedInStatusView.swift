@@ -152,10 +152,11 @@ class LoggedInStatusView: UIView {
     
     func configureViewForCurrentUser(animated: Bool) {
         if let currentUser = UserDataService.instance.currentUser {
-            setUserEmail(to: currentUser.email)
+            let loggedInText = currentUser.fullName ?? currentUser.email
+            setLoggedInLabel(to: loggedInText)
             transitionToLoggedInView(animated: animated)
         } else {
-            setUserEmail(to: "")
+            setLoggedInLabel(to: "")
             transitionToLoggedOutView(animated: animated)
         }
     }
@@ -184,10 +185,10 @@ class LoggedInStatusView: UIView {
         }
     }
     
-    private func setUserEmail(to email: String) {
+    private func setLoggedInLabel(to text: String) {
         let attributedText = loggedInAsText
-        let email = NSMutableAttributedString(string: email, attributes: emailLabelAttributes)
-        attributedText.append(email)
+        let text = NSMutableAttributedString(string: text, attributes: emailLabelAttributes)
+        attributedText.append(text)
         loggedInLabel.attributedText = attributedText
     }
     

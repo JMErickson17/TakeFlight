@@ -74,6 +74,26 @@ class SortFilterVC: UIViewController {
         ]
     }
     
+    private func filterOptionDetails(for option: FilterOptions.Option) -> String? {
+        switch option {
+        case .airlines:
+            if let activeCarrierFilters = filterOptions?.activeCarrierFilters {
+                let carrierArray = activeCarrierFilters.map({ $0.name.capitalized })
+                return carrierArray.joined(separator: ", ")
+            }
+        case .stops:
+            if let stops = filterOptions?.maxStops {
+                return "\(stops.rawValue) Stops Max"
+            }
+        case .duration:
+            if let duration = filterOptions?.maxDuration {
+                let durationString = String(duration).capitalized
+                return "\(durationString) Hours Max"
+            }
+        }
+        return nil
+    }
+    
     // MARK: Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -125,7 +145,7 @@ extension SortFilterVC: UITableViewDelegate, UITableViewDataSource {
         } else if indexPath.section == 1 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.filterOptionCell, for: indexPath) as? FilterOptionCell {
                 let option = tableData[1].items[indexPath.row] as! FilterOptions.Option
-                cell.configureCell(labelText: option.rawValue)
+                cell.configureCell(labelText: option.rawValue, detailText: filterOptionDetails(for: option))
                 return cell
             }
         }
@@ -162,6 +182,7 @@ extension SortFilterVC: UITableViewDelegate, UITableViewDataSource {
 extension SortFilterVC: CarrierFilterVCDelegate {
     func carrierFilterVC(_ carrierFilterVC: CarrierFilterVC, didUpdateCarrier carrier: FilterableCarrier) {
         filterOptions?.update(carrier)
+        tableView.reloadRows(at: [IndexPath(row: 0, section: 1)], with: .top)
         delegate?.sortFilterVC(self, filterOptionsDidChange: filterOptions)
     }
 }
@@ -171,6 +192,7 @@ extension SortFilterVC: CarrierFilterVCDelegate {
 extension SortFilterVC: StopFilterVCDelegate {
     func stopFilterVC(_ stopFilterVC: StopFilterVC, didUpdateMaxStopsTo maxStops: MaxStops) {
         filterOptions?.update(maxStops)
+        tableView.reloadRows(at: [IndexPath(row: 1, section: 1)], with: .top)
         delegate?.sortFilterVC(self, filterOptionsDidChange: filterOptions)
     }
 }
@@ -180,6 +202,7 @@ extension SortFilterVC: StopFilterVCDelegate {
 extension SortFilterVC: DurationFilterVCDelegate {
     func durationFilterVC(_ durationFilterVC: DurationFilterVC, didUpdateMaxDurationTo maxDuration: Hour) {
         filterOptions?.update(maxDuration)
+        tableView.reloadRows(at: [IndexPath(row: 2, section: 1)], with: .top)
         delegate?.sortFilterVC(self, filterOptionsDidChange: filterOptions)
     }
 }

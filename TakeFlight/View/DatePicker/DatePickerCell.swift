@@ -63,13 +63,18 @@ class DatePickerCell: JTAppleCell {
         if cellState.dateBelongsTo == .thisMonth {
             dateLabel.layer.opacity = 1
         } else {
-            dateLabel.layer.opacity = 0.5
+            dateLabel.layer.opacity = 0.8
         }
         
         if Calendar.current.compare(cellState.date, to: Date(), toGranularity: .day) == .orderedSame {
             dateLabel.textColor = UIColor(named: "StopCountGreen")
+            dateLabel.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+        } else if Calendar.current.compare(cellState.date, to: Date(), toGranularity: .day) == .orderedAscending {
+            dateLabel.textColor = .gray
+            dateLabel.font = UIFont.systemFont(ofSize: 12, weight: .light)
         } else {
-            dateLabel.textColor = UIColor.black
+            dateLabel.textColor = .black
+            dateLabel.font = UIFont.systemFont(ofSize: 12, weight: .light)
         }
     }
 }

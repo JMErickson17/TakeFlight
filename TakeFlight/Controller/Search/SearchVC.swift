@@ -340,7 +340,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     private func configureRefineButtonForFilterState() {
         if let filterOptions = filterOptions {
-            refineButton.status = filterOptions.hasActiveFilters
+            refineButton.shouldShowstatusIndicator = filterOptions.hasActiveFilters
         }
     }
     
