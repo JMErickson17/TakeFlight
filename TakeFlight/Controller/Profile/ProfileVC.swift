@@ -17,9 +17,15 @@ class ProfileVC: UIViewController {
         static let toSignupVC = "ToSignupVC"
     }
     
+    private enum SegmentType: Int {
+        case purchasedFlights = 0
+        case savedFlights = 1
+    }
+    
     private enum SectionType: String {
         case upcomingFlights = "Upcoming Flights"
         case pastFlights = "Past Flights"
+        case savedFlights = "Saved Flights"
     }
     
     private struct Section {
@@ -27,14 +33,20 @@ class ProfileVC: UIViewController {
         var items: [Any]
     }
     
+    private struct Segment {
+        var type: SegmentType
+        var sections: [Section]
+    }
+    
     // MARK: Properties
     
     @IBOutlet weak var profileImageView: ProfileImageView!
     @IBOutlet weak var userStatusView: LoggedInStatusView!
     @IBOutlet weak var myFlightsTableView: UITableView!
+    @IBOutlet weak var myFlightsSegmentControl: UISegmentedControl!
     
     private var userPropertiesDidChangeListener: NSObjectProtocol?
-    private var tableData: [Section]!
+    private var tableData: [Segment]!
     
     private lazy var imagePicker: UIImagePickerController = {
         let imagePicker = UIImagePickerController()
@@ -63,9 +75,9 @@ class ProfileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        setupTableView()
         setupView()
-        setupTableData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,19 +97,26 @@ class ProfileVC: UIViewController {
     
     private func setupView() {
         userStatusView.delegate = self
-        myFlightsTableView.delegate = self
-        myFlightsTableView.dataSource = self
-        myFlightsTableView.register(MyFlightCell.self, forCellReuseIdentifier: "MyFlightCell")
         profileImageView.addGestureRecognizer(editProfileImageRecognizer)
         profileImageView.layer.shadowColor = UIColor.black.cgColor
         profileImageView.layer.shadowOffset = CGSize.zero
         profileImageView.layer.shadowRadius = 10
+        myFlightsSegmentControl.addTarget(self, action: #selector(myFlightSegmentControlDidChange(_:)), for: .valueChanged)
     }
     
-    private func setupTableData() {
+    private func setupTableView() {
+        myFlightsTableView.delegate = self
+        myFlightsTableView.dataSource = self
+        myFlightsTableView.register(MyFlightCell.self, forCellReuseIdentifier: "MyFlightCell")
+        
         tableData = [
-            Section(type: .upcomingFlights, items: [MyFlightCell()]),
-            Section(type: .pastFlights, items: [MyFlightCell()])
+            Segment(type: .purchasedFlights, sections: [
+                Section(type: .upcomingFlights, items: [MyFlightCell()]),
+                Section(type: .pastFlights, items: [MyFlightCell()])
+            ]),
+            Segment(type: .savedFlights, sections: [
+                Section(type: .savedFlights, items: [MyFlightCell()])
+            ])
         ]
     }
     
@@ -167,8 +186,12 @@ class ProfileVC: UIViewController {
                 notification.presentNotification(onNavigationController: navigationController, forDuration: 3)
                 return
             }
-            self.profileImageView.image = profileImage
+            self.setProfileImage()
         }
+    }
+    
+    @objc private func myFlightSegmentControlDidChange(_ sender: UISegmentedControl) {
+        self.myFlightsTableView.reloadData()
     }
 }
 
@@ -178,7 +201,7 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MyFlightCell", for: indexPath) as? MyFlightCell {
-            let _ = tableData[indexPath.section].items[indexPath.row]
+            let _ = tableData[myFlightsSegmentControl.selectedSegmentIndex].sections[indexPath.section].items[indexPath.row]
             // Do some stuff
             return cell
         }
@@ -187,7 +210,7 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return tableData[section].type.rawValue
+        return tableData[myFlightsSegmentControl.selectedSegmentIndex].sections[section].type.rawValue
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -196,11 +219,11 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableData[section].items.count
+        return tableData[myFlightsSegmentControl.selectedSegmentIndex].sections[section].items.count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return tableData.count
+        return tableData[myFlightsSegmentControl.selectedSegmentIndex].sections.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -242,6 +265,7 @@ extension ProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDele
     
     func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect, rotationAngle: CGFloat) {
         self.navigationController?.popViewController(animated: true)
-        self.handleSave(profileImage: croppedImage)
+        let resizedImage = UIImage.resize(image: croppedImage, to: CGSize(width: 300, height: 300))
+        self.handleSave(profileImage: resizedImage)
     }
 }

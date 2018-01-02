@@ -78,7 +78,7 @@ PODS:
     - gRPC-Core (= 1.8.0)
     - gRPC-RxLibrary (= 1.8.0)
   - GTMSessionFetcher/Core (1.1.12)
-  - JTAppleCalendar (7.1.4)
+  - JTAppleCalendar (7.1.5)
   - leveldb-library (1.20)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
@@ -105,7 +105,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   JTAppleCalendar:
-    :commit: 437265be6f8484840a7a4bda43e71cdc11ad403f
+    :commit: 23b0038a1d31b6acd679ef690cdc838a0f0de31b
     :git: https://github.com/patchthecode/JTAppleCalendar.git
 
 SPEC CHECKSUMS:
@@ -125,7 +125,7 @@ SPEC CHECKSUMS:
   gRPC-ProtoRPC: 5b934b29a95b94b0f871d4fc361ff52269476765
   gRPC-RxLibrary: 7c57a1b2ff2f9cafb0face35bbfa0a326281295d
   GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
-  JTAppleCalendar: ef3db0f2c1e35b387992a2e2e680227ea718c56f
+  JTAppleCalendar: df0df2b055ba4c6d5940ef4f40a0f4270ea021ac
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03

@@ -9,6 +9,32 @@
 import UIKit
 
 extension UIImage {
+    
+    static func resize(image: UIImage, to targetSize: CGSize) -> UIImage {
+        let size = image.size
+        let widthRatio = targetSize.width / image.size.width
+        let heightRatio = targetSize.height / image.size.height
+        
+        // Find the orientation of the image
+        var newSize: CGSize
+        if widthRatio > heightRatio {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio, height: size.height * widthRatio)
+        }
+        
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+        
+        // Resize the image
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
+    }
+    
+    
     enum JPEGQuality: CGFloat {
         case lowest = 0
         case low = 0.25
@@ -16,4 +42,6 @@ extension UIImage {
         case high = 0.75
         case highest = 1
     }
+    
+    
 }

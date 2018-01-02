@@ -215,7 +215,7 @@ final class UserDataService {
     
     func saveToCurrentUser(profileImage image: UIImage, completion: ErrorCompletionHandler?) {
         DispatchQueue.global().async {
-            if let imageData = UIImageJPEGRepresentation(image, UIImage.JPEGQuality.medium.rawValue), let currentUser = self.currentUser {
+            if let imageData = UIImageJPEGRepresentation(image, UIImage.JPEGQuality.highest.rawValue), let currentUser = self.currentUser {
                 FirebaseStorageService.instance.upload(userProfileImage: imageData, forUser: currentUser, completion: { url, error in
                     if let error = error, let completion = completion { return completion(error) }
                     if let url = url {
