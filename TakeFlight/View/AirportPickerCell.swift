@@ -10,6 +10,9 @@ import UIKit
 
 class AirportPickerCell: UITableViewCell {
     
+    
+    // MARK: Properties
+    
     private var nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.regular)
@@ -23,6 +26,8 @@ class AirportPickerCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    // MARK: Lifecycle
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -41,6 +46,8 @@ class AirportPickerCell: UITableViewCell {
             locationLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10)
             ])
     }
+    
+    // MARK: Convenience
     
     func configureCell(name: String, location: String) {
         self.nameLabel.text = name

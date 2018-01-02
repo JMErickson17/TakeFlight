@@ -15,7 +15,7 @@ class SelectedDateView: UIView {
     
     private struct Constants {
         static let circleLineWidth: CGFloat = 5
-        static let circleLineColor: UIColor = UIColor(named: "PrimaryBlue")!
+        static let circleLineColor: UIColor = UIColor.primaryBlue
         static let circleBackgroundColor: UIColor = .white
         static let circleInset: CGFloat = 10
         

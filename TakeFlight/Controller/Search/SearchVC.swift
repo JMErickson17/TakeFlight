@@ -217,7 +217,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
         }
         
         if datePickerVC != nil && childViewControllers.contains(datePickerVC!) {
-            searchVC(self, shouldDismissDatePicker: true)
+            searchVC(self, dismissDatePicker: true)
         }
     }
 
@@ -291,15 +291,15 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     // MARK: Delegate Methods
     
-    func searchVC(_ searchVC: SearchVC, shouldClearLocations: Bool) {
-        if shouldClearLocations {
+    func searchVC(_ searchVC: SearchVC, clearLocations: Bool) {
+        if clearLocations {
             origin = nil
             destination = nil
         }
     }
     
-    func searchVC(_ searchVC: SearchVC, shouldClearDates: Bool) {
-        if shouldClearDates {
+    func searchVC(_ searchVC: SearchVC, clearDates: Bool) {
+        if clearDates {
             departureDate = nil
             returnDate = nil
         }
@@ -508,7 +508,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     private func presentAirportPicker(withTag tag: Int, completion: (() -> Void)? = nil) {
         guard airportPickerVC == nil else { return }
-        if datePickerVC != nil { searchVC(self, shouldDismissDatePicker: true) }
+        if datePickerVC != nil { searchVC(self, dismissDatePicker: true) }
         
         airportPickerVC = AirportPickerVC()
         airportPickerVC?.delegate = self
@@ -531,8 +531,8 @@ class SearchVC: UIViewController, SearchVCDelegate {
         completion?()
     }
     
-    func searchVC(_ searchVC: SearchVC, shouldDismissAirportPicker: Bool) {
-        if shouldDismissAirportPicker {
+    func searchVC(_ searchVC: SearchVC, dismissAirportPicker: Bool) {
+        if dismissAirportPicker {
             guard airportPickerVC != nil else { return }
             guard childViewControllers.contains(airportPickerVC!) else { return }
             airportPickerVC!.willMove(toParentViewController: nil)
@@ -545,7 +545,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     private func presentDatePicker(completion: (() -> Void)? = nil) {
         guard datePickerVC == nil else { return }
-        if airportPickerVC != nil { searchVC(self, shouldDismissAirportPicker: true) }
+        if airportPickerVC != nil { searchVC(self, dismissAirportPicker: true) }
         originTextField.resignFirstResponder()
         destinationTextField.resignFirstResponder()
         
@@ -568,8 +568,8 @@ class SearchVC: UIViewController, SearchVCDelegate {
         completion?()
     }
     
-    func searchVC(_ searchVC: SearchVC, shouldDismissDatePicker: Bool) {
-        if shouldDismissDatePicker {
+    func searchVC(_ searchVC: SearchVC, dismissDatePicker: Bool) {
+        if dismissDatePicker {
             guard datePickerVC != nil else { return }
             guard childViewControllers.contains(datePickerVC!) else { return }
             datePickerVC!.willMove(toParentViewController: nil)
@@ -650,7 +650,7 @@ extension SearchVC: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.tag == 1 || textField.tag == 2 {
-            searchVC(self, shouldDismissDatePicker: true)
+            searchVC(self, dismissDatePicker: true)
         }
     }
     
@@ -658,7 +658,7 @@ extension SearchVC: UITextFieldDelegate {
         if textField.text == "" {
             handleClearTextField(textField)
         }
-        searchVC(self, shouldDismissAirportPicker: true)
+        searchVC(self, dismissAirportPicker: true)
     }
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
@@ -683,7 +683,7 @@ extension SearchVC: UITextFieldDelegate {
             if query.count > 1 {
                 searchDelegate?.airportPickerVC(searchDelegate as! AirportPickerVC, searchQueryDidChange: true, withQuery: query)
             } else {
-                searchVC(self, shouldDismissAirportPicker: true)
+                searchVC(self, dismissAirportPicker: true)
             }
         } else {
             guard query.count >= 1 else { return }
@@ -703,7 +703,7 @@ extension SearchVC: SortFilterVCDelegate {
         self.sortProcessedFlights()
     }
     
-    func sortFilterVC(_ sortFilterVC: SortFilterVC, filterOptionsDidChange options: FilterOptions?) {
+    func sortFilterVC(_ sortFilterVC: SortFilterVC, filterOptionsDidChangeTo options: FilterOptions?) {
         self.filterOptions = options
         self.filterProcessedFlights()
     }

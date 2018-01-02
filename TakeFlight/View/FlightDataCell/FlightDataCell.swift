@@ -40,9 +40,9 @@ class FlightDataCell: UITableViewCell {
         var attributes = [NSAttributedStringKey: Any]()
         if stops == 0 {
             string = "Non-Stop"
-            attributes[NSAttributedStringKey.foregroundColor] = UIColor(named: "StopCountGreen")
+            attributes[NSAttributedStringKey.foregroundColor] = UIColor.stopCountGreen
         } else {
-            attributes[NSAttributedStringKey.foregroundColor] = UIColor(named: "StopCountRed")
+            attributes[NSAttributedStringKey.foregroundColor] = UIColor.stopCountRed
             string = "\(stops) \((stops == 1 ? "stop" : "stops"))"
         }
         return NSAttributedString(string: string, attributes: attributes)

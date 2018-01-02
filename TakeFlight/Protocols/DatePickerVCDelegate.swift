@@ -9,6 +9,6 @@
 import Foundation
 
 protocol DatePickerVCDelegate: class {
-    func datePickerVC(_ datePickerVC: DatePickerVC, shouldDismissViewController: Bool)
-    func datePickerVC(_ datePickerVC: DatePickerVC, shouldMoveTooltip: Bool, forSelectedState selectedState: SelectedState)
+    func datePickerVC(_ datePickerVC: DatePickerVC, dismissViewController: Bool)
+    func datePickerVC(_ datePickerVC: DatePickerVC, moveTooltip: Bool, forSelectedState selectedState: SelectedState)
 }

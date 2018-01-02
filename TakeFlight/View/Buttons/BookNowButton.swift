@@ -10,6 +10,8 @@ import UIKit
 
 class BookNowButton: UIButton {
 
+    // MARK: Properties
+    
     private var titleAttributes: [NSAttributedStringKey: Any] = [
         NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18, weight: .regular),
         NSAttributedStringKey.foregroundColor: UIColor.white
@@ -18,6 +20,8 @@ class BookNowButton: UIButton {
     private var buttonTitle: String {
         return "Book Now"
     }
+    
+    // MARK: Lifecycle
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -28,6 +32,8 @@ class BookNowButton: UIButton {
         
         setupView()
     }
+    
+    // MARK: Setup
     
     private func setupView() {
         self.layer.cornerRadius = 3

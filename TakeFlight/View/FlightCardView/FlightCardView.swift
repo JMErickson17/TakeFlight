@@ -49,17 +49,17 @@ class FlightCardView: UIView {
         return label
     }()
     
-    private lazy var bookingCodeLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 24, weight: UIFont.Weight.regular)
-        label.textAlignment = .left
-        label.textColor = .white
-        return label
-    }()
+//    private lazy var bookingCodeLabel: UILabel = {
+//        let label = UILabel()
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        label.font = UIFont.systemFont(ofSize: 24, weight: UIFont.Weight.regular)
+//        label.textAlignment = .left
+//        label.textColor = .white
+//        return label
+//    }()
     
     private lazy var carrierStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [carrierLabel, bookingCodeLabel])
+        let stackView = UIStackView(arrangedSubviews: [carrierLabel])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         return stackView
@@ -179,7 +179,7 @@ class FlightCardView: UIView {
         headerLabel.text = "\(flight.originAirportCode)-\(flight.destinationAirportCode)"
         carrierImage.image = flight.carrierLogo
         carrierLabel.text = flight.carrier
-        bookingCodeLabel.text = flight.bookingCode
+//        bookingCodeLabel.text = flight.bookingCode
         dateLabel.text = flight.departureTime.toLocalDateAndTimeString(withFormatter: formatter)
         
         for segment in flight.segments {

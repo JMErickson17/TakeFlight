@@ -10,6 +10,8 @@ import UIKit
 
 class FilterOptionCell: UITableViewCell {
 
+    // MARK: Properties
+    
     private lazy var label: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -25,6 +27,8 @@ class FilterOptionCell: UITableViewCell {
         return label
     }()
     
+    // MARK: Lifecycle
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
@@ -36,6 +40,8 @@ class FilterOptionCell: UITableViewCell {
         
         self.setupView()
     }
+    
+    // MARK: Setup
     
     private func setupView() {
         addSubview(label)
@@ -51,6 +57,8 @@ class FilterOptionCell: UITableViewCell {
             detailLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
+    
+    // MARK: Convenience
     
     func configureCell(labelText: String, detailText: String?) {
         label.text = labelText

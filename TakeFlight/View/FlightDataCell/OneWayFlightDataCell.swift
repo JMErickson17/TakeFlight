@@ -19,8 +19,6 @@ class OneWayFlightDataCell: FlightDataCell {
     @IBOutlet weak var airlineNameLabel: UILabel!
     @IBOutlet weak var stopCountLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
-    
-    let height: CGFloat = 120
 
     func configureCell(withFlightData data: FlightData) {
         headerLabel.text = data.departingFlight.segmentDescription

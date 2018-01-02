@@ -29,6 +29,6 @@ class MonthSectionHeaderView: JTAppleCollectionReusableView {
     // MARK: Actions
     
     @IBAction func datesSelectedButtonTapped(_ sender: Any) {
-        delegate?.datePickerVC(delegate as! DatePickerVC, shouldDismissViewController: true)
+        delegate?.datePickerVC(delegate as! DatePickerVC, dismissViewController: true)
     }
 }

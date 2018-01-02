@@ -11,5 +11,4 @@ import Foundation
 enum SearchType: String {
     case oneWay = "OneWay"
     case roundTrip = "RoundTrip"
-    
 }

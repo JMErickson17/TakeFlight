@@ -27,8 +27,6 @@ class RoundTripFlightDataCell: FlightDataCell {
     @IBOutlet weak var returningStopCountLabel: UILabel!
     @IBOutlet weak var returningDurationLabel: UILabel!
     
-    let height: CGFloat = 175
-    
     func configureCell(withFlightData data: FlightData) {
         headerLabel.text = data.departingFlight.segmentDescription
         priceLabel.text = makePriceString(withPrice: data.saleTotal)

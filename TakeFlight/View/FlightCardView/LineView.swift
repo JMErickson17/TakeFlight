@@ -9,6 +9,8 @@
 import UIKit
 
 class LineView: UIView {
+    
+    // MARK: Properties
 
     var lineWidth: CGFloat = 1
     var lineColor = UIColor.white
@@ -16,6 +18,8 @@ class LineView: UIView {
     private var midPoint: CGFloat {
         return bounds.height / 2
     }
+    
+    // MARK: Lifecycle
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -25,6 +29,8 @@ class LineView: UIView {
         super.init(frame: frame)
         self.backgroundColor = UIColor.clear
     }
+    
+    // MARK: Drawing
     
     override func draw(_ rect: CGRect) {
         let path = UIBezierPath()

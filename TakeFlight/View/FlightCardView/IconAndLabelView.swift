@@ -10,6 +10,8 @@ import UIKit
 
 class IconAndLabelView: UIView {
     
+    // MARK: Properties
+    
     var imageSize: CGFloat = 20 {
         didSet {
             layoutIfNeeded()
@@ -44,6 +46,8 @@ class IconAndLabelView: UIView {
         label.textColor = UIColor.white
         return label
     }()
+    
+    // MARK: Lifecycle
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implmented")
@@ -54,6 +58,8 @@ class IconAndLabelView: UIView {
         
         self.setupView()
     }
+    
+    // MARK: Setup
     
     private func setupView() {
         self.translatesAutoresizingMaskIntoConstraints = false

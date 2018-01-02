@@ -76,7 +76,7 @@ class DatePickerVC: UIViewController, DatePickerVCDelegate {
     }
     
     func setupCalendar() {
-        guard delegate != nil else { return datePickerVC(self, shouldDismissViewController: true) }
+        guard delegate != nil else { return datePickerVC(self, dismissViewController: true) }
         
         calendarView.calendarDelegate = self
         calendarView.calendarDataSource = self
@@ -107,22 +107,22 @@ class DatePickerVC: UIViewController, DatePickerVCDelegate {
     
     // MARK: Convenience
     
-    @objc func datePickerVC(_ datePickerVC: DatePickerVC, shouldDismissViewController: Bool) {
-        if shouldDismissViewController {
-            delegate?.searchVC(delegate as! SearchVC, shouldDismissDatePicker: true)
+    @objc func datePickerVC(_ datePickerVC: DatePickerVC, dismissViewController: Bool) {
+        if dismissViewController {
+            delegate?.searchVC(delegate as! SearchVC, dismissDatePicker: true)
         }
     }
     
     private func clearAllDates() {
         if let delegate = delegate as? SearchVC {
-            delegate.searchVC(delegate, shouldClearDates: true)
+            delegate.searchVC(delegate, clearDates: true)
             calendarView.deselectAllDates()
             calendarView.reloadData()
         }
     }
     
-    func datePickerVC(_ datePickerVC: DatePickerVC, shouldMoveTooltip: Bool, forSelectedState selectedState: SelectedState) {
-        if shouldMoveTooltip {
+    func datePickerVC(_ datePickerVC: DatePickerVC, moveTooltip: Bool, forSelectedState selectedState: SelectedState) {
+        if moveTooltip {
             switch selectedState {
             case.none:
                 tooltipView.animateTooltip(to: departureTooltipLocation, withDuration: 1.0)

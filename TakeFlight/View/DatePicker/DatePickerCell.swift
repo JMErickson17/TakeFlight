@@ -26,6 +26,8 @@ class DatePickerCell: JTAppleCell {
         return view
     }()
     
+    // MARK: Lifecycle
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -67,7 +69,7 @@ class DatePickerCell: JTAppleCell {
         }
         
         if Calendar.current.compare(cellState.date, to: Date(), toGranularity: .day) == .orderedSame {
-            dateLabel.textColor = UIColor(named: "StopCountGreen")
+            dateLabel.textColor = UIColor.stopCountGreen
             dateLabel.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         } else if Calendar.current.compare(cellState.date, to: Date(), toGranularity: .day) == .orderedAscending {
             dateLabel.textColor = .gray

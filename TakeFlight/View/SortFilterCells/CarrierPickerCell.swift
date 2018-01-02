@@ -10,22 +10,28 @@ import UIKit
 
 class CarrierPickerCell: UITableViewCell {
 
+    // MARK: Properties
+    
     @IBOutlet weak var carrierLabel: UILabel!
     @IBOutlet weak var carrierFilterSwitch: UISwitch!
     
     var carrier: FilterableCarrier?
     weak var delegate: CarrierPickerCellDelegate?
-
-    func configureCell(withFilterableCarrier carrier: FilterableCarrier) {
-        self.carrier = carrier
-        carrierLabel.text = carrier.name
-        carrierFilterSwitch.isOn = !carrier.isFiltered
-    }
-
+    
+    // MARK: Actions
+    
     @IBAction func filterCarrierSwitchDidChange(_ sender: Any) {
         carrier?.isFiltered = !carrierFilterSwitch.isOn
         if let carrier = carrier {
             delegate?.carrierPickerCell(self, didUpdateCarrier: carrier)
         }
+    }
+
+    // MARK: Convenience
+    
+    func configureCell(withFilterableCarrier carrier: FilterableCarrier) {
+        self.carrier = carrier
+        carrierLabel.text = carrier.name
+        carrierFilterSwitch.isOn = !carrier.isFiltered
     }
 }

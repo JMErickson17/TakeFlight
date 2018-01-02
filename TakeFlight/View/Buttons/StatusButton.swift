@@ -10,6 +10,8 @@ import UIKit
 
 class StatusButton: UIButton {
     
+    // MARK: Properties
+    
     private lazy var statusShape: CAShapeLayer = {
         let statusPath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 5, height: 5))
         let statusShape = CAShapeLayer()

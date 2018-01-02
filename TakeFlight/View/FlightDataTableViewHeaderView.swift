@@ -10,6 +10,8 @@ import UIKit
 
 class FlightDataTableViewHeaderView: UIView {
     
+    // MARK: Properties
+    
     var text: String? {
         didSet {
             label.text = text
@@ -30,6 +32,8 @@ class FlightDataTableViewHeaderView: UIView {
         return label
     }()
     
+    // MARK: Lifecycle
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -39,6 +43,8 @@ class FlightDataTableViewHeaderView: UIView {
         
         setupView()
     }
+    
+    // MARK: Setup
     
     private func setupView() {
         self.backgroundColor = .white

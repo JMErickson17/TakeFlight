@@ -9,12 +9,16 @@
 import Foundation
 
 struct FilterOptions {
+    
+    // MARK: Types
  
     enum Option: String, SortFilterOption {
         case airlines = "Airlines"
         case stops = "Stops"
         case duration = "Duration"
     }
+    
+    // MARK: Properties
     
     private(set) var filterableCarriers: [FilterableCarrier]?
     private(set) var maxStops: MaxStops?
@@ -35,6 +39,8 @@ struct FilterOptions {
         })
         return carriers
     }
+    
+    // MARK: Convenience
     
     mutating func setupCarriers(with carriers: [String]) {
         var filterableCarriers = [FilterableCarrier]()

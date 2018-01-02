@@ -10,6 +10,8 @@ import UIKit
 
 class SortOptionCell: UITableViewCell {
 
+    // MARK: Properties
+    
     private lazy var label: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -28,6 +30,8 @@ class SortOptionCell: UITableViewCell {
         return imageView
     }()
     
+    // MARK: Lifecycle
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
@@ -39,6 +43,8 @@ class SortOptionCell: UITableViewCell {
         
         self.setupView()
     }
+    
+    // MARK: Setup
     
     private func setupView() {
         addSubview(label)
@@ -53,6 +59,8 @@ class SortOptionCell: UITableViewCell {
             checkMarkImage.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
+    
+    // MARK: Convenience
 
     func configureCell(labelText: String, isSelected: Bool) {
         label.text = labelText

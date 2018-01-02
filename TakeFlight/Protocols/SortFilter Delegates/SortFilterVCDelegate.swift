@@ -10,5 +10,5 @@ import Foundation
 
 protocol SortFilterVCDelegate: class {
     func sortFilterVC(_ sortFilterVC: SortFilterVC, sortOptionDidChangeTo option: SortOptions.Option)
-    func sortFilterVC(_ sortFilterVC: SortFilterVC, filterOptionsDidChange options: FilterOptions?)
+    func sortFilterVC(_ sortFilterVC: SortFilterVC, filterOptionsDidChangeTo options: FilterOptions?)
 }

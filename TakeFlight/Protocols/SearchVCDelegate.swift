@@ -16,8 +16,8 @@ protocol SearchVCDelegate: class {
     var departureDate: Date? { get set }
     var returnDate: Date? { get set }
     
-    func searchVC(_ searchVC: SearchVC, shouldClearLocations: Bool)
-    func searchVC(_ searchVC: SearchVC, shouldClearDates: Bool)
-    func searchVC(_ searchVC: SearchVC, shouldDismissAirportPicker: Bool)
-    func searchVC(_ searchVC: SearchVC, shouldDismissDatePicker: Bool)
+    func searchVC(_ searchVC: SearchVC, clearLocations: Bool)
+    func searchVC(_ searchVC: SearchVC, clearDates: Bool)
+    func searchVC(_ searchVC: SearchVC, dismissAirportPicker: Bool)
+    func searchVC(_ searchVC: SearchVC, dismissDatePicker: Bool)
 }

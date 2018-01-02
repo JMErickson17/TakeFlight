@@ -10,11 +10,15 @@ import UIKit
 
 class ProfileImageView: UIImageView {
     
+    // MARK: Lifecycle
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         setupView()
     }
+    
+    // MARK: Setup
     
     private func setupView() {
         self.layer.cornerRadius = frame.width / 2

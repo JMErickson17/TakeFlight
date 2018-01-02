@@ -50,19 +50,8 @@ class User {
     
     // MARK: Lifecycle
     
-    private func downloadUserProfileImage(forUID uid: String) {
-        FirebaseStorageService.instance.download(userProfileImageWithUID: uid) { (imageData, error) in
-            if let error = error { print(error) }
-            if let imageData = imageData, let profileImage = UIImage(data: imageData) {
-                self.profileImage = profileImage
-                DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: .userPropertiesDidChange, object: nil)
-                }
-            }
-        }
-    }
-    
-    init(uid: String, email: String, dateJoined: Date, firstName: String?, lastName: String?, phoneNumber: String?, profileImageURL: URL?, preferredCurrency: String?, preferredLanguage: String?, billingCountry: String?) {
+    init(uid: String, email: String, dateJoined: Date, firstName: String?, lastName: String?,
+         phoneNumber: String?, profileImageURL: URL?, preferredCurrency: String?, preferredLanguage: String?, billingCountry: String?) {
         self.uid = uid
         self.email = email
         self.dateJoined = dateJoined
@@ -111,5 +100,19 @@ class User {
                   preferredLanguage: preferredLanguage,
                   billingCountry: billingCountry
         )
+    }
+    
+    // MARK: Convenience
+    
+    private func downloadUserProfileImage(forUID uid: String) {
+        FirebaseStorageService.instance.download(userProfileImageWithUID: uid) { (imageData, error) in
+            if let error = error { print(error) }
+            if let imageData = imageData, let profileImage = UIImage(data: imageData) {
+                self.profileImage = profileImage
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: .userPropertiesDidChange, object: nil)
+                }
+            }
+        }
     }
 }

@@ -10,6 +10,8 @@ import UIKit
 
 class LoggedInStatusView: UIView {
     
+    // MARK: Properties
+    
     weak var delegate: LoggedInStatusViewDelegate?
     
     var loggedInViewIsVisible: Bool {
@@ -91,6 +93,8 @@ class LoggedInStatusView: UIView {
         return button
     }()
     
+    // MARK: Lifecycle
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
@@ -102,6 +106,8 @@ class LoggedInStatusView: UIView {
         
         setupView()
     }
+    
+    // MARK: Setup
     
     private func setupView() {
         
@@ -149,6 +155,8 @@ class LoggedInStatusView: UIView {
         
         configureViewForCurrentUser(animated: false)
     }
+    
+    // MARK: Convenience
     
     func configureViewForCurrentUser(animated: Bool) {
         if let currentUser = UserDataService.instance.currentUser {

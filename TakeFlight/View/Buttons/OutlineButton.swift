@@ -10,6 +10,8 @@ import UIKit
 
 class OutlineButton: UIButton {
 
+    // MARK: Lifecycle
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
@@ -21,6 +23,8 @@ class OutlineButton: UIButton {
         
         setupView()
     }
+    
+    // MARK: Setup
 
     private func setupView() {
         self.clipsToBounds = true

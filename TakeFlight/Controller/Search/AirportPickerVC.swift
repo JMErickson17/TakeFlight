@@ -84,7 +84,7 @@ extension AirportPickerVC: UITableViewDelegate, UITableViewDataSource {
         default:
             return
         }
-        delegate?.searchVC(delegate as! SearchVC, shouldDismissAirportPicker: true)
+        delegate?.searchVC(delegate as! SearchVC, dismissAirportPicker: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

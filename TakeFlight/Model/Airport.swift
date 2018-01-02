@@ -38,7 +38,7 @@ struct Airport: Codable {
         return iata
     }
     
-    // MARK: Lifetime
+    // MARK: Lifecycle
     
     init(name: String, city: String, state: String, stateAbbreviation: String, country: String, iata: String, lat: Double, lon: Double, timeZone: String) {
         self.name = name
@@ -65,6 +65,4 @@ struct Airport: Codable {
         
         self.init(name: name, city: city, state: state, stateAbbreviation: stateAbbreviation, country: country, iata: iata, lat: Double(lat)!, lon: Double(lon)!, timeZone: timeZone)
     }
-    
 }
-

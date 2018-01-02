@@ -10,10 +10,6 @@ import UIKit
 
 extension UITableView {
     
-    var topCell: UITableViewCell? {
-        return self.visibleCells.first
-    }
-    
     func scrollToRow(at indexPath: IndexPath, at position: UITableViewScrollPosition, withDuration duration: TimeInterval, completion: (() -> Void)? = nil) {
         UIView.animate(withDuration: duration, animations: {
             self.scrollToRow(at: indexPath, at: position, animated: false)

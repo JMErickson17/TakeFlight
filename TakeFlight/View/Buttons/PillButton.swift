@@ -11,11 +11,15 @@ import UIKit
 @IBDesignable
 class PillButton: UIButton {
     
+    // MARK: Lifecycle
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         setupView()
     }
+    
+    // MARK: Setup
     
     func setupView() {
         layer.cornerRadius = self.frame.height / 2
