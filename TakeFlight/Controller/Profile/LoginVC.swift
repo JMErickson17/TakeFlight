@@ -13,10 +13,14 @@ class LoginVC: UIViewController {
     
     // MARK: Properties
     
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var emailTextField: UnderlineTextField!
+    @IBOutlet weak var passwordTextField: UnderlineTextField!
     @IBOutlet weak var forgotPasswordLabel: UILabel!
     @IBOutlet weak var activitySpinner: UIActivityIndicatorView!
+    
+    private var textFieldAttributes: [NSAttributedStringKey: Any] = [
+        NSAttributedStringKey.foregroundColor: UIColor.white.withAlphaComponent(0.5)
+    ]
     
     private var email: String? {
         if emailTextField.text != "" {
@@ -37,6 +41,16 @@ class LoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupView()
+    }
+    
+    // MARK: Setup
+    
+    private func setupView() {
+        emailTextField.iconImage = #imageLiteral(resourceName: "EmailIcon")
+        passwordTextField.iconImage = #imageLiteral(resourceName: "PasswordIcon")
+        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: textFieldAttributes)
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: textFieldAttributes)
     }
     
     // MARK: Actions

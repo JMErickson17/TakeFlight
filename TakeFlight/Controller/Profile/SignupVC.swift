@@ -18,8 +18,7 @@ class SignupVC: UIViewController {
     @IBOutlet weak var activitySpinner: UIActivityIndicatorView!
     
     private var textFieldAttributes: [NSAttributedStringKey: Any] = [
-        NSAttributedStringKey.foregroundColor: UIColor.white.withAlphaComponent(0.5),
-        
+        NSAttributedStringKey.foregroundColor: UIColor.white.withAlphaComponent(0.5)
     ]
     
     private var email: String? {
@@ -47,12 +46,9 @@ class SignupVC: UIViewController {
     }
     
     private func setupView() {
-        emailTextField.leftView = UIImageView(image: #imageLiteral(resourceName: "EmailIcon"))
-        passwordTextField.leftView = UIImageView(image: #imageLiteral(resourceName: "PasswordIcon"))
-        confirmPasswordTextField.leftView = UIImageView(image: #imageLiteral(resourceName: "PasswordIcon"))
-        emailTextField.leftViewMode = UITextFieldViewMode.always
-        passwordTextField.leftViewMode = UITextFieldViewMode.always
-        confirmPasswordTextField.leftViewMode = UITextFieldViewMode.always
+        emailTextField.iconImage = #imageLiteral(resourceName: "EmailIcon")
+        passwordTextField.iconImage = #imageLiteral(resourceName: "PasswordIcon")
+        confirmPasswordTextField.iconImage = #imageLiteral(resourceName: "PasswordIcon")
         emailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: textFieldAttributes)
         passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: textFieldAttributes)
         confirmPasswordTextField.attributedPlaceholder = NSAttributedString(string: "Confirm Password", attributes: textFieldAttributes)

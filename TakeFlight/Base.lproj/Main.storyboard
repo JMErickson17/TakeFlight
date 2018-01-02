@@ -307,16 +307,22 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="xaV-ae-2sz">
                                 <rect key="frame" x="50" y="50" width="275" height="85"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GbP-Mp-HDs">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GbP-Mp-HDs" customClass="UnderlineTextField" customModule="TakeFlight" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="275" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="GRW-LP-3W8"/>
+                                        </constraints>
                                         <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="email"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="4YW-of-NQZ">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="4YW-of-NQZ" customClass="UnderlineTextField" customModule="TakeFlight" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55" width="275" height="30"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="gvy-nK-hbg"/>
+                                        </constraints>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                     </textField>
                                 </subviews>
@@ -378,30 +384,39 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="uco-Q9-vRX">
-                                <rect key="frame" x="50" y="50" width="275" height="110"/>
+                                <rect key="frame" x="50" y="50" width="275" height="140"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Low-c2-1ql" customClass="UnderlineTextField" customModule="TakeFlight" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="275" height="20"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="275" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="nEl-1e-dzx"/>
+                                        </constraints>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardType="emailAddress" textContentType="email"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dGx-BA-A2V" customClass="UnderlineTextField" customModule="TakeFlight" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="45" width="275" height="20"/>
+                                        <rect key="frame" x="0.0" y="55" width="275" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="FON-35-WxE"/>
+                                        </constraints>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oeg-VV-rEq" customClass="UnderlineTextField" customModule="TakeFlight" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="90" width="275" height="20"/>
+                                        <rect key="frame" x="0.0" y="110" width="275" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="8aE-yz-0Dg"/>
+                                        </constraints>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                     </textField>
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Yp-HI-hTf" customClass="OutlineButton" customModule="TakeFlight" customModuleProvider="target">
-                                <rect key="frame" x="137" y="185" width="100" height="30"/>
+                                <rect key="frame" x="137" y="215" width="100" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="MJa-ab-aXb"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="NiW-Vp-uyl"/>
@@ -414,7 +429,7 @@
                                 </connections>
                             </button>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="gUW-6C-gmU">
-                                <rect key="frame" x="169" y="235" width="37" height="37"/>
+                                <rect key="frame" x="169" y="265" width="37" height="37"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" name="PrimaryBlue"/>
