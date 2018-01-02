@@ -17,12 +17,24 @@ class ProfileVC: UIViewController {
         static let toSignupVC = "ToSignupVC"
     }
     
+    private enum SectionType: String {
+        case upcomingFlights = "Upcoming Flights"
+        case pastFlights = "Past Flights"
+    }
+    
+    private struct Section {
+        var type: SectionType
+        var items: [Any]
+    }
+    
     // MARK: Properties
     
     @IBOutlet weak var profileImageView: ProfileImageView!
     @IBOutlet weak var userStatusView: LoggedInStatusView!
+    @IBOutlet weak var myFlightsTableView: UITableView!
     
     private var userPropertiesDidChangeListener: NSObjectProtocol?
+    private var tableData: [Section]!
     
     private lazy var imagePicker: UIImagePickerController = {
         let imagePicker = UIImagePickerController()
@@ -53,6 +65,7 @@ class ProfileVC: UIViewController {
         super.viewDidLoad()
 
         setupView()
+        setupTableData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,10 +85,20 @@ class ProfileVC: UIViewController {
     
     private func setupView() {
         userStatusView.delegate = self
+        myFlightsTableView.delegate = self
+        myFlightsTableView.dataSource = self
+        myFlightsTableView.register(MyFlightCell.self, forCellReuseIdentifier: "MyFlightCell")
         profileImageView.addGestureRecognizer(editProfileImageRecognizer)
         profileImageView.layer.shadowColor = UIColor.black.cgColor
         profileImageView.layer.shadowOffset = CGSize.zero
         profileImageView.layer.shadowRadius = 10
+    }
+    
+    private func setupTableData() {
+        tableData = [
+            Section(type: .upcomingFlights, items: [MyFlightCell()]),
+            Section(type: .pastFlights, items: [MyFlightCell()])
+        ]
     }
     
     // MARK: Convenience
@@ -149,7 +172,43 @@ class ProfileVC: UIViewController {
     }
 }
 
-// MARK:- LoggedInStatusViewDelegate
+// MARK:- ProfileVC+UITableViewDelegate, UITableViewDataSource
+
+extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "MyFlightCell", for: indexPath) as? MyFlightCell {
+            let _ = tableData[indexPath.section].items[indexPath.row]
+            // Do some stuff
+            return cell
+        }
+        return UITableViewCell()
+    }
+    
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return tableData[section].type.rawValue
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header = view as? UITableViewHeaderFooterView
+        header?.textLabel?.textColor = .white
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableData[section].items.count
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return tableData.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
+    }
+}
+
+// MARK:- ProfileVC+LoggedInStatusViewDelegate
 
 extension ProfileVC: LoggedInStatusViewDelegate {
     
@@ -162,7 +221,7 @@ extension ProfileVC: LoggedInStatusViewDelegate {
     }
 }
 
-// MARK:- UIImagePickerControllerDelegate, UINavigationControllerDelegate
+// MARK:- ProfileVC+UIImagePickerControllerDelegate, UINavigationControllerDelegate
 
 extension ProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate, RSKImageCropViewControllerDelegate {
     

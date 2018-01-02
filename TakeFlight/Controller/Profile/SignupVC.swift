@@ -12,10 +12,15 @@ class SignupVC: UIViewController {
 
     // MARK: Properties
     
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var confirmPasswordTextField: UITextField!
+    @IBOutlet weak var emailTextField: UnderlineTextField!
+    @IBOutlet weak var passwordTextField: UnderlineTextField!
+    @IBOutlet weak var confirmPasswordTextField: UnderlineTextField!
     @IBOutlet weak var activitySpinner: UIActivityIndicatorView!
+    
+    private var textFieldAttributes: [NSAttributedStringKey: Any] = [
+        NSAttributedStringKey.foregroundColor: UIColor.white.withAlphaComponent(0.5),
+        
+    ]
     
     private var email: String? {
         if emailTextField.text != "" {
@@ -38,6 +43,19 @@ class SignupVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupView()
+    }
+    
+    private func setupView() {
+        emailTextField.leftView = UIImageView(image: #imageLiteral(resourceName: "EmailIcon"))
+        passwordTextField.leftView = UIImageView(image: #imageLiteral(resourceName: "PasswordIcon"))
+        confirmPasswordTextField.leftView = UIImageView(image: #imageLiteral(resourceName: "PasswordIcon"))
+        emailTextField.leftViewMode = UITextFieldViewMode.always
+        passwordTextField.leftViewMode = UITextFieldViewMode.always
+        confirmPasswordTextField.leftViewMode = UITextFieldViewMode.always
+        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: textFieldAttributes)
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: textFieldAttributes)
+        confirmPasswordTextField.attributedPlaceholder = NSAttributedString(string: "Confirm Password", attributes: textFieldAttributes)
     }
     // MARK: Actions
     

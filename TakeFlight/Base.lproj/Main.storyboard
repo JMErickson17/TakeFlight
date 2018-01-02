@@ -247,16 +247,33 @@
                                     <constraint firstAttribute="height" constant="1" id="1fI-um-fpF"/>
                                 </constraints>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="b3o-zA-bii">
+                                <rect key="frame" x="8" y="185" width="359" height="369"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Flights" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X71-q5-5O6">
+                                <rect key="frame" x="152" y="167" width="71" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" name="PrimaryBlue"/>
                         <constraints>
+                            <constraint firstItem="b3o-zA-bii" firstAttribute="bottom" secondItem="mqY-rs-bhS" secondAttribute="bottom" id="6rN-1U-01N"/>
                             <constraint firstItem="LPE-Hd-icy" firstAttribute="leading" secondItem="zb4-aj-G0n" secondAttribute="leadingMargin" id="9GP-cz-JSq"/>
                             <constraint firstItem="HYM-lK-I99" firstAttribute="top" secondItem="vEO-Dn-8IA" secondAttribute="bottom" constant="12" id="Er2-BT-ZLX"/>
                             <constraint firstItem="LPE-Hd-icy" firstAttribute="trailing" secondItem="zb4-aj-G0n" secondAttribute="trailingMargin" id="S5v-EN-ES3"/>
                             <constraint firstItem="LPE-Hd-icy" firstAttribute="top" secondItem="HYM-lK-I99" secondAttribute="bottom" constant="12" id="XSk-ue-3TQ"/>
+                            <constraint firstItem="X71-q5-5O6" firstAttribute="centerX" secondItem="zb4-aj-G0n" secondAttribute="centerX" id="XtQ-qM-KHi"/>
                             <constraint firstItem="HYM-lK-I99" firstAttribute="centerX" secondItem="zb4-aj-G0n" secondAttribute="centerX" id="aGX-3O-M5o"/>
+                            <constraint firstItem="X71-q5-5O6" firstAttribute="top" secondItem="LPE-Hd-icy" secondAttribute="bottom" constant="4" id="cOX-ZL-jir"/>
                             <constraint firstItem="vEO-Dn-8IA" firstAttribute="centerX" secondItem="zb4-aj-G0n" secondAttribute="centerX" id="hbw-oE-gOg"/>
+                            <constraint firstItem="b3o-zA-bii" firstAttribute="leading" secondItem="mqY-rs-bhS" secondAttribute="leading" constant="8" id="hub-fD-Z86"/>
                             <constraint firstItem="vEO-Dn-8IA" firstAttribute="top" secondItem="mqY-rs-bhS" secondAttribute="top" constant="8" id="lzu-fr-A1b"/>
+                            <constraint firstItem="mqY-rs-bhS" firstAttribute="trailing" secondItem="b3o-zA-bii" secondAttribute="trailing" constant="8" id="tTG-y6-cOb"/>
+                            <constraint firstItem="b3o-zA-bii" firstAttribute="top" secondItem="X71-q5-5O6" secondAttribute="bottom" id="wOU-zj-EQR"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mqY-rs-bhS"/>
                     </view>
@@ -268,6 +285,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="myFlightsTableView" destination="b3o-zA-bii" id="oP3-EE-4OZ"/>
                         <outlet property="profileImageView" destination="vEO-Dn-8IA" id="FUV-KW-BAN"/>
                         <outlet property="userStatusView" destination="HYM-lK-I99" id="gWD-Tg-5uU"/>
                         <segue destination="jii-gI-mK2" kind="show" identifier="ToLoginVC" id="p8S-e3-9dx"/>
@@ -359,31 +377,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="uco-Q9-vRX">
-                                <rect key="frame" x="50" y="50" width="275" height="130"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="uco-Q9-vRX">
+                                <rect key="frame" x="50" y="50" width="275" height="110"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Low-c2-1ql">
-                                        <rect key="frame" x="0.0" y="0.0" width="275" height="30"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Low-c2-1ql" customClass="UnderlineTextField" customModule="TakeFlight" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="275" height="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardType="emailAddress" textContentType="email"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dGx-BA-A2V">
-                                        <rect key="frame" x="0.0" y="50" width="275" height="30"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dGx-BA-A2V" customClass="UnderlineTextField" customModule="TakeFlight" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="45" width="275" height="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oeg-VV-rEq">
-                                        <rect key="frame" x="0.0" y="100" width="275" height="30"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oeg-VV-rEq" customClass="UnderlineTextField" customModule="TakeFlight" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="90" width="275" height="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                     </textField>
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Yp-HI-hTf" customClass="OutlineButton" customModule="TakeFlight" customModuleProvider="target">
-                                <rect key="frame" x="137" y="205" width="100" height="30"/>
+                                <rect key="frame" x="137" y="185" width="100" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="MJa-ab-aXb"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="NiW-Vp-uyl"/>
@@ -396,7 +414,7 @@
                                 </connections>
                             </button>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="gUW-6C-gmU">
-                                <rect key="frame" x="169" y="255" width="37" height="37"/>
+                                <rect key="frame" x="169" y="235" width="37" height="37"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" name="PrimaryBlue"/>
