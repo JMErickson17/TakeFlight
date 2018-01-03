@@ -61,6 +61,14 @@ struct FilterOptions {
         }
     }
     
+    mutating func updateCarriers(with carriers: [String]) {
+        let currentlyActiveCarrierFilters = self.activeCarrierFilters
+        self.setupCarriers(with: carriers)
+        for carrier in currentlyActiveCarrierFilters {
+            self.update(carrier)
+        }
+    }
+    
     mutating func update(_ maxStops: MaxStops) {
         self.maxStops = maxStops
     }

@@ -56,6 +56,7 @@ class SignupVC: UIViewController {
     // MARK: Actions
     
     @IBAction func signupButtonWasTapped(_ sender: OutlineButton) {
+        activitySpinner.startAnimating()
         createNewUser()
     }
     

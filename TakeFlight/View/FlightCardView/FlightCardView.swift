@@ -179,7 +179,6 @@ class FlightCardView: UIView {
         headerLabel.text = "\(flight.originAirportCode)-\(flight.destinationAirportCode)"
         carrierImage.image = flight.carrierLogo
         carrierLabel.text = flight.carrier
-//        bookingCodeLabel.text = flight.bookingCode
         dateLabel.text = flight.departureTime.toLocalDateAndTimeString(withFormatter: formatter)
         
         for segment in flight.segments {
@@ -213,7 +212,11 @@ class FlightCardView: UIView {
     func makeString(withDuration duration: Int) -> String {
         let hours = duration / 60
         let minutes = duration % 60
-        return "\(hours)h \(minutes)m"
+        if hours == 0 {
+            return "\(minutes)m"
+        } else {
+            return "\(hours)h \(minutes)m"
+        }
     }
 }
 
@@ -313,7 +316,11 @@ extension FlightCardView {
         func makeString(withDuration duration: Int) -> String {
             let hours = duration / 60
             let minutes = duration % 60
-            return "\(hours)h \(minutes)m"
+            if hours == 0 {
+                return "\(minutes)m"
+            } else {
+                return "\(hours)h \(minutes)m"
+            }
         }
     }
 }

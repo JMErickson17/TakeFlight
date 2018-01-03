@@ -15,6 +15,14 @@ struct UserSearchRequest {
     var departureDate: Date
     var returnDate: Date?
     
+    init(origin: Airport, destination: Airport, departureDate: Date, returnDate: Date?) {
+        self.timeStamp = Date()
+        self.origin = origin
+        self.destination = destination
+        self.departureDate = departureDate
+        self.returnDate = returnDate
+    }
+    
     var dictionaryRepresentation: [String: Any] {
         return [
             "timeStamp": timeStamp,

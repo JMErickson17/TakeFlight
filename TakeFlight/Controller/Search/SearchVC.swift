@@ -15,11 +15,14 @@ class SearchVC: UIViewController, SearchVCDelegate {
         case invalidRequest
         case invalidReponse
         case invalidUserSearchRequest
+        case responseExpired
+        case searchCancelled
     }
     
     enum SearchState {
         case noResults
         case searching
+        case cancelled
         case someResults
     }
     
@@ -85,6 +88,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
             if let origin = origin {
                 userDataService.origin = origin
                 originTextField.text = origin.searchRepresentation
+                if currentSearchState == .searching { currentSearchState = .cancelled }
             } else {
                 originTextField.text = ""
                 userDataService.origin = nil
@@ -98,6 +102,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
             if let destination = destination {
                 userDataService.destination = destination
                 destinationTextField.text = destination.searchRepresentation
+                if currentSearchState == .searching { currentSearchState = .cancelled }
             } else {
                 destinationTextField.text = ""
                 userDataService.destination = nil
@@ -111,6 +116,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
             if let departureDate = departureDate {
                 userDataService.departureDate = departureDate
                 departureDateTextField.text = formatter.string(from: departureDate)
+                if currentSearchState == .searching { currentSearchState = .cancelled }
             } else {
                 departureDateTextField.text = ""
                 userDataService.departureDate = nil
@@ -124,6 +130,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
             if let returnDate = returnDate {
                 userDataService.returnDate = returnDate
                 returnDateTextField.text = formatter.string(from: returnDate)
+                if currentSearchState == .searching { currentSearchState = .cancelled }
             } else {
                 returnDateTextField.text = ""
                 userDataService.returnDate = nil
@@ -319,8 +326,11 @@ class SearchVC: UIViewController, SearchVCDelegate {
             roundTripButton.layer.opacity = 1
             returnDateTextField.placeholder = "Return Date"
         }
-        flights.removeAll()
-        searchFlightsWithUserDefaults()
+        if currentSearchState == .searching {
+            currentSearchState = .cancelled
+        } else {
+            searchFlightsWithUserDefaults()
+        }
     }
     
     private func configureViewForSearchState(_ searchState: SearchState) {
@@ -332,6 +342,10 @@ class SearchVC: UIViewController, SearchVCDelegate {
             flights.removeAll()
             hideEmptyFlightsLabel()
             activitySpinner.startAnimating()
+        case .cancelled:
+            flights.removeAll()
+            showEmptyFlightsLabel()
+            activitySpinner.stopAnimating()
         case .someResults:
             hideEmptyFlightsLabel()
             activitySpinner.stopAnimating()
@@ -383,7 +397,11 @@ class SearchVC: UIViewController, SearchVCDelegate {
     }
     
     private func handleNewFlightData(_ flightData: [FlightData]) {
+        guard currentSearchState != .cancelled else { handleSearchError(FlightSearchError.searchCancelled); return }
+        
         self.flights = flightData
+        self.filterOptions?.updateCarriers(with: flightData.map({ $0.departingFlight.carrier }))
+        self.filterProcessedFlights()
         if flights.count == 0 {
             currentSearchState = .noResults
         } else {
@@ -393,6 +411,14 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     private func handleSearchError(_ error: Error) {
         self.flights.removeAll()
+        
+        if let flightSearchError = error as? FlightSearchError {
+            if flightSearchError == .searchCancelled {
+                currentSearchState = .noResults
+                searchFlightsWithUserDefaults()
+                return
+            }
+        }
         currentSearchState = .noResults
         print(error)
     }
@@ -415,8 +441,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     private func makeUserSearchRequestFromUserDefaults() -> UserSearchRequest? {
         guard canSearchWithUserDefaults() else { return nil }
-        return UserSearchRequest(timeStamp: Date(),
-                                 origin: userDataService.origin!,
+        return UserSearchRequest(origin: userDataService.origin!,
                                  destination: userDataService.destination!,
                                  departureDate: userDataService.departureDate!,
                                  returnDate: userDataService.returnDate)
