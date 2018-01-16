@@ -7,10 +7,14 @@
 //
 
 import UIKit
+import Firebase
 
 class LoggedInStatusView: UIView {
     
     // MARK: Properties
+    
+    // TODO: Convert to dependency injection
+    lazy var userService: UserService = FirebaseUserService(database: Firestore.firestore())
     
     weak var delegate: LoggedInStatusViewDelegate?
     
@@ -159,7 +163,7 @@ class LoggedInStatusView: UIView {
     // MARK: Convenience
     
     func configureViewForCurrentUser(animated: Bool) {
-        if let currentUser = UserDataService.instance.currentUser {
+        if let currentUser = userService.currentUser {
             let loggedInText = currentUser.fullName ?? currentUser.email
             setLoggedInLabel(to: loggedInText)
             transitionToLoggedInView(animated: animated)

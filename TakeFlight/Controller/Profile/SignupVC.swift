@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SignupVC: UIViewController {
 
@@ -16,6 +17,9 @@ class SignupVC: UIViewController {
     @IBOutlet weak var passwordTextField: UnderlineTextField!
     @IBOutlet weak var confirmPasswordTextField: UnderlineTextField!
     @IBOutlet weak var activitySpinner: UIActivityIndicatorView!
+    
+    // TODO: Convert to dependency injection
+    lazy var userService: UserService = FirebaseUserService(database: Firestore.firestore())
     
     private var textFieldAttributes: [NSAttributedStringKey: Any] = [
         NSAttributedStringKey.foregroundColor: UIColor.white.withAlphaComponent(0.5)
@@ -72,7 +76,7 @@ class SignupVC: UIViewController {
                 return
             }
             activitySpinner.startAnimating()
-            UserDataService.instance.createNewUser(withEmail: email, password: password, completion: { [weak self] (user, error) in
+            userService.createNewUser(withEmail: email, password: password, completion: { [weak self] (user, error) in
                 if let error = error {
                     if let navigationController = self?.navigationController {
                         let notification = DropDownNotification(text: error.localizedDescription)

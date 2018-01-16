@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import FirebaseAuth
+import Firebase
 import RSKImageCropper
 
 class ProfileVC: UIViewController {
@@ -47,6 +47,10 @@ class ProfileVC: UIViewController {
     
     private var userPropertiesDidChangeListener: NSObjectProtocol?
     private var tableData: [Segment]!
+    
+    // TODO: Convert to dependency injection
+    lazy var userService: UserService = FirebaseUserService(database: Firestore.firestore())
+    
     
     private lazy var imagePicker: UIImagePickerController = {
         let imagePicker = UIImagePickerController()
@@ -140,7 +144,7 @@ class ProfileVC: UIViewController {
     }
     
     private func updateLoggedInStatusView() {
-        if let _ = UserDataService.instance.currentUser {
+        if let _ = userService.currentUser {
             if userStatusView.loggedInViewIsVisible {
                 userStatusView.configureViewForCurrentUser(animated: false)
             } else {
@@ -157,7 +161,7 @@ class ProfileVC: UIViewController {
     
     private func setProfileImage() {
         DispatchQueue.main.async {
-            if let profileImage = UserDataService.instance.currentUser?.profileImage {
+            if let profileImage = self.userService.currentUser?.profileImage {
                 self.profileImageView.image = profileImage
             } else {
                 self.profileImageView.image = #imageLiteral(resourceName: "DefaultProfileImage")
@@ -180,7 +184,7 @@ class ProfileVC: UIViewController {
     }
     
     private func handleSave(profileImage: UIImage) {
-        UserDataService.instance.saveToCurrentUser(profileImage: profileImage) { error in
+        userService.saveToCurrentUser(profileImage: profileImage) { error in
             if let error = error, let navigationController = self.navigationController {
                 let notification = DropDownNotification(text: error.localizedDescription)
                 notification.presentNotification(onNavigationController: navigationController, forDuration: 3)

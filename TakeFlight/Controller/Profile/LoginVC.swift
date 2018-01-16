@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import FirebaseAuth
+import Firebase
 
 class LoginVC: UIViewController {
     
@@ -17,6 +17,9 @@ class LoginVC: UIViewController {
     @IBOutlet weak var passwordTextField: UnderlineTextField!
     @IBOutlet weak var forgotPasswordLabel: UILabel!
     @IBOutlet weak var activitySpinner: UIActivityIndicatorView!
+    
+    // TODO: Convert to dependency injection
+    lazy var userService: UserService = FirebaseUserService(database: Firestore.firestore())
     
     private var textFieldAttributes: [NSAttributedStringKey: Any] = [
         NSAttributedStringKey.foregroundColor: UIColor.white.withAlphaComponent(0.5)
@@ -64,7 +67,7 @@ class LoginVC: UIViewController {
     
     private func loginUser() {
         if let email = email, let password = password {
-            UserDataService.instance.signInUser(withEmail: email, password: password, completion: { [weak self] (user, error) in
+            userService.signInUser(withEmail: email, password: password, completion: { [weak self] (user, error) in
                 self?.activitySpinner.stopAnimating()
                 if let error = error {
                     if let navigationController = self?.navigationController {

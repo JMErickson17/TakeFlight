@@ -62,6 +62,9 @@ class SettingsVC: UITableViewController {
         phoneNumberTextField
     ]
     
+    // TODO: Convert to dependency injection
+    lazy var userService: UserService = FirebaseUserService(database: Firestore.firestore())
+    
     private var userDidUpdateListener: NSObjectProtocol?
     
     private lazy var saveButton: UIBarButtonItem = {
@@ -138,7 +141,7 @@ class SettingsVC: UITableViewController {
     }
     
     func configureViewForCurrentUser() {
-        if let user = UserDataService.instance.currentUser {
+        if let user = userService.currentUser {
             if let firstName = user.firstName { firstNameTextField.text = firstName }
             if let lastName = user.lastName { lastNameTextField.text = lastName }
             if let phoneNumber = user.phoneNumber { phoneNumberTextField.text = phoneNumber }
@@ -199,7 +202,7 @@ class SettingsVC: UITableViewController {
     // MARK: Property Change Handlers
     
     @objc private func handleSaveUserDetails() {
-        UserDataService.instance.saveToCurrentUser(updatedProperties: updatedValues) { [weak self] error in
+        userService.saveToCurrentUser(updatedProperties: updatedValues) { [weak self] error in
             if let error = error {
                 if let navigationController = self?.navigationController {
                     let notification = DropDownNotification(text: "Could not save changes.\n\(error)")
@@ -217,7 +220,7 @@ class SettingsVC: UITableViewController {
     }
     
     private func handleLogOutCurrentUser() {
-        UserDataService.instance.signOutCurrentUser { error in
+        userService.signOutCurrentUser { error in
             if let error = error { return print(error) }
             
             self.configureViewForNoUser()
@@ -239,7 +242,7 @@ class SettingsVC: UITableViewController {
     private func handleClearHistory() {
         let alert = UIAlertController(title: Constants.clearSearchHistoryAlertTitle, message: Constants.clearSearchHistoryAlertMessage, preferredStyle: .alert)
         let clearSearchHistoryAction = UIAlertAction(title: "Clear", style: .destructive) { alert in
-            UserDataService.instance.clearCurrentUserSearchHistory { error in
+            self.userService.clearCurrentUserSearchHistory { error in
                 if let error = error { return print(error) }
                 
                 if let navigationController = self.navigationController {
@@ -252,8 +255,6 @@ class SettingsVC: UITableViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }
-    
-    
 }
 
 // MARK: SettingsVC+UITextFieldDelegate
@@ -266,7 +267,7 @@ extension SettingsVC: UITextFieldDelegate {
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
-        guard let currentUser = UserDataService.instance.currentUser else { return }
+        guard let currentUser = userService.currentUser else { return }
         
         let newText = textField.text
         switch textField.tag {

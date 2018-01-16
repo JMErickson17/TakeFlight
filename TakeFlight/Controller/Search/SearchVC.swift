@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SearchVC: UIViewController, SearchVCDelegate {
     
@@ -45,7 +46,10 @@ class SearchVC: UIViewController, SearchVCDelegate {
         didSet { configureRefineButtonForFilterState() }
     }
     
-    private lazy var userDataService = UserDataService.instance
+    private lazy var userDefaults = UserDefaultsService.instance
+    
+    // TODO: Convert to dependency injection
+    lazy var userService: UserService = FirebaseUserService(database: Firestore.firestore())
     
     private var requestManager = QPXExpress()
     private var airportPickerVC: AirportPickerVC?
@@ -53,7 +57,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     var selectedSearchType: SearchType = .oneWay {
         didSet {
-            userDataService.searchType = selectedSearchType.rawValue
+            userDefaults.searchType = selectedSearchType.rawValue
             configureViewForSearchType(selectedSearchType)
         }
     }
@@ -86,12 +90,12 @@ class SearchVC: UIViewController, SearchVCDelegate {
     var origin: Airport? {
         didSet {
             if let origin = origin {
-                userDataService.origin = origin
+                userDefaults.origin = origin
                 originTextField.text = origin.searchRepresentation
                 if currentSearchState == .searching { currentSearchState = .cancelled }
             } else {
                 originTextField.text = ""
-                userDataService.origin = nil
+                userDefaults.origin = nil
             }
             originTextField.endEditing(true)
         }
@@ -100,12 +104,12 @@ class SearchVC: UIViewController, SearchVCDelegate {
     var destination: Airport? {
         didSet {
             if let destination = destination {
-                userDataService.destination = destination
+                userDefaults.destination = destination
                 destinationTextField.text = destination.searchRepresentation
                 if currentSearchState == .searching { currentSearchState = .cancelled }
             } else {
                 destinationTextField.text = ""
-                userDataService.destination = nil
+                userDefaults.destination = nil
             }
             destinationTextField.endEditing(true)
         }
@@ -114,12 +118,12 @@ class SearchVC: UIViewController, SearchVCDelegate {
     var departureDate: Date? {
         didSet {
             if let departureDate = departureDate {
-                userDataService.departureDate = departureDate
+                userDefaults.departureDate = departureDate
                 departureDateTextField.text = formatter.string(from: departureDate)
                 if currentSearchState == .searching { currentSearchState = .cancelled }
             } else {
                 departureDateTextField.text = ""
-                userDataService.departureDate = nil
+                userDefaults.departureDate = nil
             }
             
         }
@@ -128,12 +132,12 @@ class SearchVC: UIViewController, SearchVCDelegate {
     var returnDate: Date? {
         didSet {
             if let returnDate = returnDate {
-                userDataService.returnDate = returnDate
+                userDefaults.returnDate = returnDate
                 returnDateTextField.text = formatter.string(from: returnDate)
                 if currentSearchState == .searching { currentSearchState = .cancelled }
             } else {
                 returnDateTextField.text = ""
-                userDataService.returnDate = nil
+                userDefaults.returnDate = nil
             }
         }
     }
@@ -161,8 +165,6 @@ class SearchVC: UIViewController, SearchVCDelegate {
             }
         }
     }
-    
-
     
     private lazy var emptyFlightsLabel: UILabel = {
         let label = UILabel()
@@ -243,12 +245,12 @@ class SearchVC: UIViewController, SearchVCDelegate {
         originTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         destinationTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
-        if let origin = userDataService.origin { self.origin = origin }
-        if let destination = userDataService.destination { self.destination = destination }
-        if let departureDate = userDataService.departureDate { self.departureDate = departureDate }
-        if let returnDate = userDataService.returnDate { self.returnDate = returnDate }
+        if let origin = userDefaults.origin { self.origin = origin }
+        if let destination = userDefaults.destination { self.destination = destination }
+        if let departureDate = userDefaults.departureDate { self.departureDate = departureDate }
+        if let returnDate = userDefaults.returnDate { self.returnDate = returnDate }
         
-        if let searchType = userDataService.searchType {
+        if let searchType = userDefaults.searchType {
             self.selectedSearchType = SearchType(rawValue: searchType) ?? .oneWay
         }
         
@@ -421,14 +423,14 @@ class SearchVC: UIViewController, SearchVCDelegate {
     }
     
     private func canSearchWithUserDefaults() -> Bool {
-        if let userOrigin = userDataService.origin, let userDestination = userDataService.destination,
-            let userDepartureDate = userDataService.departureDate {
+        if let userOrigin = userDefaults.origin, let userDestination = userDefaults.destination,
+            let userDepartureDate = userDefaults.departureDate {
             guard originTextField.text == userOrigin.searchRepresentation else { return false }
             guard destinationTextField.text == userDestination.searchRepresentation else { return false }
             guard departureDateTextField.text == formatter.string(from: userDepartureDate) else { return false }
             
             if selectedSearchType == .roundTrip {
-                guard let userReturnDate = userDataService.returnDate else { return false }
+                guard let userReturnDate = userDefaults.returnDate else { return false }
                 guard returnDateTextField.text == formatter.string(from: userReturnDate) else { return false }
             }
             return true
@@ -438,10 +440,10 @@ class SearchVC: UIViewController, SearchVCDelegate {
     
     private func makeUserSearchRequestFromUserDefaults() -> UserSearchRequest? {
         guard canSearchWithUserDefaults() else { return nil }
-        return UserSearchRequest(origin: userDataService.origin!,
-                                 destination: userDataService.destination!,
-                                 departureDate: userDataService.departureDate!,
-                                 returnDate: userDataService.returnDate)
+        return UserSearchRequest(origin: userDefaults.origin!,
+                                 destination: userDefaults.destination!,
+                                 departureDate: userDefaults.departureDate!,
+                                 returnDate: userDefaults.returnDate)
     }
     
     // MARK: Sort and Filter
@@ -504,7 +506,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
     // MARK: Database
     
     private func saveToCurrentUser(userSearchRequest request: UserSearchRequest) {
-        userDataService.saveToCurrentUser(userSearchRequest: request) { (error) in
+        userService.saveToCurrentUser(userSearchRequest: request) { (error) in
             if let error = error { print(error) }
         }
     }

@@ -16,6 +16,10 @@ final class FlightDataService {
     
     // MARK: Airports
     
+/*
+     This class is temporarily being used for airport data in AirportPickerVC and should be replaced with airports from the Firestore once operational
+ */
+    
     public private(set) var airports = [Airport]()
     
     func populateAirportData() {

@@ -50,13 +50,71 @@ final class FirestoreDataService {
         return database.collection("airports")
     }
     
-    // MARK: Airlines
+/*
+     Temporary airports returned from QPXExpress responses
+     These airports are being stored in the firestore database as confirmed airports and should be mapped
+     to TakeFlight.Airport at a later date
+ */
+    
+    struct Airport {
+        var name: String
+        var code: String
+        var city: String
+        
+        var dictionaryRepresentation: [String: Any] {
+            return [
+                "name": name,
+                "code": code,
+                "city": city
+            ]
+        }
+        
+        init(name: String, code: String, city: String) {
+            self.name = name
+            self.code = code
+            self.city = city
+        }
+        
+        init?(data: JSONRepresentable) {
+            guard let name = data["name"] as? String else { return nil }
+            guard let code = data["code"] as? String else { return nil }
+            guard let city = data["city"] as? String else { return nil }
+            self.init(name: name, code: code, city: city)
+        }
+    }
+    
+    // MARK: Old Database
+    
+    let REF_BASE = Constants.DB_BASE
+    let REF_AIRPORTS = Constants.DB_BASE.child("airports")
+
+    func getAirports(completion: @escaping ([TakeFlight.Airport]) -> Void) {
+        var airports = [TakeFlight.Airport]()
+        
+        DispatchQueue.global(qos: .default).async {
+            self.REF_AIRPORTS.observeSingleEvent(of: .value, with: { (snapshot) in
+                if let snapshot = snapshot.value as? [[String: Any]] {
+                    for snap in snapshot {
+                        if let airport = TakeFlight.Airport(airportDictionary: snap) {
+                            airports.append(airport)
+                        }
+                    }
+                }
+                completion(airports)
+            })
+        }
+    }
+}
+
+// MARK: CarrierService
+
+extension FirestoreDataService: CarrierService {
     
     func create(carrier: Carrier, completion: ErrorCompletionHandler?) {
         carrierCollectionRef.document(carrier.code).setData(carrier.dictionaryRepresentation, completion: completion)
     }
     
-    func get(airlineWithCode code: String, completion: @escaping (Carrier?, Error?) -> Void) {
+    func get(carrierWithCode code: String, completion: @escaping (Carrier?, Error?) -> Void) {
         carrierCollectionRef.document(code).getDocument { document, error in
             if let error = error { return completion(nil, error) }
             if let document = document {
@@ -97,35 +155,11 @@ final class FirestoreDataService {
             }
         }
     }
-    
-    // MARK: Airports
-    
-    struct Airport {
-        var name: String
-        var code: String
-        var city: String
-        
-        var dictionaryRepresentation: [String: Any] {
-            return [
-                "name": name,
-                "code": code,
-                "city": city
-            ]
-        }
-        
-        init(name: String, code: String, city: String) {
-            self.name = name
-            self.code = code
-            self.city = city
-        }
-        
-        init?(data: JSONRepresentable) {
-            guard let name = data["name"] as? String else { return nil }
-            guard let code = data["code"] as? String else { return nil }
-            guard let city = data["city"] as? String else { return nil }
-            self.init(name: name, code: code, city: city)
-        }
-    }
+}
+
+// MARK: AirportService
+
+extension FirestoreDataService: AirportService {
     
     func create(airport: FirestoreDataService.Airport, completion: ErrorCompletionHandler?) {
         airportsCollectionRef.document(airport.code).setData(airport.dictionaryRepresentation, completion: completion)
@@ -169,29 +203,6 @@ final class FirestoreDataService {
                     self.airports.append(newAirport)
                 })
             }
-        }
-    }
-    
-    
-    // MARK: Old Database
-    
-    let REF_BASE = Constants.DB_BASE
-    let REF_AIRPORTS = Constants.DB_BASE.child("airports")
-
-    func getAirports(completion: @escaping ([TakeFlight.Airport]) -> Void) {
-        var airports = [TakeFlight.Airport]()
-        
-        DispatchQueue.global(qos: .default).async {
-            self.REF_AIRPORTS.observeSingleEvent(of: .value, with: { (snapshot) in
-                if let snapshot = snapshot.value as? [[String: Any]] {
-                    for snap in snapshot {
-                        if let airport = TakeFlight.Airport(airportDictionary: snap) {
-                            airports.append(airport)
-                        }
-                    }
-                }
-                completion(airports)
-            })
         }
     }
 }
