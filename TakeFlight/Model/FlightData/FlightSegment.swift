@@ -37,7 +37,7 @@ struct FlightSegment {
     
     let id: String
     let flightNumber: String
-    let carrier: (name: String, code: String)
+    let carrier: Carrier
     let cabin: String
     let bookingCode: String
     let bookingCodeCount: Int

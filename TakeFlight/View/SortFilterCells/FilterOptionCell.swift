@@ -24,6 +24,7 @@ class FilterOptionCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = .lightGray
+        label.numberOfLines = 2
         return label
     }()
     
@@ -47,7 +48,8 @@ class FilterOptionCell: UITableViewCell {
         addSubview(label)
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            label.centerYAnchor.constraint(equalTo: centerYAnchor)
+            label.centerYAnchor.constraint(equalTo: centerYAnchor),
+            label.widthAnchor.constraint(greaterThanOrEqualToConstant: 60)
         ])
         
         addSubview(detailLabel)

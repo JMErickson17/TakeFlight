@@ -5,7 +5,6 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -96,12 +95,24 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z2f-H2-Ggz">
-                                            <rect key="frame" x="16" y="13.5" width="37.5" height="18"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="XK2-eB-2nS">
+                                            <rect key="frame" x="16" y="7" width="77.5" height="30"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8Ww-mb-iUU">
+                                                    <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="SFe-LE-z2T"/>
+                                                        <constraint firstAttribute="width" constant="30" id="xbh-dI-h97"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z2f-H2-Ggz">
+                                                    <rect key="frame" x="40" y="0.0" width="37.5" height="30"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bmi-II-wLE">
                                             <rect key="frame" x="310" y="7" width="51" height="31"/>
                                             <color key="onTintColor" name="PrimaryBlue"/>
@@ -111,14 +122,15 @@
                                         </switch>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="z2f-H2-Ggz" firstAttribute="centerY" secondItem="tyP-5w-d90" secondAttribute="centerY" id="89H-la-Khc"/>
-                                        <constraint firstItem="z2f-H2-Ggz" firstAttribute="leading" secondItem="tyP-5w-d90" secondAttribute="leadingMargin" id="Coi-UC-isk"/>
+                                        <constraint firstItem="XK2-eB-2nS" firstAttribute="leading" secondItem="tyP-5w-d90" secondAttribute="leading" constant="16" id="J6q-6C-Bga"/>
+                                        <constraint firstItem="XK2-eB-2nS" firstAttribute="centerY" secondItem="tyP-5w-d90" secondAttribute="centerY" id="TDb-FT-WyU"/>
                                         <constraint firstAttribute="trailing" secondItem="bmi-II-wLE" secondAttribute="trailing" constant="16" id="Tld-ny-Rb6"/>
                                         <constraint firstItem="bmi-II-wLE" firstAttribute="centerY" secondItem="tyP-5w-d90" secondAttribute="centerY" id="i9A-rj-c3P"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="carrierFilterSwitch" destination="bmi-II-wLE" id="ZdU-Le-ust"/>
+                                    <outlet property="carrierImage" destination="8Ww-mb-iUU" id="kFq-bo-pvr"/>
                                     <outlet property="carrierLabel" destination="z2f-H2-Ggz" id="gVp-EB-77u"/>
                                 </connections>
                             </tableViewCell>

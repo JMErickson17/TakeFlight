@@ -25,7 +25,7 @@ class OneWayFlightDataCell: FlightDataCell {
         priceLabel.text = makePriceString(withPrice: data.saleTotal)
         airlineImage.image = data.departingFlight.carrierLogo
         timeLabel.attributedText = makeTimeString(departureTime: data.departingFlight.departureTime, arrivalTime: data.departingFlight.arrivalTime)
-        airlineNameLabel.text = data.departingFlight.carrier
+        airlineNameLabel.text = data.departingFlight.carrier.name
         stopCountLabel.attributedText = makeStopCountString(with: data.departingFlight.stopCount)
         durationLabel.text = makeDurationString(withDuration: data.departingFlight.duration)
     }

@@ -62,6 +62,9 @@ struct QPXExpress {
         do {
             let response = try decodeResponse(from: data)
             let supportingData = response.trips.data
+            
+            FirestoreDataService.instance.handleNewCarriers(newCarriers: response.trips.data.carrier)
+            FirestoreDataService.instance.handleNewAirports(newAirports: response.trips.data.airport)
 
             for trip in response.trips.tripOption {
                 if let flightData = try? parseTripOption(tripOption: trip, supportingData: supportingData) {
@@ -124,7 +127,7 @@ struct QPXExpress {
                 var legs = [FlightSegment.Leg]()
                 
                 guard let carrierIndex = supportingData.carrier.index(where: { $0.code == carrierCode }) else { throw QPXExpressError.parseError }
-                let carrier = (name: String(describing: supportingData.carrier[carrierIndex].name), code: carrierCode)
+                let carrier = Carrier(name: supportingData.carrier[carrierIndex].name, code: carrierCode)
                 
                 for leg in segment.leg {
                     let id = leg.id

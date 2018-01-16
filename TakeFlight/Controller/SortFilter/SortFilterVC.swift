@@ -33,6 +33,7 @@ class SortFilterVC: UIViewController {
     
     var selectedSortOption: SortOptions.Option?
     var filterOptions: FilterOptions?
+    var currentCarriers: [Carrier]?
     
     private var tableData: [Section]!
     
@@ -77,9 +78,9 @@ class SortFilterVC: UIViewController {
     private func filterOptionDetails(for option: FilterOptions.Option) -> String? {
         switch option {
         case .airlines:
-            if let activeCarrierFilters = filterOptions?.activeCarrierFilters {
-                let carrierArray = activeCarrierFilters.map({ $0.name.capitalized })
-                return carrierArray.joined(separator: ", ")
+            if let activeFilters = filterOptions?.activeCarrierFilters { guard activeFilters.count > 0 else { return nil } }
+            if let nonFilteredCarriers = filterOptions?.filteredCarriers?.filter({ $0.isFiltered == false }) {
+                return nonFilteredCarriers.map({ $0.carrier.name.capitalized }).joined(separator: ", ")
             }
         case .stops:
             if let stops = filterOptions?.maxStops {
@@ -103,7 +104,8 @@ class SortFilterVC: UIViewController {
         case Constants.toCarrierFilterVC:
             if let destination = segue.destination as? CarrierFilterVC {
                 destination.delegate = self
-                destination.filterableCarriers = filterOptions?.filterableCarriers
+                destination.filteredCarriers = filterOptions?.filteredCarriers
+                destination.carriersInCurrentSearch = currentCarriers?.map { FilterableCarrier(carrier: $0) }
             }
         case Constants.toStopFilterVC:
             if let destination = segue.destination as? StopFilterVC {

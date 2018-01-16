@@ -19,7 +19,7 @@ final class FlightDataService {
     public private(set) var airports = [Airport]()
     
     func populateAirportData() {
-        FirebaseDataService.instance.getAirports { (airports) in
+        FirestoreDataService.instance.getAirports { (airports) in
             self.airports = airports
         }
     }

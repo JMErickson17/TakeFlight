@@ -100,8 +100,8 @@ extension FlightData {
             "VS": #imageLiteral(resourceName: "VirginAirlinesLogo")
         ]
         
-        var carrier: String {
-            return (segments.first?.carrier.name) ?? ""
+        var carrier: Carrier {
+            return segments[0].carrier
         }
         
         var carrierLogo: UIImage? {

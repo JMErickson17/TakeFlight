@@ -178,7 +178,7 @@ class FlightCardView: UIView {
     func setupCard(withFlight flight: FlightData.Flight) {
         headerLabel.text = "\(flight.originAirportCode)-\(flight.destinationAirportCode)"
         carrierImage.image = flight.carrierLogo
-        carrierLabel.text = flight.carrier
+        carrierLabel.text = flight.carrier.name
         dateLabel.text = flight.departureTime.toLocalDateAndTimeString(withFormatter: formatter)
         
         for segment in flight.segments {

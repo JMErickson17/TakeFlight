@@ -13,6 +13,7 @@ target 'TakeFlight' do
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'Firebase/Storage'
+  pod 'Firebase/Messaging'
   pod 'RSKImageCropper'
 
   target 'TakeFlightTests' do

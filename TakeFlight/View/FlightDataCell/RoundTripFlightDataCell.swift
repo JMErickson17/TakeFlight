@@ -33,13 +33,13 @@ class RoundTripFlightDataCell: FlightDataCell {
         
         departingAirlineImage.image = data.departingFlight.carrierLogo
         departingTimeLabel.attributedText = makeTimeString(departureTime: data.departingFlight.departureTime, arrivalTime: data.departingFlight.arrivalTime)
-        departingAirlineNameLabel.text = data.departingFlight.carrier
+        departingAirlineNameLabel.text = data.departingFlight.carrier.name
         departingStopCountLabel.attributedText = makeStopCountString(with: data.departingFlight.stopCount)
         departingDurationLabel.text = makeDurationString(withDuration: data.departingFlight.duration)
         
         returningAirlineImage.image = data.returningFlight?.carrierLogo
         returningTimeLabel.attributedText = makeTimeString(departureTime: data.returningFlight!.departureTime, arrivalTime: data.returningFlight!.arrivalTime)
-        returningAirlineNameLabel.text = data.returningFlight?.carrier
+        returningAirlineNameLabel.text = data.returningFlight?.carrier.name
         returningStopCountLabel.attributedText = makeStopCountString(with: data.returningFlight?.stopCount ?? -1)
         returningDurationLabel.text = makeDurationString(withDuration: data.returningFlight?.duration ?? -1)
     }

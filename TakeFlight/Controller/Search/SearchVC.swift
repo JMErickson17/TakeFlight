@@ -162,9 +162,7 @@ class SearchVC: UIViewController, SearchVCDelegate {
         }
     }
     
-    private var carriers: [String] {
-        return flights.map({ $0.departingFlight.carrier })
-    }
+
     
     private lazy var emptyFlightsLabel: UILabel = {
         let label = UILabel()
@@ -400,7 +398,6 @@ class SearchVC: UIViewController, SearchVCDelegate {
         guard currentSearchState != .cancelled else { handleSearchError(FlightSearchError.searchCancelled); return }
         
         self.flights = flightData
-        self.filterOptions?.updateCarriers(with: flightData.map({ $0.departingFlight.carrier }))
         self.filterProcessedFlights()
         if flights.count == 0 {
             currentSearchState = .noResults
@@ -483,9 +480,8 @@ class SearchVC: UIViewController, SearchVCDelegate {
         return flightData.filter { flight -> Bool in
             var isIncluded = true
             
-            if let activeCarrierFilters = filterOptions?.activeCarrierFilters {
-                let carriers = activeCarrierFilters.map({ $0.name })
-                if carriers.contains(flight.departingFlight.carrier) {
+            if let activeAirlineFilters = filterOptions?.activeCarrierFilters {
+                if activeAirlineFilters.contains(where: { $0.carrier.code == flight.departingFlight.carrier.code }) {
                     isIncluded = false
                 }
             }
@@ -521,9 +517,9 @@ class SearchVC: UIViewController, SearchVCDelegate {
             destination.selectedSortOption = self.sortOptions.selectedSortOption
             if let filterOptions = filterOptions {
                 destination.filterOptions = filterOptions
+                destination.currentCarriers = flights.map { $0.departingFlight.carrier }
             } else {
-                var filterOptions = FilterOptions()
-                filterOptions.setupCarriers(with: carriers)
+                let filterOptions = FilterOptions()
                 destination.filterOptions = filterOptions
             }
         }

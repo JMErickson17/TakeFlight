@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+
 struct FilterOptions {
     
     // MARK: Types
@@ -20,52 +22,31 @@ struct FilterOptions {
     
     // MARK: Properties
     
-    private(set) var filterableCarriers: [FilterableCarrier]?
+    private(set) var filteredCarriers: [FilterableCarrier]?
     private(set) var maxStops: MaxStops?
     private(set) var maxDuration: Hour?
     
     var hasActiveFilters: Bool {
-        return activeCarrierFilters.count > 0 ||
+        return (activeCarrierFilters.count > 0) ||
                 maxStops != nil ||
                 maxDuration != nil
     }
     
     var activeCarrierFilters: [FilterableCarrier] {
-        var carriers = [FilterableCarrier]()
-        filterableCarriers?.forEach({ carrier in
-            if carrier.isFiltered {
-                carriers.append(carrier)
-            }
-        })
-        return carriers
+        return filteredCarriers?.filter { $0.isFiltered == true } ?? [FilterableCarrier]()
+    }
+    
+    init() {
+        self.filteredCarriers = FirestoreDataService.instance.carriers.map { carrier in
+            return FilterableCarrier(carrier: carrier, isFiltered: false)
+        }
     }
     
     // MARK: Convenience
     
-    mutating func setupCarriers(with carriers: [String]) {
-        var filterableCarriers = [FilterableCarrier]()
-        let uniqueCarriers = Array(Set(carriers))
-        uniqueCarriers.forEach { carrier in
-            filterableCarriers.append(FilterableCarrier(name: carrier, isFiltered: false))
-        }
-        self.filterableCarriers = filterableCarriers
-    }
-    
-    mutating func setCarriers(to carriers: [FilterableCarrier]) {
-        self.filterableCarriers = carriers
-    }
-    
-    mutating func update(_ carrier: FilterableCarrier) {
-        if let index = filterableCarriers?.index(where: { $0.name == carrier.name }) {
-            filterableCarriers?[index] = carrier
-        }
-    }
-    
-    mutating func updateCarriers(with carriers: [String]) {
-        let currentlyActiveCarrierFilters = self.activeCarrierFilters
-        self.setupCarriers(with: carriers)
-        for carrier in currentlyActiveCarrierFilters {
-            self.update(carrier)
+    mutating func update(_ filterableCarrier: FilterableCarrier) {
+        if let index = filteredCarriers?.index(where: { $0.carrier.name == filterableCarrier.carrier.name}) {
+            filteredCarriers?[index].isFiltered = filterableCarrier.isFiltered
         }
     }
     
@@ -78,12 +59,10 @@ struct FilterOptions {
     }
     
     mutating func resetFilters() {
-        filterableCarriers = filterableCarriers?.map({ carrier -> FilterableCarrier in
-            var carrier = carrier
-            carrier.isFiltered = false
-            return carrier
-        })
         maxStops = nil
         maxDuration = nil
+        self.filteredCarriers = FirestoreDataService.instance.carriers.map { carrier in
+            return FilterableCarrier(carrier: carrier, isFiltered: false)
+        }
     }
 }
