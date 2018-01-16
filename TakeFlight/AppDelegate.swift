@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         let _ = Firestore.firestore()
-        FlightDataService.instance.populateAirportData()
+        OldAirportService.instance.populateAirportData()
         Messaging.messaging().delegate = self
         enablePushNotifications()
         

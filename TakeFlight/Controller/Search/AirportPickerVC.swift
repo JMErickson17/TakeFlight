@@ -102,7 +102,7 @@ extension AirportPickerVC: AirportPickerVCDelegate {
     
     func airportPickerVC(_ airportPickerVC: AirportPickerVC, searchQueryDidChange: Bool, withQuery query: String) {
         if searchQueryDidChange {
-            filteredAirports = FlightDataService.instance.searchAirports(forQuery: query)
+            filteredAirports = OldAirportService.instance.searchAirports(forQuery: query)
         }
     }
 }

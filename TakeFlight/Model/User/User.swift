@@ -63,9 +63,9 @@ class User {
         self.preferredLanguage = preferredLanguage
         self.billingCountry = billingCountry
         
-        DispatchQueue.global().async {
-            self.downloadUserProfileImage(forUID: uid)
-        }
+//        DispatchQueue.global().async {
+//            self.downloadUserProfileImage(forUID: uid)
+//        }
     }
     
     convenience init(uid: String, email: String) {
@@ -104,15 +104,15 @@ class User {
     
     // MARK: Convenience
     
-    private func downloadUserProfileImage(forUID uid: String) {
-        FirebaseStorageService.instance.download(userProfileImageWithUID: uid) { (imageData, error) in
-            if let error = error { print(error) }
-            if let imageData = imageData, let profileImage = UIImage(data: imageData) {
-                self.profileImage = profileImage
-                DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: .userPropertiesDidChange, object: nil)
-                }
-            }
-        }
-    }
+//    private func downloadUserProfileImage(forUID uid: String) {
+//        FirebaseStorageService.instance.download(userProfileImageWithUID: uid) { (imageData, error) in
+//            if let error = error { print(error) }
+//            if let imageData = imageData, let profileImage = UIImage(data: imageData) {
+//                self.profileImage = profileImage
+//                DispatchQueue.main.async {
+//                    NotificationCenter.default.post(name: .userPropertiesDidChange, object: nil)
+//                }
+//            }
+//        }
+//    }
 }

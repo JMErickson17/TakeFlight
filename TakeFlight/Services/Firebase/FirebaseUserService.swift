@@ -24,6 +24,7 @@ class FirebaseUserService: UserService {
     }
 
     private let database: Firestore
+    private let userStorage: UserStorageService
     
     private var usersCollectionRef: CollectionReference {
         return database.collection("users")
@@ -45,8 +46,9 @@ class FirebaseUserService: UserService {
     
     // MARK: Lifecycle
     
-    init(database: Firestore) {
+    init(database: Firestore, userStorage: UserStorageService) {
         self.database = database
+        self.userStorage = userStorage
         addAuthListener()
     }
     
@@ -130,7 +132,7 @@ class FirebaseUserService: UserService {
     func saveToCurrentUser(profileImage image: UIImage, completion: ErrorCompletionHandler?) {
         DispatchQueue.global().async {
             if let imageData = UIImageJPEGRepresentation(image, UIImage.JPEGQuality.highest.rawValue), let currentUser = self.currentUser {
-                FirebaseStorageService.instance.upload(userProfileImage: imageData, forUser: currentUser, completion: { url, error in
+                self.userStorage.upload(userProfileImage: imageData, forUser: currentUser, completion: { url, error in
                     if let error = error, let completion = completion { return completion(error) }
                     if let url = url {
                         let updatedProfileImageURL = [UpdatableUserProperties.profileImageURL: url.absoluteString]

@@ -14,7 +14,8 @@ class LoggedInStatusView: UIView {
     // MARK: Properties
     
     // TODO: Convert to dependency injection
-    lazy var userService: UserService = FirebaseUserService(database: Firestore.firestore())
+    lazy var firebaseStorage = FirebaseStorageService(storage: Storage.storage())
+    lazy var userService: UserService = FirebaseUserService(database: Firestore.firestore(), userStorage: firebaseStorage)
     
     weak var delegate: LoggedInStatusViewDelegate?
     

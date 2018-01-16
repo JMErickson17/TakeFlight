@@ -49,7 +49,8 @@ class SearchVC: UIViewController, SearchVCDelegate {
     private lazy var userDefaults = UserDefaultsService.instance
     
     // TODO: Convert to dependency injection
-    lazy var userService: UserService = FirebaseUserService(database: Firestore.firestore())
+    lazy var firebaseStorage = FirebaseStorageService(storage: Storage.storage())
+    lazy var userService: UserService = FirebaseUserService(database: Firestore.firestore(), userStorage: firebaseStorage)
     
     private var requestManager = QPXExpress()
     private var airportPickerVC: AirportPickerVC?

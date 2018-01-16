@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Firebase
 
 enum QPXExpressError: Error {
     case corruptData
@@ -22,11 +23,13 @@ enum QPXExpressError: Error {
     }
 }
 
-struct QPXExpress {
+class QPXExpress {
     
     // MARK: Properties
     
     let networkManager: NetworkManager
+    private lazy var carrierService: CarrierService = FirebaseCarrierService(database: Firestore.firestore())
+    private lazy var airportService: AirportService = FirebaseAirportService(database: Firestore.firestore())
     
     // MARK: Life Cycle
     
@@ -63,8 +66,8 @@ struct QPXExpress {
             let response = try decodeResponse(from: data)
             let supportingData = response.trips.data
             
-            FirestoreDataService.instance.handleNewCarriers(newCarriers: response.trips.data.carrier)
-            FirestoreDataService.instance.handleNewAirports(newAirports: response.trips.data.airport)
+            carrierService.handleNewCarriers(newCarriers: response.trips.data.carrier)
+            airportService.handleNewAirports(newAirports: response.trips.data.airport)
 
             for trip in response.trips.tripOption {
                 if let flightData = try? parseTripOption(tripOption: trip, supportingData: supportingData) {

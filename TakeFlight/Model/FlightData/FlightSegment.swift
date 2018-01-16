@@ -27,11 +27,11 @@ struct FlightSegment {
         let connectionDuration: Int?
         
         var originAirport: Airport? {
-            return FlightDataService.instance.airport(forCode: origin)
+            return OldAirportService.instance.airport(forCode: origin)
         }
         
         var destinationAirport: Airport? {
-            return FlightDataService.instance.airport(forCode: destination)
+            return OldAirportService.instance.airport(forCode: destination)
         }
     }
     

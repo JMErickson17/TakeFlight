@@ -63,7 +63,8 @@ class SettingsVC: UITableViewController {
     ]
     
     // TODO: Convert to dependency injection
-    lazy var userService: UserService = FirebaseUserService(database: Firestore.firestore())
+    lazy var firebaseStorage = FirebaseStorageService(storage: Storage.storage())
+    lazy var userService: UserService = FirebaseUserService(database: Firestore.firestore(), userStorage: firebaseStorage)
     
     private var userDidUpdateListener: NSObjectProtocol?
     

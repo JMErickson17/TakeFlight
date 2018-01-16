@@ -7,8 +7,7 @@
 //
 
 import Foundation
-
-
+import Firebase
 
 struct FilterOptions {
     
@@ -21,6 +20,8 @@ struct FilterOptions {
     }
     
     // MARK: Properties
+    
+    private lazy var carrierService: CarrierService = FirebaseCarrierService(database: Firestore.firestore())
     
     private(set) var filteredCarriers: [FilterableCarrier]?
     private(set) var maxStops: MaxStops?
@@ -37,7 +38,7 @@ struct FilterOptions {
     }
     
     init() {
-        self.filteredCarriers = FirestoreDataService.instance.carriers.map { carrier in
+        self.filteredCarriers = carrierService.carriers.map { carrier in
             return FilterableCarrier(carrier: carrier, isFiltered: false)
         }
     }
@@ -61,7 +62,7 @@ struct FilterOptions {
     mutating func resetFilters() {
         maxStops = nil
         maxDuration = nil
-        self.filteredCarriers = FirestoreDataService.instance.carriers.map { carrier in
+        self.filteredCarriers = carrierService.carriers.map { carrier in
             return FilterableCarrier(carrier: carrier, isFiltered: false)
         }
     }

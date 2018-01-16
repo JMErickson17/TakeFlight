@@ -7,11 +7,11 @@
 //
 
 import Foundation
-import Alamofire
+import Firebase
 
-final class FlightDataService {
+final class OldAirportService {
     
-    static let instance = FlightDataService()
+    static let instance = OldAirportService()
     private init() {}
     
     // MARK: Airports
@@ -23,7 +23,7 @@ final class FlightDataService {
     public private(set) var airports = [Airport]()
     
     func populateAirportData() {
-        FirestoreDataService.instance.getAirports { (airports) in
+        getAirports { (airports) in
             self.airports = airports
         }
     }
@@ -37,5 +37,25 @@ final class FlightDataService {
             return airports[index]
         }
         return nil
+    }
+    
+    let REF_BASE = Constants.DB_BASE
+    let REF_AIRPORTS = Constants.DB_BASE.child("airports")
+    
+    func getAirports(completion: @escaping ([TakeFlight.Airport]) -> Void) {
+        var airports = [TakeFlight.Airport]()
+        
+        DispatchQueue.global(qos: .default).async {
+            self.REF_AIRPORTS.observeSingleEvent(of: .value, with: { (snapshot) in
+                if let snapshot = snapshot.value as? [[String: Any]] {
+                    for snap in snapshot {
+                        if let airport = TakeFlight.Airport(airportDictionary: snap) {
+                            airports.append(airport)
+                        }
+                    }
+                }
+                completion(airports)
+            })
+        }
     }
 }

@@ -19,7 +19,8 @@ class SignupVC: UIViewController {
     @IBOutlet weak var activitySpinner: UIActivityIndicatorView!
     
     // TODO: Convert to dependency injection
-    lazy var userService: UserService = FirebaseUserService(database: Firestore.firestore())
+    lazy var firebaseStorage = FirebaseStorageService(storage: Storage.storage())
+    lazy var userService: UserService = FirebaseUserService(database: Firestore.firestore(), userStorage: firebaseStorage)
     
     private var textFieldAttributes: [NSAttributedStringKey: Any] = [
         NSAttributedStringKey.foregroundColor: UIColor.white.withAlphaComponent(0.5)

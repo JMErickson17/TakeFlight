@@ -39,6 +39,10 @@
 		CA66A74F200E91C000D08E80 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA66A74E200E91C000D08E80 /* UserService.swift */; };
 		CA66A751200E960F00D08E80 /* FirebaseUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA66A750200E960F00D08E80 /* FirebaseUserService.swift */; };
 		CA66A753200E9CFC00D08E80 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA66A752200E9CFC00D08E80 /* UserDefaultsService.swift */; };
+		CA66A757200EA26B00D08E80 /* FirebaseCarrierService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA66A756200EA26B00D08E80 /* FirebaseCarrierService.swift */; };
+		CA66A75A200EA33E00D08E80 /* FirebaseFirestoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA66A759200EA33E00D08E80 /* FirebaseFirestoreError.swift */; };
+		CA66A75C200EA6E300D08E80 /* FirebaseAirportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA66A75B200EA6E300D08E80 /* FirebaseAirportService.swift */; };
+		CA66A75E200EAE6A00D08E80 /* UserStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA66A75D200EAE6A00D08E80 /* UserStorageService.swift */; };
 		CA68F1FB1FFC26A200B5CEFB /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA68F1FA1FFC26A200B5CEFB /* Profile.storyboard */; };
 		CA68F1FD1FFC2ACE00B5CEFB /* UIColor+ColorSheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA68F1FC1FFC2ACE00B5CEFB /* UIColor+ColorSheme.swift */; };
 		CA68F1FF1FFC2E9900B5CEFB /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA68F1FE1FFC2E9900B5CEFB /* Search.storyboard */; };
@@ -49,7 +53,6 @@
 		CA7C3A201FBA42FF00E4CD40 /* FlightDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7C3A1F1FBA42FF00E4CD40 /* FlightDetailsVC.swift */; };
 		CA825CD81F93A8BB006871B2 /* DatePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA825CD71F93A8BB006871B2 /* DatePickerVC.swift */; };
 		CA825CDA1F93A954006871B2 /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA825CD91F93A954006871B2 /* DatePickerCell.swift */; };
-		CA825CDD1F93BFBF006871B2 /* FirestoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA825CDC1F93BFBF006871B2 /* FirestoreDataService.swift */; };
 		CA85590B1FE747D800E72913 /* ExploreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA85590A1FE747D800E72913 /* ExploreVC.swift */; };
 		CA85590D1FE747EA00E72913 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA85590C1FE747EA00E72913 /* ProfileVC.swift */; };
 		CA8923D21F93F5F50091968B /* Airport.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8923D11F93F5F50091968B /* Airport.swift */; };
@@ -105,7 +108,7 @@
 		CAEC73E11F8144D1004D6F0B /* RoundTripFlightDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAEC73DF1F8144D1004D6F0B /* RoundTripFlightDataCell.xib */; };
 		CAEC73E41F814F2E004D6F0B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E31F814F2E004D6F0B /* Constants.swift */; };
 		CAEC73E61F81638F004D6F0B /* FlightData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E51F81638F004D6F0B /* FlightData.swift */; };
-		CAEC73E81F816BF1004D6F0B /* FlightDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E71F816BF1004D6F0B /* FlightDataService.swift */; };
+		CAEC73E81F816BF1004D6F0B /* OldAirportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E71F816BF1004D6F0B /* OldAirportService.swift */; };
 		CAEC73EA1F8184D8004D6F0B /* QPXExpress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E91F8184D8004D6F0B /* QPXExpress.swift */; };
 		CAECB8741FEA019A00F84359 /* DropDownNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAECB8731FEA019A00F84359 /* DropDownNotification.swift */; };
 		CAEDB6A41FCCB7CC0041878F /* UITableView+TopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEDB6A31FCCB7CC0041878F /* UITableView+TopCell.swift */; };
@@ -172,6 +175,10 @@
 		CA66A74E200E91C000D08E80 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		CA66A750200E960F00D08E80 /* FirebaseUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUserService.swift; sourceTree = "<group>"; };
 		CA66A752200E9CFC00D08E80 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
+		CA66A756200EA26B00D08E80 /* FirebaseCarrierService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseCarrierService.swift; sourceTree = "<group>"; };
+		CA66A759200EA33E00D08E80 /* FirebaseFirestoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFirestoreError.swift; sourceTree = "<group>"; };
+		CA66A75B200EA6E300D08E80 /* FirebaseAirportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAirportService.swift; sourceTree = "<group>"; };
+		CA66A75D200EAE6A00D08E80 /* UserStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStorageService.swift; sourceTree = "<group>"; };
 		CA68F1FA1FFC26A200B5CEFB /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		CA68F1FC1FFC2ACE00B5CEFB /* UIColor+ColorSheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ColorSheme.swift"; sourceTree = "<group>"; };
 		CA68F1FE1FFC2E9900B5CEFB /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
@@ -183,7 +190,6 @@
 		CA825CD71F93A8BB006871B2 /* DatePickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerVC.swift; sourceTree = "<group>"; };
 		CA825CD91F93A954006871B2 /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
 		CA825CDB1F93BDCA006871B2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		CA825CDC1F93BFBF006871B2 /* FirestoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreDataService.swift; sourceTree = "<group>"; };
 		CA85590A1FE747D800E72913 /* ExploreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreVC.swift; sourceTree = "<group>"; };
 		CA85590C1FE747EA00E72913 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		CA8923D11F93F5F50091968B /* Airport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Airport.swift; sourceTree = "<group>"; };
@@ -244,7 +250,7 @@
 		CAEC73DF1F8144D1004D6F0B /* RoundTripFlightDataCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoundTripFlightDataCell.xib; sourceTree = "<group>"; };
 		CAEC73E31F814F2E004D6F0B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CAEC73E51F81638F004D6F0B /* FlightData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightData.swift; sourceTree = "<group>"; };
-		CAEC73E71F816BF1004D6F0B /* FlightDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDataService.swift; sourceTree = "<group>"; };
+		CAEC73E71F816BF1004D6F0B /* OldAirportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldAirportService.swift; sourceTree = "<group>"; };
 		CAEC73E91F8184D8004D6F0B /* QPXExpress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QPXExpress.swift; sourceTree = "<group>"; };
 		CAECB8731FEA019A00F84359 /* DropDownNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownNotification.swift; sourceTree = "<group>"; };
 		CAEDB6A31FCCB7CC0041878F /* UITableView+TopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+TopCell.swift"; sourceTree = "<group>"; };
@@ -392,6 +398,33 @@
 			path = FlightCardView;
 			sourceTree = "<group>";
 		};
+		CA66A754200EA0FF00D08E80 /* Service Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				CA66A74A200E8F2100D08E80 /* CarrierService.swift */,
+				CA66A74C200E900D00D08E80 /* AirportService.swift */,
+				CA66A74E200E91C000D08E80 /* UserService.swift */,
+				CA66A75D200EAE6A00D08E80 /* UserStorageService.swift */,
+			);
+			path = "Service Protocols";
+			sourceTree = "<group>";
+		};
+		CA66A755200EA12300D08E80 /* User Defaults */ = {
+			isa = PBXGroup;
+			children = (
+				CA66A752200E9CFC00D08E80 /* UserDefaultsService.swift */,
+			);
+			path = "User Defaults";
+			sourceTree = "<group>";
+		};
+		CA66A758200EA31F00D08E80 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				CA66A759200EA33E00D08E80 /* FirebaseFirestoreError.swift */,
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
 		CA6F704F1FF8607900DD9C08 /* SortFilter Delegates */ = {
 			isa = PBXGroup;
 			children = (
@@ -408,9 +441,10 @@
 		CA6F70501FF860AA00DD9C08 /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
-				CA825CDC1F93BFBF006871B2 /* FirestoreDataService.swift */,
-				CA79FBB81FF6F18D00FEEE4B /* FirebaseStorageService.swift */,
 				CA66A750200E960F00D08E80 /* FirebaseUserService.swift */,
+				CA66A756200EA26B00D08E80 /* FirebaseCarrierService.swift */,
+				CA66A75B200EA6E300D08E80 /* FirebaseAirportService.swift */,
+				CA79FBB81FF6F18D00FEEE4B /* FirebaseStorageService.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -527,6 +561,7 @@
 			isa = PBXGroup;
 			children = (
 				CAEE8AC11FFD9BD2004558A6 /* TakeFlight.entitlements */,
+				CA66A758200EA31F00D08E80 /* Errors */,
 				CA49BB891FED7E2F00C3940C /* Notifications */,
 				CAEC73EC1F818CFA004D6F0B /* Protocols */,
 				CAEC73EB1F818CB0004D6F0B /* Extensions */,
@@ -617,13 +652,10 @@
 		CAEC73DA1F813C72004D6F0B /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				CA66A74A200E8F2100D08E80 /* CarrierService.swift */,
-				CA66A74C200E900D00D08E80 /* AirportService.swift */,
-				CA66A74E200E91C000D08E80 /* UserService.swift */,
+				CA66A755200EA12300D08E80 /* User Defaults */,
 				CA6F70501FF860AA00DD9C08 /* Firebase */,
-				CAEC73E71F816BF1004D6F0B /* FlightDataService.swift */,
+				CAEC73E71F816BF1004D6F0B /* OldAirportService.swift */,
 				CAAD01FC1FD0E23A00E76B88 /* NetworkManager.swift */,
-				CA66A752200E9CFC00D08E80 /* UserDefaultsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -663,6 +695,7 @@
 		CAEC73EC1F818CFA004D6F0B /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				CA66A754200EA0FF00D08E80 /* Service Protocols */,
 				CA6F704F1FF8607900DD9C08 /* SortFilter Delegates */,
 				CA29AA1A1F9D6A5E0047B2F1 /* SearchVCDelegate.swift */,
 				CAF3714F1FA2426E002C3455 /* DatePickerVCDelegate.swift */,
@@ -1017,11 +1050,13 @@
 				CA98C48A1FEC4DE60009D326 /* UserSearchRequest.swift in Sources */,
 				CAEDB6A61FCCCD450041878F /* FlightCardView.swift in Sources */,
 				CA5B598C1FE83BE800B08A9D /* ProfileImageView.swift in Sources */,
+				CA66A75A200EA33E00D08E80 /* FirebaseFirestoreError.swift in Sources */,
 				CA55C0F51FE99F2D008990C8 /* LoggedInStatusViewDelegate.swift in Sources */,
 				CAA6561E1FF40D2F00DB59C4 /* SortFilterVCDelegate.swift in Sources */,
 				CA55C0F31FE99965008990C8 /* LoggedInStatusView.swift in Sources */,
 				CA98C4931FEC55840009D326 /* BillingCountryPickerVC.swift in Sources */,
 				CA192CF71FF726B300943C74 /* StopFilterVCDelegate.swift in Sources */,
+				CA66A757200EA26B00D08E80 /* FirebaseCarrierService.swift in Sources */,
 				CAF371501FA2426E002C3455 /* DatePickerVCDelegate.swift in Sources */,
 				CA18454D1FD86D3B003B56C6 /* CGFloat+Lerp.swift in Sources */,
 				CAA656221FF416E000DB59C4 /* StopFilterVC.swift in Sources */,
@@ -1066,12 +1101,13 @@
 				CA2BE2CA1FEB160400DAF73F /* User.swift in Sources */,
 				CAEC73E01F8144D1004D6F0B /* RoundTripFlightDataCell.swift in Sources */,
 				CA66A753200E9CFC00D08E80 /* UserDefaultsService.swift in Sources */,
-				CAEC73E81F816BF1004D6F0B /* FlightDataService.swift in Sources */,
+				CAEC73E81F816BF1004D6F0B /* OldAirportService.swift in Sources */,
 				CA9563C51FFAFEDC00D5B3B0 /* UnderlineTextField.swift in Sources */,
 				CAA19A111FA3D1CA00A479A8 /* AirportPickerVCDelegate.swift in Sources */,
 				CAA656241FF4175500DB59C4 /* DurationFilterVC.swift in Sources */,
 				CAA656291FF423A300DB59C4 /* CarrierPickerCell.swift in Sources */,
 				CAAD01FD1FD0E23A00E76B88 /* NetworkManager.swift in Sources */,
+				CA66A75C200EA6E300D08E80 /* FirebaseAirportService.swift in Sources */,
 				CA53248A1FD8BF67002ABBC3 /* PillButton.swift in Sources */,
 				CAC6BA7A1FF3055C005307C1 /* FilterOptionCell.swift in Sources */,
 				CA85590B1FE747D800E72913 /* ExploreVC.swift in Sources */,
@@ -1080,6 +1116,7 @@
 				CAA19A0A1FA3BDD800A479A8 /* AirportPickerVC.swift in Sources */,
 				CAEC73AA1F813C29004D6F0B /* AppDelegate.swift in Sources */,
 				CA6655F51FDF4E5E00918502 /* LineView.swift in Sources */,
+				CA66A75E200EAE6A00D08E80 /* UserStorageService.swift in Sources */,
 				CAEDB6A81FCCD4900041878F /* SelectedDateView.swift in Sources */,
 				CA9B28631FCF71C700AACF29 /* FlightSegment.swift in Sources */,
 				CA7C3A201FBA42FF00E4CD40 /* FlightDetailsVC.swift in Sources */,
@@ -1090,7 +1127,6 @@
 				CACB0EA51FF55CDE00500D10 /* CarrierFilterVCDelegate.swift in Sources */,
 				CA55C0F91FE9C974008990C8 /* LoginVC.swift in Sources */,
 				CAA19A0E1FA3C08000A479A8 /* AirportPickerCell.swift in Sources */,
-				CA825CDD1F93BFBF006871B2 /* FirestoreDataService.swift in Sources */,
 				CA5328231FE7571D00867E35 /* FlightDataTableViewHeaderView.swift in Sources */,
 				CA9B20831FD5F4990008447C /* FlightDataCell.swift in Sources */,
 				CAECB8741FEA019A00F84359 /* DropDownNotification.swift in Sources */,

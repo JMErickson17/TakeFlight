@@ -9,7 +9,11 @@
 import Foundation
 
 protocol CarrierService {
+    
+    var carriers: [Carrier] { get }
+    
     func create(carrier: Carrier, completion: ErrorCompletionHandler?)
     func get(carrierWithCode code: String, completion: @escaping (Carrier?, Error?) -> Void)
     func getCarriers(completion: @escaping ([Carrier]?, Error?) -> Void)
+    func handleNewCarriers(newCarriers: [QPXExpress.Response.Carrier])
 }

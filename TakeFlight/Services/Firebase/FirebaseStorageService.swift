@@ -9,26 +9,28 @@
 import Foundation
 import Firebase
 
-final class FirebaseStorageService {
-    
-    static let instance = FirebaseStorageService()
-    private init() {}
+struct FirebaseStorageService {
     
     // MARK: Properties
     
-    private var storage: Storage {
-        return Storage.storage()
-    }
+    private var storage: Storage
     
     private var storageRef: StorageReference {
         return storage.reference()
     }
     
+    init(storage: Storage) {
+        self.storage = storage
+    }
+}
+
+// MARK:- UserStorageService
+
+extension FirebaseStorageService: UserStorageService {
+    
     private var profileImagesRef: StorageReference {
         return storageRef.child("profileImages")
     }
-    
-    // MARK: User Images
     
     func upload(userProfileImage imageData: Data, forUser user: User, completion: ((URL?, Error?) -> Void)?) {
         DispatchQueue.global().async {
