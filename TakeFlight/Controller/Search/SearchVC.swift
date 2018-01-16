@@ -11,15 +11,6 @@ import Firebase
 
 class SearchVC: UIViewController, SearchVCDelegate {
     
-    enum FlightSearchError: Error {
-        case invalidSearchData
-        case invalidRequest
-        case invalidReponse
-        case invalidUserSearchRequest
-        case responseExpired
-        case searchCancelled
-    }
-    
     enum SearchState {
         case noResults
         case searching

@@ -55,6 +55,7 @@
 		CA825CD81F93A8BB006871B2 /* DatePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA825CD71F93A8BB006871B2 /* DatePickerVC.swift */; };
 		CA825CDA1F93A954006871B2 /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA825CD91F93A954006871B2 /* DatePickerCell.swift */; };
 		CA82E687200EBCC000F7DD29 /* TypeAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA82E686200EBCC000F7DD29 /* TypeAliases.swift */; };
+		CA82E68B200EBED000F7DD29 /* FlightSearchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA82E68A200EBED000F7DD29 /* FlightSearchError.swift */; };
 		CA85590B1FE747D800E72913 /* ExploreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA85590A1FE747D800E72913 /* ExploreVC.swift */; };
 		CA85590D1FE747EA00E72913 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA85590C1FE747EA00E72913 /* ProfileVC.swift */; };
 		CA8923D21F93F5F50091968B /* Airport.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8923D11F93F5F50091968B /* Airport.swift */; };
@@ -194,6 +195,7 @@
 		CA825CD91F93A954006871B2 /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
 		CA825CDB1F93BDCA006871B2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CA82E686200EBCC000F7DD29 /* TypeAliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeAliases.swift; sourceTree = "<group>"; };
+		CA82E68A200EBED000F7DD29 /* FlightSearchError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightSearchError.swift; sourceTree = "<group>"; };
 		CA85590A1FE747D800E72913 /* ExploreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreVC.swift; sourceTree = "<group>"; };
 		CA85590C1FE747EA00E72913 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		CA8923D11F93F5F50091968B /* Airport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Airport.swift; sourceTree = "<group>"; };
@@ -426,6 +428,7 @@
 			isa = PBXGroup;
 			children = (
 				CA66A759200EA33E00D08E80 /* FirebaseFirestoreError.swift */,
+				CA82E68A200EBED000F7DD29 /* FlightSearchError.swift */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -460,6 +463,16 @@
 				CAAD01FC1FD0E23A00E76B88 /* NetworkManager.swift */,
 			);
 			path = "QPX Express";
+			sourceTree = "<group>";
+		};
+		CA82E689200EBE0700F7DD29 /* View Controller Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				CA29AA1A1F9D6A5E0047B2F1 /* SearchVCDelegate.swift */,
+				CAF3714F1FA2426E002C3455 /* DatePickerVCDelegate.swift */,
+				CAA19A101FA3D1CA00A479A8 /* AirportPickerVCDelegate.swift */,
+			);
+			path = "View Controller Delegates";
 			sourceTree = "<group>";
 		};
 		CA8559071FE7466200E72913 /* Search */ = {
@@ -710,10 +723,8 @@
 			isa = PBXGroup;
 			children = (
 				CA66A754200EA0FF00D08E80 /* Service Protocols */,
+				CA82E689200EBE0700F7DD29 /* View Controller Delegates */,
 				CA6F704F1FF8607900DD9C08 /* SortFilter Delegates */,
-				CA29AA1A1F9D6A5E0047B2F1 /* SearchVCDelegate.swift */,
-				CAF3714F1FA2426E002C3455 /* DatePickerVCDelegate.swift */,
-				CAA19A101FA3D1CA00A479A8 /* AirportPickerVCDelegate.swift */,
 				CAF35CB51FE22EBA0074B60B /* TakeoffLoadingViewDelegate.swift */,
 				CA55C0F41FE99F2D008990C8 /* LoggedInStatusViewDelegate.swift */,
 			);
@@ -1085,6 +1096,7 @@
 				CAEC73AC1F813C29004D6F0B /* SearchVC.swift in Sources */,
 				CA98C4911FEC52EA0009D326 /* LanguagePickerVC.swift in Sources */,
 				CAF35CB41FE1F4850074B60B /* TakeoffLoadingView.swift in Sources */,
+				CA82E68B200EBED000F7DD29 /* FlightSearchError.swift in Sources */,
 				CAEE8AC31FFD9E78004558A6 /* Carrier.swift in Sources */,
 				CA5B224E1FF967D200F36B7E /* StatusButton.swift in Sources */,
 				CAC6BA761FF2F4D1005307C1 /* SortFilterVC.swift in Sources */,
