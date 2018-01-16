@@ -39,8 +39,8 @@ final class OldAirportService {
         return nil
     }
     
-    let REF_BASE = Constants.DB_BASE
-    let REF_AIRPORTS = Constants.DB_BASE.child("airports")
+    private static let REF_BASE = Database.database().reference()
+    private let REF_AIRPORTS = REF_BASE.child("airports")
     
     func getAirports(completion: @escaping ([TakeFlight.Airport]) -> Void) {
         var airports = [TakeFlight.Airport]()

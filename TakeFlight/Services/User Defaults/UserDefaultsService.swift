@@ -10,8 +10,12 @@ import Foundation
 
 class UserDefaultsService {
     
+    // MARK: Singleton
+    
     static let instance = UserDefaultsService()
     private init() {}
+    
+    // MARK: Properties
     
     private var defaults: UserDefaults {
         return UserDefaults.standard
@@ -25,56 +29,58 @@ class UserDefaultsService {
         return JSONDecoder()
     }
     
+    // MARK: UserDefaults Properties
+    
     var origin: Airport? {
         get {
-            if let data: Data = defaults.object(forKey: Constants.USER_ORIGIN_KEY) as? Data {
+            if let data: Data = defaults.object(forKey: UserDefaults.Keys.UserOrigin) as? Data {
                 return try! decoder.decode(Airport.self, from: data)
             }
             return nil
         }
         set {
             let data = try? encoder.encode(newValue)
-            defaults.set(data, forKey: Constants.USER_ORIGIN_KEY)
+            defaults.set(data, forKey: UserDefaults.Keys.UserOrigin)
         }
     }
     
     var destination: Airport? {
         get {
-            if let data: Data = defaults.object(forKey: Constants.USER_DESTINATION_KEY) as? Data {
+            if let data: Data = defaults.object(forKey: UserDefaults.Keys.UserDestination) as? Data {
                 return try! decoder.decode(Airport.self, from: data)
             }
             return nil
         }
         set {
             let data = try? encoder.encode(newValue)
-            defaults.set(data, forKey: Constants.USER_DESTINATION_KEY)
+            defaults.set(data, forKey: UserDefaults.Keys.UserDestination)
         }
     }
     
     var departureDate: Date? {
         get {
-            return defaults.object(forKey: Constants.USER_DEPARTURE_DATE_KEY) as? Date
+            return defaults.object(forKey: UserDefaults.Keys.UserDepartureDate) as? Date
         }
         set {
-            defaults.set(newValue, forKey: Constants.USER_DEPARTURE_DATE_KEY)
+            defaults.set(newValue, forKey: UserDefaults.Keys.UserDepartureDate)
         }
     }
     
     var returnDate: Date? {
         get {
-            return defaults.object(forKey: Constants.USER_RETURN_DATE_KEY) as? Date
+            return defaults.object(forKey: UserDefaults.Keys.UserReturnDate) as? Date
         }
         set {
-            defaults.set(newValue, forKey: Constants.USER_RETURN_DATE_KEY)
+            defaults.set(newValue, forKey: UserDefaults.Keys.UserReturnDate)
         }
     }
     
     var searchType: String? {
         get {
-            return defaults.string(forKey: Constants.USER_SEARCH_TYPE_KEY)
+            return defaults.string(forKey: UserDefaults.Keys.SearchType)
         }
         set {
-            defaults.set(newValue, forKey: Constants.USER_SEARCH_TYPE_KEY)
+            defaults.set(newValue, forKey: UserDefaults.Keys.SearchType)
         }
     }
 }
