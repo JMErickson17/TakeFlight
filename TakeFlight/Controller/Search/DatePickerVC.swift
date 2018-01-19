@@ -9,11 +9,29 @@
 import UIKit
 import JTAppleCalendar
 
-class DatePickerVC: UIViewController, DatePickerVCDelegate {
+class DatePickerVC: UIViewController {
     
     // MARK: Properties
     
-    var delegate: SearchVCDelegate?
+    weak var delegate: DatePickerVCDelegate?
+    
+    private let userDefaults = UserDefaultsService.instance
+    
+    var departureDate: Date? {
+        didSet {
+            if let departureDate = departureDate {
+                delegate?.datePickerVC(self, didUpdateDepartureDate: departureDate)
+            }
+        }
+    }
+    
+    var returnDate: Date? {
+        didSet {
+            if let returnDate = returnDate {
+                delegate?.datePickerVC(self, didUpdateReturnDate: returnDate)
+            }
+        }
+    }
     
     private let centerTooltipLocation: CGFloat = 0.50
     private let departureTooltipLocation: CGFloat = 0.25
@@ -76,20 +94,18 @@ class DatePickerVC: UIViewController, DatePickerVCDelegate {
     }
     
     func setupCalendar() {
-        guard delegate != nil else { return datePickerVC(self, dismissViewController: true) }
-        
         calendarView.calendarDelegate = self
         calendarView.calendarDataSource = self
         
         calendarView.register(UINib(nibName: Constants.MONTH_SECTION_HEADER_VIEW, bundle: nil), forSupplementaryViewOfKind: "UICollectionElementKindSectionHeader", withReuseIdentifier: Constants.MONTH_SECTION_HEADER_VIEW)
         calendarView.register(DatePickerCell.self, forCellWithReuseIdentifier: Constants.DATE_PICKER_CELL)
         
-        switch delegate!.selectedSearchType {
+        switch userDefaults.searchType {
         case .oneWay:
             calendarView.allowsMultipleSelection = false
             calendarView.isRangeSelectionUsed = false
             
-            if let departureDate = delegate!.departureDate {
+            if let departureDate = departureDate {
                 calendarView.selectDates([departureDate], triggerSelectionDelegate: false, keepSelectionIfMultiSelectionAllowed: true)
                 calendarView.scrollToHeaderForDate(departureDate)
             }
@@ -98,7 +114,7 @@ class DatePickerVC: UIViewController, DatePickerVCDelegate {
             calendarView.allowsMultipleSelection = true
             calendarView.isRangeSelectionUsed = true
             
-            if let departureDate = delegate!.departureDate, let returnDate = delegate!.returnDate {
+            if let departureDate = departureDate, let returnDate = returnDate {
                 guard departureDate < returnDate else { clearAllDates(); break }
                 calendarView.selectDates(from: departureDate, to: returnDate, triggerSelectionDelegate: false, keepSelectionIfMultiSelectionAllowed: true)
             }
@@ -107,32 +123,38 @@ class DatePickerVC: UIViewController, DatePickerVCDelegate {
     
     // MARK: Convenience
     
-    @objc func datePickerVC(_ datePickerVC: DatePickerVC, dismissViewController: Bool) {
-        if dismissViewController {
-            delegate?.searchVC(delegate as! SearchVC, dismissDatePicker: true)
+    var datesSelected: SelectedState {
+        if departureDate == nil && returnDate == nil {
+            return .none
+        } else if departureDate != nil && returnDate == nil {
+            return .departure
+        } else if departureDate != nil && returnDate != nil {
+            return .departureAndReturn
         }
+        clearAllDates()
+        return .none
     }
     
     private func clearAllDates() {
-        if let delegate = delegate as? SearchVC {
-            delegate.searchVC(delegate, clearDates: true)
-            calendarView.deselectAllDates()
-            calendarView.reloadData()
-        }
+        departureDate = nil
+        returnDate = nil
+        calendarView.deselectAllDates(triggerSelectionDelegate: false)
+        calendarView.reloadData()
+        delegate?.datePickerVC(self, didClearDates: true)
     }
     
-    func datePickerVC(_ datePickerVC: DatePickerVC, moveTooltip: Bool, forSelectedState selectedState: SelectedState) {
-        if moveTooltip {
-            switch selectedState {
-            case.none:
-                tooltipView.animateTooltip(to: departureTooltipLocation, withDuration: 1.0)
-            case .departure:
-                tooltipView.animateTooltip(to: returnTooltipLocation, withDuration: 1.0)
-            case .departureAndReturn:
-                tooltipView.animateTooltip(to: centerTooltipLocation, withDuration: 1.0)
-            }
-        }
-    }
+//    func datePickerVC(_ datePickerVC: DatePickerVC, moveTooltip: Bool, forSelectedState selectedState: SelectedState) {
+//        if moveTooltip {
+//            switch selectedState {
+//            case.none:
+//                tooltipView.animateTooltip(to: departureTooltipLocation, withDuration: 1.0)
+//            case .departure:
+//                tooltipView.animateTooltip(to: returnTooltipLocation, withDuration: 1.0)
+//            case .departureAndReturn:
+//                tooltipView.animateTooltip(to: centerTooltipLocation, withDuration: 1.0)
+//            }
+//        }
+//    }
 }
 
 // MARK: - JTAppleCalendarViewDelegate
@@ -154,21 +176,19 @@ extension DatePickerVC: JTAppleCalendarViewDelegate {
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
-        guard delegate != nil else { return }
-        
         if let firstVisibleDate = visibleDates.indates.first?.date,
             let lastVisibleDate = visibleDates.outdates.last?.date {
             let visibleDateRange = DateRange(startDate: firstVisibleDate, endDate: lastVisibleDate)
             
-            switch delegate!.datesSelected {
+            switch datesSelected {
             case .none:
                 break
             case .departure:
-                if let departureDate = delegate!.departureDate, visibleDateRange.contains(date: departureDate) {
+                if let departureDate = departureDate, visibleDateRange.contains(date: departureDate) {
                     calendar.selectDates([departureDate], triggerSelectionDelegate: false, keepSelectionIfMultiSelectionAllowed: true)
                 }
             case .departureAndReturn:
-                if let departureDate = delegate!.departureDate, let returnDate = delegate!.returnDate {
+                if let departureDate = departureDate, let returnDate = returnDate {
                     calendar.selectDates(from: departureDate, to: returnDate, triggerSelectionDelegate: false, keepSelectionIfMultiSelectionAllowed: true)
                 }
             }
@@ -181,35 +201,38 @@ extension DatePickerVC: JTAppleCalendarViewDelegate {
     }
 
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
-        guard delegate != nil else { return }
-        let datesSelected = delegate!.datesSelected
+        guard let cell = cell as? DatePickerCell else { return }
         
-        if let cell = cell as? DatePickerCell {
-            if delegate!.selectedSearchType == .oneWay {
-                delegate!.departureDate = date
+        switch userDefaults.searchType {
+        case .oneWay:
+            departureDate = date
+            cell.configureCell(withCellState: cellState)
+        case .roundTrip:
+            switch datesSelected {
+            case .none:
+                departureDate = date
                 cell.configureCell(withCellState: cellState)
-            } else {
-                switch datesSelected {
-                case .none:
-                    delegate!.departureDate = date
-                    cell.configureCell(withCellState: cellState)
-                case .departure:
-                    guard date > delegate!.departureDate! else { clearAllDates(); break }
-                    delegate?.returnDate = date
-                    calendar.selectDates(from: delegate!.departureDate!, to: delegate!.returnDate!, triggerSelectionDelegate: false, keepSelectionIfMultiSelectionAllowed: true)
-                case .departureAndReturn:
-                    clearAllDates()
+            case .departure:
+                if let departureDate = departureDate {
+                    if date < departureDate { return clearAllDates() }
                 }
+                returnDate = date
+                if let departureDate = departureDate, let returnDate = returnDate {
+                    calendar.selectDates(from: departureDate,
+                                         to: returnDate,
+                                         triggerSelectionDelegate: false,
+                                         keepSelectionIfMultiSelectionAllowed: true)
+                }
+            case .departureAndReturn:
+                clearAllDates()
             }
         }
         calendar.reloadData()
     }
     
     func calendar(_ calendar: JTAppleCalendarView, shouldDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState) -> Bool {
-        if let delegate = delegate {
-            if delegate.datesSelected != .none {
-                clearAllDates()
-            }
+        if datesSelected != .none {
+            clearAllDates()
         }
         return true
     }
@@ -232,7 +255,7 @@ extension DatePickerVC: JTAppleCalendarViewDelegate {
     }
 }
 
-// MARK: - JTAppleCalendarViewDataSource
+// MARK:- JTAppleCalendarViewDataSource
 
 extension DatePickerVC: JTAppleCalendarViewDataSource {
     
@@ -246,5 +269,13 @@ extension DatePickerVC: JTAppleCalendarViewDataSource {
             startDate: startDate,
             endDate: endDate)
         return parameters
+    }
+}
+
+// MARK:- MonthSectionHeaderViewDelegate
+
+extension DatePickerVC: MonthSectionHeaderViewDelegate {
+    func monthSectionHeaderView(_ MonthSectionHeaderView: MonthSectionHeaderView, shouldDismiss: Bool) {
+        delegate?.datePickerVC(self, shouldDismiss: shouldDismiss)
     }
 }

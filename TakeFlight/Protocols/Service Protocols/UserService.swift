@@ -20,6 +20,6 @@ protocol UserService {
     func sendVerificationEmailToCurrentUser(completion: @escaping (Bool, Error?) -> Void)
     func saveToCurrentUser(updatedProperties: [UpdatableUserProperties: Any], completion: ErrorCompletionHandler?)
     func saveToCurrentUser(profileImage image: UIImage, completion: ErrorCompletionHandler?)
-    func saveToCurrentUser(userSearchRequest request: UserSearchRequest, completion: ErrorCompletionHandler?)
+    func saveToCurrentUser(userSearchRequest request: FlightSearchRequest, completion: ErrorCompletionHandler?)
     func clearCurrentUserSearchHistory(completion: ErrorCompletionHandler?)
 }

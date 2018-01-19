@@ -9,5 +9,5 @@
 import Foundation
 
 protocol CarrierFilterVCDelegate: class {
-    func carrierFilterVC(_ carrierFilterVC: CarrierFilterVC, didUpdateCarrier carrier: FilterableCarrier)
+    func carrierFilterVC(_ carrierFilterVC: CarrierFilterVC, didUpdateCarrierData carrierData: CarrierData)
 }

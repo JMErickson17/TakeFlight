@@ -9,6 +9,9 @@
 import Foundation
 
 protocol SortFilterVCDelegate: class {
-    func sortFilterVC(_ sortFilterVC: SortFilterVC, sortOptionDidChangeTo option: SortOptions.Option)
-    func sortFilterVC(_ sortFilterVC: SortFilterVC, filterOptionsDidChangeTo options: FilterOptions?)
+    func sortFilterVC(_ sortFilterVC: SortFilterVC, sortOptionDidChangeTo option: SortOption)
+    func sortFilterVC(_ sortFilterVC: SortFilterVC, carrierDataDidChangeTo carrierData: [CarrierData])
+    func sortFilterVC(_ sortFilterVC: SortFilterVC, maxStopsDidChangeTo stops: MaxStops)
+    func sortFilterVC(_ sortFilterVC: SortFilterVC, maxDurationDidChangeTo duration: Hour)
+    func sortFilterVCDidResetSortAndFilter(_ sortFilterVC: SortFilterVC)
 }

@@ -19,24 +19,31 @@ class CarrierFilterVC: UITableViewController {
     private enum SectionType {
         case includedInCurrentResults
         case notIncludedInCurrentResults
+        
+        var title: String {
+            switch self {
+            case .includedInCurrentResults:
+                return "In Current Search"
+            case .notIncludedInCurrentResults:
+                return "All"
+            }
+        }
     }
     
     private struct Section {
         var type: SectionType
-        var items: [FilterableCarrier]
+        var items: [CarrierData]
     }
     
     // MARK: Properties
     
     weak var delegate: CarrierFilterVCDelegate?
-    
-    var filteredCarriers: [FilterableCarrier]?
-    var carriersInCurrentSearch: [FilterableCarrier]?
+    var carrierData: [CarrierData]?
     
     private lazy var sections: [Section] = {
         let sections = [
-            Section(type: .includedInCurrentResults, items: filteredCarriers ?? [FilterableCarrier]()),
-            Section(type: .notIncludedInCurrentResults, items: filteredCarriers  ?? [FilterableCarrier]())
+            Section(type: .includedInCurrentResults, items: (carrierData?.filter { $0.isInCurrentSearch == true }) ?? [CarrierData]()),
+            Section(type: .notIncludedInCurrentResults, items: (carrierData?.filter { $0.isInCurrentSearch == false }) ?? [CarrierData]())
         ]
         return sections
     }()
@@ -49,11 +56,19 @@ class CarrierFilterVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.carrierPickerCell, for: indexPath) as? CarrierPickerCell {
-            guard let filteredCarriers = filteredCarriers else { return UITableViewCell() }
-            let carrier = filteredCarriers[indexPath.row]
-            cell.delegate = self
-            cell.configureCell(withFilterableCarrier: carrier)
-            return cell
+            switch indexPath.section {
+            case 0:
+                let carrier = sections[0].items[indexPath.row]
+                cell.delegate = self
+                cell.configureCell(withCarrierData: carrier)
+                return cell
+            case 1:
+                let carrier = sections[1].items[indexPath.row]
+                cell.delegate = self
+                cell.configureCell(withCarrierData: carrier)
+                return cell
+            default: break
+            }
         }
         return UITableViewCell()
     }
@@ -63,17 +78,25 @@ class CarrierFilterVC: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredCarriers?.count ?? 0
+        return sections[section].items.count
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections[section].type.title
     }
 }
 
 // MARK: - CarrierFilterVC+CarrierPickerCellDelegate
 
 extension CarrierFilterVC: CarrierPickerCellDelegate {
-    func carrierPickerCell(_ carrierPickerCell: CarrierPickerCell, didUpdateCarrier carrier: FilterableCarrier) {
-        if let index = filteredCarriers?.index(where: { $0.carrier == carrier.carrier }) {
-            filteredCarriers?[index] = carrier
-            delegate?.carrierFilterVC(self, didUpdateCarrier: carrier)
+    func carrierPickerCell(_ carrierPickerCell: CarrierPickerCell, didUpdateCarrierData carrierData: CarrierData) {
+        if let index = self.carrierData?.index(where: { $0.carrier == carrierData.carrier}) {
+            self.carrierData?[index] = carrierData
+            delegate?.carrierFilterVC(self, didUpdateCarrierData: carrierData)
         }
     }
 }

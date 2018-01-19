@@ -9,6 +9,10 @@
 import UIKit
 import JTAppleCalendar
 
+protocol MonthSectionHeaderViewDelegate: class {
+    func monthSectionHeaderView(_ MonthSectionHeaderView: MonthSectionHeaderView, shouldDismiss: Bool)
+}
+
 class MonthSectionHeaderView: JTAppleCollectionReusableView {
 
     // MARK: Properties
@@ -16,11 +20,11 @@ class MonthSectionHeaderView: JTAppleCollectionReusableView {
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var yearLabel: UILabel!
     
-    weak var delegate: DatePickerVCDelegate?
+    weak var delegate: MonthSectionHeaderViewDelegate?
     
     // MARK: Convenience
     
-    func configureHeader(withDate date: Date, delegate: DatePickerVCDelegate?) {
+    func configureHeader(withDate date: Date, delegate: MonthSectionHeaderViewDelegate?) {
         self.monthLabel.text = date.toMonth()
         self.yearLabel.text = date.toYear()
         self.delegate = delegate
@@ -29,6 +33,6 @@ class MonthSectionHeaderView: JTAppleCollectionReusableView {
     // MARK: Actions
     
     @IBAction func datesSelectedButtonTapped(_ sender: Any) {
-        delegate?.datePickerVC(delegate as! DatePickerVC, dismissViewController: true)
+        delegate?.monthSectionHeaderView(self, shouldDismiss: true)
     }
 }

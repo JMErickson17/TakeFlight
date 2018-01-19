@@ -9,5 +9,7 @@
 import Foundation
 
 protocol AirportPickerVCDelegate: class {
-    func airportPickerVC(_ airportPickerVC: AirportPickerVC, searchQueryDidChange: Bool, withQuery query: String)
+    func airportPickerVC(_ airportPickerVC: AirportPickerVC, didPickOriginAirport airport: Airport)
+    func airportPickerVC(_ airportPickerVC: AirportPickerVC, didPickDestinationAirport airport: Airport)
+    func airportPickerVC(_ airportPickerVC: AirportPickerVC, shouldDismiss: Bool)
 }

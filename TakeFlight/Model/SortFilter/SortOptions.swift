@@ -2,24 +2,24 @@
 //  SortOptions.swift
 //  TakeFlight
 //
-//  Created by Justin Erickson on 12/28/17.
-//  Copyright © 2017 Justin Erickson. All rights reserved.
+//  Created by Justin Erickson on 1/18/18.
+//  Copyright © 2018 Justin Erickson. All rights reserved.
 //
 
 import Foundation
 
-struct SortOptions {
+enum SortOption: SortFilterOption {
+    case price
+    case duration
+    case takeoffTime
+    case landingTime
     
-    enum Option: String, SortFilterOption {
-        case price = "Price"
-        case duration = "Duration"
-        case takeoffTime = "Takeoff Time"
-        case landingTime = "Landing Time"
-    }
-    
-    private(set) var selectedSortOption: Option = .price
-    
-    mutating func setSelectedSortOption(to option: Option) {
-        self.selectedSortOption = option
+    var description: String {
+        switch self {
+        case .price: return "Price"
+        case .duration: return "Duration"
+        case .takeoffTime: return "Takeoff Time"
+        case .landingTime: return "Landing Time"
+        }
     }
 }

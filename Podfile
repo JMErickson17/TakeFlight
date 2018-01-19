@@ -15,6 +15,9 @@ target 'TakeFlight' do
   pod 'Firebase/Storage'
   pod 'Firebase/Messaging'
   pod 'RSKImageCropper'
+  pod 'RxSwift',  '~> 4.0'
+  pod 'RxCocoa',  '~> 4.0'
+
 
   target 'TakeFlightTests' do
     inherit! :search_paths

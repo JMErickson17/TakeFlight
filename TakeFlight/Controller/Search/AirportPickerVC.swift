@@ -12,7 +12,8 @@ class AirportPickerVC: UIViewController {
     
     // MARK: Properties
     
-    var delegate: SearchVCDelegate?
+    weak var delegate: AirportPickerVCDelegate?
+    
     var currentTextFieldTag: Int?
     
     private var maxSearchResults = 20
@@ -57,6 +58,10 @@ class AirportPickerVC: UIViewController {
         tableView.frame = CGRect(x: 5, y: 5, width: tooltipView.bounds.width - 10, height: tooltipView.bounds.height - 10)
         tooltipView.addSubview(tableView)
     }
+    
+    func searchQuery(didChangeTo query: String) {
+        filteredAirports = OldAirportService.instance.searchAirports(forQuery: query)
+    }
 }
 
 // MARK: - UITableView
@@ -78,13 +83,14 @@ extension AirportPickerVC: UITableViewDelegate, UITableViewDataSource {
         
         switch currentTextFieldTag {
         case 1:
-            delegate?.origin = airport
+            delegate?.airportPickerVC(self, didPickOriginAirport: airport)
         case 2:
-            delegate?.destination = airport
+            delegate?.airportPickerVC(self, didPickDestinationAirport: airport)
         default:
             return
         }
-        delegate?.searchVC(delegate as! SearchVC, dismissAirportPicker: true)
+        
+        delegate?.airportPickerVC(self, shouldDismiss: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -93,16 +99,5 @@ extension AirportPickerVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredAirports.count > maxSearchResults ? maxSearchResults : filteredAirports.count
-    }
-}
-
-// MARK: UISearchController
-
-extension AirportPickerVC: AirportPickerVCDelegate {
-    
-    func airportPickerVC(_ airportPickerVC: AirportPickerVC, searchQueryDidChange: Bool, withQuery query: String) {
-        if searchQueryDidChange {
-            filteredAirports = OldAirportService.instance.searchAirports(forQuery: query)
-        }
     }
 }

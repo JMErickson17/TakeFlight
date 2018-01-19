@@ -16,7 +16,7 @@ class CarrierPickerCell: UITableViewCell {
     @IBOutlet weak var carrierLabel: UILabel!
     @IBOutlet weak var carrierFilterSwitch: UISwitch!
     
-    var carrier: FilterableCarrier?
+    var carrierData: CarrierData?
     weak var delegate: CarrierPickerCellDelegate?
     
     private let carrierImages: [String: UIImage] = [
@@ -36,18 +36,19 @@ class CarrierPickerCell: UITableViewCell {
     // MARK: Actions
     
     @IBAction func filterCarrierSwitchDidChange(_ sender: Any) {
-        carrier?.isFiltered = !carrierFilterSwitch.isOn
-        if let carrier = carrier {
-            delegate?.carrierPickerCell(self, didUpdateCarrier: carrier)
+        
+        carrierData?.isFiltered = !carrierFilterSwitch.isOn
+        if let carrierData = carrierData {
+            delegate?.carrierPickerCell(self, didUpdateCarrierData: carrierData)
         }
     }
 
     // MARK: Convenience
     
-    func configureCell(withFilterableCarrier carrier: FilterableCarrier) {
-        self.carrier = carrier
-        carrierLabel.text = carrier.carrier.name
-        carrierFilterSwitch.isOn = !carrier.isFiltered
-        carrierImage.image = carrierImages[carrier.carrier.code]
+    func configureCell(withCarrierData data: CarrierData) {
+        self.carrierData = data
+        carrierLabel.text = data.carrier.name
+        carrierFilterSwitch.isOn = !data.isFiltered
+        carrierImage.image = carrierImages[data.carrier.code]
     }
 }

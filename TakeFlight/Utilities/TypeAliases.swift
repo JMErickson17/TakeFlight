@@ -10,6 +10,7 @@ import Foundation
 
 typealias JSONRepresentable = [String: Any]
 typealias Hour = Int
+typealias CarrierData = (carrier: Carrier, isInCurrentSearch: Bool, isFiltered: Bool)
 
 // MARK: Completion Handlers
 

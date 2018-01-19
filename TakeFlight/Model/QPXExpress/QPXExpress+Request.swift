@@ -190,4 +190,16 @@ extension QPXExpress {
         }
         return request
     }
+    
+    func makeQPXRequest(withUserRequest userRequest: FlightSearchRequest) -> Request? {
+        guard let origin = userRequest.origin else { return nil }
+        guard let destination = userRequest.destination else { return nil }
+        guard let departureDate = userRequest.departureDate else { return nil }
+        
+        
+        return makeQPXRequest(adultCount: userRequest.numberOfAdultPassengers,
+                              from: origin, to: destination,
+                              departing: departureDate,
+                              returning: userRequest.returnDate)
+    }
 }

@@ -75,12 +75,15 @@ class UserDefaultsService {
         }
     }
     
-    var searchType: String? {
+    var searchType: SearchType {
         get {
-            return defaults.string(forKey: UserDefaults.Keys.SearchType)
+            if let searchType = defaults.object(forKey: UserDefaults.Keys.SearchType) as? String {
+                return SearchType(rawValue: searchType) ?? .oneWay
+            }
+            return .oneWay
         }
         set {
-            defaults.set(newValue, forKey: UserDefaults.Keys.SearchType)
+            defaults.set(newValue.rawValue, forKey: UserDefaults.Keys.SearchType)
         }
     }
 }

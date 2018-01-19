@@ -148,7 +148,7 @@ class FirebaseUserService: UserService {
         }
     }
     
-    func saveToCurrentUser(userSearchRequest request: UserSearchRequest, completion: ErrorCompletionHandler?) {
+    func saveToCurrentUser(userSearchRequest request: FlightSearchRequest, completion: ErrorCompletionHandler?) {
         DispatchQueue.global().async {
             if let currentUserSearchHistoryCollectionRef = self.currentUserSearchHistoryCollectionRef {
                 currentUserSearchHistoryCollectionRef.addDocument(data: request.dictionaryRepresentation, completion: { (error) in
