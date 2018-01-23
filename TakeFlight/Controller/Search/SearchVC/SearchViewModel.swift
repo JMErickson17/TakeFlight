@@ -8,21 +8,19 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 struct SearchViewModel {
     
     // MARK: View Controller Properties
     
-    var originText = Variable<String>("")
-    var destinationText = Variable<String>("")
-    var departureDateText = Variable<String>("")
-    var returnDateText = Variable<String>("")
-    var selectedSearchType = Variable<SearchType>(.oneWay)
-    var currentSearchState = Variable<SearchState?>(nil)
-    var flights = Variable<[FlightData]>([])
-    
-    var flightSearchRequest = FlightSearchRequest()
-    var flightDataManager = FlightDataManager()
+    private(set) var originText = Variable<String>("")
+    private(set) var destinationText = Variable<String>("")
+    private(set) var departureDateText = Variable<String>("")
+    private(set) var returnDateText = Variable<String>("")
+    private(set) var selectedSearchType = Variable<SearchType>(.oneWay)
+    private(set) var currentSearchState = Variable<SearchState?>(nil)
+    private(set) var flights = Variable<[FlightData]>([])
     
     var origin: Airport? {
         didSet {
@@ -95,8 +93,11 @@ struct SearchViewModel {
         return headerString
     }
     
+    var flightDataManager = FlightDataManager()
+    
     // MARK: Private Properties
     
+    private var flightSearchRequest = FlightSearchRequest()
     private let requestManager: QPXExpress
     private let userService: UserService
     private let carrierService: CarrierService
@@ -129,67 +130,75 @@ struct SearchViewModel {
         }
     }
     
+    // MARK: Convenience
+    
     private func formatted(date: Date?) -> String {
         guard let date = date else { return "" }
         return formatter.string(from: date)
     }
     
+    // MARK: Configuration
+    
     private mutating func configureViewModel(for searchType: SearchType) {
-        switch searchType {
-        case .oneWay:
-            returnDate = nil
-            
-        case .roundTrip: break
+        if searchType == .oneWay {
+            self.returnDate = nil
         }
         userDefaults.searchType = searchType
         selectedSearchType.value = searchType
-        removeAllFlights()
-        currentSearchState.value = .noResults
+        
+        if currentSearchState.value == .searching {
+            currentSearchState.value = .cancelled
+        } else {
+            removeAllFlights()
+            currentSearchState.value = .noResults
+        }
         searchFlights()
     }
     
     // MARK: Search Methods
     
     func searchFlights() {
-        if flightSearchRequest.isValid(for: searchType), let qpxRequest = requestManager.makeQPXRequest(withUserRequest: flightSearchRequest) {
-            currentSearchState.value = .searching
-            saveToCurrentUser(request: flightSearchRequest)
+        guard flightSearchRequest.isValid(for: searchType) else { return }
+        guard let qpxRequest = requestManager.makeQPXRequest(withUserRequest: flightSearchRequest) else { return }
+        saveToCurrentUser(request: flightSearchRequest)
+        self.fetchFlightData(with: qpxRequest)
+    }
+    
+    private func fetchFlightData(with request: QPXExpress.Request) {
+        currentSearchState.value = .searching
+        requestManager.fetch(qpxRequest: request) { (flightData, error) in
+            guard self.currentSearchState.value != .cancelled else { return self.handleSearchError(FlightSearchError.searchCancelled) }
+            if let error = error { return self.handleSearchError(error) }
+            guard let flightData = flightData else { return self.handleSearchError(FlightSearchError.invalidReponse) }
             
-            requestManager.fetch(qpxRequest: qpxRequest, completion: { (flightData, error) in
-                if let error = error { return self.handleSearchError(error) }
-                if let flightData = flightData {
-                    self.handleNewFlightData(flightData)
-                } else {
-                    self.handleSearchError(FlightSearchError.invalidReponse)
-                }
-            })
+            self.handleNewFlightData(flightData)
         }
     }
     
     private func handleNewFlightData(_ flightData: [FlightData]) {
-        guard currentSearchState.value != .cancelled else { handleSearchError(FlightSearchError.searchCancelled); return }
+        guard !flightData.isEmpty else {
+            removeAllFlights()
+            currentSearchState.value = .noResults
+            return
+        }
         
         self.flightDataManager.flightData = flightData
-        self.flights.value = flightDataManager.processedFlightData
-        if flights.value.count == 0 {
-            currentSearchState.value = .noResults
-        } else {
-            currentSearchState.value = .someResults
-        }
+        self.currentSearchState.value = .someResults
+        updateFlights()
     }
     
     private func handleSearchError(_ error: Error) {
-        self.flights.value.removeAll()
-        
-        if let flightSearchError = error as? FlightSearchError {
-            if flightSearchError == .searchCancelled {
+        if let error = error as? FlightSearchError {
+            switch error {
+            case .searchCancelled:
+                removeAllFlights()
                 currentSearchState.value = .noResults
-                searchFlights()
-                return
+            case .invalidReponse:
+                removeAllFlights()
+                currentSearchState.value = .noResults 
+            default: break
             }
         }
-        currentSearchState.value = .noResults
-        print(error)
     }
     
     func updateFlights() {

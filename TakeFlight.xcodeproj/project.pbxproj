@@ -21,7 +21,6 @@
 		CA3290171F9D2E650083EED7 /* MonthSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3290161F9D2E650083EED7 /* MonthSectionHeaderView.swift */; };
 		CA32901B1F9D5B650083EED7 /* Date+Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA32901A1F9D5B650083EED7 /* Date+Strings.swift */; };
 		CA3E532B20110F9F00148910 /* FlightDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3E532A20110F9F00148910 /* FlightDataManager.swift */; };
-		CA3E532D20113F8C00148910 /* SliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3E532C20113F8C00148910 /* SliderCell.swift */; };
 		CA3E532F20117CFB00148910 /* SortOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3E532E20117CFB00148910 /* SortOptions.swift */; };
 		CA3E533120117D1D00148910 /* FlightFilterOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3E533020117D1D00148910 /* FlightFilterOptions.swift */; };
 		CA488D851FEDD06F00CA06D2 /* UpdatableUserProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA488D841FEDD06F00CA06D2 /* UpdatableUserProperties.swift */; };
@@ -163,7 +162,6 @@
 		CA3290161F9D2E650083EED7 /* MonthSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthSectionHeaderView.swift; sourceTree = "<group>"; };
 		CA32901A1F9D5B650083EED7 /* Date+Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Strings.swift"; sourceTree = "<group>"; };
 		CA3E532A20110F9F00148910 /* FlightDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDataManager.swift; sourceTree = "<group>"; };
-		CA3E532C20113F8C00148910 /* SliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderCell.swift; sourceTree = "<group>"; };
 		CA3E532E20117CFB00148910 /* SortOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOptions.swift; sourceTree = "<group>"; };
 		CA3E533020117D1D00148910 /* FlightFilterOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightFilterOptions.swift; sourceTree = "<group>"; };
 		CA488D841FEDD06F00CA06D2 /* UpdatableUserProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatableUserProperties.swift; sourceTree = "<group>"; };
@@ -572,7 +570,6 @@
 				CAC6BA771FF303E5005307C1 /* SortOptionCell.swift */,
 				CAC6BA791FF3055C005307C1 /* FilterOptionCell.swift */,
 				CAA656281FF423A300DB59C4 /* CarrierPickerCell.swift */,
-				CA3E532C20113F8C00148910 /* SliderCell.swift */,
 			);
 			path = SortFilterCells;
 			sourceTree = "<group>";
@@ -1097,7 +1094,6 @@
 				CAEDB6A61FCCCD450041878F /* FlightCardView.swift in Sources */,
 				CA5B598C1FE83BE800B08A9D /* ProfileImageView.swift in Sources */,
 				CA66A75A200EA33E00D08E80 /* FirebaseFirestoreError.swift in Sources */,
-				CA3E532D20113F8C00148910 /* SliderCell.swift in Sources */,
 				CA55C0F51FE99F2D008990C8 /* LoggedInStatusViewDelegate.swift in Sources */,
 				CAA6561E1FF40D2F00DB59C4 /* SortFilterVCDelegate.swift in Sources */,
 				CA55C0F31FE99965008990C8 /* LoggedInStatusView.swift in Sources */,

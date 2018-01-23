@@ -21,22 +21,22 @@ struct FlightSearchRequest {
         numberOfAdultPassengers = 1
     }
     
-    init(origin: Airport, destination: Airport, departureDate: Date, returnDate: Date?, numberOfAdultPassengers: Int) {
+    init(origin: Airport?, destination: Airport?, departureDate: Date?, returnDate: Date?, numberOfAdultPassengers: Int? = 1) {
         self.timeStamp = Date()
         self.origin = origin
         self.destination = destination
         self.departureDate = departureDate
         self.returnDate = returnDate
-        self.numberOfAdultPassengers = numberOfAdultPassengers
+        self.numberOfAdultPassengers = numberOfAdultPassengers!
     }
     
     var dictionaryRepresentation: [String: Any] {
         return [
             "timeStamp": timeStamp,
-            "origin": origin?.identifier,
-            "destination": destination?.identifier,
-            "departureDate": departureDate,
-            "returnDate": returnDate
+            "origin": origin?.identifier as Any,
+            "destination": destination?.identifier as Any,
+            "departureDate": departureDate as Any,
+            "returnDate": returnDate as Any
         ]
     }
     

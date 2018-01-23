@@ -5,7 +5,6 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,38 +21,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="lem-7k-EPf">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="70" id="MOH-De-67S" customClass="SliderCell" customModule="TakeFlight" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="70"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MOH-De-67S" id="11V-gw-4y5">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8A8-0H-ZSk">
-                                                    <rect key="frame" x="318" y="11" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="3dQ-d1-ySu">
-                                                    <rect key="frame" x="13" y="29" width="349" height="31"/>
-                                                </slider>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="8A8-0H-ZSk" firstAttribute="top" secondItem="11V-gw-4y5" secondAttribute="topMargin" id="4Hu-ew-A6i"/>
-                                                <constraint firstItem="8A8-0H-ZSk" firstAttribute="trailing" secondItem="11V-gw-4y5" secondAttribute="trailingMargin" id="Uap-Ud-16V"/>
-                                                <constraint firstItem="3dQ-d1-ySu" firstAttribute="bottom" secondItem="11V-gw-4y5" secondAttribute="bottomMargin" id="YrM-ZV-OFM"/>
-                                                <constraint firstItem="3dQ-d1-ySu" firstAttribute="trailing" secondItem="11V-gw-4y5" secondAttribute="trailingMargin" id="uJB-0g-zMG"/>
-                                                <constraint firstItem="3dQ-d1-ySu" firstAttribute="leading" secondItem="11V-gw-4y5" secondAttribute="leadingMargin" id="uJs-cJ-S7A"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="label" destination="8A8-0H-ZSk" id="Xf9-Jp-vOM"/>
-                                            <outlet property="slider" destination="3dQ-d1-ySu" id="gZM-qs-dPG"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
