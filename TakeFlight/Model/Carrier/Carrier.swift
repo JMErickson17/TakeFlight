@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Carrier {
+struct Carrier: Codable {
     var name: String
     var code: String
     
@@ -31,6 +31,8 @@ struct Carrier {
     }
 }
 
+// MARK: Carrier+Hashable
+
 extension Carrier: Hashable {
     var hashValue: Int {
         return name.hashValue ^ code.hashValue
@@ -40,3 +42,5 @@ extension Carrier: Hashable {
         return lhs.name == rhs.name && lhs.code == rhs.code
     }
 }
+
+

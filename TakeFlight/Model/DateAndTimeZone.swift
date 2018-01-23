@@ -8,9 +8,16 @@
 
 import Foundation
 
-struct DateAndTimeZone {
+struct DateAndTimeZone: Codable {
     var date: Date
     var timeZone: Int
+    
+//    var dictionaryRepresentation: [String: Any] {
+//        return [
+//            "date": String(describing: date),
+//            "timeZone": timeZone
+//        ]
+//    }
     
     func toLocalDateAndTimeString(withFormatter formatter: DateFormatter) -> String {
         formatter.timeZone = TimeZone(secondsFromGMT: timeZone)

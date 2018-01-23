@@ -103,6 +103,12 @@ class SearchVC: UIViewController {
         originTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         destinationTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
+        if let userDepartureDate = viewModel.departureDate {
+            if userDepartureDate < Date() {
+                clearDates()
+            }
+        }
+        
         view.addSubview(activitySpinner)
         NSLayoutConstraint.activate([
             activitySpinner.centerXAnchor.constraint(equalTo: flightDataTableView.centerXAnchor),

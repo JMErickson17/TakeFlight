@@ -102,6 +102,7 @@
 		CAD1A0321FE318C50052E16A /* IconAndLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD1A0311FE318C50052E16A /* IconAndLabelView.swift */; };
 		CAD6FC291FE19B7300691A8B /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD6FC281FE19B7300691A8B /* TimelineView.swift */; };
 		CAEBDBC92017BB68006C2F43 /* CarrierData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEBDBC82017BB68006C2F43 /* CarrierData.swift */; };
+		CAEBDBCB2017C4FF006C2F43 /* FlightData+DictionaryRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEBDBCA2017C4FF006C2F43 /* FlightData+DictionaryRepresentation.swift */; };
 		CAEC73AA1F813C29004D6F0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73A91F813C29004D6F0B /* AppDelegate.swift */; };
 		CAEC73AC1F813C29004D6F0B /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73AB1F813C29004D6F0B /* SearchVC.swift */; };
 		CAEC73AF1F813C29004D6F0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAEC73AD1F813C29004D6F0B /* Main.storyboard */; };
@@ -244,6 +245,7 @@
 		CAD1A0311FE318C50052E16A /* IconAndLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconAndLabelView.swift; sourceTree = "<group>"; };
 		CAD6FC281FE19B7300691A8B /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
 		CAEBDBC82017BB68006C2F43 /* CarrierData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrierData.swift; sourceTree = "<group>"; };
+		CAEBDBCA2017C4FF006C2F43 /* FlightData+DictionaryRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlightData+DictionaryRepresentation.swift"; sourceTree = "<group>"; };
 		CAEC73A61F813C29004D6F0B /* TakeFlight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TakeFlight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAEC73A91F813C29004D6F0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CAEC73AB1F813C29004D6F0B /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
@@ -357,6 +359,7 @@
 				CA9B28621FCF71C700AACF29 /* FlightSegment.swift */,
 				CAEC73E51F81638F004D6F0B /* FlightData.swift */,
 				CA3E532A20110F9F00148910 /* FlightDataManager.swift */,
+				CAEBDBCA2017C4FF006C2F43 /* FlightData+DictionaryRepresentation.swift */,
 			);
 			path = FlightData;
 			sourceTree = "<group>";
@@ -1171,6 +1174,7 @@
 				CA85590B1FE747D800E72913 /* ExploreVC.swift in Sources */,
 				CAAF0CDB1FCE1F6A0089BF74 /* QPXExpress+Response.swift in Sources */,
 				CAF3714E1FA232EE002C3455 /* SelectedState.swift in Sources */,
+				CAEBDBCB2017C4FF006C2F43 /* FlightData+DictionaryRepresentation.swift in Sources */,
 				CAA19A0A1FA3BDD800A479A8 /* AirportPickerVC.swift in Sources */,
 				CAEC73AA1F813C29004D6F0B /* AppDelegate.swift in Sources */,
 				CA6655F51FDF4E5E00918502 /* LineView.swift in Sources */,

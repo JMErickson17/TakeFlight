@@ -44,6 +44,13 @@ class FirebaseUserService: UserService {
         return nil
     }
     
+    private var currentUserSavedFlightsCollectionRef: CollectionReference? {
+        if let currentUserRef = currentUserRef {
+            return currentUserRef.collection("savedFlights")
+        }
+        return nil
+    }
+    
     // MARK: Lifecycle
     
     init(database: Firestore, userStorage: UserStorageService) {
@@ -157,6 +164,40 @@ class FirebaseUserService: UserService {
                         // NotificationCenter.default.post(name: .userPropertiesDidChange, object: nil)
                     }
                 })
+            }
+        }
+    }
+    
+    func saveToCurrentUser(flightData: FlightData, completion: ErrorCompletionHandler?) {
+        DispatchQueue.global(qos: .background).async {
+            guard let data = try? JSONEncoder().encode(flightData) else { return /* Throw error */ }
+            guard let flightDataDictionary = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) as? JSONRepresentable else { return /* Throw error */ }
+            if let currentUserSavedFlightsCollectionRef = self.currentUserSavedFlightsCollectionRef {
+                currentUserSavedFlightsCollectionRef.addDocument(data: flightDataDictionary, completion: { error in
+                    DispatchQueue.main.async {
+                        completion?(error)
+                    }
+                })
+            }
+        }
+    }
+    
+    func getSavedFlightsForCurrentUser(completion: @escaping ([FlightData]?, Error?) -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let currentUserSavedFlightsCollectionRef = self.currentUserSavedFlightsCollectionRef {
+                currentUserSavedFlightsCollectionRef.getDocuments { snapshot, error in
+                    if let error = error { return completion(nil, error) }
+                    guard let snapshot = snapshot else { return completion(nil, nil) /* Throw error */ }
+                    let savedFlights: [FlightData] = snapshot.documents.flatMap { flightData in
+                        if let data = try? JSONSerialization.data(withJSONObject: flightData.data(), options: JSONSerialization.WritingOptions.sortedKeys) {
+                            return try? JSONDecoder().decode(FlightData.self, from: data)
+                        }
+                        return nil
+                    }
+                    DispatchQueue.main.async {
+                        completion(savedFlights, nil)
+                    }
+                }
             }
         }
     }

@@ -8,9 +8,9 @@
 
 import Foundation
 
-struct FlightSegment {
+struct FlightSegment: Codable {
     
-    struct Leg {
+    struct Leg: Codable {
         let id: String
         let aircraft: String
         let departureTime: DateAndTimeZone
@@ -78,6 +78,8 @@ struct FlightSegment {
     var mileage: Int {
         return legs.reduce(0, { $0 + $1.mileage})
     }
+    
+    
 }
 
 // MARK: - Flight Segment: CustomStringConvertable

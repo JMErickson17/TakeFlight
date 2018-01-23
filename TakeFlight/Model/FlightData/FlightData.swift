@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct FlightData {
+struct FlightData: Codable {
     
     private(set) var departingFlight: Flight
     private(set) var returningFlight: Flight?
@@ -86,9 +86,13 @@ extension FlightData: CustomStringConvertible {
 
 extension FlightData {
     
-    struct Flight {
+    struct Flight: Codable {
         
         let segments: [FlightSegment]
+        
+        enum CodingKeys: String, CodingKey {
+            case segments
+        }
         
         private let carrierImages: [String: UIImage] = [
             "AS": #imageLiteral(resourceName: "AlaskaAirlinesLogo"),

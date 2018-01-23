@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
     
@@ -79,6 +80,7 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
         button.layer.shadowRadius = 5
         button.layer.shadowOpacity = 0.5
         button.layer.shadowOffset = CGSize.zero
+        button.addTarget(self, action: #selector(saveFlight), for: .touchUpInside)
         return button
     }()
 
@@ -178,5 +180,13 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         priceLabel.text = formatter.string(from: price)
+    }
+    
+    @objc func saveFlight() {
+        let firebaseStorage = FirebaseStorageService(storage: Storage.storage())
+        let userService: FirebaseUserService = FirebaseUserService(database: Firestore.firestore(), userStorage: firebaseStorage)
+        userService.saveToCurrentUser(flightData: flightData!) { (error) in
+            if let error = error { print(error) }
+        }
     }
 }
