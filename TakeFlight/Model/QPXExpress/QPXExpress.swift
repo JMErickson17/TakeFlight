@@ -72,6 +72,8 @@ class QPXExpress {
             for trip in response.trips.tripOption {
                 if let flightData = try? parseTripOption(tripOption: trip, supportingData: supportingData) {
                     flightDataArray.append(flightData)
+                    
+                    print("Booking code: \(flightData.completeBookingCode)")
                 }
             }
         } catch {

@@ -54,6 +54,10 @@ struct FlightData {
     var isRoundTrip: Bool {
         return returningFlight != nil
     }
+    
+    var completeBookingCode: String {
+        return isRoundTrip ? (departingFlight.bookingCode + " " + returningFlight!.bookingCode) : departingFlight.bookingCode
+    }
 }
 
 extension FlightData: CustomStringConvertible {
@@ -125,11 +129,7 @@ extension FlightData {
         }
         
         var bookingCode: String {
-            if segments.count == 1 {
-                return segments[0].bookingCode
-            } else {
-                return "Multi Segment"
-            }
+            return segments.map { $0.carrier.code + $0.flightNumber }.joined(separator: " ")
         }
         
         var segmentDescription: String {

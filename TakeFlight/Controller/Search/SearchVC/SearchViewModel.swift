@@ -72,8 +72,7 @@ struct SearchViewModel {
             let currentSearchCarriers = flightDataManager.flightData.map { $0.departingFlight.carrier }
             let filteredCarriers = flightDataManager.filterOptions.filteredCarriers
             return carrierService.carriers.map { carrier in
-                return (carrier: carrier, isInCurrentSearch: currentSearchCarriers.contains(carrier),
-                        isFiltered: filteredCarriers.contains(carrier))
+                return CarrierData(carrier: carrier, isInCurrentSearch: currentSearchCarriers.contains(carrier), isFiltered: filteredCarriers.contains(carrier))
             }
         }
         set {
@@ -131,6 +130,16 @@ struct SearchViewModel {
     }
     
     // MARK: Convenience
+    
+    mutating func resetSortAndFilters() {
+        sortOption = .price
+        flightDataManager.filterOptions.resetFilters()
+        carrierData = carrierService.carriers.map { carrier in
+            CarrierData(carrier: carrier,
+                        isInCurrentSearch: flightDataManager.flightData.map { $0.departingFlight.carrier }.contains(carrier),
+                        isFiltered: false)
+        }
+    }
     
     private func formatted(date: Date?) -> String {
         guard let date = date else { return "" }

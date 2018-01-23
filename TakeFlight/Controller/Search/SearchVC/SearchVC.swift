@@ -82,7 +82,7 @@ class SearchVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if viewModel.flights.value.isEmpty && shouldSearch {
+        if viewModel.flightDataManager.flightData.isEmpty && shouldSearch {
             viewModel.searchFlights()
         }
     }
@@ -478,7 +478,8 @@ extension SearchVC: AirportPickerVCDelegate {
 
 extension SearchVC: SortFilterVCDelegate {
     func sortFilterVCDidResetSortAndFilter(_ sortFilterVC: SortFilterVC) {
-        // TODO: Handle filter reset
+        self.viewModel.resetSortAndFilters()
+        self.viewModel.updateFlights()
     }
     
     func sortFilterVC(_ sortFilterVC: SortFilterVC, carrierDataDidChangeTo carrierData: [CarrierData]) {
@@ -487,13 +488,16 @@ extension SearchVC: SortFilterVCDelegate {
     
     func sortFilterVC(_ sortFilterVC: SortFilterVC, sortOptionDidChangeTo option: SortOption) {
         self.viewModel.sortOption = option
+        self.viewModel.updateFlights()
     }
     
     func sortFilterVC(_ sortFilterVC: SortFilterVC, maxStopsDidChangeTo stops: MaxStops) {
         self.viewModel.flightDataManager.filterOptions.maxStops = stops
+        self.viewModel.updateFlights()
     }
     
     func sortFilterVC(_ sortFilterVC: SortFilterVC, maxDurationDidChangeTo duration: Hour) {
         self.viewModel.flightDataManager.filterOptions.maxDuration = duration
+        self.viewModel.updateFlights()
     }
 }
