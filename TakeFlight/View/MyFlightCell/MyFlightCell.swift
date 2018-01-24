@@ -10,6 +10,12 @@ import UIKit
 
 class MyFlightCell: UITableViewCell {
     
+    // MARK: Properties
+    
+    @IBOutlet weak var myFlightCardView: MyFlightCardView!
+    
+    private var flightData: FlightData?
+    
     private lazy var noFlightsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -19,25 +25,30 @@ class MyFlightCell: UITableViewCell {
         label.text = "You don't have any upcoming flights.\nFind your next flight using the search tab."
         return label
     }()
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder: ) has not been implemented")
-    }
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    // MARK: Lifecycle
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
         
         setupView()
     }
+    
+    // MARK: Setup
 
     private func setupView() {
-        self.layer.cornerRadius = 5
-        self.clipsToBounds = true
-        
         addSubview(noFlightsLabel)
         NSLayoutConstraint.activate([
             noFlightsLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             noFlightsLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
+    }
+    
+    // MARK: Convenience
+    
+    func configureCell(with flightData: FlightData) {
+        noFlightsLabel.isHidden = true
+        self.flightData = flightData
+        myFlightCardView.configureCard(with: flightData)
     }
 }

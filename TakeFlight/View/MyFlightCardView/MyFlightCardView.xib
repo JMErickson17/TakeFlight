@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MyFlightCardView" customModule="TakeFlight" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="iN0-l3-epB" id="GZK-nd-0UA"/>
+                <outlet property="destinationLabel" destination="CCJ-Rc-i9F" id="kMs-um-Acu"/>
+                <outlet property="longDescriptionLabel" destination="GpI-Vn-ngv" id="het-Aq-HAI"/>
+                <outlet property="originLabel" destination="odt-tB-rpf" id="vZi-r1-E3t"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GpI-Vn-ngv">
+                    <rect key="frame" x="16" y="0.0" width="343" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="odt-tB-rpf">
+                    <rect key="frame" x="30" y="65" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CCJ-Rc-i9F">
+                    <rect key="frame" x="303" y="65" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Airplane Icon" translatesAutoresizingMaskIntoConstraints="NO" id="75d-Mw-C6f">
+                    <rect key="frame" x="149.5" y="38" width="75" height="75"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="75" id="Y7a-G4-fpV"/>
+                        <constraint firstAttribute="height" constant="75" id="lTV-PC-qoe"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="GpI-Vn-ngv" secondAttribute="trailing" constant="16" id="2sY-hc-eXY"/>
+                <constraint firstItem="GpI-Vn-ngv" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="8P6-vE-64d"/>
+                <constraint firstItem="GpI-Vn-ngv" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="Qbt-LP-7Ix"/>
+                <constraint firstItem="odt-tB-rpf" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Ra3-oJ-eqH"/>
+                <constraint firstItem="75d-Mw-C6f" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="ejg-Qm-61N"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="CCJ-Rc-i9F" secondAttribute="trailing" constant="30" id="lyl-oS-c7T"/>
+                <constraint firstItem="CCJ-Rc-i9F" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="qdp-M9-mk1"/>
+                <constraint firstItem="odt-tB-rpf" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="30" id="s6P-36-b6y"/>
+                <constraint firstItem="75d-Mw-C6f" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="uxF-Oa-FUF"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="24.5" y="-207"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Airplane Icon" width="221" height="215"/>
+    </resources>
+</document>

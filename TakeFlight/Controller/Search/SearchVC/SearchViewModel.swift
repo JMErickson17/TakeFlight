@@ -197,16 +197,21 @@ struct SearchViewModel {
     }
     
     private func handleSearchError(_ error: Error) {
-        if let error = error as? FlightSearchError {
-            switch error {
-            case .searchCancelled:
-                removeAllFlights()
-                currentSearchState.value = .noResults
-            case .invalidReponse:
-                removeAllFlights()
-                currentSearchState.value = .noResults 
-            default: break
-            }
+        guard let flightSearchError = error as? FlightSearchError else {
+            removeAllFlights()
+            currentSearchState.value = .noResults
+            print(error)
+            return
+        }
+        
+        switch flightSearchError {
+        case .searchCancelled:
+            removeAllFlights()
+            currentSearchState.value = .noResults
+        case .invalidReponse:
+            removeAllFlights()
+            currentSearchState.value = .noResults
+        default: break
         }
     }
     

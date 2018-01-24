@@ -25,10 +25,13 @@ class SearchVC: UIViewController {
     @IBOutlet weak var searchContainerView: UIView!
     @IBOutlet weak var refineButton: StatusButton!
     
-    private lazy var firebaseStorage = FirebaseStorageService(storage: Storage.storage())
-    private lazy var userService: UserService = FirebaseUserService(database: Firestore.firestore(), userStorage: firebaseStorage)
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    lazy var userService: UserService = appDelegate.firebaseUserService!
+    
     private lazy var carrierService: CarrierService = FirebaseCarrierService(database: Firestore.firestore())
-    private lazy var viewModel = SearchViewModel(requestManager: QPXExpress(), userService: userService, carrierService: carrierService)
+    private lazy var viewModel = SearchViewModel(requestManager: QPXExpress(),
+                                                 userService: userService,
+                                                 carrierService: carrierService)
     private var disposeBag = DisposeBag()
     private var airportPickerVC: AirportPickerVC?
     private var datePickerVC: DatePickerVC?

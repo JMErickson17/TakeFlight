@@ -30,7 +30,7 @@ class ProfileVC: UIViewController {
     
     private struct Section {
         var type: SectionType
-        var items: [Any]
+        var items: [FlightData]
     }
     
     private struct Segment {
@@ -48,10 +48,17 @@ class ProfileVC: UIViewController {
     private var userPropertiesDidChangeListener: NSObjectProtocol?
     private var tableData: [Segment]!
     
-    // TODO: Convert to dependency injection
-    lazy var firebaseStorage = FirebaseStorageService(storage: Storage.storage())
-    lazy var userService: UserService = FirebaseUserService(database: Firestore.firestore(), userStorage: firebaseStorage)
+    private var savedFlights: [FlightData]? {
+        didSet {
+            if let savedFlights = savedFlights {
+                tableData[SegmentType.savedFlights.rawValue].sections[0].items = savedFlights
+                myFlightsTableView.reloadData()
+            }
+        }
+    }
     
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    lazy var userService: UserService = appDelegate.firebaseUserService!
     
     private lazy var imagePicker: UIImagePickerController = {
         let imagePicker = UIImagePickerController()
@@ -112,17 +119,23 @@ class ProfileVC: UIViewController {
     private func setupTableView() {
         myFlightsTableView.delegate = self
         myFlightsTableView.dataSource = self
-        myFlightsTableView.register(MyFlightCell.self, forCellReuseIdentifier: "MyFlightCell")
         
         tableData = [
             Segment(type: .purchasedFlights, sections: [
-                Section(type: .upcomingFlights, items: [MyFlightCell()]),
-                Section(type: .pastFlights, items: [MyFlightCell()])
+                Section(type: .upcomingFlights, items: []),
+                Section(type: .pastFlights, items: [])
             ]),
             Segment(type: .savedFlights, sections: [
-                Section(type: .savedFlights, items: [MyFlightCell()])
+                Section(type: .savedFlights, items: [])
             ])
         ]
+        
+        userService.getSavedFlightsForCurrentUser { flightData, error in
+            if let error = error { return print(error) }
+            if let flightData = flightData {
+                self.savedFlights = flightData
+            }
+        }
     }
     
     // MARK: Convenience
@@ -206,8 +219,8 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MyFlightCell", for: indexPath) as? MyFlightCell {
-            let _ = tableData[myFlightsSegmentControl.selectedSegmentIndex].sections[indexPath.section].items[indexPath.row]
-            // Do some stuff
+            let flightData = tableData[myFlightsSegmentControl.selectedSegmentIndex].sections[indexPath.section].items[indexPath.row]
+            cell.configureCell(with: flightData)
             return cell
         }
         return UITableViewCell()

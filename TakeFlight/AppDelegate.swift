@@ -15,11 +15,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let gcmMessageIDKey = "gcm.message_id"
+    
+    // MARK: Firebase Services
+    var firebaseStorage: FirebaseStorageService?
+    var firebaseUserService: UserService?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         FirebaseApp.configure()
-        let _ = Firestore.firestore()
+        let firestore = Firestore.firestore()
+        let storage = Storage.storage()
+        self.firebaseStorage = FirebaseStorageService(storage: storage)
+        self.firebaseUserService = FirebaseUserService(database: firestore, userStorage: firebaseStorage!)
         OldAirportService.instance.populateAirportData()
         Messaging.messaging().delegate = self
         enablePushNotifications()
