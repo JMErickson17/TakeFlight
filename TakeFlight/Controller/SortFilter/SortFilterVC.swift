@@ -103,6 +103,25 @@ class SortFilterVC: UIViewController {
     
     // MARK: Convenience
     
+    private func makeCellDetailLabel(for filterOption: FilterOption) -> String? {
+        switch filterOption {
+        case .airlines:
+            if let filteredCarriersCount = self.carrierData?.filter( { $0.isFiltered == true } ).count {
+                return "Filtering \(filteredCarriersCount) \((filteredCarriersCount == 1 ? "Carrier" : "Carriers"))"
+            }
+        case .duration:
+            if let duration = self.filterOptions?.maxDuration {
+                let durationString = String(duration).capitalized
+                return "\(durationString) Hours Max"
+            }
+        case .stops:
+            if let stops = self.filterOptions?.maxStops {
+                return "\(stops.description) Stops Max"
+            }
+        }
+        return nil
+    }
+    
     @objc private func handleResetButtonTapped() {
         selectedSortOption = .price
         filterOptions?.resetFilters()
@@ -134,7 +153,7 @@ extension SortFilterVC: UITableViewDelegate, UITableViewDataSource {
         } else if indexPath.section == 1 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.filterOptionCell, for: indexPath) as? FilterOptionCell {
                 let option = tableData[1].items[indexPath.row] as! FilterOption
-                cell.configureCell(labelText: option.description, detailText: "")
+                cell.configureCell(labelText: option.description, detailText: makeCellDetailLabel(for: option))
                 return cell
             }
         }
@@ -173,6 +192,7 @@ extension SortFilterVC: CarrierFilterVCDelegate {
         if let index = self.carrierData?.index(where: { $0.carrier == carrierData.carrier }) {
             guard self.carrierData != nil else { return }
             self.carrierData![index] = carrierData
+            tableView.reloadRows(at: [IndexPath(row: 0, section: 1)], with: .top)
             delegate?.sortFilterVC(self, carrierDataDidChangeTo: self.carrierData!)
         }
     }

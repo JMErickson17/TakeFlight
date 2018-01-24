@@ -25,6 +25,7 @@ class FilterOptionCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = .lightGray
         label.numberOfLines = 2
+        label.textAlignment = .right
         return label
     }()
     

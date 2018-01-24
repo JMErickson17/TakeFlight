@@ -41,7 +41,6 @@ class SearchVC: UIViewController {
     }
     
     // TODO: Setup refine button state
-    // TODO: Handle cancel
 
     private lazy var emptyFlightsLabel: UILabel = {
         let label = UILabel()
@@ -329,8 +328,7 @@ class SearchVC: UIViewController {
     
     private func presentFlightDetails(forCellAt indexPath: IndexPath, completion: (() -> Void)? = nil) {
         let data = viewModel.flights.value[indexPath.row]
-        let flightDetailsVC = FlightDetailsVC()
-        flightDetailsVC.flightData = data
+        let flightDetailsVC = FlightDetailsVCFactory.makeFlightDetailsVC(with: data)
         navigationController?.pushViewController(flightDetailsVC, animated: true)
     }
 }

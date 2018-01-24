@@ -34,9 +34,16 @@ class MyFlightCell: UITableViewCell {
         setupView()
     }
     
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        myFlightCardView.containingCell(isSelected: highlighted)
+        
+    }
+    
     // MARK: Setup
 
     private func setupView() {
+        selectionStyle = .none
+        
         addSubview(noFlightsLabel)
         NSLayoutConstraint.activate([
             noFlightsLabel.centerXAnchor.constraint(equalTo: centerXAnchor),

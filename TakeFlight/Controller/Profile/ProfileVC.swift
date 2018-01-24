@@ -97,6 +97,7 @@ class ProfileVC: UIViewController {
 
         updateViewForCurrentUser()
         addUserPropertiesDidChangeListener()
+        self.tabBarController?.tabBar.isHidden = false
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -224,6 +225,13 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let flightData = tableData[myFlightsSegmentControl.selectedSegmentIndex].sections[indexPath.section].items[indexPath.row]
+        let flightDetailsVC = FlightDetailsVCFactory.makeFlightDetailsVC(with: flightData)
+        navigationController?.pushViewController(flightDetailsVC, animated: true)
     }
     
     

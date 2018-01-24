@@ -102,6 +102,7 @@
 		CAD1A0321FE318C50052E16A /* IconAndLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD1A0311FE318C50052E16A /* IconAndLabelView.swift */; };
 		CAD659BD2018008A006AB441 /* MyFlightCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD659BC2018008A006AB441 /* MyFlightCardView.swift */; };
 		CAD659BF201800EB006AB441 /* MyFlightCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAD659BE201800EB006AB441 /* MyFlightCardView.xib */; };
+		CAD659C220180C81006AB441 /* FlightDetailsVCFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD659C120180C81006AB441 /* FlightDetailsVCFactory.swift */; };
 		CAD6FC291FE19B7300691A8B /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD6FC281FE19B7300691A8B /* TimelineView.swift */; };
 		CAEBDBC92017BB68006C2F43 /* CarrierData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEBDBC82017BB68006C2F43 /* CarrierData.swift */; };
 		CAEBDBCB2017C4FF006C2F43 /* FlightData+DictionaryRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEBDBCA2017C4FF006C2F43 /* FlightData+DictionaryRepresentation.swift */; };
@@ -247,6 +248,7 @@
 		CAD1A0311FE318C50052E16A /* IconAndLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconAndLabelView.swift; sourceTree = "<group>"; };
 		CAD659BC2018008A006AB441 /* MyFlightCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFlightCardView.swift; sourceTree = "<group>"; };
 		CAD659BE201800EB006AB441 /* MyFlightCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyFlightCardView.xib; sourceTree = "<group>"; };
+		CAD659C120180C81006AB441 /* FlightDetailsVCFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDetailsVCFactory.swift; sourceTree = "<group>"; };
 		CAD6FC281FE19B7300691A8B /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
 		CAEBDBC82017BB68006C2F43 /* CarrierData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrierData.swift; sourceTree = "<group>"; };
 		CAEBDBCA2017C4FF006C2F43 /* FlightData+DictionaryRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlightData+DictionaryRepresentation.swift"; sourceTree = "<group>"; };
@@ -592,6 +594,14 @@
 			path = MyFlightCardView;
 			sourceTree = "<group>";
 		};
+		CAD659C020180C41006AB441 /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+				CAD659C120180C81006AB441 /* FlightDetailsVCFactory.swift */,
+			);
+			path = Factories;
+			sourceTree = "<group>";
+		};
 		CAEBDBC72017BB37006C2F43 /* Carrier */ = {
 			isa = PBXGroup;
 			children = (
@@ -626,6 +636,7 @@
 		CAEC73A81F813C29004D6F0B /* TakeFlight */ = {
 			isa = PBXGroup;
 			children = (
+				CAD659C020180C41006AB441 /* Factories */,
 				CAEE8AC11FFD9BD2004558A6 /* TakeFlight.entitlements */,
 				CA66A758200EA31F00D08E80 /* Errors */,
 				CA49BB891FED7E2F00C3940C /* Notifications */,
@@ -1155,6 +1166,7 @@
 				CA82E68E200EC84000F7DD29 /* SearchViewModel.swift in Sources */,
 				CA29AA1B1F9D6A5E0047B2F1 /* SearchVCDelegate.swift in Sources */,
 				CA2BE2CC1FEB463900DAF73F /* Notification+Name.swift in Sources */,
+				CAD659C220180C81006AB441 /* FlightDetailsVCFactory.swift in Sources */,
 				CAEBDBC92017BB68006C2F43 /* CarrierData.swift in Sources */,
 				CAA99F781FF9835F008D4A4D /* PickerVC.swift in Sources */,
 				CAA0C71A1FABE77B00FAFD69 /* DateRange.swift in Sources */,

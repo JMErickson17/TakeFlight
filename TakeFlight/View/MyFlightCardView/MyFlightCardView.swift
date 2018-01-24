@@ -43,3 +43,13 @@ class MyFlightCardView: UIView {
     }
 
 }
+
+extension MyFlightCardView {
+    func containingCell(isSelected: Bool) {
+        if isSelected {
+            contentView.backgroundColor = UIColor.lightGray
+        } else {
+            contentView.backgroundColor = UIColor.white
+        }
+    }
+}
