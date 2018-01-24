@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Spring
 
 class MyFlightCardView: UIView {
     
@@ -21,6 +22,7 @@ class MyFlightCardView: UIView {
 
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var longDescriptionLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var stopCountLabel: UILabel!
     @IBOutlet weak var originLabel: UILabel!
@@ -28,8 +30,9 @@ class MyFlightCardView: UIView {
     @IBOutlet weak var destinationLabel: UILabel!
     @IBOutlet weak var arrivalTimeLabel: UILabel!
     @IBOutlet weak var airlineLabel: UILabel!
+    @IBOutlet weak var flightTypeLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var airplaneImage: UIImageView!
+    @IBOutlet weak var airplaneImage: SpringImageView!
     
     private var flightData: FlightData?
     private var cardState: CardState = .departingFlight {
@@ -72,20 +75,32 @@ class MyFlightCardView: UIView {
         switch state {
         case .departingFlight:
             UIView.animate(withDuration: 0.5, animations: {
-                self.configureCardForDepartingFlight()
-                self.airplaneImage.transform = CGAffineTransform(rotationAngle: CGFloat.pi - 3.12159)
+                self.airplaneImage.transform = CGAffineTransform(rotationAngle: CGFloat.pi + 3.12159)
             })
+            
+            UIView.transition(with: contentView,
+                              duration: 0.5,
+                              options: .transitionCrossDissolve,
+                              animations: configureCardForDepartingFlight,
+                              completion: nil)
+            
         case .returningFlight:
             UIView.animate(withDuration: 0.5, animations: {
-                self.configureCardForReturningFlight()
                 self.airplaneImage.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
             })
+            
+            UIView.transition(with: contentView,
+                              duration: 0.5,
+                              options: [.transitionCrossDissolve, .allowAnimatedContent],
+                              animations: configureCardForReturningFlight,
+                              completion: nil)
         }
     }
     
     private func configureCardForDepartingFlight() {
         guard let flightData = flightData else { return }
         self.longDescriptionLabel.text = flightData.longDescription
+        self.dateLabel.text = makeDateString(with: flightData.departingFlight.departureTime)
         self.durationLabel.text = makeDurationString(withDuration: flightData.departingFlight.duration)
         self.stopCountLabel.attributedText = makeStopCountString(with: flightData.departingFlight.stopCount)
         self.originLabel.text = flightData.departingFlight.originAirportCode
@@ -93,6 +108,7 @@ class MyFlightCardView: UIView {
         self.destinationLabel.text = flightData.departingFlight.destinationAirportCode
         self.arrivalTimeLabel.attributedText = makeTimeString(with: flightData.departingFlight.arrivalTime)
         self.airlineLabel.text = flightData.departingFlight.carrier.name
+        self.flightTypeLabel.text = (flightData.isRoundTrip ? "Round Trip" : "One Way")
         self.priceLabel.text = makePriceString(withPrice: flightData.saleTotal)
     }
     
@@ -101,6 +117,7 @@ class MyFlightCardView: UIView {
         guard let returningFlight = flightData.returningFlight else { return }
         
         self.longDescriptionLabel.text = flightData.longDescription
+        self.dateLabel.text = makeDateString(with: returningFlight.departureTime)
         self.durationLabel.text = makeDurationString(withDuration: returningFlight.duration)
         self.stopCountLabel.attributedText = makeStopCountString(with: returningFlight.stopCount)
         self.originLabel.text = returningFlight.originAirportCode
@@ -108,16 +125,32 @@ class MyFlightCardView: UIView {
         self.destinationLabel.text = returningFlight.destinationAirportCode
         self.arrivalTimeLabel.attributedText = makeTimeString(with: returningFlight.arrivalTime)
         self.airlineLabel.text = returningFlight.carrier.name
+        self.flightTypeLabel.text = "Round Trip"
         self.priceLabel.text = makePriceString(withPrice: flightData.saleTotal)
     }
     
+    // MARK: Convenience
+    
     @objc private func stateChangeWasTapped() {
         guard let flightData = flightData else { return }
-        if cardState == .departingFlight && flightData.isRoundTrip {
-            self.cardState = .returningFlight
+        if cardState == .departingFlight {
+            if flightData.isRoundTrip {
+                self.cardState = .returningFlight
+            } else {
+                shakeAirplane()
+            }
+            
         } else if cardState == .returningFlight {
             self.cardState = .departingFlight
         }
+    }
+    
+    private func shakeAirplane() {
+        airplaneImage.animation = Spring.AnimationPreset.Swing.rawValue
+        airplaneImage.curve = Spring.AnimationCurve.EaseInOutCubic.rawValue
+        airplaneImage.force = 1.2
+        airplaneImage.duration = 0.5
+        airplaneImage.animate()
     }
     
     // MARK: Public API
@@ -177,5 +210,11 @@ extension MyFlightCardView {
             string = "\(stops) \((stops == 1 ? "stop" : "stops"))"
         }
         return NSAttributedString(string: string, attributes: attributes)
+    }
+    
+    func makeDateString(with dateAndTime: DateAndTimeZone) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .full
+        return dateAndTime.toLocalDateAndTimeString(withFormatter: formatter)
     }
 }

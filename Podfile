@@ -6,18 +6,27 @@ target 'TakeFlight' do
   use_frameworks!
 
   # Pods for TakeFlight
-  pod 'Alamofire', '~> 4.5'
-  pod 'JTAppleCalendar', :git => 'https://github.com/patchthecode/JTAppleCalendar.git', :branch => 'master'
+  # Firebase
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'Firebase/Storage'
   pod 'Firebase/Messaging'
-  pod 'RSKImageCropper'
+
+  # Networking
+  pod 'Alamofire', '~> 4.5'
+
+  # User Interface
+  pod 'RSKImageCropper' 
+  pod 'Spring', :git => 'https://github.com/MengTo/Spring.git'
+  
+  # Reactive 
   pod 'RxSwift',  '~> 4.0'
   pod 'RxCocoa',  '~> 4.0'
-
+  
+  # Other
+  pod 'JTAppleCalendar', :git => 'https://github.com/patchthecode/JTAppleCalendar.git', :branch => 'master'
 
   target 'TakeFlightTests' do
     inherit! :search_paths

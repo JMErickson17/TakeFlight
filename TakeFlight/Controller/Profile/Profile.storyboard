@@ -50,11 +50,11 @@
                                     <rect key="frame" x="0.0" y="0.0" width="359" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="B7A-N1-dKM">
+                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="B7A-N1-dKM">
                                             <rect key="frame" x="56" y="7.5" width="247" height="29"/>
                                             <segments>
-                                                <segment title="Purchased Flights"/>
                                                 <segment title="Saved Flights"/>
+                                                <segment title="Purchased Flights"/>
                                             </segments>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </segmentedControl>

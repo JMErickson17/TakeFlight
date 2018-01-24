@@ -18,8 +18,8 @@ class ProfileVC: UIViewController {
     }
     
     private enum SegmentType: Int {
-        case purchasedFlights = 0
-        case savedFlights = 1
+        case savedFlights = 0
+        case purchasedFlights = 1
     }
     
     private enum SectionType: String {
@@ -122,12 +122,12 @@ class ProfileVC: UIViewController {
         myFlightsTableView.dataSource = self
         
         tableData = [
+            Segment(type: .savedFlights, sections: [
+                Section(type: .savedFlights, items: [])
+            ]),
             Segment(type: .purchasedFlights, sections: [
                 Section(type: .upcomingFlights, items: []),
                 Section(type: .pastFlights, items: [])
-            ]),
-            Segment(type: .savedFlights, sections: [
-                Section(type: .savedFlights, items: [])
             ])
         ]
     }
