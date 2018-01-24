@@ -103,6 +103,7 @@ class QPXExpress {
     private func parseTripOption(tripOption option: Response.TripOption, supportingData: Response.Data) throws -> FlightData {
         guard let pricing = option.pricing.first else { throw QPXExpressError.parseError }
         
+        let uid = option.id
         let saleTotal = Double(option.saleTotal.alphanumericCharacters) ?? 0
         let baseFareTotal = Double(pricing.baseFareTotal.alphanumericCharacters) ?? 0
         let saleFareTotal = Double(pricing.saleFareTotal.alphanumericCharacters) ?? 0
@@ -169,7 +170,7 @@ class QPXExpress {
             returningFlight = nil
         }
         
-        let flightData = FlightData(createdTimeStamp: Date(), baseFareTotal: baseFareTotal, saleFareTotal: saleFareTotal, saleTaxTotal: saleTaxTotal, saleTotal: saleTotal, fareCalculation: fareCalculation, latestTicketingTime: latestTicketingTime, refundable: refundable, taxCountry: taxCountry, departingFlightSegments: departingFlight, returningFlightSegments: returningFlight)
+        let flightData = FlightData(uid: uid, createdTimeStamp: Date(), baseFareTotal: baseFareTotal, saleFareTotal: saleFareTotal, saleTaxTotal: saleTaxTotal, saleTotal: saleTotal, fareCalculation: fareCalculation, latestTicketingTime: latestTicketingTime, refundable: refundable, taxCountry: taxCountry, departingFlightSegments: departingFlight, returningFlightSegments: returningFlight)
         
         return flightData
     }

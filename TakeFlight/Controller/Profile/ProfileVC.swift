@@ -130,13 +130,6 @@ class ProfileVC: UIViewController {
                 Section(type: .savedFlights, items: [])
             ])
         ]
-        
-        userService.getSavedFlightsForCurrentUser { flightData, error in
-            if let error = error { return print(error) }
-            if let flightData = flightData {
-                self.savedFlights = flightData
-            }
-        }
     }
     
     // MARK: Convenience
@@ -156,6 +149,9 @@ class ProfileVC: UIViewController {
     private func updateViewForCurrentUser() {
         self.setProfileImage()
         self.updateLoggedInStatusView()
+        if let savedFlights = userService.savedFlights {
+            self.savedFlights = savedFlights
+        }
     }
     
     private func updateLoggedInStatusView() {
@@ -176,7 +172,7 @@ class ProfileVC: UIViewController {
     
     private func setProfileImage() {
         DispatchQueue.main.async {
-            if let profileImage = self.userService.currentUser?.profileImage {
+            if let profileImage = self.userService.profileImage {
                 self.profileImageView.image = profileImage
             } else {
                 self.profileImageView.image = #imageLiteral(resourceName: "DefaultProfileImage")
@@ -231,6 +227,7 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         let flightData = tableData[myFlightsSegmentControl.selectedSegmentIndex].sections[indexPath.section].items[indexPath.row]
         let flightDetailsVC = FlightDetailsVCFactory.makeFlightDetailsVC(with: flightData)
+        flightDetailsVC.flightIsSaved = true
         navigationController?.pushViewController(flightDetailsVC, animated: true)
     }
     

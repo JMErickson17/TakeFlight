@@ -17,11 +17,18 @@ class FirebaseUserService: UserService {
         didSet {
             if currentUser != nil && userDidUpdateListener == nil {
                 addUserDidUpdateListener()
+                setProfileImage()
+                setSavedFlights()
             } else if currentUser == nil && userDidUpdateListener != nil {
                 removeUserDidUpdateListener()
+                profileImage = nil
+                savedFlights = nil
             }
         }
     }
+    
+    var profileImage: UIImage?
+    var savedFlights: [FlightData]?
 
     private let database: Firestore
     private let userStorage: UserStorageService
@@ -161,7 +168,7 @@ class FirebaseUserService: UserService {
                 currentUserSearchHistoryCollectionRef.addDocument(data: request.dictionaryRepresentation, completion: { (error) in
                     if let error = error, let completion = completion { return completion(error) }
                     DispatchQueue.main.async {
-                        // NotificationCenter.default.post(name: .userPropertiesDidChange, object: nil)
+                        completion?(nil)
                     }
                 })
             }
@@ -173,7 +180,8 @@ class FirebaseUserService: UserService {
             guard let data = try? JSONEncoder().encode(flightData) else { return /* Throw error */ }
             guard let flightDataDictionary = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) as? JSONRepresentable else { return /* Throw error */ }
             if let currentUserSavedFlightsCollectionRef = self.currentUserSavedFlightsCollectionRef {
-                currentUserSavedFlightsCollectionRef.addDocument(data: flightDataDictionary, completion: { error in
+                currentUserSavedFlightsCollectionRef.document(flightData.uid).setData(flightDataDictionary, completion: { error in
+                    self.setSavedFlights()
                     DispatchQueue.main.async {
                         completion?(error)
                     }
@@ -202,6 +210,22 @@ class FirebaseUserService: UserService {
         }
     }
     
+    func delete(savedFlightWithUID uid: String, completion: ErrorCompletionHandler?) {
+        DispatchQueue.global().async {
+            if let currentUserSavedFlightsCollectionRef = self.currentUserSavedFlightsCollectionRef {
+                currentUserSavedFlightsCollectionRef.document(uid).delete(completion: { error in
+                    if let error = error, let completion = completion { return completion(error) }
+                    if self.savedFlights != nil, let index = self.savedFlights!.index(where: { $0.uid == uid })  {
+                        self.savedFlights!.remove(at: index)
+                    }
+                    DispatchQueue.main.async {
+                        completion?(nil)
+                    }
+                })
+            }
+        }
+    }
+    
     func clearCurrentUserSearchHistory(completion: ErrorCompletionHandler?) {
         DispatchQueue.global().async {
             if let currentUserSearchHistoryCollectionRef = self.currentUserSearchHistoryCollectionRef {
@@ -217,6 +241,19 @@ class FirebaseUserService: UserService {
                             if let batchError = batchError, let completion = completion { return completion(batchError) }
                             self.clearCurrentUserSearchHistory(completion: completion)
                         })
+                    }
+                })
+            }
+        }
+    }
+    
+    func getProfileImageForCurrentUser(completion: @escaping (UIImage?, Error?) -> Void) {
+        DispatchQueue.global().async {
+            if let currentUser = self.currentUser {
+                self.userStorage.download(userProfileImageWithUID: currentUser.uid, completion: { data, error in
+                    if let error = error { return completion(nil, error) }
+                    if let imageData = data, let profileImage = UIImage(data: imageData) {
+                        completion(profileImage, nil)
                     }
                 })
             }
@@ -241,6 +278,20 @@ class FirebaseUserService: UserService {
                     }
                 }
             }
+        }
+    }
+    
+    private func setProfileImage() {
+        self.getProfileImageForCurrentUser { profileImage, error in
+            if let error = error { return print(error) }
+            self.profileImage = profileImage
+        }
+    }
+    
+    private func setSavedFlights() {
+        self.getSavedFlightsForCurrentUser { flightData, error in
+            if let error = error { return print(error) }
+            self.savedFlights = flightData
         }
     }
     

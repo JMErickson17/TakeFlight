@@ -12,6 +12,8 @@ import Firebase
 protocol UserService {
     
     var currentUser: User? { get }
+    var profileImage: UIImage? { get }
+    var savedFlights: [FlightData]? { get }
     
     func createNewUser(withEmail email: String, password: String, completion: @escaping (User?, Error?) -> Void)
     func signInUser(withEmail email: String, password: String, completion: AuthResultCallback?)
@@ -23,5 +25,6 @@ protocol UserService {
     func saveToCurrentUser(userSearchRequest request: FlightSearchRequest, completion: ErrorCompletionHandler?)
     func saveToCurrentUser(flightData: FlightData, completion: ErrorCompletionHandler?)
     func getSavedFlightsForCurrentUser(completion: @escaping ([FlightData]?, Error?) -> Void)
+    func delete(savedFlightWithUID uid: String, completion: ErrorCompletionHandler?)
     func clearCurrentUserSearchHistory(completion: ErrorCompletionHandler?)
 }

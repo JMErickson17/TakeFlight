@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BookNowButton: UIButton {
+class RoundedButton: UIButton {
 
     // MARK: Properties
     
@@ -17,8 +17,10 @@ class BookNowButton: UIButton {
         NSAttributedStringKey.foregroundColor: UIColor.white
     ]
     
-    private var buttonTitle: String {
-        return "Book Now"
+    var buttonTitle: String? {
+        didSet {
+            setButtonTitle(to: buttonTitle)
+        }
     }
     
     // MARK: Lifecycle
@@ -30,15 +32,26 @@ class BookNowButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setupView()
+        setupView(with: nil, color: nil)
+    }
+    
+    convenience init(title: String, color: UIColor) {
+        self.init()
+        
+        setupView(with: title, color: color)
     }
     
     // MARK: Setup
     
-    private func setupView() {
+    private func setupView(with title: String?, color: UIColor?) {
         self.layer.cornerRadius = 3
-        self.backgroundColor = UIColor(named: "StopCountGreen")
-        let attributedTitle = NSAttributedString(string: buttonTitle, attributes: titleAttributes)
+        self.backgroundColor = color ?? UIColor.blue
+        setButtonTitle(to: title)
+    }
+    
+    private func setButtonTitle(to title: String?) {
+        guard let title = title else { return }
+        let attributedTitle = NSAttributedString(string: title, attributes: titleAttributes)
         self.setAttributedTitle(attributedTitle, for: .normal)
     }
 

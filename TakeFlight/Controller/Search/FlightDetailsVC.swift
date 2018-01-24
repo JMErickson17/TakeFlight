@@ -15,6 +15,15 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
     
     var flightData: FlightData?
     
+    var flightIsSaved: Bool = false {
+        didSet {
+            configureActionButton()
+        }
+    }
+    
+    private lazy var appDelegate = UIApplication.shared.delegate as! AppDelegate
+    private lazy var userService: UserService = appDelegate.firebaseUserService!
+    
     private lazy var scrollView: UIScrollView = {
         var scrollView = UIScrollView()
         scrollView.delegate = self
@@ -73,14 +82,25 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
         return label
     }()
     
-    private lazy var bookFlightButton: BookNowButton = {
-        let button = BookNowButton()
+    private lazy var saveFlightButton: RoundedButton = {
+        let button = RoundedButton(title: "Save Flight", color: UIColor.stopCountGreen)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowRadius = 5
         button.layer.shadowOpacity = 0.5
         button.layer.shadowOffset = CGSize.zero
         button.addTarget(self, action: #selector(saveFlight), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var deleteFlightButton: RoundedButton = {
+        let button = RoundedButton(title: "Delete Flight", color: UIColor.stopCountRed)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowRadius = 5
+        button.layer.shadowOpacity = 0.5
+        button.layer.shadowOffset = CGSize.zero
+        button.addTarget(self, action: #selector(deleteSavedFlight), for: .touchUpInside)
         return button
     }()
 
@@ -118,13 +138,7 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
             priceLabel.centerYAnchor.constraint(equalTo: bookFlightContainerView.centerYAnchor)
         ])
         
-        bookFlightContainerView.addSubview(bookFlightButton)
-        NSLayoutConstraint.activate([
-            bookFlightButton.trailingAnchor.constraint(equalTo: bookFlightContainerView.trailingAnchor, constant: -20),
-            bookFlightButton.centerYAnchor.constraint(equalTo: bookFlightContainerView.centerYAnchor),
-            bookFlightButton.heightAnchor.constraint(equalTo: bookFlightContainerView.heightAnchor, multiplier: 0.70),
-            bookFlightButton.widthAnchor.constraint(equalTo: bookFlightContainerView.widthAnchor, multiplier: 0.30)
-        ])
+        configureActionButton()
         
         view.addSubview(scrollView)
         NSLayoutConstraint.activate([
@@ -175,6 +189,19 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
         view.layoutSubviews()
     }
     
+    private func configureActionButton() {
+        [saveFlightButton, deleteFlightButton].forEach { $0.removeFromSuperview() }
+        let actionButton = flightIsSaved ? deleteFlightButton : saveFlightButton
+        
+        bookFlightContainerView.addSubview(actionButton)
+        NSLayoutConstraint.activate([
+            actionButton.trailingAnchor.constraint(equalTo: bookFlightContainerView.trailingAnchor, constant: -20),
+            actionButton.centerYAnchor.constraint(equalTo: bookFlightContainerView.centerYAnchor),
+            actionButton.heightAnchor.constraint(equalTo: bookFlightContainerView.heightAnchor, multiplier: 0.70),
+            actionButton.widthAnchor.constraint(equalTo: bookFlightContainerView.widthAnchor, multiplier: 0.30)
+            ])
+    }
+    
     private func setPrice(to price: Double) {
         let price = price as NSNumber
         let formatter = NumberFormatter()
@@ -183,10 +210,22 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
     }
     
     @objc func saveFlight() {
-        let firebaseStorage = FirebaseStorageService(storage: Storage.storage())
-        let userService: FirebaseUserService = FirebaseUserService(database: Firestore.firestore(), userStorage: firebaseStorage)
-        userService.saveToCurrentUser(flightData: flightData!) { (error) in
+        userService.saveToCurrentUser(flightData: flightData!) { [weak self] (error) in
             if let error = error { print(error) }
+            self?.flightIsSaved = true
+            if let navigationController = self?.navigationController {
+                let notification = DropDownNotification(text: "Flight saved")
+                notification.presentNotification(onNavigationController: navigationController, forDuration: 3)
+            }
+        }
+    }
+    
+    @objc func deleteSavedFlight() {
+        guard let uid = flightData?.uid else { return }
+        userService.delete(savedFlightWithUID: uid) { [weak self] error in
+            if let error = error { return print(error) }
+            self?.flightIsSaved = false
+            self?.navigationController?.popViewController(animated: true)
         }
     }
 }
