@@ -9,8 +9,6 @@
 import Foundation
 import Firebase
 
-
-
 enum Constants {
     
     // MARK: Identifiers

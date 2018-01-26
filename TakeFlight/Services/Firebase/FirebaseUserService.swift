@@ -8,27 +8,37 @@
 
 import Foundation
 import Firebase
+import RxSwift
+import RxCocoa
 
 class FirebaseUserService: UserService {
     
     // MARK: Properties
     
-    var currentUser: User? {
+    var currentUser = Variable<User?>(nil)
+    var profileImage = Variable<UIImage>(#imageLiteral(resourceName: "DefaultProfileImage"))
+    var savedFlights = Variable<[FlightData]>([])
+    
+    private var _currentUser: User? {
         didSet {
-            if currentUser != nil && userDidUpdateListener == nil {
-                addUserDidUpdateListener()
-                setProfileImage()
-                setSavedFlights()
-            } else if currentUser == nil && userDidUpdateListener != nil {
-                removeUserDidUpdateListener()
-                profileImage = nil
-                savedFlights = nil
-            }
+            currentUser.value = _currentUser
+            setProfileImage()
+            setSavedFlights()
+            print("Current User Set")
         }
     }
     
-    var profileImage: UIImage?
-    var savedFlights: [FlightData]?
+    private var _profileImage: UIImage = #imageLiteral(resourceName: "DefaultProfileImage") {
+        didSet {
+            profileImage.value = _profileImage
+        }
+    }
+    
+    private var _savedFlights: [FlightData] = [] {
+        didSet {
+            savedFlights.value = _savedFlights
+        }
+    }
 
     private let database: Firestore
     private let userStorage: UserStorageService
@@ -38,7 +48,7 @@ class FirebaseUserService: UserService {
     }
     
     private var currentUserRef: DocumentReference? {
-        if let currentUser = currentUser {
+        if let currentUser = _currentUser {
             return usersCollectionRef.document(currentUser.uid)
         }
         return nil
@@ -95,6 +105,7 @@ class FirebaseUserService: UserService {
     func signOutCurrentUser(completion: ErrorCompletionHandler? = nil) {
         do {
             try Auth.auth().signOut()
+            self._currentUser = nil
             completion?(nil)
         } catch {
             completion?(error)
@@ -145,7 +156,7 @@ class FirebaseUserService: UserService {
     
     func saveToCurrentUser(profileImage image: UIImage, completion: ErrorCompletionHandler?) {
         DispatchQueue.global().async {
-            if let imageData = UIImageJPEGRepresentation(image, UIImage.JPEGQuality.highest.rawValue), let currentUser = self.currentUser {
+            if let imageData = UIImageJPEGRepresentation(image, UIImage.JPEGQuality.highest.rawValue), let currentUser = self._currentUser {
                 self.userStorage.upload(userProfileImage: imageData, forUser: currentUser, completion: { url, error in
                     if let error = error, let completion = completion { return completion(error) }
                     if let url = url {
@@ -215,8 +226,8 @@ class FirebaseUserService: UserService {
             if let currentUserSavedFlightsCollectionRef = self.currentUserSavedFlightsCollectionRef {
                 currentUserSavedFlightsCollectionRef.document(uid).delete(completion: { error in
                     if let error = error, let completion = completion { return completion(error) }
-                    if self.savedFlights != nil, let index = self.savedFlights!.index(where: { $0.uid == uid })  {
-                        self.savedFlights!.remove(at: index)
+                    if let index = self._savedFlights.index(where: { $0.uid == uid })  {
+                        self._savedFlights.remove(at: index)
                     }
                     DispatchQueue.main.async {
                         completion?(nil)
@@ -249,7 +260,7 @@ class FirebaseUserService: UserService {
     
     func getProfileImageForCurrentUser(completion: @escaping (UIImage?, Error?) -> Void) {
         DispatchQueue.global().async {
-            if let currentUser = self.currentUser {
+            if let currentUser = self._currentUser {
                 self.userStorage.download(userProfileImageWithUID: currentUser.uid, completion: { data, error in
                     if let error = error { return completion(nil, error) }
                     if let imageData = data, let profileImage = UIImage(data: imageData) {
@@ -271,9 +282,9 @@ class FirebaseUserService: UserService {
             self.usersCollectionRef.document(uid).getDocument { (document, error) in
                 if let error = error { return completion(nil, error) }
                 if let document = document {
-                    guard document.exists else { return completion(nil, nil /* Throw document doesnt exist error */) }
-                    let documentData = document.data()
-                    if let user = User(data: documentData) {
+                    guard document.exists else { return completion(nil, FirebaseFirestoreError.documentContainsNoData) }
+                    guard let data = document.data() else { return completion(nil, FirebaseFirestoreError.documentContainsNoData) }
+                    if let user = User(data: data) {
                         completion(user, nil)
                     }
                 }
@@ -282,21 +293,28 @@ class FirebaseUserService: UserService {
     }
     
     private func setProfileImage() {
+        guard let _ = _currentUser else { _profileImage = #imageLiteral(resourceName: "DefaultProfileImage"); return }
         self.getProfileImageForCurrentUser { profileImage, error in
             if let error = error { return print(error) }
-            self.profileImage = profileImage
+            self._profileImage = profileImage ?? #imageLiteral(resourceName: "DefaultProfileImage")
         }
     }
     
     private func setSavedFlights() {
-        self.getSavedFlightsForCurrentUser { flightData, error in
+        guard let _ = _currentUser else { _savedFlights.removeAll(); return }
+        self.getSavedFlightsForCurrentUser { savedFlights, error in
             if let error = error { return print(error) }
-            self.savedFlights = flightData
+            self._savedFlights = savedFlights ?? []
         }
     }
     
-    // Temp Listeners
-    // TODO: Convert to reactive
+    private func postUserPropertiesDidChange() {
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: .userPropertiesDidChange, object: nil)
+        }
+    }
+    
+    // MARK: Listeners
     
     private var handleAuthStateDidChange: AuthStateDidChangeListenerHandle?
     private var userDidUpdateListener: ListenerRegistration?
@@ -307,15 +325,18 @@ class FirebaseUserService: UserService {
                 self.getUser(withUID: firUser.uid, completion: { (user, error) in
                     if let _ = error { return /* Log Error */ }
                     if let user = user {
-                        self.currentUser = user
-                        DispatchQueue.main.async {
-                            NotificationCenter.default.post(name: .authStatusDidChange, object: user)
+                        if self._currentUser == nil {
+                            self._currentUser = user
+                            DispatchQueue.main.async {
+                                NotificationCenter.default.post(name: .authStatusDidChange, object: user)
+                            }
                         }
+                        
                     }
                 })
             } else {
                 DispatchQueue.main.async {
-                    self.currentUser = nil
+                    self._currentUser = nil
                     NotificationCenter.default.post(name: .authStatusDidChange, object: nil)
                 }
             }
@@ -335,19 +356,16 @@ class FirebaseUserService: UserService {
                     if let error = error { print(error) }
                     if let documentSnapshot = documentSnapshot {
                         guard documentSnapshot.exists else { return print("Document does not exist") }
-                        let documentData = documentSnapshot.data()
+                        guard let documentData = documentSnapshot.data() else { return print("Document contains no data") }
                         if let updatedUser = User(data: documentData) {
-                            self.currentUser = updatedUser
-                            DispatchQueue.main.async {
-                                NotificationCenter.default.post(name: .userPropertiesDidChange, object: updatedUser)
-                            }
+                            self._currentUser = updatedUser
                         }
                     }
                 })
             }
         }
     }
-    
+
     private func removeUserDidUpdateListener() {
         userDidUpdateListener?.remove()
     }

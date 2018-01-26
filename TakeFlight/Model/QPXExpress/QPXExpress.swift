@@ -38,6 +38,7 @@ class QPXExpress {
     }
     
     func fetch(qpxRequest request: Request, completion: @escaping (([FlightData]?, Error?) -> Void)) {
+        var request = request
         networkManager.load(request.url, headers: request.headers, payload: request.dictionaryRepresentaion) { (data, error) in
             guard error == nil else { return completion(nil, error!) }
             guard let data = data else { return completion(nil, QPXExpressError.corruptData as Error) }

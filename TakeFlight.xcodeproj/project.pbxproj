@@ -120,15 +120,18 @@
 		CAEC73E81F816BF1004D6F0B /* OldAirportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E71F816BF1004D6F0B /* OldAirportService.swift */; };
 		CAEC73EA1F8184D8004D6F0B /* QPXExpress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E91F8184D8004D6F0B /* QPXExpress.swift */; };
 		CAECB8741FEA019A00F84359 /* DropDownNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAECB8731FEA019A00F84359 /* DropDownNotification.swift */; };
-		CAEDB6A41FCCB7CC0041878F /* UITableView+TopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEDB6A31FCCB7CC0041878F /* UITableView+TopCell.swift */; };
 		CAEDB6A61FCCCD450041878F /* FlightCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEDB6A51FCCCD450041878F /* FlightCardView.swift */; };
 		CAEDB6A81FCCD4900041878F /* SelectedDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEDB6A71FCCD4900041878F /* SelectedDateView.swift */; };
 		CAEE8AC31FFD9E78004558A6 /* Carrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEE8AC21FFD9E78004558A6 /* Carrier.swift */; };
-		CAF35CB41FE1F4850074B60B /* TakeoffLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF35CB31FE1F4850074B60B /* TakeoffLoadingView.swift */; };
 		CAF3714E1FA232EE002C3455 /* SelectedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF3714D1FA232EE002C3455 /* SelectedState.swift */; };
 		CAF371501FA2426E002C3455 /* DatePickerVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF3714F1FA2426E002C3455 /* DatePickerVCDelegate.swift */; };
 		CAFA6E53201047A600FA39B2 /* SearchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFA6E52201047A600FA39B2 /* SearchState.swift */; };
 		CAFD5AD7201BA6D300C6FC88 /* MonthSectionHeaderViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFD5AD6201BA6D300C6FC88 /* MonthSectionHeaderViewDelegate.swift */; };
+		CAFD5ADA201BAB9F00C6FC88 /* FlightPriceCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFD5AD9201BAB9F00C6FC88 /* FlightPriceCardView.swift */; };
+		CAFD5ADC201BADD200C6FC88 /* FlightPriceCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAFD5ADB201BADD200C6FC88 /* FlightPriceCardView.xib */; };
+		CAFD5ADF201BB9DB00C6FC88 /* KeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFD5ADE201BB9DB00C6FC88 /* KeyManager.swift */; };
+		CAFD5AE1201BBA1100C6FC88 /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = CAFD5AE0201BBA1100C6FC88 /* APIKeys.plist */; };
+		CAFD5AE3201BBACD00C6FC88 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFD5AE2201BBACD00C6FC88 /* APIKey.swift */; };
 		CAFF4A311FD2452F0036083C /* String+AlphanumericCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFF4A301FD2452F0036083C /* String+AlphanumericCharacters.swift */; };
 /* End PBXBuildFile section */
 
@@ -272,16 +275,19 @@
 		CAEC73E71F816BF1004D6F0B /* OldAirportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldAirportService.swift; sourceTree = "<group>"; };
 		CAEC73E91F8184D8004D6F0B /* QPXExpress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QPXExpress.swift; sourceTree = "<group>"; };
 		CAECB8731FEA019A00F84359 /* DropDownNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownNotification.swift; sourceTree = "<group>"; };
-		CAEDB6A31FCCB7CC0041878F /* UITableView+TopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+TopCell.swift"; sourceTree = "<group>"; };
 		CAEDB6A51FCCCD450041878F /* FlightCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightCardView.swift; sourceTree = "<group>"; };
 		CAEDB6A71FCCD4900041878F /* SelectedDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedDateView.swift; sourceTree = "<group>"; };
 		CAEE8AC11FFD9BD2004558A6 /* TakeFlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TakeFlight.entitlements; sourceTree = "<group>"; };
 		CAEE8AC21FFD9E78004558A6 /* Carrier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carrier.swift; sourceTree = "<group>"; };
-		CAF35CB31FE1F4850074B60B /* TakeoffLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeoffLoadingView.swift; sourceTree = "<group>"; };
 		CAF3714D1FA232EE002C3455 /* SelectedState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedState.swift; sourceTree = "<group>"; };
 		CAF3714F1FA2426E002C3455 /* DatePickerVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerVCDelegate.swift; sourceTree = "<group>"; };
 		CAFA6E52201047A600FA39B2 /* SearchState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchState.swift; sourceTree = "<group>"; };
 		CAFD5AD6201BA6D300C6FC88 /* MonthSectionHeaderViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthSectionHeaderViewDelegate.swift; sourceTree = "<group>"; };
+		CAFD5AD9201BAB9F00C6FC88 /* FlightPriceCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightPriceCardView.swift; sourceTree = "<group>"; };
+		CAFD5ADB201BADD200C6FC88 /* FlightPriceCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlightPriceCardView.xib; sourceTree = "<group>"; };
+		CAFD5ADE201BB9DB00C6FC88 /* KeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyManager.swift; sourceTree = "<group>"; };
+		CAFD5AE0201BBA1100C6FC88 /* APIKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = APIKeys.plist; sourceTree = "<group>"; };
+		CAFD5AE2201BBACD00C6FC88 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		CAFF4A301FD2452F0036083C /* String+AlphanumericCharacters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+AlphanumericCharacters.swift"; sourceTree = "<group>"; };
 		DF2F772D35F090085677C96D /* Pods-TakeFlightTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TakeFlightTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TakeFlightTests/Pods-TakeFlightTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E1CD68BDBB2978CC87E5D867 /* Pods_TakeFlight.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TakeFlight.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -484,6 +490,7 @@
 		CA82E689200EBE0700F7DD29 /* View Controller Delegates */ = {
 			isa = PBXGroup;
 			children = (
+				CA55C0F41FE99F2D008990C8 /* LoggedInStatusViewDelegate.swift */,
 				CA29AA1A1F9D6A5E0047B2F1 /* SearchVCDelegate.swift */,
 				CAF3714F1FA2426E002C3455 /* DatePickerVCDelegate.swift */,
 				CAA19A101FA3D1CA00A479A8 /* AirportPickerVCDelegate.swift */,
@@ -637,6 +644,7 @@
 		CAEC73A81F813C29004D6F0B /* TakeFlight */ = {
 			isa = PBXGroup;
 			children = (
+				CAFD5ADD201BB9B900C6FC88 /* API Key Manager */,
 				CAD659C020180C41006AB441 /* Factories */,
 				CAEE8AC11FFD9BD2004558A6 /* TakeFlight.entitlements */,
 				CA66A758200EA31F00D08E80 /* Errors */,
@@ -698,12 +706,12 @@
 				CA3185E41FE065900055A1B1 /* DatePicker */,
 				CA5B598A1FE83AAC00B08A9D /* FlightCardView */,
 				CAD659BB2017FFF1006AB441 /* MyFlightCardView */,
+				CAFD5AD8201BAB7600C6FC88 /* FlightPriceCardView */,
 				CA55C0F11FE9959E008990C8 /* Buttons */,
 				CA49BB901FED8D3D00C3940C /* TextFields */,
 				CAA6562B1FF4431D00DB59C4 /* SortFilterCells */,
 				CAA19A0C1FA3C08000A479A8 /* AirportPickerCell.swift */,
 				CA18454A1FD8667E003B56C6 /* TooltipView.swift */,
-				CAF35CB31FE1F4850074B60B /* TakeoffLoadingView.swift */,
 				CA5328221FE7571D00867E35 /* FlightDataTableViewHeaderView.swift */,
 				CA5B598B1FE83BE800B08A9D /* ProfileImageView.swift */,
 				CA55C0F21FE99965008990C8 /* LoggedInStatusView.swift */,
@@ -763,7 +771,6 @@
 			isa = PBXGroup;
 			children = (
 				CA32901A1F9D5B650083EED7 /* Date+Strings.swift */,
-				CAEDB6A31FCCB7CC0041878F /* UITableView+TopCell.swift */,
 				CAFF4A301FD2452F0036083C /* String+AlphanumericCharacters.swift */,
 				CA18454C1FD86D3B003B56C6 /* CGFloat+Lerp.swift */,
 				CA2BE2CB1FEB463900DAF73F /* Notification+Name.swift */,
@@ -779,9 +786,27 @@
 				CA66A754200EA0FF00D08E80 /* Service Protocols */,
 				CA82E689200EBE0700F7DD29 /* View Controller Delegates */,
 				CA6F704F1FF8607900DD9C08 /* SortFilter Delegates */,
-				CA55C0F41FE99F2D008990C8 /* LoggedInStatusViewDelegate.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		CAFD5AD8201BAB7600C6FC88 /* FlightPriceCardView */ = {
+			isa = PBXGroup;
+			children = (
+				CAFD5ADB201BADD200C6FC88 /* FlightPriceCardView.xib */,
+				CAFD5AD9201BAB9F00C6FC88 /* FlightPriceCardView.swift */,
+			);
+			path = FlightPriceCardView;
+			sourceTree = "<group>";
+		};
+		CAFD5ADD201BB9B900C6FC88 /* API Key Manager */ = {
+			isa = PBXGroup;
+			children = (
+				CAFD5AE0201BBA1100C6FC88 /* APIKeys.plist */,
+				CAFD5ADE201BB9DB00C6FC88 /* KeyManager.swift */,
+				CAFD5AE2201BBACD00C6FC88 /* APIKey.swift */,
+			);
+			path = "API Key Manager";
 			sourceTree = "<group>";
 		};
 		D132DC59ACFEDB4A5D7D3905 /* Frameworks */ = {
@@ -921,10 +946,12 @@
 				CA68F1FB1FFC26A200B5CEFB /* Profile.storyboard in Resources */,
 				CA68F2011FFC2EBA00B5CEFB /* Explore.storyboard in Resources */,
 				CAA0C71C1FAC036600FAFD69 /* MonthSectionHeaderView.xib in Resources */,
+				CAFD5AE1201BBA1100C6FC88 /* APIKeys.plist in Resources */,
 				CAEC73B11F813C29004D6F0B /* Assets.xcassets in Resources */,
 				CAA656271FF419C900DB59C4 /* SortFilter.storyboard in Resources */,
 				CA68F1FF1FFC2E9900B5CEFB /* Search.storyboard in Resources */,
 				CAD659BF201800EB006AB441 /* MyFlightCardView.xib in Resources */,
+				CAFD5ADC201BADD200C6FC88 /* FlightPriceCardView.xib in Resources */,
 				CA8C6B791F9CF86000753E7D /* GoogleService-Info.plist in Resources */,
 				CAEC73AF1F813C29004D6F0B /* Main.storyboard in Resources */,
 				CAEC73E11F8144D1004D6F0B /* RoundTripFlightDataCell.xib in Resources */,
@@ -1135,6 +1162,7 @@
 				CA98C48A1FEC4DE60009D326 /* FlightSearchRequest.swift in Sources */,
 				CAEDB6A61FCCCD450041878F /* FlightCardView.swift in Sources */,
 				CA5B598C1FE83BE800B08A9D /* ProfileImageView.swift in Sources */,
+				CAFD5ADF201BB9DB00C6FC88 /* KeyManager.swift in Sources */,
 				CA66A75A200EA33E00D08E80 /* FirebaseFirestoreError.swift in Sources */,
 				CA55C0F51FE99F2D008990C8 /* LoggedInStatusViewDelegate.swift in Sources */,
 				CAA6561E1FF40D2F00DB59C4 /* SortFilterVCDelegate.swift in Sources */,
@@ -1148,14 +1176,12 @@
 				CAA656221FF416E000DB59C4 /* StopFilterVC.swift in Sources */,
 				CA9DB63D1FF5A87C0036B227 /* SortFilterOption.swift in Sources */,
 				CA66A74B200E8F2100D08E80 /* CarrierService.swift in Sources */,
-				CAEDB6A41FCCB7CC0041878F /* UITableView+TopCell.swift in Sources */,
 				CA8A2D1C1FAE498F00C8D5E0 /* OneWayFlightDataCell.swift in Sources */,
 				CAEC73EA1F8184D8004D6F0B /* QPXExpress.swift in Sources */,
 				CA66A74D200E900D00D08E80 /* AirportService.swift in Sources */,
 				CA900CA41FF93D2700EBA3D0 /* DurationFilterVCDelegate.swift in Sources */,
 				CAEC73AC1F813C29004D6F0B /* SearchVC.swift in Sources */,
 				CA98C4911FEC52EA0009D326 /* LanguagePickerVC.swift in Sources */,
-				CAF35CB41FE1F4850074B60B /* TakeoffLoadingView.swift in Sources */,
 				CA82E68B200EBED000F7DD29 /* FlightSearchError.swift in Sources */,
 				CAEE8AC31FFD9E78004558A6 /* Carrier.swift in Sources */,
 				CA5B224E1FF967D200F36B7E /* StatusButton.swift in Sources */,
@@ -1190,6 +1216,7 @@
 				CA2BE2CA1FEB160400DAF73F /* User.swift in Sources */,
 				CAEC73E01F8144D1004D6F0B /* RoundTripFlightDataCell.swift in Sources */,
 				CA66A753200E9CFC00D08E80 /* UserDefaultsService.swift in Sources */,
+				CAFD5AE3201BBACD00C6FC88 /* APIKey.swift in Sources */,
 				CAEC73E81F816BF1004D6F0B /* OldAirportService.swift in Sources */,
 				CA9563C51FFAFEDC00D5B3B0 /* UnderlineTextField.swift in Sources */,
 				CAA19A111FA3D1CA00A479A8 /* AirportPickerVCDelegate.swift in Sources */,
@@ -1198,6 +1225,7 @@
 				CAAD01FD1FD0E23A00E76B88 /* NetworkManager.swift in Sources */,
 				CA66A75C200EA6E300D08E80 /* FirebaseAirportService.swift in Sources */,
 				CAFD5AD7201BA6D300C6FC88 /* MonthSectionHeaderViewDelegate.swift in Sources */,
+				CAFD5ADA201BAB9F00C6FC88 /* FlightPriceCardView.swift in Sources */,
 				CA53248A1FD8BF67002ABBC3 /* PillButton.swift in Sources */,
 				CAC6BA7A1FF3055C005307C1 /* FilterOptionCell.swift in Sources */,
 				CA85590B1FE747D800E72913 /* ExploreVC.swift in Sources */,

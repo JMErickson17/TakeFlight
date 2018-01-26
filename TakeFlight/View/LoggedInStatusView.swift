@@ -158,13 +158,13 @@ class LoggedInStatusView: UIView {
         loginButton.addTarget(self, action: #selector(loginButtonWasTapped), for: .touchUpInside)
         signupButton.addTarget(self, action: #selector(signupButtonWasTapped), for: .touchUpInside)
         
-        configureViewForCurrentUser(animated: false)
+//        configureViewForCurrentUser(animated: false)
     }
     
     // MARK: Convenience
     
-    func configureViewForCurrentUser(animated: Bool) {
-        if let currentUser = userService.currentUser {
+    func configureView(for currentUser: User?, animated: Bool) {
+        if let currentUser = currentUser {
             let loggedInText = currentUser.fullName ?? currentUser.email
             setLoggedInLabel(to: loggedInText)
             transitionToLoggedInView(animated: animated)

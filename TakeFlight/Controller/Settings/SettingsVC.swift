@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+import RxSwift
+import RxCocoa
 
 class SettingsVC: UITableViewController {
     
@@ -62,9 +64,8 @@ class SettingsVC: UITableViewController {
         phoneNumberTextField
     ]
     
-    // TODO: Convert to dependency injection
-    lazy var firebaseStorage = FirebaseStorageService(storage: Storage.storage())
-    lazy var userService: UserService = FirebaseUserService(database: Firestore.firestore(), userStorage: firebaseStorage)
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    lazy var userService: UserService = appDelegate.firebaseUserService!
     
     private var userDidUpdateListener: NSObjectProtocol?
     
@@ -142,7 +143,7 @@ class SettingsVC: UITableViewController {
     }
     
     func configureViewForCurrentUser() {
-        if let user = userService.currentUser {
+        if let user = userService.currentUser.value {
             if let firstName = user.firstName { firstNameTextField.text = firstName }
             if let lastName = user.lastName { lastNameTextField.text = lastName }
             if let phoneNumber = user.phoneNumber { phoneNumberTextField.text = phoneNumber }
@@ -268,7 +269,7 @@ extension SettingsVC: UITextFieldDelegate {
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
-        guard let currentUser = userService.currentUser else { return }
+        guard let currentUser = userService.currentUser.value else { return }
         
         let newText = textField.text
         switch textField.tag {

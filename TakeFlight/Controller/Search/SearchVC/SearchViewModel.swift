@@ -185,11 +185,12 @@ struct SearchViewModel {
         guard flightSearchRequest.isValid(for: searchType) else { return }
         guard let qpxRequest = requestManager.makeQPXRequest(withUserRequest: flightSearchRequest) else { return }
         saveToCurrentUser(request: flightSearchRequest)
+        self.removeAllFlights()
+        currentSearchState.value = .searching
         self.fetchFlightData(with: qpxRequest)
     }
     
     private func fetchFlightData(with request: QPXExpress.Request) {
-        currentSearchState.value = .searching
         requestManager.fetch(qpxRequest: request) { (flightData, error) in
             guard self.currentSearchState.value != .cancelled else { return self.handleSearchError(FlightSearchError.searchCancelled) }
             if let error = error { return self.handleSearchError(error) }

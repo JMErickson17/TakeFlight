@@ -137,7 +137,7 @@ class SearchVC: UIViewController {
     }
     
     private func bindViewModel() {
-        viewModel.flights.asObservable().subscribe(onNext: { (flightData) in
+        viewModel.flights.asObservable().subscribe(onNext: { flightData in
             self.flightDataTableView.reloadData()
         }).disposed(by: disposeBag)
         

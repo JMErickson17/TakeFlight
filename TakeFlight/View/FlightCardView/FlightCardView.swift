@@ -49,15 +49,6 @@ class FlightCardView: UIView {
         return label
     }()
     
-//    private lazy var bookingCodeLabel: UILabel = {
-//        let label = UILabel()
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.font = UIFont.systemFont(ofSize: 24, weight: UIFont.Weight.regular)
-//        label.textAlignment = .left
-//        label.textColor = .white
-//        return label
-//    }()
-    
     private lazy var carrierStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [carrierLabel])
         stackView.translatesAutoresizingMaskIntoConstraints = false

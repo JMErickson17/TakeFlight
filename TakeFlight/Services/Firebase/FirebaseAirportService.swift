@@ -43,7 +43,7 @@ class FirebaseAirportService: AirportService {
             if let error = error { return completion(nil, error) }
             if let document = document {
                 guard document.exists else { return completion(nil, FirebaseFirestoreError.documentDoesntExist) }
-                let data = document.data()
+                guard let data = document.data() else { return completion(nil, FirebaseFirestoreError.documentContainsNoData) }
                 if let airport = Airport(data: data) {
                     completion(airport, nil)
                 }

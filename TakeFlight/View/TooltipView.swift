@@ -137,7 +137,6 @@ class TooltipView: UIView {
     
     func animateTooltip(to location: CGFloat, withDuration duration: Double, completion: ((Bool) -> Void)? = nil) {
         guard let previousToolTipShape = tooltipShapeLayer else { return }
-        print("Animating from \(tooltipLocation) to \(location)")
         
         let newToolTipShape = drawTooltipViewShape(atLocation: location)
         let animation = CABasicAnimation(keyPath: "path")

@@ -48,7 +48,7 @@ class FirebaseCarrierService: CarrierService {
             if let error = error { return completion(nil, error) }
             if let document = document {
                 guard document.exists else { return completion(nil, FirebaseFirestoreError.documentDoesntExist) }
-                let data = document.data()
+                guard let data = document.data() else { return completion(nil, FirebaseFirestoreError.documentContainsNoData) }
                 if let airline = Carrier(documentData: data) {
                     completion(airline, nil)
                 }

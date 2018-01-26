@@ -116,8 +116,11 @@ extension QPXExpress {
         }
         
         // MARK: Properties
+        lazy var url: URL = {
+            let apiKey = KeyManager.valueForAPIKey(APIKey.QPXExpressAPIKey.rawValue)
+            return URL(string: "https://www.googleapis.com/qpxExpress/v1/trips/search?key=\(apiKey)")!
+        }()
         
-        let url = URL(string: "https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyDRrFNibpoBA2FELmAAHX_SEj1_yBaUN4E")!
         let headers = ["Content-Type": "application/json"]
         
         var passengers: Passengers

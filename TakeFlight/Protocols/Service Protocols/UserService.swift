@@ -8,12 +8,14 @@
 
 import UIKit
 import Firebase
+import RxSwift
+import RxCocoa
 
 protocol UserService {
     
-    var currentUser: User? { get }
-    var profileImage: UIImage? { get }
-    var savedFlights: [FlightData]? { get }
+    var currentUser: Variable<User?> { get }
+    var profileImage: Variable<UIImage> { get }
+    var savedFlights: Variable<[FlightData]> { get }
     
     func createNewUser(withEmail email: String, password: String, completion: @escaping (User?, Error?) -> Void)
     func signInUser(withEmail email: String, password: String, completion: AuthResultCallback?)

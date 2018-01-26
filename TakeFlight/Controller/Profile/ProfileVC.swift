@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+import RxSwift
+import RxCocoa
 import RSKImageCropper
 
 class ProfileVC: UIViewController {
@@ -45,15 +47,13 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var myFlightsTableView: UITableView!
     @IBOutlet weak var myFlightsSegmentControl: UISegmentedControl!
     
-    private var userPropertiesDidChangeListener: NSObjectProtocol?
     private var tableData: [Segment]!
+    private var disposeBag = DisposeBag()
     
-    private var savedFlights: [FlightData]? {
+    private var savedFlights = [FlightData]() {
         didSet {
-            if let savedFlights = savedFlights {
-                tableData[SegmentType.savedFlights.rawValue].sections[0].items = savedFlights
-                myFlightsTableView.reloadData()
-            }
+            tableData[SegmentType.savedFlights.rawValue].sections[0].items = savedFlights
+            myFlightsTableView.reloadData()
         }
     }
     
@@ -90,20 +90,13 @@ class ProfileVC: UIViewController {
         
         setupTableView()
         setupView()
+        bindUserService()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        updateViewForCurrentUser()
-        addUserPropertiesDidChangeListener()
         self.tabBarController?.tabBar.isHidden = false
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        removeUserPropertiesDidChangeListener()
     }
     
     // MARK: Setup
@@ -115,6 +108,18 @@ class ProfileVC: UIViewController {
         profileImageView.layer.shadowOffset = CGSize.zero
         profileImageView.layer.shadowRadius = 10
         myFlightsSegmentControl.addTarget(self, action: #selector(myFlightSegmentControlDidChange(_:)), for: .valueChanged)
+    }
+    
+    private func bindUserService() {
+        userService.currentUser.asObservable().subscribe(onNext: { currentUser in
+            self.updateView(for: currentUser)
+        }).disposed(by: disposeBag)
+        
+        userService.savedFlights.asObservable().subscribe(onNext: { savedFlights in
+            self.savedFlights = savedFlights
+        }).disposed(by: disposeBag)
+        
+        userService.profileImage.asObservable().bind(to: profileImageView.rx.image).disposed(by: disposeBag)
     }
     
     private func setupTableView() {
@@ -134,48 +139,22 @@ class ProfileVC: UIViewController {
     
     // MARK: Convenience
     
-    private func addUserPropertiesDidChangeListener() {
-        userPropertiesDidChangeListener = NotificationCenter.default.addObserver(forName: .userPropertiesDidChange, object: nil, queue: nil, using: { _ in
-            self.updateViewForCurrentUser()
-        })
+    private func updateView(for currentUser: User?) {
+        self.updateLoggedInStatusView(for: currentUser)
     }
     
-    private func removeUserPropertiesDidChangeListener() {
-        if let userPropertiesDidChangeListener = userPropertiesDidChangeListener {
-            NotificationCenter.default.removeObserver(userPropertiesDidChangeListener)
-        }
-    }
-    
-    private func updateViewForCurrentUser() {
-        self.setProfileImage()
-        self.updateLoggedInStatusView()
-        if let savedFlights = userService.savedFlights {
-            self.savedFlights = savedFlights
-        }
-    }
-    
-    private func updateLoggedInStatusView() {
-        if let _ = userService.currentUser {
+    private func updateLoggedInStatusView(for currentUser: User?) {
+        if let currentUser = currentUser {
             if userStatusView.loggedInViewIsVisible {
-                userStatusView.configureViewForCurrentUser(animated: false)
+                userStatusView.configureView(for: currentUser, animated: false)
             } else {
-                userStatusView.configureViewForCurrentUser(animated: true)
+                userStatusView.configureView(for: currentUser, animated: true)
             }
         } else {
             if userStatusView.loggedInViewIsVisible {
-                userStatusView.configureViewForCurrentUser(animated: true)
+                userStatusView.configureView(for: nil, animated: true)
             } else {
-                userStatusView.configureViewForCurrentUser(animated: false)
-            }
-        }
-    }
-    
-    private func setProfileImage() {
-        DispatchQueue.main.async {
-            if let profileImage = self.userService.profileImage {
-                self.profileImageView.image = profileImage
-            } else {
-                self.profileImageView.image = #imageLiteral(resourceName: "DefaultProfileImage")
+                userStatusView.configureView(for: nil, animated: false)
             }
         }
     }
@@ -201,7 +180,6 @@ class ProfileVC: UIViewController {
                 notification.presentNotification(onNavigationController: navigationController, forDuration: 3)
                 return
             }
-            self.setProfileImage()
         }
     }
     
