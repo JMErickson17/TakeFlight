@@ -149,6 +149,10 @@ class SearchVC: UIViewController {
             self.configureViewForSearchState(searchState)
         }).disposed(by: disposeBag)
         
+        viewModel.hasActiveFilters.asObservable().subscribe(onNext: { hasActiveFilters in
+            self.configureRefineButton(hasActiveFilters: hasActiveFilters)
+        }).disposed(by: disposeBag)
+        
         viewModel.originText.asObservable().bind(to: originTextField.rx.text).disposed(by: disposeBag)
         viewModel.destinationText.asObservable().bind(to: destinationTextField.rx.text).disposed(by: disposeBag)
         viewModel.departureDateText.asObservable().bind(to: departureDateTextField.rx.text).disposed(by: disposeBag)
@@ -218,11 +222,9 @@ class SearchVC: UIViewController {
         }
     }
     
-//    private func configureRefineButtonForFilterState() {
-//        if let filterOptions = filterOptions {
-//            refineButton.shouldShowstatusIndicator = filterOptions.hasActiveFilters
-//        }
-//    }
+    private func configureRefineButton(hasActiveFilters: Bool) {
+        refineButton.shouldShowstatusIndicator = hasActiveFilters
+    }
     
     private func showEmptyFlightsLabel() {
         DispatchQueue.main.async {

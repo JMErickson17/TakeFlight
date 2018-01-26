@@ -20,6 +20,7 @@ struct SearchViewModel {
     private(set) var returnDateText = Variable<String>("")
     private(set) var selectedSearchType = Variable<SearchType>(.oneWay)
     private(set) var currentSearchState = Variable<SearchState?>(nil)
+    private(set) var hasActiveFilters = Variable<Bool>(false)
     private(set) var flights = Variable<[FlightData]>([])
     
     var origin: Airport? {
@@ -92,7 +93,11 @@ struct SearchViewModel {
         return headerString
     }
     
-    var flightDataManager = FlightDataManager()
+    var flightDataManager: FlightDataManager {
+        didSet {
+            bindActiveFilters()
+        }
+    }
     
     // MARK: Private Properties
     
@@ -101,6 +106,7 @@ struct SearchViewModel {
     private let userService: UserService
     private let carrierService: CarrierService
     private let userDefaults = UserDefaultsService.instance
+    private let disposeBag = DisposeBag()
     
     private let formatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -119,6 +125,8 @@ struct SearchViewModel {
         self.carrierService = carrierService
         self.sortOption = .price
         self.searchType = userDefaults.searchType
+        self.flightDataManager = FlightDataManager()
+        self.bindActiveFilters()
         
         defer {
             self.origin = userDefaults.origin
@@ -129,11 +137,18 @@ struct SearchViewModel {
         }
     }
     
+    private func bindActiveFilters() {
+        flightDataManager.hasActiveFilters.asObservable().subscribe(onNext: { hasActiveFilters in
+            self.hasActiveFilters.value = hasActiveFilters
+        }).disposed(by: disposeBag)
+    }
+    
     // MARK: Convenience
     
     mutating func resetSortAndFilters() {
         sortOption = .price
         flightDataManager.filterOptions.resetFilters()
+        hasActiveFilters.value = false
         carrierData = carrierService.carriers.map { carrier in
             CarrierData(carrier: carrier,
                         isInCurrentSearch: flightDataManager.flightData.map { $0.departingFlight.carrier }.contains(carrier),

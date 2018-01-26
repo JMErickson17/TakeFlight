@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RxSwift
 
 class FlightDataManager {
     
@@ -29,8 +30,11 @@ class FlightDataManager {
     var filterOptions: FlightFilterOptions {
         didSet {
             processedFlightData = processFlightsWithCurrentOptions()
+            hasActiveFilters.value = filterOptions.hasActiveFilters
         }
     }
+    
+    var hasActiveFilters = Variable<Bool>(false)
     
     // MARK: Lifecycle
     

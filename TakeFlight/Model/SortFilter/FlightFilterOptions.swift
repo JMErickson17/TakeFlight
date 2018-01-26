@@ -27,6 +27,12 @@ struct FlightFilterOptions {
     var maxStops: MaxStops
     var maxDuration: Hour
     
+    var hasActiveFilters: Bool {
+        return !filteredCarriers.isEmpty ||
+                maxStops != .six ||
+                maxDuration != 40
+    }
+    
     init() {
         self.filteredCarriers = [Carrier]()
         self.maxStops = MaxStops.six
