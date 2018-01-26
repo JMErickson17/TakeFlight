@@ -445,12 +445,6 @@ extension SearchVC: UITextFieldDelegate {
 // MARK:- DatePickerVCDelegate
 
 extension SearchVC: DatePickerVCDelegate {
-    func datePickerVC(_ datePickerVC: DatePickerVC, didClearDates: Bool) {
-        if didClearDates {
-            clearDates()
-        }
-    }
-    
     func datePickerVC(_ datePickerVC: DatePickerVC, didUpdateDepartureDate date: Date) {
         viewModel.departureDate = date
     }
@@ -459,7 +453,11 @@ extension SearchVC: DatePickerVCDelegate {
         viewModel.returnDate = date
     }
     
-    func datePickerVC(_ datePickerVC: DatePickerVC, shouldDismiss: Bool) {
+    func datePickerVCClearDates(_ datePickerVC: DatePickerVC) {
+        clearDates()
+    }
+    
+    func datePickerVCDismiss(_ datePickerVC: DatePickerVC) {
         dismissDatePicker()
     }
 }
@@ -467,6 +465,10 @@ extension SearchVC: DatePickerVCDelegate {
 // MARK:- AirportPickerVCDelegate
 
 extension SearchVC: AirportPickerVCDelegate {
+    func airportPickerVCDismiss(_ airportPickerVC: AirportPickerVC) {
+        dismissAirportPicker()
+    }
+    
     
     func airportPickerVC(_ airportPickerVC: AirportPickerVC, didPickOriginAirport airport: Airport) {
         viewModel.origin = airport
@@ -476,10 +478,6 @@ extension SearchVC: AirportPickerVCDelegate {
     func airportPickerVC(_ airportPickerVC: AirportPickerVC, didPickDestinationAirport airport: Airport) {
         viewModel.destination = airport
         destinationTextField.resignFirstResponder()
-    }
-    
-    func airportPickerVC(_ airportPickerVC: AirportPickerVC, shouldDismiss: Bool) {
-        dismissAirportPicker()
     }
 }
 

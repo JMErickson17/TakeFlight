@@ -9,6 +9,6 @@
 import Foundation
 
 protocol LoggedInStatusViewDelegate: class {
-    func loggedInStatusView(_ loggedInStatusView: LoggedInStatusView, loginButtonWasTapped: Bool)
-    func loggedInStatusView(_ loggedInStatusView: LoggedInStatusView, signupButtonWasTapped: Bool)
+    func loggedInStatusViewLoginButtonWasTapped(_ loggedInStatusView: LoggedInStatusView)
+    func loggedInStatusViewSignupButtonWasTapped(_ loggedInStatusView: LoggedInStatusView)
 }

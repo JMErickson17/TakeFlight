@@ -11,6 +11,6 @@ import Foundation
 protocol DatePickerVCDelegate: class {    
     func datePickerVC(_ datePickerVC: DatePickerVC, didUpdateDepartureDate date: Date)
     func datePickerVC(_ datePickerVC: DatePickerVC, didUpdateReturnDate date: Date)
-    func datePickerVC(_ datePickerVC: DatePickerVC, didClearDates: Bool)
-    func datePickerVC(_ datePickerVC: DatePickerVC, shouldDismiss: Bool)
+    func datePickerVCClearDates(_ datePickerVC: DatePickerVC)
+    func datePickerVCDismiss(_ datePickerVC: DatePickerVC)
 }

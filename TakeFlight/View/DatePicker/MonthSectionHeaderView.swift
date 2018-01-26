@@ -9,10 +9,6 @@
 import UIKit
 import JTAppleCalendar
 
-protocol MonthSectionHeaderViewDelegate: class {
-    func monthSectionHeaderView(_ MonthSectionHeaderView: MonthSectionHeaderView, shouldDismiss: Bool)
-}
-
 class MonthSectionHeaderView: JTAppleCollectionReusableView {
 
     // MARK: Properties
@@ -33,6 +29,6 @@ class MonthSectionHeaderView: JTAppleCollectionReusableView {
     // MARK: Actions
     
     @IBAction func datesSelectedButtonTapped(_ sender: Any) {
-        delegate?.monthSectionHeaderView(self, shouldDismiss: true)
+        delegate?.monthSectionHeaderViewDismiss(self)
     }
 }

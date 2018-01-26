@@ -257,12 +257,11 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
 // MARK:- ProfileVC+LoggedInStatusViewDelegate
 
 extension ProfileVC: LoggedInStatusViewDelegate {
-    
-    func loggedInStatusView(_ loggedInStatusView: LoggedInStatusView, loginButtonWasTapped: Bool) {
+    func loggedInStatusViewLoginButtonWasTapped(_ loggedInStatusView: LoggedInStatusView) {
         performSegue(withIdentifier: Constants.toLoginVC, sender: nil)
     }
     
-    func loggedInStatusView(_ loggedInStatusView: LoggedInStatusView, signupButtonWasTapped: Bool) {
+    func loggedInStatusViewSignupButtonWasTapped(_ loggedInStatusView: LoggedInStatusView) {
         performSegue(withIdentifier: Constants.toSignupVC, sender: nil)
     }
 }

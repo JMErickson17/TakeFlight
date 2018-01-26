@@ -140,7 +140,7 @@ class DatePickerVC: UIViewController {
         returnDate = nil
         calendarView.deselectAllDates(triggerSelectionDelegate: false)
         calendarView.reloadData()
-        delegate?.datePickerVC(self, didClearDates: true)
+        delegate?.datePickerVCClearDates(self)
     }
     
 //    func datePickerVC(_ datePickerVC: DatePickerVC, moveTooltip: Bool, forSelectedState selectedState: SelectedState) {
@@ -275,7 +275,7 @@ extension DatePickerVC: JTAppleCalendarViewDataSource {
 // MARK:- MonthSectionHeaderViewDelegate
 
 extension DatePickerVC: MonthSectionHeaderViewDelegate {
-    func monthSectionHeaderView(_ MonthSectionHeaderView: MonthSectionHeaderView, shouldDismiss: Bool) {
-        delegate?.datePickerVC(self, shouldDismiss: shouldDismiss)
+    func monthSectionHeaderViewDismiss(_ MonthSectionHeaderView: MonthSectionHeaderView) {
+        delegate?.datePickerVCDismiss(self)
     }
 }

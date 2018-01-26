@@ -11,5 +11,5 @@ import Foundation
 protocol AirportPickerVCDelegate: class {
     func airportPickerVC(_ airportPickerVC: AirportPickerVC, didPickOriginAirport airport: Airport)
     func airportPickerVC(_ airportPickerVC: AirportPickerVC, didPickDestinationAirport airport: Airport)
-    func airportPickerVC(_ airportPickerVC: AirportPickerVC, shouldDismiss: Bool)
+    func airportPickerVCDismiss(_ airportPickerVC: AirportPickerVC)
 }

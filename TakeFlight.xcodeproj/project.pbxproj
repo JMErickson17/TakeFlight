@@ -125,10 +125,10 @@
 		CAEDB6A81FCCD4900041878F /* SelectedDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEDB6A71FCCD4900041878F /* SelectedDateView.swift */; };
 		CAEE8AC31FFD9E78004558A6 /* Carrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEE8AC21FFD9E78004558A6 /* Carrier.swift */; };
 		CAF35CB41FE1F4850074B60B /* TakeoffLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF35CB31FE1F4850074B60B /* TakeoffLoadingView.swift */; };
-		CAF35CB61FE22EBA0074B60B /* TakeoffLoadingViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF35CB51FE22EBA0074B60B /* TakeoffLoadingViewDelegate.swift */; };
 		CAF3714E1FA232EE002C3455 /* SelectedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF3714D1FA232EE002C3455 /* SelectedState.swift */; };
 		CAF371501FA2426E002C3455 /* DatePickerVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF3714F1FA2426E002C3455 /* DatePickerVCDelegate.swift */; };
 		CAFA6E53201047A600FA39B2 /* SearchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFA6E52201047A600FA39B2 /* SearchState.swift */; };
+		CAFD5AD7201BA6D300C6FC88 /* MonthSectionHeaderViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFD5AD6201BA6D300C6FC88 /* MonthSectionHeaderViewDelegate.swift */; };
 		CAFF4A311FD2452F0036083C /* String+AlphanumericCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFF4A301FD2452F0036083C /* String+AlphanumericCharacters.swift */; };
 /* End PBXBuildFile section */
 
@@ -278,10 +278,10 @@
 		CAEE8AC11FFD9BD2004558A6 /* TakeFlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TakeFlight.entitlements; sourceTree = "<group>"; };
 		CAEE8AC21FFD9E78004558A6 /* Carrier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carrier.swift; sourceTree = "<group>"; };
 		CAF35CB31FE1F4850074B60B /* TakeoffLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeoffLoadingView.swift; sourceTree = "<group>"; };
-		CAF35CB51FE22EBA0074B60B /* TakeoffLoadingViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeoffLoadingViewDelegate.swift; sourceTree = "<group>"; };
 		CAF3714D1FA232EE002C3455 /* SelectedState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedState.swift; sourceTree = "<group>"; };
 		CAF3714F1FA2426E002C3455 /* DatePickerVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerVCDelegate.swift; sourceTree = "<group>"; };
 		CAFA6E52201047A600FA39B2 /* SearchState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchState.swift; sourceTree = "<group>"; };
+		CAFD5AD6201BA6D300C6FC88 /* MonthSectionHeaderViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthSectionHeaderViewDelegate.swift; sourceTree = "<group>"; };
 		CAFF4A301FD2452F0036083C /* String+AlphanumericCharacters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+AlphanumericCharacters.swift"; sourceTree = "<group>"; };
 		DF2F772D35F090085677C96D /* Pods-TakeFlightTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TakeFlightTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TakeFlightTests/Pods-TakeFlightTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E1CD68BDBB2978CC87E5D867 /* Pods_TakeFlight.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TakeFlight.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -487,6 +487,7 @@
 				CA29AA1A1F9D6A5E0047B2F1 /* SearchVCDelegate.swift */,
 				CAF3714F1FA2426E002C3455 /* DatePickerVCDelegate.swift */,
 				CAA19A101FA3D1CA00A479A8 /* AirportPickerVCDelegate.swift */,
+				CAFD5AD6201BA6D300C6FC88 /* MonthSectionHeaderViewDelegate.swift */,
 			);
 			path = "View Controller Delegates";
 			sourceTree = "<group>";
@@ -778,7 +779,6 @@
 				CA66A754200EA0FF00D08E80 /* Service Protocols */,
 				CA82E689200EBE0700F7DD29 /* View Controller Delegates */,
 				CA6F704F1FF8607900DD9C08 /* SortFilter Delegates */,
-				CAF35CB51FE22EBA0074B60B /* TakeoffLoadingViewDelegate.swift */,
 				CA55C0F41FE99F2D008990C8 /* LoggedInStatusViewDelegate.swift */,
 			);
 			path = Protocols;
@@ -1183,7 +1183,6 @@
 				CAD6FC291FE19B7300691A8B /* TimelineView.swift in Sources */,
 				CA85590D1FE747EA00E72913 /* ProfileVC.swift in Sources */,
 				CA5732541FF7107300D10DAD /* UIImage+JPEGQuality.swift in Sources */,
-				CAF35CB61FE22EBA0074B60B /* TakeoffLoadingViewDelegate.swift in Sources */,
 				CA66A760200EB6C500D08E80 /* UserDefaults+Keys.swift in Sources */,
 				CAA656201FF4153700DB59C4 /* CarrierFilterVC.swift in Sources */,
 				CA192CF51FF7244100943C74 /* MaxStops.swift in Sources */,
@@ -1198,6 +1197,7 @@
 				CAA656291FF423A300DB59C4 /* CarrierPickerCell.swift in Sources */,
 				CAAD01FD1FD0E23A00E76B88 /* NetworkManager.swift in Sources */,
 				CA66A75C200EA6E300D08E80 /* FirebaseAirportService.swift in Sources */,
+				CAFD5AD7201BA6D300C6FC88 /* MonthSectionHeaderViewDelegate.swift in Sources */,
 				CA53248A1FD8BF67002ABBC3 /* PillButton.swift in Sources */,
 				CAC6BA7A1FF3055C005307C1 /* FilterOptionCell.swift in Sources */,
 				CA85590B1FE747D800E72913 /* ExploreVC.swift in Sources */,

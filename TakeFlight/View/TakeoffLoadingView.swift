@@ -21,7 +21,7 @@ class TakeoffLoadingView: UIView, CAAnimationDelegate {
     
     // MARK: Properties
     
-    weak var delegate: TakeoffLoadingViewDelegate?
+    //weak var delegate: TakeoffLoadingViewDelegate?
     
     private lazy var airplaneLayer: CALayer = {
         let layer = CALayer()

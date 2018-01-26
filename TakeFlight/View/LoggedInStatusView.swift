@@ -206,10 +206,10 @@ class LoggedInStatusView: UIView {
     }
     
     @objc private func loginButtonWasTapped() {
-        delegate?.loggedInStatusView(self, loginButtonWasTapped: true)
+        delegate?.loggedInStatusViewLoginButtonWasTapped(self)
     }
     
     @objc private func signupButtonWasTapped() {
-        delegate?.loggedInStatusView(self, signupButtonWasTapped: true)
+        delegate?.loggedInStatusViewSignupButtonWasTapped(self)
     }
 }
