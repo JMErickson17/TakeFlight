@@ -17,6 +17,9 @@ class ProfileVC: UIViewController {
     private struct Constants {
         static let toLoginVC = "ToLoginVC"
         static let toSignupVC = "ToSignupVC"
+        static let loginToSaveFlightsMessage = "Login or create an account\n to save flights."
+        static let noSavedFlightsMessage = "You don't currently have any saved flights!\n Find flights using the search tab."
+        static let noPurchasedFlightsMessage = "Your past and upcoming flights will appear here.\n Find flights using the search tab."
     }
     
     private enum SegmentType: Int {
@@ -52,6 +55,7 @@ class ProfileVC: UIViewController {
     
     private var savedFlights = [FlightData]() {
         didSet {
+            if !savedFlights.isEmpty { myFlightsStatusLabel.isHidden = true }
             tableData[SegmentType.savedFlights.rawValue].sections[0].items = savedFlights
             myFlightsTableView.reloadData()
         }
@@ -81,6 +85,17 @@ class ProfileVC: UIViewController {
         controller.addAction(UIAlertAction(title: "Remove Current Photo", style: .destructive, handler: handleRemoveProfileImage))
         controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         return controller
+    }()
+    
+    private lazy var myFlightsStatusLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.isHidden = true
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 14, weight: .light)
+        return label
     }()
     
     // MARK: Lifecycle
@@ -126,6 +141,12 @@ class ProfileVC: UIViewController {
         myFlightsTableView.delegate = self
         myFlightsTableView.dataSource = self
         
+        myFlightsTableView.addSubview(myFlightsStatusLabel)
+        NSLayoutConstraint.activate([
+            myFlightsStatusLabel.centerXAnchor.constraint(equalTo: myFlightsTableView.centerXAnchor),
+            myFlightsStatusLabel.centerYAnchor.constraint(equalTo: myFlightsTableView.centerYAnchor)
+        ])
+        
         tableData = [
             Segment(type: .savedFlights, sections: [
                 Section(type: .savedFlights, items: [])
@@ -141,6 +162,14 @@ class ProfileVC: UIViewController {
     
     private func updateView(for currentUser: User?) {
         self.updateLoggedInStatusView(for: currentUser)
+
+        if let _ = currentUser {
+            self.myFlightsStatusLabel.text = myFlightsSegmentControl.selectedSegmentIndex == 0 ? Constants.noSavedFlightsMessage : Constants.noPurchasedFlightsMessage
+            self.myFlightsStatusLabel.isHidden = myFlightsSegmentControl.selectedSegmentIndex == 0 ? !savedFlights.isEmpty : false
+        } else {
+            self.myFlightsStatusLabel.text = Constants.loginToSaveFlightsMessage
+            myFlightsStatusLabel.isHidden = false
+        }
     }
     
     private func updateLoggedInStatusView(for currentUser: User?) {
@@ -184,6 +213,16 @@ class ProfileVC: UIViewController {
     }
     
     @objc private func myFlightSegmentControlDidChange(_ sender: UISegmentedControl) {
+        guard userService.currentUser.value != nil else { return }
+        switch sender.selectedSegmentIndex {
+        case 0:
+            myFlightsStatusLabel.text = Constants.noSavedFlightsMessage
+            myFlightsStatusLabel.isHidden = !savedFlights.isEmpty
+        case 1:
+            myFlightsStatusLabel.text = Constants.noPurchasedFlightsMessage
+            myFlightsStatusLabel.isHidden = false
+        default: break
+        }
         self.myFlightsTableView.reloadData()
     }
 }
@@ -269,3 +308,5 @@ extension ProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDele
         self.handleSave(profileImage: resizedImage)
     }
 }
+
+
