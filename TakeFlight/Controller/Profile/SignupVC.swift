@@ -72,7 +72,7 @@ class SignupVC: UIViewController {
             guard passwordsMatch else {
                 if let navigationController = self.navigationController {
                     let notification = DropDownNotification(text: "The passwords entered do not match.")
-                    notification.presentNotification(onNavigationController: navigationController, forDuration: 3)
+                    notification.presentNotification(onViewController: navigationController, forDuration: 3)
                 }
                 return
             }
@@ -81,7 +81,7 @@ class SignupVC: UIViewController {
                 if let error = error {
                     if let navigationController = self?.navigationController {
                         let notification = DropDownNotification(text: error.localizedDescription)
-                        notification.presentNotification(onNavigationController: navigationController, forDuration: 3)
+                        notification.presentNotification(onViewController: navigationController, forDuration: 3)
                     }
                     return
                 }

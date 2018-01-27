@@ -25,7 +25,7 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
     private lazy var userService: UserService = appDelegate.firebaseUserService!
     
     private lazy var scrollView: UIScrollView = {
-        var scrollView = UIScrollView()
+        let scrollView = UIScrollView()
         scrollView.delegate = self
         scrollView.isScrollEnabled = true
         scrollView.isPagingEnabled = false
@@ -38,7 +38,7 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
     }()
     
     private lazy var contentView: UIView = {
-        var view = UIView()
+        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -53,15 +53,21 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
     }()
     
     private lazy var departingFlightCardView: FlightCardView = {
-        var flightCard = FlightCardView()
+        let flightCard = FlightCardView()
         flightCard.translatesAutoresizingMaskIntoConstraints = false
         return flightCard
     }()
     
     private lazy var returningFlightCardView: FlightCardView = {
-        var flightCard = FlightCardView()
+        let flightCard = FlightCardView()
         flightCard.translatesAutoresizingMaskIntoConstraints = false
         return flightCard
+    }()
+    
+    private lazy var bookingDetailsCardView: BookingDetailsCardView = {
+        let detailsCard = BookingDetailsCardView()
+        detailsCard.translatesAutoresizingMaskIntoConstraints = false
+        return detailsCard
     }()
     
     private lazy var flightPriceCardView: FlightPriceCardView = {
@@ -187,22 +193,44 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
                 returningFlightCardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
             ])
             
+            contentView.addSubview(bookingDetailsCardView)
+            NSLayoutConstraint.activate([
+                bookingDetailsCardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+                bookingDetailsCardView.topAnchor.constraint(equalTo: returningFlightCardView.bottomAnchor, constant: 20),
+                bookingDetailsCardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
+            ])
+            
             contentView.addSubview(flightPriceCardView)
             NSLayoutConstraint.activate([
                 flightPriceCardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-                flightPriceCardView.topAnchor.constraint(equalTo: returningFlightCardView.bottomAnchor, constant: 20),
+                flightPriceCardView.topAnchor.constraint(equalTo: bookingDetailsCardView.bottomAnchor, constant: 20),
                 flightPriceCardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
                 flightPriceCardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
             ])
         } else {
+            contentView.addSubview(bookingDetailsCardView)
+            NSLayoutConstraint.activate([
+                bookingDetailsCardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+                bookingDetailsCardView.topAnchor.constraint(equalTo: departingFlightCardView.bottomAnchor, constant: 20),
+                bookingDetailsCardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
+            ])
+            
             contentView.addSubview(flightPriceCardView)
             NSLayoutConstraint.activate([
                 flightPriceCardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-                flightPriceCardView.topAnchor.constraint(equalTo: departingFlightCardView.bottomAnchor, constant: 20),
+                flightPriceCardView.topAnchor.constraint(equalTo: bookingDetailsCardView.bottomAnchor, constant: 20),
                 flightPriceCardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
                 flightPriceCardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
             ])
         }
+        
+        let bookingCode = flightData.completeBookingCode
+        let refundable = (flightData.refundable ?? false) == true ? "Yes" : "No"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        let latestTicketingTime = flightData.latestTicketingTime.toLocalDateAndTimeString(withFormatter: dateFormatter)
+        bookingDetailsCardView.configureView(withBookingCode: bookingCode, refundable: refundable, latestTicketingTime: latestTicketingTime)
         
         let baseFare = makePriceString(with: flightData.baseFareTotal)
         let saleFare = makePriceString(with: flightData.saleFareTotal)
@@ -239,7 +267,7 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
             self?.flightIsSaved = true
             if let navigationController = self?.navigationController {
                 let notification = DropDownNotification(text: "Flight saved")
-                notification.presentNotification(onNavigationController: navigationController, forDuration: 3)
+                notification.presentNotification(onViewController: navigationController, forDuration: 3)
             }
         }
     }

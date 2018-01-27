@@ -14,4 +14,6 @@ extension UIColor {
     static let stopCountRed = UIColor(named: "StopCountRed")!
     static let primaryBlue = UIColor(named: "PrimaryBlue")!
     static let accentBlue = UIColor(named: "AccentBlue")!
+    static let backgroundGray = UIColor(named: "BackgroundGray")!
+    static let flightCardGray = UIColor(named: "FlightCardGray")!
 }

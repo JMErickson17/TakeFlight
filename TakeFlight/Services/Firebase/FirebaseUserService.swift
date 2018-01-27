@@ -24,7 +24,6 @@ class FirebaseUserService: UserService {
             currentUser.value = _currentUser
             setProfileImage()
             setSavedFlights()
-            print("Current User Set")
         }
     }
     

@@ -39,8 +39,6 @@ class SearchVC: UIViewController {
     private var shouldSearch: Bool {
         return airportPickerVC == nil && datePickerVC == nil && self.view.window != nil
     }
-    
-    // TODO: Setup refine button state
 
     private lazy var emptyFlightsLabel: UILabel = {
         let label = UILabel()

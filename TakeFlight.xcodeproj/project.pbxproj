@@ -15,6 +15,8 @@
 		CA18454F1FD89AAD003B56C6 /* DateAndTimeZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA18454E1FD89AAD003B56C6 /* DateAndTimeZone.swift */; };
 		CA192CF51FF7244100943C74 /* MaxStops.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA192CF41FF7244100943C74 /* MaxStops.swift */; };
 		CA192CF71FF726B300943C74 /* StopFilterVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA192CF61FF726B300943C74 /* StopFilterVCDelegate.swift */; };
+		CA1EFF6F201D0BC300B90137 /* UIViewController+DropDownNotificationDismissable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1EFF6E201D0BC300B90137 /* UIViewController+DropDownNotificationDismissable.swift */; };
+		CA1EFF71201D0BF200B90137 /* DropDownNotificationDismissable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1EFF70201D0BF200B90137 /* DropDownNotificationDismissable.swift */; };
 		CA29AA1B1F9D6A5E0047B2F1 /* SearchVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA29AA1A1F9D6A5E0047B2F1 /* SearchVCDelegate.swift */; };
 		CA2BE2CA1FEB160400DAF73F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2BE2C91FEB160400DAF73F /* User.swift */; };
 		CA2BE2CC1FEB463900DAF73F /* Notification+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2BE2CB1FEB463900DAF73F /* Notification+Name.swift */; };
@@ -132,6 +134,9 @@
 		CAFD5ADF201BB9DB00C6FC88 /* KeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFD5ADE201BB9DB00C6FC88 /* KeyManager.swift */; };
 		CAFD5AE1201BBA1100C6FC88 /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = CAFD5AE0201BBA1100C6FC88 /* APIKeys.plist */; };
 		CAFD5AE3201BBACD00C6FC88 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFD5AE2201BBACD00C6FC88 /* APIKey.swift */; };
+		CAFD5AE6201BFD9600C6FC88 /* BookingDetailsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFD5AE5201BFD9600C6FC88 /* BookingDetailsCardView.swift */; };
+		CAFD5AE8201BFDA500C6FC88 /* BookingDetailsCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAFD5AE7201BFDA500C6FC88 /* BookingDetailsCardView.xib */; };
+		CAFD5AEE201C10C200C6FC88 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFD5AED201C10C200C6FC88 /* NotificationView.swift */; };
 		CAFF4A311FD2452F0036083C /* String+AlphanumericCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFF4A301FD2452F0036083C /* String+AlphanumericCharacters.swift */; };
 /* End PBXBuildFile section */
 
@@ -164,6 +169,8 @@
 		CA18454E1FD89AAD003B56C6 /* DateAndTimeZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAndTimeZone.swift; sourceTree = "<group>"; };
 		CA192CF41FF7244100943C74 /* MaxStops.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxStops.swift; sourceTree = "<group>"; };
 		CA192CF61FF726B300943C74 /* StopFilterVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopFilterVCDelegate.swift; sourceTree = "<group>"; };
+		CA1EFF6E201D0BC300B90137 /* UIViewController+DropDownNotificationDismissable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+DropDownNotificationDismissable.swift"; sourceTree = "<group>"; };
+		CA1EFF70201D0BF200B90137 /* DropDownNotificationDismissable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownNotificationDismissable.swift; sourceTree = "<group>"; };
 		CA29AA1A1F9D6A5E0047B2F1 /* SearchVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVCDelegate.swift; sourceTree = "<group>"; };
 		CA2BE2C91FEB160400DAF73F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CA2BE2CB1FEB463900DAF73F /* Notification+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name.swift"; sourceTree = "<group>"; };
@@ -288,6 +295,9 @@
 		CAFD5ADE201BB9DB00C6FC88 /* KeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyManager.swift; sourceTree = "<group>"; };
 		CAFD5AE0201BBA1100C6FC88 /* APIKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = APIKeys.plist; sourceTree = "<group>"; };
 		CAFD5AE2201BBACD00C6FC88 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		CAFD5AE5201BFD9600C6FC88 /* BookingDetailsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingDetailsCardView.swift; sourceTree = "<group>"; };
+		CAFD5AE7201BFDA500C6FC88 /* BookingDetailsCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingDetailsCardView.xib; sourceTree = "<group>"; };
+		CAFD5AED201C10C200C6FC88 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		CAFF4A301FD2452F0036083C /* String+AlphanumericCharacters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+AlphanumericCharacters.swift"; sourceTree = "<group>"; };
 		DF2F772D35F090085677C96D /* Pods-TakeFlightTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TakeFlightTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TakeFlightTests/Pods-TakeFlightTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E1CD68BDBB2978CC87E5D867 /* Pods_TakeFlight.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TakeFlight.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -390,6 +400,7 @@
 			isa = PBXGroup;
 			children = (
 				CAECB8731FEA019A00F84359 /* DropDownNotification.swift */,
+				CAFD5AED201C10C200C6FC88 /* NotificationView.swift */,
 			);
 			path = Notifications;
 			sourceTree = "<group>";
@@ -707,6 +718,7 @@
 				CA5B598A1FE83AAC00B08A9D /* FlightCardView */,
 				CAD659BB2017FFF1006AB441 /* MyFlightCardView */,
 				CAFD5AD8201BAB7600C6FC88 /* FlightPriceCardView */,
+				CAFD5AE4201BFD6E00C6FC88 /* BookingDetailsCardView */,
 				CA55C0F11FE9959E008990C8 /* Buttons */,
 				CA49BB901FED8D3D00C3940C /* TextFields */,
 				CAA6562B1FF4431D00DB59C4 /* SortFilterCells */,
@@ -776,6 +788,7 @@
 				CA2BE2CB1FEB463900DAF73F /* Notification+Name.swift */,
 				CA5732531FF7107300D10DAD /* UIImage+JPEGQuality.swift */,
 				CA68F1FC1FFC2ACE00B5CEFB /* UIColor+ColorSheme.swift */,
+				CA1EFF6E201D0BC300B90137 /* UIViewController+DropDownNotificationDismissable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -786,6 +799,7 @@
 				CA66A754200EA0FF00D08E80 /* Service Protocols */,
 				CA82E689200EBE0700F7DD29 /* View Controller Delegates */,
 				CA6F704F1FF8607900DD9C08 /* SortFilter Delegates */,
+				CA1EFF70201D0BF200B90137 /* DropDownNotificationDismissable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -807,6 +821,15 @@
 				CAFD5AE2201BBACD00C6FC88 /* APIKey.swift */,
 			);
 			path = "API Key Manager";
+			sourceTree = "<group>";
+		};
+		CAFD5AE4201BFD6E00C6FC88 /* BookingDetailsCardView */ = {
+			isa = PBXGroup;
+			children = (
+				CAFD5AE7201BFDA500C6FC88 /* BookingDetailsCardView.xib */,
+				CAFD5AE5201BFD9600C6FC88 /* BookingDetailsCardView.swift */,
+			);
+			path = BookingDetailsCardView;
 			sourceTree = "<group>";
 		};
 		D132DC59ACFEDB4A5D7D3905 /* Frameworks */ = {
@@ -955,6 +978,7 @@
 				CA8C6B791F9CF86000753E7D /* GoogleService-Info.plist in Resources */,
 				CAEC73AF1F813C29004D6F0B /* Main.storyboard in Resources */,
 				CAEC73E11F8144D1004D6F0B /* RoundTripFlightDataCell.xib in Resources */,
+				CAFD5AE8201BFDA500C6FC88 /* BookingDetailsCardView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1172,6 +1196,7 @@
 				CA192CF71FF726B300943C74 /* StopFilterVCDelegate.swift in Sources */,
 				CA66A757200EA26B00D08E80 /* FirebaseCarrierService.swift in Sources */,
 				CAF371501FA2426E002C3455 /* DatePickerVCDelegate.swift in Sources */,
+				CA1EFF71201D0BF200B90137 /* DropDownNotificationDismissable.swift in Sources */,
 				CA18454D1FD86D3B003B56C6 /* CGFloat+Lerp.swift in Sources */,
 				CAA656221FF416E000DB59C4 /* StopFilterVC.swift in Sources */,
 				CA9DB63D1FF5A87C0036B227 /* SortFilterOption.swift in Sources */,
@@ -1194,10 +1219,12 @@
 				CA82E68E200EC84000F7DD29 /* SearchViewModel.swift in Sources */,
 				CA29AA1B1F9D6A5E0047B2F1 /* SearchVCDelegate.swift in Sources */,
 				CA2BE2CC1FEB463900DAF73F /* Notification+Name.swift in Sources */,
+				CAFD5AEE201C10C200C6FC88 /* NotificationView.swift in Sources */,
 				CAD659C220180C81006AB441 /* FlightDetailsVCFactory.swift in Sources */,
 				CAEBDBC92017BB68006C2F43 /* CarrierData.swift in Sources */,
 				CAA99F781FF9835F008D4A4D /* PickerVC.swift in Sources */,
 				CAA0C71A1FABE77B00FAFD69 /* DateRange.swift in Sources */,
+				CAFD5AE6201BFD9600C6FC88 /* BookingDetailsCardView.swift in Sources */,
 				CA68F1FD1FFC2ACE00B5CEFB /* UIColor+ColorSheme.swift in Sources */,
 				CAC6BA781FF303E5005307C1 /* SortOptionCell.swift in Sources */,
 				CAEC73E61F81638F004D6F0B /* FlightData.swift in Sources */,
@@ -1238,6 +1265,7 @@
 				CA66A75E200EAE6A00D08E80 /* UserStorageService.swift in Sources */,
 				CAEDB6A81FCCD4900041878F /* SelectedDateView.swift in Sources */,
 				CA9B28631FCF71C700AACF29 /* FlightSegment.swift in Sources */,
+				CA1EFF6F201D0BC300B90137 /* UIViewController+DropDownNotificationDismissable.swift in Sources */,
 				CA7C3A201FBA42FF00E4CD40 /* FlightDetailsVC.swift in Sources */,
 				CA825CD81F93A8BB006871B2 /* DatePickerVC.swift in Sources */,
 				CA3E532B20110F9F00148910 /* FlightDataManager.swift in Sources */,

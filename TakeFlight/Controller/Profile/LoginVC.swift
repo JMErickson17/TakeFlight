@@ -73,7 +73,7 @@ class LoginVC: UIViewController {
                 if let error = error {
                     if let navigationController = self?.navigationController {
                         let notification = DropDownNotification(text: error.localizedDescription)
-                        notification.presentNotification(onNavigationController: navigationController, forDuration: 3)
+                        notification.presentNotification(onViewController: navigationController, forDuration: 3)
                     }
                     return
                 }

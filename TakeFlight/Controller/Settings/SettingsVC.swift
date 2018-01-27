@@ -208,7 +208,7 @@ class SettingsVC: UITableViewController {
             if let error = error {
                 if let navigationController = self?.navigationController {
                     let notification = DropDownNotification(text: "Could not save changes.\n\(error)")
-                    notification.presentNotification(onNavigationController: navigationController, forDuration: 3)
+                    notification.presentNotification(onViewController: navigationController, forDuration: 3)
                     return
                 }
             }
@@ -249,7 +249,7 @@ class SettingsVC: UITableViewController {
                 
                 if let navigationController = self.navigationController {
                     let notification = DropDownNotification(text: "Search history cleared.")
-                    notification.presentNotification(onNavigationController: navigationController, forDuration: 3)
+                    notification.presentNotification(onViewController: navigationController, forDuration: 3)
                 }
             }
         }
