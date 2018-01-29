@@ -71,6 +71,6 @@ class FirebaseAirportService: AirportService {
     }
     
     func airports(containing query: String) -> [Airport] {
-        return airports.filter { $0.searchRepresentation.lowercased().contains(query.lowercased()) }
+        return airports.filter { $0.searchRepresentation.lowercased().contains(query.lowercased()) || $0.locationString.lowercased().contains(query.lowercased()) }
     }
 }
