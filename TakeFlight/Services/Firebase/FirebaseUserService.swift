@@ -163,6 +163,7 @@ class FirebaseUserService: UserService {
                         self.saveToCurrentUser(updatedProperties: updatedProfileImageURL, completion: { (error) in
                             if let completion = completion {
                                 if let error = error { return completion(error) }
+                                self.setProfileImage()
                                 completion(nil)
                             }
                         })
@@ -266,6 +267,15 @@ class FirebaseUserService: UserService {
                         completion(profileImage, nil)
                     }
                 })
+            }
+        }
+    }
+    
+    func deleteProfileImageForCurrentUser(completion: @escaping ErrorCompletionHandler) {
+        self._profileImage = #imageLiteral(resourceName: "DefaultProfileImage")
+        DispatchQueue.global().async {
+            if let currentUser = self._currentUser {
+                self.userStorage.delete(userProfileImageWithUID: currentUser.uid, completion: completion)
             }
         }
     }

@@ -28,5 +28,6 @@ protocol UserService {
     func saveToCurrentUser(flightData: FlightData, completion: ErrorCompletionHandler?)
     func getSavedFlightsForCurrentUser(completion: @escaping ([FlightData]?, Error?) -> Void)
     func delete(savedFlightWithUID uid: String, completion: ErrorCompletionHandler?)
+    func deleteProfileImageForCurrentUser(completion: @escaping ErrorCompletionHandler)
     func clearCurrentUserSearchHistory(completion: ErrorCompletionHandler?)
 }

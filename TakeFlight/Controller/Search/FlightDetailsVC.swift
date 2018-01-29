@@ -129,7 +129,7 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
     }
 
     private func setupView() {
-        guard let flightData = flightData else { return }
+        guard var flightData = flightData else { return }
         
         view.backgroundColor = #colorLiteral(red: 0.9254901961, green: 0.9254901961, blue: 0.9254901961, alpha: 1)
         self.tabBarController?.tabBar.isHidden = true
@@ -168,7 +168,7 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
             contentView.widthAnchor.constraint(equalToConstant: view.bounds.width)
         ])
         
-        longDescription.text = flightData.longDescription
+        longDescription.text = flightData.longDescription()
         contentView.addSubview(longDescription)
         NSLayoutConstraint.activate([
             longDescription.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),

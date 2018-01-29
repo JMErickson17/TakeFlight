@@ -68,7 +68,6 @@ class QPXExpress {
             let supportingData = response.trips.data
             
             carrierService.handleNewCarriers(newCarriers: response.trips.data.carrier)
-            airportService.handleNewAirports(newAirports: response.trips.data.airport)
 
             for trip in response.trips.tripOption {
                 if let flightData = try? parseTripOption(tripOption: trip, supportingData: supportingData) {

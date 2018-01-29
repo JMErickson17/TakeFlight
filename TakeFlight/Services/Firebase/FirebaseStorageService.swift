@@ -50,4 +50,11 @@ extension FirebaseStorageService: UserStorageService {
             imagePath.getData(maxSize: 1 * 1024 * 1024, completion: completion)
         }
     }
+    
+    func delete(userProfileImageWithUID uid: String, completion: ErrorCompletionHandler?) {
+        DispatchQueue.global().async {
+            let imagePath = self.profileImagesRef.child(uid)
+            imagePath.delete(completion: completion)
+        }
+    }
 }

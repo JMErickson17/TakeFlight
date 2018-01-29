@@ -12,6 +12,8 @@ class FlightCardView: UIView {
     
     // MARK: Properties
     
+    private var airportService: AirportService
+    
     private lazy var headerImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -92,6 +94,9 @@ class FlightCardView: UIView {
     }
     
     override init(frame: CGRect) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        airportService = appDelegate.firebaseAirportService!
+        
         super.init(frame: frame)
         
         setupView()
@@ -178,8 +183,11 @@ class FlightCardView: UIView {
             segmentStackView.addArrangedSubview(segmentTimeline)
             
             if let connectionDuration = segment.connectionDuration {
-                let label = makeLayoverLabel(withDuration: connectionDuration, andAirport: segment.destinationAirport)
-                segmentStackView.addArrangedSubview(label)
+                if let index = airportService.airports.index(where: { $0.iata == segment.destinationAirportCode }) {
+                    let destinationAirport = airportService.airports[index]
+                    let label = makeLayoverLabel(withDuration: connectionDuration, andAirport: destinationAirport)
+                    segmentStackView.addArrangedSubview(label)
+                }
             }
         }
     }
@@ -277,10 +285,10 @@ extension FlightCardView {
                 legTimelineView.configureLegTimelineView(withLeg: leg)
                 legStackView.addArrangedSubview(legTimelineView)
                 
-                if let connectionDuration = leg.connectionDuration {
-                    let label = makeLayoverLabel(withDuration: connectionDuration, andAirport: leg.destinationAirport)
-                    legStackView.addArrangedSubview(label)
-                }
+//                if let connectionDuration = leg.connectionDuration {
+//                    let label = makeLayoverLabel(withDuration: connectionDuration, andAirport: leg.destinationAirport)
+//                    legStackView.addArrangedSubview(label)
+//                }
             }
             setNeedsLayout()
             setNeedsDisplay()

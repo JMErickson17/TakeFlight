@@ -47,7 +47,6 @@ class SearchVC: UIViewController {
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         label.numberOfLines = 0
         label.isHidden = true
-        label.text = "Looks like were missing some information needed for this search."
         return label
     }()
     
@@ -85,6 +84,13 @@ class SearchVC: UIViewController {
         if viewModel.flightDataManager.flightData.isEmpty && shouldSearch {
             viewModel.searchFlights()
         }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if airportPickerVC != nil {
+            dismissAirportPicker()
+        }
+        print("Touched")
     }
 
     // MARK: Setup
@@ -155,6 +161,7 @@ class SearchVC: UIViewController {
         viewModel.destinationText.asObservable().bind(to: destinationTextField.rx.text).disposed(by: disposeBag)
         viewModel.departureDateText.asObservable().bind(to: departureDateTextField.rx.text).disposed(by: disposeBag)
         viewModel.returnDateText.asObservable().bind(to: returnDateTextField.rx.text).disposed(by: disposeBag)
+        viewModel.emptyFlightDataLabelText.asObservable().bind(to: emptyFlightsLabel.rx.text).disposed(by: disposeBag)
     }
     
     // MARK: Actions
@@ -426,13 +433,9 @@ extension SearchVC: UITextFieldDelegate {
         guard let query = textField.text else { return }
         
         if airportPickerVC != nil && childViewControllers.contains(airportPickerVC!) {
-            if query.count > 1 {
-                airportPickerVC?.searchQuery(didChangeTo: query)
-            } else {
-                dismissDatePicker()
-            }
+            airportPickerVC?.searchQuery(didChangeTo: query)
         } else {
-            guard query.count >= 1 else { return }
+            guard query.count > 0 else { return }
             presentAirportPicker(withTag: textField.tag, completion: {
                 self.airportPickerVC?.searchQuery(didChangeTo: query)
             })

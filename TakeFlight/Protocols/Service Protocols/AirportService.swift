@@ -9,7 +9,9 @@
 import Foundation
 
 protocol AirportService {
-    func create(airport: FirebaseAirportService.Airport, completion: ErrorCompletionHandler?)
-    func get(airportWithCode code: String, completion: @escaping (FirebaseAirportService.Airport?, Error?) -> Void)
-    func handleNewAirports(newAirports: [QPXExpress.Response.Airport])
+    var airports: [Airport] { get }
+    
+    func getAirports(completion: @escaping ([Airport]?, Error?) -> Void)
+    func airport(withIdentifier identifier: String) -> Airport?
+    func airports(containing query: String) -> [Airport]
 }

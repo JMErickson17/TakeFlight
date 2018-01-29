@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 struct FlightData: Codable {
     
@@ -45,10 +46,6 @@ struct FlightData: Codable {
         }
     }
     
-    var longDescription: String {
-        return "\(departingFlight.originCityAndState) to \(departingFlight.destinationCityAndState)"
-    }
-    
     var shortDescription: String {
         return "\(departingFlight.originAirportCode)-\(departingFlight.destinationAirportCode)"
     }
@@ -60,106 +57,14 @@ struct FlightData: Codable {
     var completeBookingCode: String {
         return isRoundTrip ? (departingFlight.bookingCode + " " + returningFlight!.bookingCode) : departingFlight.bookingCode
     }
-}
-
-extension FlightData: CustomStringConvertible {
     
-    var description: String {
-        return """
-                ----------------------- Flight Data -----------------------
-                    Date Created: \(createdTimeStamp)
-                    Sale Total: \(saleTotal)
-                    Base Fare Total: \(baseFareTotal)
-                    Sale Fare Total: \(saleFareTotal)
-                    Sale Tax Total: \(saleTaxTotal)
-                    Fare Calculation: \(fareCalculation)
-                    Latest Ticketing Time: \(latestTicketingTime)
-                    Refundable: \(String(describing: refundable))
-                    Tax Country: \(taxCountry)\n
-                    -------------------- Departing Flight --------------------
-                        \(departingFlight)\n
-                    -------------------- Returning Flight --------------------
-                        \(String(describing: returningFlight))\n
-               """
-    }
-}
-
-// MARK: FlightData+Flight
-
-extension FlightData {
-    
-    struct Flight: Codable {
-        
-        let segments: [FlightSegment]
-        
-        enum CodingKeys: String, CodingKey {
-            case segments
+    mutating func longDescription() -> String {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let airportService = appDelegate.firebaseAirportService!
+        if let origin = airportService.airport(withIdentifier: departingFlight.originAirportCode),
+            let destination = airportService.airport(withIdentifier: departingFlight.destinationAirportCode) {
+            return "\(origin.cityAndState) to \(destination.cityAndState)"
         }
-        
-        private let carrierImages: [String: UIImage] = [
-            "AS": #imageLiteral(resourceName: "AlaskaAirlinesLogo"),
-            "B6": #imageLiteral(resourceName: "JetBlueAirlinesLogo"),
-            "F9": #imageLiteral(resourceName: "FrontierAirlinesLogo"),
-            "NK": #imageLiteral(resourceName: "SpiritAirlinesLogo"),
-            "SY": #imageLiteral(resourceName: "SunCountryAirlinesLogo"),
-            "UA": #imageLiteral(resourceName: "UnitedAirlinesLogo"),
-            "DL": #imageLiteral(resourceName: "DeltaAirlinesLogo"),
-            "WN": #imageLiteral(resourceName: "SouthwestAirlinesLogo"),
-            "AA": #imageLiteral(resourceName: "AmericanAirlinesLogo"),
-            "VX": #imageLiteral(resourceName: "VirginAirlinesLogo"),
-            "VS": #imageLiteral(resourceName: "VirginAirlinesLogo")
-        ]
-        
-        var carrier: Carrier {
-            return segments[0].carrier
-        }
-        
-        var carrierLogo: UIImage? {
-            return carrierImages[segments[0].carrier.code]
-        }
-        
-        var departureTime: DateAndTimeZone {
-            return segments.first?.departureTime ?? DateAndTimeZone(date: Date.distantPast, timeZone: 0)
-        }
-        
-        var arrivalTime: DateAndTimeZone {
-            return segments.last?.arrivalTime ?? DateAndTimeZone(date: Date.distantPast, timeZone: 0)
-        }
-        
-        var stopCount: Int {
-            return segments.reduce(0, { $0 + $1.stopCount }) + (segments.count - 1)
-        }
-        
-        var duration: Int {
-            return segments.reduce(0, { $0 + $1.duration })
-        }
-        
-        var bookingCode: String {
-            return segments.map { $0.carrier.code + $0.flightNumber }.joined(separator: " ")
-        }
-        
-        var segmentDescription: String {
-            var segmentArray = [String]()
-            for segment in segments {
-                segmentArray.append("\(segment.originAirportCode)-\(segment.destinationAirportCode)")
-            }
-            return segmentArray.joined(separator: ", ")
-        }
-        
-        var originAirportCode: String {
-            return (segments.first?.originAirportCode) ?? ""
-        }
-        
-        var destinationAirportCode: String {
-            return (segments.last?.destinationAirportCode) ?? ""
-        }
-        
-        var originCityAndState: String {
-            return (segments.first?.originAirport?.cityAndState) ?? ""
-        }
-        
-        var destinationCityAndState: String {
-            return (segments.last?.destinationAirport?.cityAndState) ?? ""
-        }
+        return ""
     }
 }

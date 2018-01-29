@@ -11,4 +11,5 @@ import Foundation
 protocol UserStorageService {
     func upload(userProfileImage imageData: Data, forUser user: User, completion: ((URL?, Error?) -> Void)?)
     func download(userProfileImageWithUID uid: String, completion: @escaping (Data?, Error?) -> Void)
+    func delete(userProfileImageWithUID uid: String, completion: ErrorCompletionHandler?)
 }

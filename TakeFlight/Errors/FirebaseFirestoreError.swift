@@ -11,4 +11,5 @@ import Foundation
 enum FirebaseFirestoreError: Error {
     case documentDoesntExist
     case documentContainsNoData
+    case couldNotEncodeObject
 }

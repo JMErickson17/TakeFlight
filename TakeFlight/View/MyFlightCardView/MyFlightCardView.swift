@@ -98,8 +98,8 @@ class MyFlightCardView: UIView {
     }
     
     private func configureCardForDepartingFlight() {
-        guard let flightData = flightData else { return }
-        self.longDescriptionLabel.text = flightData.longDescription
+        guard var flightData = flightData else { return }
+        self.longDescriptionLabel.text = flightData.longDescription()
         self.dateLabel.text = makeDateString(with: flightData.departingFlight.departureTime)
         self.durationLabel.text = makeDurationString(withDuration: flightData.departingFlight.duration)
         self.stopCountLabel.attributedText = makeStopCountString(with: flightData.departingFlight.stopCount)
@@ -113,10 +113,10 @@ class MyFlightCardView: UIView {
     }
     
     private func configureCardForReturningFlight() {
-        guard let flightData = flightData else { return }
+        guard var flightData = flightData else { return }
         guard let returningFlight = flightData.returningFlight else { return }
         
-        self.longDescriptionLabel.text = flightData.longDescription
+        self.longDescriptionLabel.text = flightData.longDescription()
         self.dateLabel.text = makeDateString(with: returningFlight.departureTime)
         self.durationLabel.text = makeDurationString(withDuration: returningFlight.duration)
         self.stopCountLabel.attributedText = makeStopCountString(with: returningFlight.stopCount)

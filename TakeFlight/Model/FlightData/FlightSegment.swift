@@ -25,14 +25,6 @@ struct FlightSegment: Codable {
         let meal: String?
         let secure: Bool?
         let connectionDuration: Int?
-        
-        var originAirport: Airport? {
-            return OldAirportService.instance.airport(forCode: origin)
-        }
-        
-        var destinationAirport: Airport? {
-            return OldAirportService.instance.airport(forCode: destination)
-        }
     }
     
     let id: String
@@ -51,16 +43,8 @@ struct FlightSegment: Codable {
         return (legs.first?.origin) ?? ""
     }
     
-    var originAirport: Airport? {
-        return legs.first?.originAirport
-    }
-    
     var destinationAirportCode: String {
         return (legs.last?.destination) ?? ""
-    }
-    
-    var destinationAirport: Airport? {
-        return legs.last?.destinationAirport
     }
 
     var stopCount: Int {
@@ -77,49 +61,5 @@ struct FlightSegment: Codable {
     
     var mileage: Int {
         return legs.reduce(0, { $0 + $1.mileage})
-    }
-    
-    
-}
-
-// MARK: - Flight Segment: CustomStringConvertable
-
-extension FlightSegment: CustomStringConvertible {
-    
-    var description: String {
-        return """
-                    ID: \(id)
-                    Flight Number: \(flightNumber)
-                    Carrier Name: \(carrier.name)
-                    Carrier Code: \(carrier.code)
-                    Cabin: \(cabin)
-                    Booking Code: \(bookingCode)
-                    Booking Code Count: \(bookingCodeCount)
-                    Married Segment Group: \(marriedSegmentGroup)
-                    Subject To Government Approval: \(String(describing: subjectToGovernmentApproval))
-                    Legs: \(legs)\n
-               """
-    }
-}
-
-extension FlightSegment.Leg: CustomStringConvertible {
-    
-    var description: String {
-        return """
-                        ID: \(id)
-                        Aircraft: \(aircraft)
-                        Departure Time: \(departureTime)
-                        Arrival Time: \(arrivalTime)
-                        Origin: \(origin)
-                        Origin Terminal: \(String(describing: originTerminal))
-                        Destination: \(destination)
-                        Destination Terminal: \(String(describing: destinationTerminal))
-                        Duration: \(duration)
-                        On Time Performance: \(String(describing: onTimePerformance))
-                        Milage: \(mileage)
-                        Meal: \(String(describing: meal))
-                        Secure: \(String(describing: secure))
-                        Connection Duration: \(String(describing: connectionDuration))
-               """
     }
 }

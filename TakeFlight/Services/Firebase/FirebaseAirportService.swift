@@ -11,8 +11,9 @@ import Firebase
 
 class FirebaseAirportService: AirportService {
     
-    var airports = [TakeFlight.Airport]()
-    var tempAirports = [Airport]()
+    // MARK: Properties
+    
+    var airports = [Airport]()
     
     private let database: Firestore
     
@@ -20,100 +21,56 @@ class FirebaseAirportService: AirportService {
         return database.collection("airports")
     }
     
+    // MARK: Lifecycle
+    
     init(database: Firestore) {
         self.database = database
         getInitialAirports()
     }
     
+    // MARK: Convenience
+    
     private func getInitialAirports() {
-        getTempAirports { (airports, error) in
-            if let error = error { return print("Could not load inital airports: \(error.localizedDescription)") }
-            if let airports = airports {
-                self.tempAirports = airports
-            }
+        self.getAirports { airports, error in
+            if let error = error { return print(error) }
+            guard let airports = airports else { return print("Could not load airports") }
+            self.airports = airports
         }
     }
     
-    func create(airport: FirebaseAirportService.Airport, completion: ErrorCompletionHandler?) {
-        airportsCollectionRef.document(airport.code).setData(airport.dictionaryRepresentation, completion: completion)
-    }
+    // MARK: Public API
     
-    func get(airportWithCode code: String, completion: @escaping (FirebaseAirportService.Airport?, Error?) -> Void) {
-        airportsCollectionRef.document(code).getDocument { document, error in
-            if let error = error { return completion(nil, error) }
-            if let document = document {
-                guard document.exists else { return completion(nil, FirebaseFirestoreError.documentDoesntExist) }
-                guard let data = document.data() else { return completion(nil, FirebaseFirestoreError.documentContainsNoData) }
-                if let airport = Airport(data: data) {
-                    completion(airport, nil)
-                }
-            }
-        }
-    }
-    
-    func getTempAirports(completion: @escaping ([FirebaseAirportService.Airport]?, Error?) -> Void) {
-        var airports = [Airport]()
-        airportsCollectionRef.getDocuments { documentSnapshot, error in
-            if let error = error { return completion(nil, error) }
-            if let documents = documentSnapshot?.documents {
-                for document in documents {
-                    let data = document.data()
-                    if let airport = Airport(data: data) {
-                        airports.append(airport)
+    func getAirports(completion: @escaping ([Airport]?, Error?) -> Void) {
+        DispatchQueue.global().async {
+            self.airportsCollectionRef.getDocuments { snapshot, error in
+                if let error = error { return completion(nil, error) }
+                let airports: [Airport] = snapshot!.documents.flatMap { airport in
+                    if let data = try? JSONSerialization.data(withJSONObject: airport.data(), options: .sortedKeys) {
+                        return try? JSONDecoder().decode(Airport.self, from: data)
                     }
+                    return nil
                 }
                 completion(airports, nil)
             }
         }
     }
     
-    func handleNewAirports(newAirports: [QPXExpress.Response.Airport]) {
-        for airport in newAirports {
-            if !tempAirports.contains(where: { $0.code == airport.code }) {
-                let newAirport = Airport(name: airport.name, code: airport.code, city: airport.city)
-                create(airport: newAirport, completion: { error in
-                    if let error = error { return print("Error saving airline: \(error.localizedDescription)")}
-                    self.tempAirports.append(newAirport)
-                })
-            }
-        }
+    func create(airport: Airport, completion: ErrorCompletionHandler) {
+        guard let airportData = try? JSONEncoder().encode(airport) else { return completion(FirebaseFirestoreError.couldNotEncodeObject) }
+        guard let airportDictionary = (try? JSONSerialization.jsonObject(with: airportData, options: .allowFragments))
+            as? JSONRepresentable else { return completion(FirebaseFirestoreError.couldNotEncodeObject) }
+        
+        airportsCollectionRef.document(airport.iata).setData(airportDictionary)
     }
     
-    
-    
-    
-    
-    
-    /*
-     Temporary airports returned from QPXExpress responses
-     These airports are being stored in the firestore database as confirmed airports and should be mapped
-     to TakeFlight.Airport at a later date
-     */
-    
-    struct Airport {
-        var name: String
-        var code: String
-        var city: String
-        
-        var dictionaryRepresentation: [String: Any] {
-            return [
-                "name": name,
-                "code": code,
-                "city": city
-            ]
+    func airport(withIdentifier identifier: String) -> Airport? {
+        if let index = airports.index(where: { $0.iata == identifier}) {
+            return airports[index]
         }
-        
-        init(name: String, code: String, city: String) {
-            self.name = name
-            self.code = code
-            self.city = city
-        }
-        
-        init?(data: JSONRepresentable) {
-            guard let name = data["name"] as? String else { return nil }
-            guard let code = data["code"] as? String else { return nil }
-            guard let city = data["city"] as? String else { return nil }
-            self.init(name: name, code: code, city: city)
-        }
+        return nil
+    }
+    
+    func airports(containing query: String) -> [Airport] {
+        return airports.filter { $0.searchRepresentation.lowercased().contains(query.lowercased()) }
     }
 }

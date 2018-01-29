@@ -199,7 +199,14 @@ class ProfileVC: UIViewController {
     }
     
     private func handleRemoveProfileImage(_ action: UIAlertAction) {
-        print("Remove Photo")
+        userService.deleteProfileImageForCurrentUser { error in
+            var message = "Profile image successfully deleted"
+            if let _ = error { message = "Could not delete profile image." }
+            if let navigationController = self.navigationController {
+                let notification = DropDownNotification(text: message)
+                notification.presentNotification(onViewController: navigationController, forDuration: 3)
+            }
+        }
     }
     
     private func handleSave(profileImage: UIImage) {

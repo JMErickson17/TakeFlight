@@ -47,7 +47,7 @@ class DropDownNotification {
             self.notificationView.transform = CGAffineTransform(translationX: 0, y: 100)
         }) { finished in
             if finished {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 50.0, execute: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + duration, execute: {
                     UIView.animate(withDuration: 0.7, delay: 0, options: [.curveEaseInOut, .allowUserInteraction], animations: {
                         self.notificationView.transform = CGAffineTransform(translationX: 0, y: -100)
                     }, completion: { finished in

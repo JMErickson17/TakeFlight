@@ -12,6 +12,11 @@ import RxCocoa
 
 struct SearchViewModel {
     
+    struct Constants {
+        static let missingSearchParamsText = "Looks like were missing some information needed for this search."
+        static let noResultsFromSearchText = "Ooops. We couldnt find any flights matching your search."
+    }
+    
     // MARK: View Controller Properties
     
     private(set) var originText = Variable<String>("")
@@ -19,8 +24,9 @@ struct SearchViewModel {
     private(set) var departureDateText = Variable<String>("")
     private(set) var returnDateText = Variable<String>("")
     private(set) var selectedSearchType = Variable<SearchType>(.oneWay)
-    private(set) var currentSearchState = Variable<SearchState?>(nil)
+    private(set) var currentSearchState = Variable<SearchState>(.noResults)
     private(set) var hasActiveFilters = Variable<Bool>(false)
+    private(set) var emptyFlightDataLabelText = Variable<String>(Constants.missingSearchParamsText)
     private(set) var flights = Variable<[FlightData]>([])
     
     var origin: Airport? {
@@ -186,6 +192,7 @@ struct SearchViewModel {
         guard let qpxRequest = requestManager.makeQPXRequest(withUserRequest: flightSearchRequest) else { return }
         saveToCurrentUser(request: flightSearchRequest)
         self.removeAllFlights()
+        self.emptyFlightDataLabelText.value = Constants.missingSearchParamsText
         currentSearchState.value = .searching
         self.fetchFlightData(with: qpxRequest)
     }
@@ -216,6 +223,7 @@ struct SearchViewModel {
         guard let flightSearchError = error as? FlightSearchError else {
             removeAllFlights()
             currentSearchState.value = .noResults
+            emptyFlightDataLabelText.value = Constants.noResultsFromSearchText
             print(error)
             return
         }
@@ -226,6 +234,7 @@ struct SearchViewModel {
             currentSearchState.value = .noResults
         case .invalidReponse:
             removeAllFlights()
+            emptyFlightDataLabelText.value = Constants.noResultsFromSearchText
             currentSearchState.value = .noResults
         default: break
         }
