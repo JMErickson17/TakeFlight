@@ -16,6 +16,9 @@ class BookingDetailsCardView: UIView {
     @IBOutlet weak var bookingCodeLabel: UILabel!
     @IBOutlet weak var refundableLabel: UILabel!
     @IBOutlet weak var latestTicketingTimeLabel: UILabel!
+    @IBOutlet weak var clickToCopyLabel: UILabel!
+    
+    private var bookingCode: String?
     
     // MARK: Lifecycle
     
@@ -40,12 +43,22 @@ class BookingDetailsCardView: UIView {
         contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         contentView.layer.cornerRadius = 5
         contentView.clipsToBounds = true
+        clickToCopyLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(copyBookingCodeToClipboard)))
     }
 
     
     func configureView(withBookingCode bookingCode: String, refundable: String, latestTicketingTime: String) {
         self.bookingCodeLabel.text = bookingCode
+        self.bookingCode = bookingCode
         self.refundableLabel.text = refundable
         self.latestTicketingTimeLabel.text = latestTicketingTime
+    }
+    
+    @objc func copyBookingCodeToClipboard() {
+        print("Copy")
+        if let bookingCode = bookingCode {
+            UIPasteboard.general.string = bookingCode
+            clickToCopyLabel.text = "Copied!"
+        }
     }
 }

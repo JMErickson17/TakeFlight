@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookingDetailsCardView" customModule="TakeFlight" customModuleProvider="target">
             <connections>
                 <outlet property="bookingCodeLabel" destination="80d-KE-oVu" id="Tpi-U0-0Ho"/>
+                <outlet property="clickToCopyLabel" destination="AN6-L1-UuP" id="vWV-gQ-x88"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="Jm2-W6-Kfq"/>
                 <outlet property="latestTicketingTimeLabel" destination="4wd-Vs-XeD" id="sHi-3y-m7i"/>
                 <outlet property="refundableLabel" destination="oCU-hY-YGk" id="xOs-G3-3By"/>
@@ -33,16 +34,16 @@
                     <rect key="frame" x="4" y="29.5" width="367" height="101.5"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="B2x-EE-Ec2">
-                            <rect key="frame" x="0.0" y="0.0" width="367" height="27"/>
+                            <rect key="frame" x="0.0" y="0.0" width="367" height="18"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Refundable:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hi9-j4-gzC">
-                                    <rect key="frame" x="0.0" y="0.0" width="91" height="27"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="91" height="18"/>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oCU-hY-YGk">
-                                    <rect key="frame" x="340" y="0.0" width="27" height="27"/>
+                                    <rect key="frame" x="340" y="0.0" width="27" height="18"/>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -50,16 +51,16 @@
                             </subviews>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="TYG-QN-0es">
-                            <rect key="frame" x="0.0" y="37" width="367" height="27.5"/>
+                            <rect key="frame" x="0.0" y="28" width="367" height="18"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latest Ticketing Time:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="czS-NU-mcF">
-                                    <rect key="frame" x="0.0" y="0.0" width="166.5" height="27.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="166.5" height="18"/>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wd-Vs-XeD">
-                                    <rect key="frame" x="331" y="0.0" width="36" height="27.5"/>
+                                    <rect key="frame" x="331" y="0.0" width="36" height="18"/>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -67,22 +68,28 @@
                             </subviews>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="glF-3H-ZpZ">
-                            <rect key="frame" x="0.0" y="74.5" width="367" height="27"/>
+                            <rect key="frame" x="0.0" y="56" width="367" height="17.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking Code:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T5k-oI-s5W">
-                                    <rect key="frame" x="0.0" y="0.0" width="111" height="27"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="111" height="17.5"/>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="80d-KE-oVu">
-                                    <rect key="frame" x="326" y="0.0" width="41" height="27"/>
+                                    <rect key="frame" x="326" y="0.0" width="41" height="17.5"/>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
                         </stackView>
+                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Click to copy booking code." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AN6-L1-UuP">
+                            <rect key="frame" x="0.0" y="83.5" width="367" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <constraints>
                         <constraint firstItem="B2x-EE-Ec2" firstAttribute="leading" secondItem="NrH-uC-SCH" secondAttribute="leading" id="GQ3-wE-qWS"/>

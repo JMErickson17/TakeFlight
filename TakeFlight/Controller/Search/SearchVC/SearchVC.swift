@@ -35,6 +35,7 @@ class SearchVC: UIViewController {
     private var disposeBag = DisposeBag()
     private var airportPickerVC: AirportPickerVC?
     private var datePickerVC: DatePickerVC?
+    private let refreshControl = UIRefreshControl()
     
     private var shouldSearch: Bool {
         return airportPickerVC == nil && datePickerVC == nil && self.view.window != nil
@@ -133,6 +134,10 @@ class SearchVC: UIViewController {
         flightDataTableView.delegate = self
         flightDataTableView.dataSource = self
         
+        flightDataTableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(tableViewShouldRefresh), for: .valueChanged)
+        refreshControl.tintColor = .primaryBlue
+        
         let oneWayCell = UINib(nibName: Constants.ONE_WAY_FLIGHT_DATA_CELL, bundle: nil)
         flightDataTableView.register(oneWayCell, forCellReuseIdentifier: Constants.ONE_WAY_FLIGHT_DATA_CELL)
         
@@ -187,6 +192,13 @@ class SearchVC: UIViewController {
     func clearDates() {
         viewModel.departureDate = nil
         viewModel.returnDate = nil
+    }
+    
+    @objc func tableViewShouldRefresh() {
+        if shouldSearch {
+            viewModel.searchFlights()
+            refreshControl.endRefreshing()
+        }
     }
     
     // MARK: View Configuration
