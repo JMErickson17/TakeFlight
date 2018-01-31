@@ -55,12 +55,12 @@ class FirebaseAirportService: AirportService {
         }
     }
     
-    func create(airport: Airport, completion: ErrorCompletionHandler) {
+    func create(airport: Airport, completion: @escaping ErrorCompletionHandler) {
         guard let airportData = try? JSONEncoder().encode(airport) else { return completion(FirebaseFirestoreError.couldNotEncodeObject) }
         guard let airportDictionary = (try? JSONSerialization.jsonObject(with: airportData, options: .allowFragments))
             as? JSONRepresentable else { return completion(FirebaseFirestoreError.couldNotEncodeObject) }
         
-        airportsCollectionRef.document(airport.iata).setData(airportDictionary)
+        airportsCollectionRef.document(airport.iata).setData(airportDictionary, completion: completion)
     }
     
     func airport(withIdentifier identifier: String) -> Airport? {

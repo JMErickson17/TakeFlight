@@ -77,6 +77,8 @@ class SearchVC: UIViewController {
         backButton.title = "Back"
         navigationItem.backBarButtonItem = backButton
         self.tabBarController?.tabBar.isHidden = false
+        
+        viewModel.synchronizeUserDefaults()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -85,13 +87,6 @@ class SearchVC: UIViewController {
         if viewModel.flightDataManager.flightData.isEmpty && shouldSearch {
             viewModel.searchFlights()
         }
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if airportPickerVC != nil {
-            dismissAirportPicker()
-        }
-        print("Touched")
     }
 
     // MARK: Setup
@@ -167,6 +162,24 @@ class SearchVC: UIViewController {
         viewModel.departureDateText.asObservable().bind(to: departureDateTextField.rx.text).disposed(by: disposeBag)
         viewModel.returnDateText.asObservable().bind(to: returnDateTextField.rx.text).disposed(by: disposeBag)
         viewModel.emptyFlightDataLabelText.asObservable().bind(to: emptyFlightsLabel.rx.text).disposed(by: disposeBag)
+    }
+    
+    func updateUserDefaultsAndSearch() {
+        viewModel.synchronizeUserDefaults()
+        switch viewModel.selectedSearchType.value {
+        case .oneWay:
+            if let _ = viewModel.departureDate {
+                viewModel.searchFlights()
+            } else {
+                presentDatePicker()
+            }
+        case .roundTrip:
+            if let _ = viewModel.departureDate, let _ = viewModel.returnDate {
+                viewModel.searchFlights()
+            } else {
+                presentDatePicker()
+            }
+        }
     }
     
     // MARK: Actions

@@ -162,6 +162,14 @@ struct SearchViewModel {
         }
     }
     
+    mutating func synchronizeUserDefaults() {
+        self.origin = userDefaults.origin
+        self.destination = userDefaults.destination
+        self.departureDate = userDefaults.departureDate
+        self.returnDate = userDefaults.returnDate
+        self.selectedSearchType.value = searchType
+    }
+    
     private func formatted(date: Date?) -> String {
         guard let date = date else { return "" }
         return formatter.string(from: date)

@@ -55,7 +55,6 @@ class BookingDetailsCardView: UIView {
     }
     
     @objc func copyBookingCodeToClipboard() {
-        print("Copy")
         if let bookingCode = bookingCode {
             UIPasteboard.general.string = bookingCode
             clickToCopyLabel.text = "Copied!"
