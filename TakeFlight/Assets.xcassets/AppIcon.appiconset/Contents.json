@@ -3,7 +3,7 @@
     {
       "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "App Icon_Notification_20@2x.png",
+      "filename" : "App Icon_Notification_20@2x-1.png",
       "scale" : "2x"
     },
     {
@@ -51,13 +51,13 @@
     {
       "size" : "20x20",
       "idiom" : "ipad",
-      "filename" : "App Icon_Notification_20@2x-1.png",
+      "filename" : "App Icon_Notification_20.png",
       "scale" : "1x"
     },
     {
       "size" : "20x20",
       "idiom" : "ipad",
-      "filename" : "App Icon_Notification_20@3x-1.png",
+      "filename" : "App Icon_Notification_20@2x.png",
       "scale" : "2x"
     },
     {
