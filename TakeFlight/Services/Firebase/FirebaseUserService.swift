@@ -142,6 +142,7 @@ class FirebaseUserService: UserService {
             
             if let currentUserRef = self.currentUserRef {
                 currentUserRef.setData(propertiesDictionary, options: SetOptions.merge(), completion: { error in
+                    self.updateCurrentUser()
                     DispatchQueue.main.async {
                         if let completion = completion {
                             if let error = error { return completion(error) }
@@ -161,6 +162,7 @@ class FirebaseUserService: UserService {
                     if let url = url {
                         let updatedProfileImageURL = [UpdatableUserProperties.profileImageURL: url.absoluteString]
                         self.saveToCurrentUser(updatedProperties: updatedProfileImageURL, completion: { (error) in
+                            self.updateCurrentUser()
                             if let completion = completion {
                                 if let error = error { return completion(error) }
                                 self.setProfileImage()
@@ -178,6 +180,7 @@ class FirebaseUserService: UserService {
             if let currentUserSearchHistoryCollectionRef = self.currentUserSearchHistoryCollectionRef {
                 currentUserSearchHistoryCollectionRef.addDocument(data: request.dictionaryRepresentation, completion: { (error) in
                     if let error = error, let completion = completion { return completion(error) }
+                    self.updateCurrentUser()
                     DispatchQueue.main.async {
                         completion?(nil)
                     }
@@ -314,6 +317,20 @@ class FirebaseUserService: UserService {
         self.getSavedFlightsForCurrentUser { savedFlights, error in
             if let error = error { return print(error) }
             self._savedFlights = savedFlights ?? []
+        }
+    }
+    
+    private func updateCurrentUser() {
+        guard let currentUser = _currentUser else { return }
+        DispatchQueue.global().async {
+            self.getUser(withUID: currentUser.uid) { user, error in
+                if let error = error { print(error) }
+                if let user = user {
+                    DispatchQueue.main.async {
+                        self._currentUser = user
+                    }
+                }
+            }
         }
     }
     

@@ -67,7 +67,7 @@ class SettingsVC: UITableViewController {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     lazy var userService: UserService = appDelegate.firebaseUserService!
     
-    private var userDidUpdateListener: NSObjectProtocol?
+    private let disposeBag = DisposeBag()
     
     private lazy var saveButton: UIBarButtonItem = {
         let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(handleSaveUserDetails))
@@ -100,19 +100,7 @@ class SettingsVC: UITableViewController {
 
         setupView()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        addUserDidUpdateListener()
-        configureViewForCurrentUser()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        removeUserDidUpdateListener()
-    }
+
     
     // MARK: Setup
     
@@ -126,24 +114,14 @@ class SettingsVC: UITableViewController {
         lastNameTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         emailTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         phoneNumberTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+        userService.currentUser.asObservable().subscribe(onNext: { currentUser in
+            self.configureView(for: currentUser)
+        }).disposed(by: disposeBag)
     }
-    
-    // MARK: Listeners
-    
-    private func addUserDidUpdateListener() {
-        userDidUpdateListener = NotificationCenter.default.addObserver(forName: .userPropertiesDidChange, object: nil, queue: nil, using: { _ in
-            self.configureViewForCurrentUser()
-        })
-    }
-    
-    private func removeUserDidUpdateListener() {
-        if let userDidUpdateListener = userDidUpdateListener {
-            NotificationCenter.default.removeObserver(userDidUpdateListener)
-        }
-    }
-    
-    func configureViewForCurrentUser() {
-        if let user = userService.currentUser.value {
+
+    func configureView(for currentUser: User?) {
+        if let user = currentUser {
             if let firstName = user.firstName { firstNameTextField.text = firstName }
             if let lastName = user.lastName { lastNameTextField.text = lastName }
             if let phoneNumber = user.phoneNumber { phoneNumberTextField.text = phoneNumber }
