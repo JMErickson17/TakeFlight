@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.firebaseUserService = FirebaseUserService(database: firestore, userStorage: firebaseStorage!)
         self.firebaseAirportService = FirebaseAirportService(database: firestore)
         Messaging.messaging().delegate = self
-        enablePushNotifications()
+        enablePushNotifications(completion: nil)
         
         return true
     }
@@ -57,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    private func enablePushNotifications() {
+    func enablePushNotifications(completion: ((Bool, Error?) -> Void)?) {
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)
             UNUserNotificationCenter.current().delegate = self
@@ -65,7 +65,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
             UNUserNotificationCenter.current().requestAuthorization(
                 options: authOptions,
-                completionHandler: {_, _ in })
+                completionHandler: { granted, error in
+                    completion?(granted, error)
+            })
         } else {
             let settings: UIUserNotificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
             UIApplication.shared.registerUserNotificationSettings(settings)

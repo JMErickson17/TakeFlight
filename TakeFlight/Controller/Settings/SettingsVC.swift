@@ -196,7 +196,7 @@ class SettingsVC: UITableViewController {
         case .clearSearchHistory:
             handleClearHistory()
         case .notifications:
-            break
+            handleActivateNotifications()
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -256,6 +256,28 @@ class SettingsVC: UITableViewController {
         alert.addAction(clearSearchHistoryAction)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true)
+    }
+    
+    private func handleActivateNotifications() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.enablePushNotifications { (granted, error) in
+            if let error = error { print(error) }
+            if granted {
+                DispatchQueue.main.async {
+                    if let navigationController = self.navigationController {
+                        let notification = DropDownNotification(text: "Push Notifications are enabled.")
+                        notification.presentNotification(onViewController: navigationController, forDuration: 3)
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    if let navigationController = self.navigationController {
+                        let notification = DropDownNotification(text: "Please enable push notifications in settings.")
+                        notification.presentNotification(onViewController: navigationController, forDuration: 3)
+                    }
+                }
+            }
+        }
     }
 }
 

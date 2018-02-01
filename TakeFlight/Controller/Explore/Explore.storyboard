@@ -30,7 +30,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="G11-ar-e5V">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="114.5"/>
+                                                    <rect key="frame" x="5" y="5" width="365" height="110"/>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="KA0-Ob-vyU">
                                                     <rect key="frame" x="10" y="73.5" width="40.5" height="36.5"/>
@@ -54,11 +54,12 @@
                                                 <constraint firstAttribute="bottom" secondItem="KA0-Ob-vyU" secondAttribute="bottom" constant="10" id="5UB-Mc-U8J"/>
                                                 <constraint firstItem="KA0-Ob-vyU" firstAttribute="leading" secondItem="UxS-xJ-iMg" secondAttribute="leading" constant="10" id="G8P-BW-Q32"/>
                                                 <constraint firstAttribute="bottom" secondItem="G11-ar-e5V" secondAttribute="bottom" constant="5" id="L5n-wf-8uQ"/>
-                                                <constraint firstItem="G11-ar-e5V" firstAttribute="leading" secondItem="UxS-xJ-iMg" secondAttribute="leading" id="PN0-BS-dAf"/>
-                                                <constraint firstAttribute="trailing" secondItem="G11-ar-e5V" secondAttribute="trailing" id="qWK-Pt-WOc"/>
-                                                <constraint firstItem="G11-ar-e5V" firstAttribute="top" secondItem="UxS-xJ-iMg" secondAttribute="top" id="qtb-y3-s60"/>
+                                                <constraint firstItem="G11-ar-e5V" firstAttribute="leading" secondItem="UxS-xJ-iMg" secondAttribute="leading" constant="5" id="PN0-BS-dAf"/>
+                                                <constraint firstAttribute="trailing" secondItem="G11-ar-e5V" secondAttribute="trailing" constant="5" id="qWK-Pt-WOc"/>
+                                                <constraint firstItem="G11-ar-e5V" firstAttribute="top" secondItem="UxS-xJ-iMg" secondAttribute="top" constant="5" id="qtb-y3-s60"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.93701237440109253" green="0.9374355673789978" blue="0.9580957293510437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="backgroundImage" destination="G11-ar-e5V" id="MRd-wG-AgW"/>
                                             <outlet property="labelStackView" destination="KA0-Ob-vyU" id="Gui-DN-4Oy"/>

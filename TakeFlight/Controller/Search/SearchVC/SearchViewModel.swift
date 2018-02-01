@@ -122,7 +122,6 @@ struct SearchViewModel {
         return dateFormatter
     }()
     
-    
     // MARK: Lifecycle
     
     init(requestManager: QPXExpress, userService: UserService, carrierService: CarrierService) {

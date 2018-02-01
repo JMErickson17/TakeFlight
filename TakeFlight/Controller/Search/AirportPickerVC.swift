@@ -18,7 +18,7 @@ class AirportPickerVC: UIViewController {
     var currentTextFieldTag: Int?
     
     private var maxSearchResults = 20
-    private let airportService: AirportService = FirebaseAirportService(database: Firestore.firestore())
+    private var airportService: AirportService!
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -53,6 +53,13 @@ class AirportPickerVC: UIViewController {
     }
 
     // MARK: Life Cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.airportService = appDelegate.firebaseAirportService!
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

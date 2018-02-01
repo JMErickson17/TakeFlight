@@ -282,7 +282,7 @@ class SearchVC: UIViewController {
     
     // MARK: Container View Controllers
     
-    private func presentAirportPicker(withTag tag: Int, completion: (() -> Void)? = nil) {
+    private func presentAirportPicker(withTag tag: Int, completion: (() -> Void)?) {
         guard airportPickerVC == nil else { return }
         dismissDatePicker()
         

@@ -26,6 +26,8 @@ class DestinationCell: UITableViewCell {
     }
     
     private func setupView() {
+        backgroundImage.layer.cornerRadius = 5
+        
         locationLabel.layer.shadowColor = UIColor.black.cgColor
         locationLabel.layer.shadowRadius = 3
         locationLabel.layer.shadowOpacity = 1.0
