@@ -267,7 +267,6 @@ class SearchVC: UIViewController {
             self.emptyFlightsLabel.isHidden = true
         }
     }
-
     
     // MARK: Navigation
     

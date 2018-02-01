@@ -87,7 +87,6 @@ class AirportPickerVC: UIViewController {
     
     func searchQuery(didChangeTo query: String) {
         let groupedDictionary = Dictionary(grouping: airportService.airports(containing: query)) { $0.country == "US" }
-        print(groupedDictionary)
         filteredAirports = groupedDictionary.map { $0.value }.flatMap { $0 }.reversed()
     }
     
