@@ -9,11 +9,23 @@
 import Foundation
 import Firebase
 
+enum FirebaseDestinationError: Error {
+    case couldNotCreateImage
+}
+
 class FirebaseDestinationService: DestinationService {
+    
+    // MARK: Properties
     
     var destinations = [Destination]()
     
-    private var destinationImages = [String: UIImage]()
+    private lazy var imageCache: NSCache<NSString, UIImage> = {
+        let cache = NSCache<NSString, UIImage>()
+        cache.name = "DestinationImageCache"
+        cache.countLimit = 40
+        cache.totalCostLimit = 40*1024*1024
+        return cache
+    }()
     
     private let database: Firestore
     private let storageService: DestinationStorageService
@@ -21,6 +33,8 @@ class FirebaseDestinationService: DestinationService {
     private var destinationsCollectionRef: CollectionReference {
         return database.collection("destinations")
     }
+    
+    // MARK: Lifecycle
     
     init(database: Firestore, storageService: DestinationStorageService) {
         self.database = database
@@ -31,22 +45,12 @@ class FirebaseDestinationService: DestinationService {
     // MARK: Convenience
     
     private func getAllDestinations() {
-        self.getDestinations { destinations, error in
-            if let error = error { return print(error) }
-            guard let destinations = destinations else { return print("Could not load destinations") }
-            self.destinations = destinations
-        }
-    }
-    
-    private func getAllImages() {
-        for destination in destinations {
-            storageService.download(imageForDestination: destination, completion: { data, error in
+        DispatchQueue.global().async {
+            self.getDestinations { destinations, error in
                 if let error = error { return print(error) }
-                guard let data = data else { return print("No Data") }
-                if let image = UIImage(data: data) {
-                    self.destinationImages[destination.city] = image
-                }
-            })
+                guard let destinations = destinations else { return print("Could not load destinations") }
+                self.destinations = destinations
+            }
         }
     }
     
@@ -79,12 +83,33 @@ class FirebaseDestinationService: DestinationService {
         }
     }
     
+    func create(destination: Destination, with image: UIImage) {
+        guard let imageData = UIImagePNGRepresentation(image) else { return print("Could not create data") }
+        storageService.upload(imageData: imageData, for: destination) { url, error in
+            if let error = error { return print(error) }
+            if let url = url {
+                let newDestination = Destination(city: destination.city, state: destination.state, country: destination.country, imageURL: url, airports: destination.airports)
+                self.create(destination: newDestination, completion: { error in
+                    if let error = error { print(error) }
+                })
+            }
+        }
+    }
+    
     func image(for destination: Destination, completion: @escaping (UIImage?, Error?) -> Void) {
-        self.storageService.download(imageForDestination: destination) { data, error in
-            if let error = error { return completion(nil, error) }
-            if let data = data, let image = UIImage(data: data) {
-                self.destinationImages[destination.city] = image
-                completion(image, nil)
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let image = self.imageCache.object(forKey: destination.city as NSString) {
+                return completion(image, nil)
+            }
+            
+            self.storageService.download(imageForDestination: destination) { data, error in
+                if let error = error { return completion(nil, error) }
+                if let data = data, let image = UIImage(data: data) {
+                    self.imageCache.setObject(image, forKey: destination.city as NSString)
+                    DispatchQueue.main.async {
+                        return completion(image, nil)
+                    }
+                }
             }
         }
     }

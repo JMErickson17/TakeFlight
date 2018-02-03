@@ -14,4 +14,6 @@ protocol DestinationService {
     func getDestinations(completion: @escaping ([Destination]?, Error?) -> Void)
     func create(destination: Destination, completion: @escaping ErrorCompletionHandler)
     func image(for destination: Destination, completion: @escaping (UIImage?, Error?) -> Void)
+    
+    func create(destination: Destination, with image: UIImage)
 }

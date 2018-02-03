@@ -30,8 +30,7 @@ class ExploreVC: UIViewController {
     // MARK: Setup
     
     private func setupView() {
-        let destinationService = FirebaseDestinationService(database: Firestore.firestore(), storageService: appDelegate.firebaseStorage!)
-        self.viewModel = ExploreViewModel(destinationService: destinationService)
+        self.viewModel = ExploreViewModel(destinationService: appDelegate.firebaseDestinationServive!)
         
         exploreTableView.delegate = self
         exploreTableView.dataSource = self
@@ -45,8 +44,10 @@ extension ExploreVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "DestinationCell", for: indexPath) as? DestinationCell {
             let destination = viewModel.popularDestinations[indexPath.row]
-            let image = UIImage(named: destination.city)!
-            cell.configureCell(with: destination, image: image)
+            cell.configureCell(with: destination, image: nil)
+            viewModel.image(for: destination, completion: { image in
+                cell.configureCell(with: destination, image: image)
+            })
             return cell
         }
         return UITableViewCell()

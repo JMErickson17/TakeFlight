@@ -68,13 +68,13 @@ protocol DestinationStorageService {
 
 extension FirebaseStorageService: DestinationStorageService {
     
-    private var destinationImagesRef: StorageReference {
-        return storageRef.child("destinationImages")
+    private var destinationCellImagesRef: StorageReference {
+        return storageRef.child("destinationCellImages")
     }
     
     func upload(imageData: Data, for destination: Destination, completion: @escaping (URL?, Error?) -> Void) {
         DispatchQueue.global().async {
-            let imagePath = self.destinationImagesRef.child(destination.city)
+            let imagePath = self.destinationCellImagesRef.child(destination.city)
             imagePath.putData(imageData, metadata: nil) { metaData, error in
                 if let error = error { return completion(nil, error) }
                 if let metaData = metaData {
@@ -86,7 +86,7 @@ extension FirebaseStorageService: DestinationStorageService {
     
     func download(imageForDestination destination: Destination, completion: @escaping (Data?, Error?) -> Void) {
         DispatchQueue.global().async {
-            let imagePath = self.destinationImagesRef.child(destination.city)
+            let imagePath = self.destinationCellImagesRef.child(destination.city)
             imagePath.getData(maxSize: 1 * 1024 * 1024, completion: completion)
         }
     }

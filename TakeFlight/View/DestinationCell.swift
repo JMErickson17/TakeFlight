@@ -41,7 +41,7 @@ class DestinationCell: UITableViewCell {
         locationDetailLabel.layer.masksToBounds = false
     }
 
-    func configureCell(with destination: Destination, image: UIImage) {
+    func configureCell(with destination: Destination, image: UIImage?) {
         self.backgroundImage.image = image
         self.locationLabel.text = "\(destination.city), \(destination.state)"
         self.locationDetailLabel.text = destination.country

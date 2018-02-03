@@ -12,10 +12,10 @@ struct Destination: Codable {
     let city: String
     let state: String
     let country: String
-    let imageURL: String
+    let imageURL: URL?
     let airports: [String]
     
-    init(city: String, state: String, country: String, imageURL: String, airports: [String]) {
+    init(city: String, state: String, country: String, imageURL: URL?, airports: [String]) {
         self.city = city
         self.state = state
         self.country = country
@@ -24,10 +24,11 @@ struct Destination: Codable {
     }
     
     init(city: String, state: String, country: String) {
-        self.init(city: city, state: state, country: country, imageURL: "" , airports: [])
+        self.init(city: city, state: state, country: country, imageURL: nil, airports: [])
     }
     
     init(city: String, state: String, country: String, airports: [String]) {
-        self.init(city: city, state: state, country: country, imageURL: "", airports: airports)
+        
+        self.init(city: city, state: state, country: country, imageURL: nil, airports: airports)
     }
 }

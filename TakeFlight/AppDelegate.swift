@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var firebaseStorage: FirebaseStorageService?
     var firebaseUserService: UserService?
     var firebaseAirportService: AirportService?
+    var firebaseDestinationServive: DestinationService?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -29,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.firebaseStorage = FirebaseStorageService(storage: storage)
         self.firebaseUserService = FirebaseUserService(database: firestore, userStorage: firebaseStorage!)
         self.firebaseAirportService = FirebaseAirportService(database: firestore)
+        self.firebaseDestinationServive = FirebaseDestinationService(database: firestore, storageService: firebaseStorage!)
         Messaging.messaging().delegate = self
         enablePushNotifications(completion: nil)
         
@@ -109,7 +111,6 @@ extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
         print("Firebase registration token: \(fcmToken)")
         
-        // TODO: If necessary send token to application server.
         // Note: This callback is fired at each app startup and whenever a new token is generated.
     }
     

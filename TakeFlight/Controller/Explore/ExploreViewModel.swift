@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-struct ExploreViewModel {
+class ExploreViewModel {
     
     // MARK: Properties
     
@@ -18,22 +18,22 @@ struct ExploreViewModel {
     
     private let destinationService: DestinationService!
     
+    // MARK: Lifecycle
+    
     init(destinationService: DestinationService) {
         self.destinationService = destinationService
-        popularDestinations = destinations
+        popularDestinations = destinationService.destinations
     }
     
-    private let destinations = [
-        Destination(city: "New York", state: "New York", country: "US", airports: ["JFK"]),
-        Destination(city: "Miami", state: "Florida", country: "US", airports: ["MIA"]),
-        Destination(city: "Las Vegas", state: "Nevada", country: "US", airports: ["LAS"]),
-        Destination(city: "Atlanta", state: "Georgia", country: "US", airports: ["ATL"]),
-        Destination(city: "Boston", state: "Massachusetts", country: "US", airports: ["BOS"]),
-        Destination(city: "Los Angeles", state: "California", country: "US", airports: ["LAX"]),
-        Destination(city: "Fort Lauderdale", state: "Florida", country: "US", airports: ["FLL"]),
-        Destination(city: "San Fransico", state: "California", country: "US", airports: ["SFO"]),
-        Destination(city: "Tampa", state: "Florida", country: "US", airports: ["TPA"]),
-        Destination(city: "Washington DC", state: "The District of Columbia", country: "US", airports: ["DCA"]),
-        Destination(city: "Seattle", state: "Washington", country: "US", airports: ["SEA"])
-    ]
+    // MARK: Convenience
+    
+    func image(for destination: Destination, completion: @escaping (UIImage?) -> Void) {
+        destinationService.image(for: destination) { image, error in
+            if let error = error { print(error); return completion(nil) }
+            guard let image = image else { return completion(nil) }
+            DispatchQueue.main.async {
+                completion(image)
+            }
+        }
+    }
 }
