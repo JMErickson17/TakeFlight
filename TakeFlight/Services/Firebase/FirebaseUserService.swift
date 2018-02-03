@@ -182,8 +182,11 @@ class FirebaseUserService: UserService {
     // MARK: SearchRequests
     
     func save(searchRequest: FlightSearchRequest) {
+        var searchRequest = searchRequest
+        searchRequest.timeStamp = Date()
+        
         if let _ = _currentUser {
-            saveToGuestUser(userSearchRequest: searchRequest, completion: { error in
+            saveToCurrentUser(userSearchRequest: searchRequest, completion: { error in
                 if let error = error { print(error) }
             })
         } else {
