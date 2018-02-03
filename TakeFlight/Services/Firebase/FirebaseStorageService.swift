@@ -59,6 +59,8 @@ extension FirebaseStorageService: UserStorageService {
     }
 }
 
+// MARK: DestinationStorageService
+
 protocol DestinationStorageService {
     func upload(imageData: Data, for destination: Destination, completion: @escaping (URL?, Error?) -> Void)
     func download(imageForDestination destination: Destination, completion: @escaping (Data?, Error?) -> Void)

@@ -30,7 +30,6 @@ class ExploreVC: UIViewController {
     // MARK: Setup
     
     private func setupView() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let destinationService = FirebaseDestinationService(database: Firestore.firestore(), storageService: appDelegate.firebaseStorage!)
         self.viewModel = ExploreViewModel(destinationService: destinationService)
         

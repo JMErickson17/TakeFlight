@@ -25,7 +25,6 @@ class SearchVC: UIViewController {
     @IBOutlet weak var searchContainerView: UIView!
     @IBOutlet weak var refineButton: StatusButton!
     
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     lazy var userService: UserService = appDelegate.firebaseUserService!
     
     private lazy var carrierService: CarrierService = FirebaseCarrierService(database: Firestore.firestore())

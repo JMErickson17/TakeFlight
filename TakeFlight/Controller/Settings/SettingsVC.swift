@@ -64,7 +64,6 @@ class SettingsVC: UITableViewController {
         phoneNumberTextField
     ]
     
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     lazy var userService: UserService = appDelegate.firebaseUserService!
     
     private let disposeBag = DisposeBag()

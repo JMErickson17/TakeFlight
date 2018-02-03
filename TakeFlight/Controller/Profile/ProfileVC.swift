@@ -61,7 +61,6 @@ class ProfileVC: UIViewController {
         }
     }
     
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     lazy var userService: UserService = appDelegate.firebaseUserService!
     
     private lazy var imagePicker: UIImagePickerController = {

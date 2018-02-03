@@ -21,7 +21,6 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    private lazy var appDelegate = UIApplication.shared.delegate as! AppDelegate
     private lazy var userService: UserService = appDelegate.firebaseUserService!
     
     private lazy var scrollView: UIScrollView = {

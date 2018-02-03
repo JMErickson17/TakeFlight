@@ -20,6 +20,7 @@
 		CA192CF71FF726B300943C74 /* StopFilterVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA192CF61FF726B300943C74 /* StopFilterVCDelegate.swift */; };
 		CA1EFF6F201D0BC300B90137 /* UIViewController+DropDownNotificationDismissable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1EFF6E201D0BC300B90137 /* UIViewController+DropDownNotificationDismissable.swift */; };
 		CA1EFF71201D0BF200B90137 /* DropDownNotificationDismissable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1EFF70201D0BF200B90137 /* DropDownNotificationDismissable.swift */; };
+		CA22949D2026466A00C38C71 /* UIViewController+AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA22949C2026466A00C38C71 /* UIViewController+AppDelegate.swift */; };
 		CA29AA1B1F9D6A5E0047B2F1 /* SearchVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA29AA1A1F9D6A5E0047B2F1 /* SearchVCDelegate.swift */; };
 		CA2BE2CA1FEB160400DAF73F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2BE2C91FEB160400DAF73F /* User.swift */; };
 		CA2BE2CC1FEB463900DAF73F /* Notification+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2BE2CB1FEB463900DAF73F /* Notification+Name.swift */; };
@@ -185,6 +186,7 @@
 		CA192CF61FF726B300943C74 /* StopFilterVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopFilterVCDelegate.swift; sourceTree = "<group>"; };
 		CA1EFF6E201D0BC300B90137 /* UIViewController+DropDownNotificationDismissable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+DropDownNotificationDismissable.swift"; sourceTree = "<group>"; };
 		CA1EFF70201D0BF200B90137 /* DropDownNotificationDismissable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownNotificationDismissable.swift; sourceTree = "<group>"; };
+		CA22949C2026466A00C38C71 /* UIViewController+AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+AppDelegate.swift"; sourceTree = "<group>"; };
 		CA29AA1A1F9D6A5E0047B2F1 /* SearchVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVCDelegate.swift; sourceTree = "<group>"; };
 		CA2BE2C91FEB160400DAF73F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CA2BE2CB1FEB463900DAF73F /* Notification+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name.swift"; sourceTree = "<group>"; };
@@ -821,6 +823,7 @@
 				CA1EFF6E201D0BC300B90137 /* UIViewController+DropDownNotificationDismissable.swift */,
 				CA8EB1DD20224350003C4A16 /* UITabBarController+SelectTab.swift */,
 				CA8EB1DF20225588003C4A16 /* UIStackView+BackgroundColor.swift */,
+				CA22949C2026466A00C38C71 /* UIViewController+AppDelegate.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1243,6 +1246,7 @@
 				CA98C4911FEC52EA0009D326 /* LanguagePickerVC.swift in Sources */,
 				CA12FC7E201F8548003053DF /* FlightSegment+CustomStringConvertable.swift in Sources */,
 				CA82E68B200EBED000F7DD29 /* FlightSearchError.swift in Sources */,
+				CA22949D2026466A00C38C71 /* UIViewController+AppDelegate.swift in Sources */,
 				CAEE8AC31FFD9E78004558A6 /* Carrier.swift in Sources */,
 				CA5B224E1FF967D200F36B7E /* StatusButton.swift in Sources */,
 				CAC6BA761FF2F4D1005307C1 /* SortFilterVC.swift in Sources */,
