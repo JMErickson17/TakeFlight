@@ -259,8 +259,6 @@ struct SearchViewModel {
     // MARK: Database
     
     private func saveToCurrentUser(request: FlightSearchRequest) {
-        userService.saveToCurrentUser(userSearchRequest: request) { error in
-            if let error = error { print(error) }
-        }
+        userService.save(searchRequest: request)
     }
 }

@@ -24,7 +24,7 @@ protocol UserService {
     func sendVerificationEmailToCurrentUser(completion: @escaping (Bool, Error?) -> Void)
     func saveToCurrentUser(updatedProperties: [UpdatableUserProperties: Any], completion: ErrorCompletionHandler?)
     func saveToCurrentUser(profileImage image: UIImage, completion: ErrorCompletionHandler?)
-    func saveToCurrentUser(userSearchRequest request: FlightSearchRequest, completion: ErrorCompletionHandler?)
+    func save(searchRequest: FlightSearchRequest)
     func saveToCurrentUser(flightData: FlightData, completion: ErrorCompletionHandler?)
     func getSavedFlightsForCurrentUser(completion: @escaping ([FlightData]?, Error?) -> Void)
     func delete(savedFlightWithUID uid: String, completion: ErrorCompletionHandler?)

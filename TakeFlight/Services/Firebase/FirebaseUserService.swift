@@ -67,6 +67,10 @@ class FirebaseUserService: UserService {
         return nil
     }
     
+    private var guestSearchRequestsRef: CollectionReference {
+        return database.collection("guestSearchRequests")
+    }
+    
     // MARK: Lifecycle
     
     init(database: Firestore, userStorage: UserStorageService) {
@@ -175,19 +179,41 @@ class FirebaseUserService: UserService {
         }
     }
     
-    func saveToCurrentUser(userSearchRequest request: FlightSearchRequest, completion: ErrorCompletionHandler?) {
+    // MARK: SearchRequests
+    
+    func save(searchRequest: FlightSearchRequest) {
+        if let _ = _currentUser {
+            saveToGuestUser(userSearchRequest: searchRequest, completion: { error in
+                if let error = error { print(error) }
+            })
+        } else {
+            saveToGuestUser(userSearchRequest: searchRequest, completion: { error in
+                if let error = error { print(error) }
+            })
+        }
+    }
+    
+    private func saveToCurrentUser(userSearchRequest request: FlightSearchRequest, completion: ErrorCompletionHandler?) {
         DispatchQueue.global().async {
             if let currentUserSearchHistoryCollectionRef = self.currentUserSearchHistoryCollectionRef {
                 currentUserSearchHistoryCollectionRef.addDocument(data: request.dictionaryRepresentation, completion: { (error) in
                     if let error = error, let completion = completion { return completion(error) }
-                    self.updateCurrentUser()
-                    DispatchQueue.main.async {
-                        completion?(nil)
-                    }
+                    completion?(nil)
                 })
             }
         }
     }
+    
+    private func saveToGuestUser(userSearchRequest request: FlightSearchRequest, completion: ErrorCompletionHandler?) {
+        DispatchQueue.global().async {
+            self.guestSearchRequestsRef.addDocument(data: request.dictionaryRepresentation, completion: { error in
+                if let error = error, let completion = completion { return completion(error) }
+                completion?(nil)
+            })
+        }
+    }
+    
+
     
     func saveToCurrentUser(flightData: FlightData, completion: ErrorCompletionHandler?) {
         DispatchQueue.global(qos: .background).async {
