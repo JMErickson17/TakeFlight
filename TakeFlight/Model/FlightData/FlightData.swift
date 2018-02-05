@@ -24,10 +24,13 @@ struct FlightData: Codable {
     let latestTicketingTime: DateAndTimeZone
     let refundable: Bool?
     let taxCountry: String
+    let adultCount: Int
+    let childCount: Int
+    let infantCount: Int
     
     init(uid: String, createdTimeStamp: Date, baseFareTotal: Double, saleFareTotal: Double, saleTaxTotal: Double,
          saleTotal: Double, fareCalculation: String, latestTicketingTime: DateAndTimeZone, refundable: Bool,
-         taxCountry: String, departingFlightSegments: [FlightSegment], returningFlightSegments: [FlightSegment]? = nil) {
+         taxCountry: String, adultCount: Int, childCount: Int, infantCount: Int, departingFlightSegments: [FlightSegment], returningFlightSegments: [FlightSegment]? = nil) {
         self.uid = uid
         self.createdTimeStamp = createdTimeStamp
         self.saleTotal = saleTotal
@@ -38,6 +41,9 @@ struct FlightData: Codable {
         self.latestTicketingTime = latestTicketingTime
         self.refundable = refundable
         self.taxCountry = taxCountry
+        self.adultCount = adultCount
+        self.childCount = childCount
+        self.infantCount = infantCount
         
         self.departingFlight = Flight(segments: departingFlightSegments)
         

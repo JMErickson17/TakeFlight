@@ -229,7 +229,7 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .short
         let latestTicketingTime = flightData.latestTicketingTime.toLocalDateAndTimeString(withFormatter: dateFormatter)
-        bookingDetailsCardView.configureView(withBookingCode: bookingCode, refundable: refundable, latestTicketingTime: latestTicketingTime)
+        bookingDetailsCardView.configureView(withBookingCode: bookingCode, refundable: refundable, latestTicketingTime: latestTicketingTime, adultCount: flightData.adultCount, childCount: flightData.childCount, infantCount: flightData.infantCount)
         
         let baseFare = makePriceString(with: flightData.baseFareTotal)
         let saleFare = makePriceString(with: flightData.saleFareTotal)

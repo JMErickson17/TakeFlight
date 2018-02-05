@@ -86,21 +86,13 @@ extension QPXExpress {
             let adultCount: Int
             let childCount: Int
             let infantCount: Int
-//            var options = [String: Any]()
             
             fileprivate var dictionaryRepresentation: JSONRepresentable {
-//                return [
-//                    "kind": kind,
-//                    "adultCount": adultCount
-//                    ].merging(options) { (current, _) -> Any in
-//                        return current
-//                }
-                
                 return [
                     "kind": kind,
                     "adultCount": adultCount,
                     "childCount": childCount,
-                    "infantCount": infantCount
+                    "infantInSeatCount": infantCount
                 ]
             }
         }

@@ -108,6 +108,9 @@ class QPXExpress {
         let baseFareTotal = Double(pricing.baseFareTotal.alphanumericCharacters) ?? 0
         let saleFareTotal = Double(pricing.saleFareTotal.alphanumericCharacters) ?? 0
         let saleTaxTotal = Double(pricing.saleTaxTotal.alphanumericCharacters) ?? 0
+        let adultCount = option.pricing.flatMap( { $0.passengers.adultCount }).first ?? 1
+        let childCount = option.pricing.flatMap( { $0.passengers.childCount }).first ?? 0
+        let infantCount = option.pricing.flatMap( { $0.passengers.infantInSeatCount}).first ?? 0
         let fareCalculation = pricing.fareCalculation.alphanumericCharacters
         guard let latestTicketingTime = convertToDate(fromString: pricing.latestTicketingTime) else { throw QPXExpressError.parseError }
         let refundable = pricing.refundable ?? false
@@ -170,7 +173,22 @@ class QPXExpress {
             returningFlight = nil
         }
         
-        let flightData = FlightData(uid: uid, createdTimeStamp: Date(), baseFareTotal: baseFareTotal, saleFareTotal: saleFareTotal, saleTaxTotal: saleTaxTotal, saleTotal: saleTotal, fareCalculation: fareCalculation, latestTicketingTime: latestTicketingTime, refundable: refundable, taxCountry: taxCountry, departingFlightSegments: departingFlight, returningFlightSegments: returningFlight)
+        let flightData = FlightData(uid: uid,
+                                    createdTimeStamp: Date(),
+                                    baseFareTotal: baseFareTotal,
+                                    saleFareTotal: saleFareTotal,
+                                    saleTaxTotal: saleTaxTotal,
+                                    saleTotal: saleTotal,
+                                    fareCalculation: fareCalculation,
+                                    latestTicketingTime: latestTicketingTime,
+                                    refundable: refundable,
+                                    taxCountry: taxCountry,
+                                    adultCount: adultCount,
+                                    childCount: childCount,
+                                    infantCount: infantCount,
+                                    departingFlightSegments: departingFlight,
+                                    returningFlightSegments: returningFlight
+        )
         
         return flightData
     }

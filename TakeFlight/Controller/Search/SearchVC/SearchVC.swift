@@ -35,6 +35,7 @@ class SearchVC: UIViewController {
     private var airportPickerVC: AirportPickerVC?
     private var datePickerVC: DatePickerVC?
     private let refreshControl = UIRefreshControl()
+    private var passengerOptionsDidChange = false
     
     private var shouldSearch: Bool {
         return airportPickerVC == nil && datePickerVC == nil && self.view.window != nil
@@ -83,8 +84,9 @@ class SearchVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if viewModel.flightDataManager.flightData.isEmpty && shouldSearch {
+        if viewModel.flightDataManager.flightData.isEmpty && shouldSearch || passengerOptionsDidChange {
             viewModel.searchFlights()
+            passengerOptionsDidChange = false
         }
     }
 
@@ -534,6 +536,7 @@ extension SearchVC: SortFilterVCDelegate {
     }
     
     func sortFilterVC(_ sortFilterVC: SortFilterVC, didUpdate option: PassengerOption) {
+        self.passengerOptionsDidChange = true
         self.viewModel.update(option)
     }
 }

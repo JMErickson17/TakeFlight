@@ -15,6 +15,9 @@ class BookingDetailsCardView: UIView {
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var bookingCodeLabel: UILabel!
     @IBOutlet weak var refundableLabel: UILabel!
+    @IBOutlet weak var adultCountLabel: UILabel!
+    @IBOutlet weak var childCountLabel: UILabel!
+    @IBOutlet weak var infantCountLabel: UILabel!
     @IBOutlet weak var latestTicketingTimeLabel: UILabel!
     @IBOutlet weak var clickToCopyLabel: UILabel!
     
@@ -47,11 +50,14 @@ class BookingDetailsCardView: UIView {
     }
 
     
-    func configureView(withBookingCode bookingCode: String, refundable: String, latestTicketingTime: String) {
+    func configureView(withBookingCode bookingCode: String, refundable: String, latestTicketingTime: String, adultCount: Int, childCount: Int, infantCount: Int) {
         self.bookingCodeLabel.text = bookingCode
         self.bookingCode = bookingCode
         self.refundableLabel.text = refundable
         self.latestTicketingTimeLabel.text = latestTicketingTime
+        self.adultCountLabel.text = String(adultCount)
+        self.childCountLabel.text = String(childCount)
+        self.infantCountLabel.text = String(infantCount)
     }
     
     @objc func copyBookingCodeToClipboard() {

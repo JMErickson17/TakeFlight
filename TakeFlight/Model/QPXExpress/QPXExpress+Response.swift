@@ -170,6 +170,7 @@ extension QPXExpress {
             private(set) var latestTicketingTime: String
             private(set) var tax: [TaxInfo]
             private(set) var refundable: Bool?
+            private(set) var passengers: Passengers
             
             enum CodingKeys: String, CodingKey {
                 case fare
@@ -181,6 +182,19 @@ extension QPXExpress {
                 case latestTicketingTime
                 case tax
                 case refundable
+                case passengers
+            }
+        }
+        
+        struct Passengers: Decodable {
+            private(set) var adultCount: Int?
+            private(set) var childCount: Int?
+            private(set) var infantInSeatCount: Int?
+            
+            enum CodingKeys: String, CodingKey {
+                case adultCount
+                case childCount
+                case infantInSeatCount
             }
         }
         
