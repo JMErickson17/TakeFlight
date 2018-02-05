@@ -275,6 +275,7 @@ class SearchVC: UIViewController {
             destination.selectedSortOption = viewModel.sortOption
             destination.filterOptions = viewModel.flightDataManager.filterOptions
             destination.carrierData = viewModel.carrierData
+            destination.passengerOptions = viewModel.passengerOptions
         }
     }
     
@@ -530,5 +531,9 @@ extension SearchVC: SortFilterVCDelegate {
     func sortFilterVC(_ sortFilterVC: SortFilterVC, maxDurationDidChangeTo duration: Hour) {
         self.viewModel.flightDataManager.filterOptions.maxDuration = duration
         self.viewModel.updateFlights()
+    }
+    
+    func sortFilterVC(_ sortFilterVC: SortFilterVC, didUpdate option: PassengerOption) {
+        self.viewModel.update(option)
     }
 }

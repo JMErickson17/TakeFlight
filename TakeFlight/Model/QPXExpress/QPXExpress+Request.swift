@@ -17,27 +17,27 @@ extension QPXExpress {
     
     // MARK: Types
     
-    enum PassengerOptions: QPXExpressOptions {
-        case childCount(Int)
-        case infantInLapCount(Int)
-        case seniorCount(Int)
-        
-        var key: String {
-            switch self {
-            case .childCount: return "childCount"
-            case .infantInLapCount: return "infantInLapCount"
-            case .seniorCount: return "seniorCount"
-            }
-        }
-        
-        var value: Any {
-            switch self {
-            case .childCount(let value): return value as Int
-            case .infantInLapCount(let value): return value as Int
-            case .seniorCount(let value): return value as Int
-            }
-        }
-    }
+//    enum PassengerOptions: QPXExpressOptions {
+//        case childCount(Int)
+//        case infantInLapCount(Int)
+//        case seniorCount(Int)
+//
+//        var key: String {
+//            switch self {
+//            case .childCount: return "childCount"
+//            case .infantInLapCount: return "infantInLapCount"
+//            case .seniorCount: return "seniorCount"
+//            }
+//        }
+//
+//        var value: Any {
+//            switch self {
+//            case .childCount(let value): return value as Int
+//            case .infantInLapCount(let value): return value as Int
+//            case .seniorCount(let value): return value as Int
+//            }
+//        }
+//    }
     
     enum SliceOptions: QPXExpressOptions {
         case maxStops(Int)
@@ -84,15 +84,24 @@ extension QPXExpress {
         struct Passengers {
             let kind = "qpxexpress#passengerCounts"
             let adultCount: Int
-            var options = [String: Any]()
+            let childCount: Int
+            let infantCount: Int
+//            var options = [String: Any]()
             
             fileprivate var dictionaryRepresentation: JSONRepresentable {
+//                return [
+//                    "kind": kind,
+//                    "adultCount": adultCount
+//                    ].merging(options) { (current, _) -> Any in
+//                        return current
+//                }
+                
                 return [
                     "kind": kind,
-                    "adultCount": adultCount
-                    ].merging(options) { (current, _) -> Any in
-                        return current
-                }
+                    "adultCount": adultCount,
+                    "childCount": childCount,
+                    "infantCount": infantCount
+                ]
             }
         }
         
@@ -142,13 +151,13 @@ extension QPXExpress {
             ]
         }
         
-        init(adultCount: Int, origin: String, destination: String, date: Date) {
-            self.passengers = Passengers(adultCount: adultCount, options: [:])
+        init(adultCount: Int, childCount: Int, infantCount: Int, origin: String, destination: String, date: Date) {
+            self.passengers = Passengers(adultCount: adultCount, childCount: childCount, infantCount: infantCount)
             self.slice = [Slice(origin: origin, destination: destination, date: date.toQPXExpressRequestString(), options: [:])]
         }
         
-        init(adultCount: Int, origin: String, destination: String, date: Date, options: [QPXExpressOptions]) {
-            self.passengers = Passengers(adultCount: adultCount, options: [:])
+        init(adultCount: Int, childCount: Int, infantCount: Int, origin: String, destination: String, date: Date, options: [QPXExpressOptions]) {
+            self.passengers = Passengers(adultCount: adultCount, childCount: childCount, infantCount: infantCount)
             self.slice = [Slice(origin: origin, destination: destination, date: date.toQPXExpressRequestString(), options: [:])]
             add(options: options)
         }
@@ -157,9 +166,7 @@ extension QPXExpress {
         
         mutating func add(options: [QPXExpressOptions]) {
             for option in options {
-                if option is PassengerOptions {
-                    self.passengers.options[option.key] = option.value
-                } else if option is SliceOptions {
+                if option is SliceOptions {
                     for index in 0..<self.slice.count {
                         self.slice[index].options[option.key] = option.value
                     }
@@ -181,9 +188,8 @@ extension QPXExpress {
     
     // MARK: QPXExpress Factory Methods
     
-    func makeQPXRequest(adultCount: Int, from origin: Airport, to destination: Airport, departing departureDate: Date, returning returnDate: Date?, withOptions options: [QPXExpressOptions]? = nil) -> Request {
-        var request = Request(adultCount: adultCount, origin: origin.iata, destination: destination.iata, date: departureDate)
-        
+    func makeQPXRequest(adultCount: Int, childCount: Int, infantCount: Int, from origin: Airport, to destination: Airport, departing departureDate: Date, returning returnDate: Date?, withOptions options: [QPXExpressOptions]? = nil) -> Request {
+        var request = Request(adultCount: adultCount, childCount: childCount, infantCount: infantCount, origin: origin.iata, destination: destination.iata, date: departureDate)
         if let returnDate = returnDate {
             request.add(returnDate: returnDate)
         }
@@ -200,8 +206,12 @@ extension QPXExpress {
         guard let departureDate = userRequest.departureDate else { return nil }
         
         
+        
         return makeQPXRequest(adultCount: userRequest.numberOfAdultPassengers,
-                              from: origin, to: destination,
+                              childCount: userRequest.numberOfChildPassengers,
+                              infantCount: userRequest.numberOfInfantPassengers,
+                              from: origin,
+                              to: destination,
                               departing: departureDate,
                               returning: userRequest.returnDate)
     }

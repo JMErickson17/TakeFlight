@@ -8,6 +8,28 @@
 
 import UIKit
 
+enum PassengerOption {
+    case adultPassengers(Int)
+    case childPassengers(Int)
+    case infantPassengers(Int)
+    
+    var value: Int {
+        switch self {
+        case .adultPassengers(let value):
+            return value
+        case .childPassengers(let value):
+            return value
+        case .infantPassengers(let value):
+            return value
+            
+        }
+    }
+}
+
+enum PassengerOptionCell: RefineOption {
+    case passengerOptionCell
+}
+
 class SortFilterVC: UIViewController {
     
     // MARK: Types
@@ -22,7 +44,7 @@ class SortFilterVC: UIViewController {
     
     private struct Section {
         let title: String
-        let items: [SortFilterOption]
+        let items: [RefineOption]
     }
     
     // MARK: Properties
@@ -34,6 +56,7 @@ class SortFilterVC: UIViewController {
     var selectedSortOption: SortOption?
     var filterOptions: FlightFilterOptions?
     var carrierData: [CarrierData]?
+    var passengerOptions: (adultCount: Int, childCount: Int, infantCount: Int)?
     
     private var tableData: [Section]!
     
@@ -62,6 +85,7 @@ class SortFilterVC: UIViewController {
         tableView.dataSource = self
         tableView.register(SortOptionCell.self, forCellReuseIdentifier: Constants.sortOptionCell)
         tableView.register(FilterOptionCell.self, forCellReuseIdentifier: Constants.filterOptionCell)
+        tableView.register(UINib(nibName: "PassengerCell", bundle: nil), forCellReuseIdentifier: "PassengerCell")
         setupTableData()
         navigationItem.rightBarButtonItem = resetButton
     }
@@ -69,9 +93,11 @@ class SortFilterVC: UIViewController {
     private func setupTableData() {
         let sortOptions: [SortOption] = [.price, .duration, .takeoffTime, .landingTime]
         let filterOptions: [FilterOption] = [.airlines, .stops, .duration]
+        let passengerOptions: [PassengerOptionCell] = [.passengerOptionCell]
         tableData = [
             Section(title: "Sort", items: sortOptions),
-            Section(title: "Filter", items: filterOptions)
+            Section(title: "Filter", items: filterOptions),
+            Section(title: "Passengers", items: passengerOptions)
         ]
     }
 
@@ -144,18 +170,29 @@ class SortFilterVC: UIViewController {
 extension SortFilterVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
+        switch indexPath.section {
+        case 0:
             if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.sortOptionCell, for: indexPath) as? SortOptionCell {
                 let option = tableData[0].items[indexPath.row] as! SortOption
                 cell.configureCell(labelText: option.description, isSelected: option == selectedSortOption)
                 return cell
             }
-        } else if indexPath.section == 1 {
+        case 1:
             if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.filterOptionCell, for: indexPath) as? FilterOptionCell {
                 let option = tableData[1].items[indexPath.row] as! FilterOption
                 cell.configureCell(labelText: option.description, detailText: makeCellDetailLabel(for: option))
                 return cell
             }
+        case 2:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "PassengerCell", for: indexPath) as? PassengerCell {
+                if let passengerOptions = passengerOptions {
+                    cell.configureCell(withAdultCount: passengerOptions.adultCount, childCount: passengerOptions.childCount, infantCount: passengerOptions.infantCount)
+                }
+                cell.delegate = self
+                return cell
+            }
+            
+        default: break
         }
         return UITableViewCell()
     }
@@ -218,3 +255,18 @@ extension SortFilterVC: DurationFilterVCDelegate {
     }
 }
 
+// MARK:- SortFilterVC+PassengerCellDelegate
+
+extension SortFilterVC: PassengerCellDelegate {
+    func passengerCell(_ passengerCell: PassengerCell, didUpdate option: PassengerOption) {
+        switch option {
+        case .adultPassengers(let value):
+            self.passengerOptions?.adultCount = value
+        case .childPassengers(let value):
+            self.passengerOptions?.childCount = value
+        case .infantPassengers(let value):
+            self.passengerOptions?.infantCount = value
+        }
+        delegate?.sortFilterVC(self, didUpdate: option)
+    }
+}

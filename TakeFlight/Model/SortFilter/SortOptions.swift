@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum SortOption: SortFilterOption {
+enum SortOption: RefineOption {
     case price
     case duration
     case takeoffTime

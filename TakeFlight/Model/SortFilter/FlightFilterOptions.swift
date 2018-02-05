@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum FilterOption: SortFilterOption {
+enum FilterOption: RefineOption {
     case airlines
     case stops
     case duration

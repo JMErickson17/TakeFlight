@@ -19,6 +19,11 @@ class ExploreVC: UIViewController {
     
     private var viewModel: ExploreViewModel!
     
+    private lazy var originTextField: UITextField = {
+        let textField = UITextField()
+        return textField
+    }()
+    
     // MARK: Lifecycle
 
     override func viewDidLoad() {
@@ -54,13 +59,11 @@ extension ExploreVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let airportService = appDelegate.firebaseAirportService!
         let destinationAirportCode = viewModel.popularDestinations[indexPath.row].airports.first!
-        let destinationAirport = airportService.airport(withIdentifier: destinationAirportCode)
-        let userDefaults = UserDefaultsService.instance
-        userDefaults.destination = destinationAirport!
+        let destinationAirport = appDelegate.firebaseAirportService!.airport(withIdentifier: destinationAirportCode)
+        UserDefaultsService.instance.destination = destinationAirport!
         tableView.deselectRow(at: indexPath, animated: true)
+        
         self.tabBarController?.selectTab(1, animated: true, completion: {
             if let navigationController = self.tabBarController?.selectedViewController as? UINavigationController {
                 if let searchVC = navigationController.topViewController as? SearchVC {
