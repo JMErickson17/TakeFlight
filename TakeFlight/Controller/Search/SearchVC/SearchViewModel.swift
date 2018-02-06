@@ -75,7 +75,9 @@ struct SearchViewModel {
     }
     
     var passengerOptions: (adultCount: Int, childCount: Int, infantCount: Int) {
-        return (adultCount: flightSearchRequest.numberOfAdultPassengers, childCount: flightSearchRequest.numberOfChildPassengers, infantCount: flightSearchRequest.numberOfInfantPassengers)
+        return (adultCount: flightSearchRequest.numberOfAdultPassengers,
+                childCount: flightSearchRequest.numberOfChildPassengers,
+                infantCount: flightSearchRequest.numberOfInfantPassengers)
     }
     
     var carrierData: [CarrierData] {
@@ -212,7 +214,6 @@ struct SearchViewModel {
     func searchFlights() {
         guard flightSearchRequest.isValid(for: searchType) else { return }
         guard let qpxRequest = requestManager.makeQPXRequest(withUserRequest: flightSearchRequest) else { return }
-        print(qpxRequest)
         saveToCurrentUser(request: flightSearchRequest)
         self.removeAllFlights()
         self.emptyFlightDataLabelText.value = Constants.missingSearchParamsText

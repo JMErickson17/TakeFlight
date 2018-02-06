@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var firebaseUserService: UserService?
     var firebaseAirportService: AirportService?
     var firebaseDestinationServive: DestinationService?
+    var firebaseCarrierService: CarrierService?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -31,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.firebaseUserService = FirebaseUserService(database: firestore, userStorage: firebaseStorage!)
         self.firebaseAirportService = FirebaseAirportService(database: firestore)
         self.firebaseDestinationServive = FirebaseDestinationService(database: firestore, storageService: firebaseStorage!)
+        self.firebaseCarrierService = FirebaseCarrierService(database: firestore)
         Messaging.messaging().delegate = self
         enablePushNotifications(completion: nil)
         

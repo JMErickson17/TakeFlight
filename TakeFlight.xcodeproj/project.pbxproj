@@ -62,7 +62,6 @@
 		CA696F4920268262009CA2FE /* PassengerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA696F4720268262009CA2FE /* PassengerCell.xib */; };
 		CA696F4C20268D2D009CA2FE /* PassengerPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA696F4B20268D2D009CA2FE /* PassengerPickerView.swift */; };
 		CA6A7A1D201E678500AE89CD /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6A7A1C201E678500AE89CD /* Coordinates.swift */; };
-		CA6F70521FF8668900DD9C08 /* UserDataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6F70511FF8668900DD9C08 /* UserDataServiceTests.swift */; };
 		CA76EAFC2021019300D5D91C /* ExploreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA76EAFB2021019300D5D91C /* ExploreViewModel.swift */; };
 		CA76EAFE202101E500D5D91C /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA76EAFD202101E500D5D91C /* Section.swift */; };
 		CA76EB0020211CA200D5D91C /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA76EAFF20211CA200D5D91C /* Destination.swift */; };
@@ -90,6 +89,7 @@
 		CA9563C51FFAFEDC00D5B3B0 /* UnderlineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9563C41FFAFEDC00D5B3B0 /* UnderlineTextField.swift */; };
 		CA98A320202A301D00EFEA5A /* FlightCardView+SegmentTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98A31F202A301D00EFEA5A /* FlightCardView+SegmentTimelineView.swift */; };
 		CA98A322202A307A00EFEA5A /* FlightCardView+LegTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98A321202A307A00EFEA5A /* FlightCardView+LegTimelineView.swift */; };
+		CA98A324202A370500EFEA5A /* SearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98A323202A370500EFEA5A /* SearchViewModelTests.swift */; };
 		CA98C4881FEC22AA0009D326 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98C4871FEC22AA0009D326 /* SettingsVC.swift */; };
 		CA98C48A1FEC4DE60009D326 /* FlightSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98C4891FEC4DE60009D326 /* FlightSearchRequest.swift */; };
 		CA98C48D1FEC4EFE0009D326 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA98C48C1FEC4EFE0009D326 /* Settings.storyboard */; };
@@ -115,6 +115,7 @@
 		CAAD01FD1FD0E23A00E76B88 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAD01FC1FD0E23A00E76B88 /* NetworkManager.swift */; };
 		CAAF0CDB1FCE1F6A0089BF74 /* QPXExpress+Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF0CDA1FCE1F6A0089BF74 /* QPXExpress+Response.swift */; };
 		CAAF0CDD1FCE3F120089BF74 /* QPXExpress+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF0CDC1FCE3F120089BF74 /* QPXExpress+Request.swift */; };
+		CAB96C4E202A6C9800C5101D /* SearchVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB96C4D202A6C9800C5101D /* SearchVCTests.swift */; };
 		CAC6BA741FF2D64E005307C1 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC6BA731FF2D64E005307C1 /* RoundedButton.swift */; };
 		CAC6BA761FF2F4D1005307C1 /* SortFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC6BA751FF2F4D1005307C1 /* SortFilterVC.swift */; };
 		CAC6BA781FF303E5005307C1 /* SortOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC6BA771FF303E5005307C1 /* SortOptionCell.swift */; };
@@ -232,7 +233,6 @@
 		CA696F4720268262009CA2FE /* PassengerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PassengerCell.xib; sourceTree = "<group>"; };
 		CA696F4B20268D2D009CA2FE /* PassengerPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassengerPickerView.swift; sourceTree = "<group>"; };
 		CA6A7A1C201E678500AE89CD /* Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
-		CA6F70511FF8668900DD9C08 /* UserDataServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataServiceTests.swift; sourceTree = "<group>"; };
 		CA76EAFB2021019300D5D91C /* ExploreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewModel.swift; sourceTree = "<group>"; };
 		CA76EAFD202101E500D5D91C /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		CA76EAFF20211CA200D5D91C /* Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
@@ -260,6 +260,7 @@
 		CA9563C41FFAFEDC00D5B3B0 /* UnderlineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineTextField.swift; sourceTree = "<group>"; };
 		CA98A31F202A301D00EFEA5A /* FlightCardView+SegmentTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlightCardView+SegmentTimelineView.swift"; sourceTree = "<group>"; };
 		CA98A321202A307A00EFEA5A /* FlightCardView+LegTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlightCardView+LegTimelineView.swift"; sourceTree = "<group>"; };
+		CA98A323202A370500EFEA5A /* SearchViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModelTests.swift; sourceTree = "<group>"; };
 		CA98C4871FEC22AA0009D326 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		CA98C4891FEC4DE60009D326 /* FlightSearchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightSearchRequest.swift; sourceTree = "<group>"; };
 		CA98C48C1FEC4EFE0009D326 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -285,6 +286,7 @@
 		CAAD01FC1FD0E23A00E76B88 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		CAAF0CDA1FCE1F6A0089BF74 /* QPXExpress+Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QPXExpress+Response.swift"; sourceTree = "<group>"; };
 		CAAF0CDC1FCE3F120089BF74 /* QPXExpress+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QPXExpress+Request.swift"; sourceTree = "<group>"; };
+		CAB96C4D202A6C9800C5101D /* SearchVCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVCTests.swift; sourceTree = "<group>"; };
 		CAC6BA731FF2D64E005307C1 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		CAC6BA751FF2F4D1005307C1 /* SortFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortFilterVC.swift; sourceTree = "<group>"; };
 		CAC6BA771FF303E5005307C1 /* SortOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOptionCell.swift; sourceTree = "<group>"; };
@@ -653,6 +655,23 @@
 			path = SortFilterCells;
 			sourceTree = "<group>";
 		};
+		CAB96C4F202A76AB00C5101D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CAB96C50202A772900C5101D /* Search */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		CAB96C50202A772900C5101D /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				CAB96C4D202A6C9800C5101D /* SearchVCTests.swift */,
+				CA98A323202A370500EFEA5A /* SearchViewModelTests.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		CAD659BB2017FFF1006AB441 /* MyFlightCardView */ = {
 			isa = PBXGroup;
 			children = (
@@ -730,7 +749,7 @@
 		CAEC73BD1F813C29004D6F0B /* TakeFlightTests */ = {
 			isa = PBXGroup;
 			children = (
-				CA6F70511FF8668900DD9C08 /* UserDataServiceTests.swift */,
+				CAB96C4F202A76AB00C5101D /* Controller */,
 				CAEC73BE1F813C29004D6F0B /* TakeFlightTests.swift */,
 				CAEC73C01F813C29004D6F0B /* Info.plist */,
 			);
@@ -1173,9 +1192,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TakeFlightTests/Pods-TakeFlightTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
+				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1371,8 +1395,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA6F70521FF8668900DD9C08 /* UserDataServiceTests.swift in Sources */,
+				CAB96C4E202A6C9800C5101D /* SearchVCTests.swift in Sources */,
 				CAEC73BF1F813C29004D6F0B /* TakeFlightTests.swift in Sources */,
+				CA98A324202A370500EFEA5A /* SearchViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1533,6 +1558,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TakeFlight/TakeFlight.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = LCHZAHJK5X;
 				INFOPLIST_FILE = TakeFlight/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1550,6 +1576,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TakeFlight/TakeFlight.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = LCHZAHJK5X;
 				INFOPLIST_FILE = TakeFlight/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

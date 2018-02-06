@@ -96,11 +96,13 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - Nimble (7.0.3)
   - Protobuf (3.5.0)
+  - Quick (1.2.0)
   - RSKImageCropper (2.0.0)
-  - RxCocoa (4.1.1):
+  - RxCocoa (4.1.2):
     - RxSwift (~> 4.0)
-  - RxSwift (4.1.1)
+  - RxSwift (4.1.2)
   - Spring (1.0.5)
 
 DEPENDENCIES:
@@ -112,6 +114,8 @@ DEPENDENCIES:
   - Firebase/Messaging
   - Firebase/Storage
   - JTAppleCalendar (from `https://github.com/patchthecode/JTAppleCalendar.git`, branch `master`)
+  - Nimble
+  - Quick
   - RSKImageCropper
   - RxCocoa (~> 4.0)
   - RxSwift (~> 4.0)
@@ -153,12 +157,14 @@ SPEC CHECKSUMS:
   JTAppleCalendar: df0df2b055ba4c6d5940ef4f40a0f4270ea021ac
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
+  Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
   RSKImageCropper: d9a1acbc0600bf8decc8f0d21895872c99a9e4cf
-  RxCocoa: fd0862fd2df95fa55562ad28ffd2522c25eb4a85
-  RxSwift: c6e3b1c7b325c7d121cd4327e9d98b7ed746b570
+  RxCocoa: d88ba0f1f6abf040011a9eb4b539324fc426843a
+  RxSwift: e49536837d9901277638493ea537394d4b55f570
   Spring: 48aad470f3ead043b2da98b64e0bf0630b7ebc42
 
-PODFILE CHECKSUM: 55e1498e95634bf313ad5ed7d251a63a4d395205
+PODFILE CHECKSUM: 1c32aabb5ba79378585b1c9f0dc33c2b91a90951
 
 COCOAPODS: 1.4.0

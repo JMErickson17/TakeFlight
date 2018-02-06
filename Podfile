@@ -31,6 +31,8 @@ target 'TakeFlight' do
   target 'TakeFlightTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'Quick'
+    pod 'Nimble'
   end
 
   target 'TakeFlightUITests' do
