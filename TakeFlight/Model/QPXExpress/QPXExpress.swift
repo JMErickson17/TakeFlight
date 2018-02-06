@@ -132,6 +132,26 @@ class QPXExpress {
                 let subjectToGovernmentApproval = segment.subjectToGovernmentApproval
                 let connectionDuration = segment.connectionDuration
                 var legs = [FlightSegment.Leg]()
+                var pricing = [Pricing]()
+                
+                for price in option.pricing {
+                    let baseFareTotal = Double(price.baseFareTotal.alphanumericCharacters)!
+                    let saleFareTotal = Double(price.saleTotal.alphanumericCharacters)!
+                    let saleTaxTotal = Double(price.saleTaxTotal.alphanumericCharacters)!
+                    let saleTotal = Double(price.saleTotal.alphanumericCharacters)!
+                    
+                    let passengers = Passengers(adultCount: price.passengers.adultCount,
+                                                childCount: price.passengers.childCount,
+                                                infantCount: price.passengers.infantInSeatCount)
+                    
+                    let newPricing = Pricing(baseFareTotal: baseFareTotal,
+                                          saleFareTotal: saleFareTotal,
+                                          saleTaxTotal: saleTaxTotal,
+                                          saleTotal: saleTotal,
+                                          passengers: passengers)
+                    
+                    pricing.append(newPricing)
+                }
                 
                 guard let carrierIndex = supportingData.carrier.index(where: { $0.code == carrierCode }) else { throw QPXExpressError.parseError }
                 let carrier = Carrier(name: supportingData.carrier[carrierIndex].name, code: carrierCode)
@@ -157,7 +177,7 @@ class QPXExpress {
                     legs.append(leg)
                 }
                 
-                let flightSegment = FlightSegment(id: id, flightNumber: flightNumber, carrier: carrier, cabin: cabin, bookingCode: bookingCode, bookingCodeCount: bookingCodeCount, marriedSegmentGroup: marriedSegmentGroup, subjectToGovernmentApproval: subjectToGovernmentApproval, duration: duration, connectionDuration: connectionDuration, legs: legs)
+                let flightSegment = FlightSegment(id: id, flightNumber: flightNumber, carrier: carrier, cabin: cabin, bookingCode: bookingCode, bookingCodeCount: bookingCodeCount, marriedSegmentGroup: marriedSegmentGroup, subjectToGovernmentApproval: subjectToGovernmentApproval, duration: duration, connectionDuration: connectionDuration, legs: legs, pricing: pricing)
                 flightSegments.append(flightSegment)
             }
             sliceArray.append(flightSegments)

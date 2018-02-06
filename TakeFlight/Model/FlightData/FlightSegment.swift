@@ -8,6 +8,20 @@
 
 import Foundation
 
+struct Passengers: Codable {
+    let adultCount: Int?
+    let childCount: Int?
+    let infantCount: Int?
+}
+
+struct Pricing: Codable {
+    let baseFareTotal: Double
+    let saleFareTotal: Double
+    let saleTaxTotal: Double
+    let saleTotal: Double
+    let passengers: Passengers
+}
+
 struct FlightSegment: Codable {
     
     struct Leg: Codable {
@@ -38,6 +52,7 @@ struct FlightSegment: Codable {
     let duration: Int
     let connectionDuration: Int?
     let legs: [Leg]
+    let pricing: [Pricing]
     
     var originAirportCode: String {
         return (legs.first?.origin) ?? ""

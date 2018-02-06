@@ -69,6 +69,60 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
         return detailsCard
     }()
     
+    private lazy var priceDetailsContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.flightCardGray
+        view.layer.cornerRadius = 5
+        return view
+    }()
+    
+    private lazy var priceDetailsLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.textColor = .white
+        label.text = "Pricing Details"
+        return label
+    }()
+    
+    private lazy var priceDetailsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 5
+        return stackView
+    }()
+    
+    private lazy var totalPriceLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 17)
+        label.textColor = .white
+        label.text = "Total Price:"
+        return label
+    }()
+    
+    private lazy var totalAmountLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .right
+        label.font = UIFont.systemFont(ofSize: 17)
+        label.textColor = .white
+        return label
+    }()
+    
+    private lazy var totalPriceStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.addArrangedSubview(totalPriceLabel)
+        stackView.addArrangedSubview(totalAmountLabel)
+        return stackView
+    }()
+    
     private lazy var flightPriceCardView: FlightPriceCardView = {
         let cardView = FlightPriceCardView()
         cardView.translatesAutoresizingMaskIntoConstraints = false
@@ -183,6 +237,27 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
             departingFlightCardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
         ])
         
+        priceDetailsContainerView.addSubview(priceDetailsLabel)
+        NSLayoutConstraint.activate([
+            priceDetailsLabel.centerXAnchor.constraint(equalTo: priceDetailsContainerView.centerXAnchor),
+            priceDetailsLabel.topAnchor.constraint(equalTo: priceDetailsContainerView.topAnchor, constant: 5)
+        ])
+        
+        priceDetailsContainerView.addSubview(priceDetailsStackView)
+        NSLayoutConstraint.activate([
+            priceDetailsStackView.leadingAnchor.constraint(equalTo: priceDetailsContainerView.leadingAnchor),
+            priceDetailsStackView.topAnchor.constraint(equalTo: priceDetailsLabel.bottomAnchor, constant: 5),
+            priceDetailsStackView.trailingAnchor.constraint(equalTo: priceDetailsContainerView.trailingAnchor),
+        ])
+        
+        priceDetailsContainerView.addSubview(totalPriceStackView)
+        NSLayoutConstraint.activate([
+            totalPriceStackView.leadingAnchor.constraint(equalTo: priceDetailsContainerView.leadingAnchor, constant: 5),
+            totalPriceStackView.topAnchor.constraint(equalTo: priceDetailsStackView.bottomAnchor, constant: 5),
+            totalPriceStackView.trailingAnchor.constraint(equalTo: priceDetailsContainerView.trailingAnchor, constant: -5),
+            totalPriceStackView.bottomAnchor.constraint(equalTo: priceDetailsContainerView.bottomAnchor, constant: -5)
+        ])
+        
         if let returningFlight = flightData.returningFlight {
             returningFlightCardView.setupCard(withFlight: returningFlight)
             contentView.addSubview(returningFlightCardView)
@@ -199,13 +274,15 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
                 bookingDetailsCardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
             ])
             
-            contentView.addSubview(flightPriceCardView)
+            
+            contentView.addSubview(priceDetailsContainerView)
             NSLayoutConstraint.activate([
-                flightPriceCardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-                flightPriceCardView.topAnchor.constraint(equalTo: bookingDetailsCardView.bottomAnchor, constant: 20),
-                flightPriceCardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-                flightPriceCardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
+                priceDetailsContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+                priceDetailsContainerView.topAnchor.constraint(equalTo: bookingDetailsCardView.bottomAnchor, constant: 20),
+                priceDetailsContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+                priceDetailsContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
             ])
+            
         } else {
             contentView.addSubview(bookingDetailsCardView)
             NSLayoutConstraint.activate([
@@ -214,12 +291,12 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
                 bookingDetailsCardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
             ])
             
-            contentView.addSubview(flightPriceCardView)
+            contentView.addSubview(priceDetailsContainerView)
             NSLayoutConstraint.activate([
-                flightPriceCardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-                flightPriceCardView.topAnchor.constraint(equalTo: bookingDetailsCardView.bottomAnchor, constant: 20),
-                flightPriceCardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-                flightPriceCardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
+                priceDetailsContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+                priceDetailsContainerView.topAnchor.constraint(equalTo: bookingDetailsCardView.bottomAnchor, constant: 20),
+                priceDetailsContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+                priceDetailsContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
             ])
         }
         
@@ -230,12 +307,30 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
         dateFormatter.timeStyle = .short
         let latestTicketingTime = flightData.latestTicketingTime.toLocalDateAndTimeString(withFormatter: dateFormatter)
         bookingDetailsCardView.configureView(withBookingCode: bookingCode, refundable: refundable, latestTicketingTime: latestTicketingTime, adultCount: flightData.adultCount, childCount: flightData.childCount, infantCount: flightData.infantCount)
-        
-        let baseFare = makePriceString(with: flightData.baseFareTotal)
-        let saleFare = makePriceString(with: flightData.saleFareTotal)
-        let saleTax = makePriceString(with: flightData.saleTaxTotal)
-        let saleTotal = makePriceString(with: flightData.saleTotal)
-        flightPriceCardView.configureView(withBaseFare: baseFare, saleFare: saleFare, saleTax: saleTax, saleTotal: saleTotal)
+
+        for pricing in flightData.departingFlight.segments.first!.pricing {
+            let priceCard = FlightPriceCardView(frame: .zero)
+            let baseFare = makePriceString(with: pricing.baseFareTotal)
+            let saleFare = makePriceString(with: pricing.saleFareTotal)
+            let saleTax = makePriceString(with: pricing.saleTaxTotal)
+            let saleTotal = makePriceString(with: pricing.saleTotal)
+            
+            let passengerString = makePassengerString(withPassengers: pricing.passengers)
+            priceCard.configureView(withPassengers: passengerString, baseFare: baseFare, saleFare: saleFare, saleTax: saleTax, saleTotal: saleTotal)
+            
+            priceDetailsStackView.addArrangedSubview(priceCard)
+            
+            let lineView = LineView(frame: .zero)
+            lineView.lineColor = .white
+            lineView.lineWidth = 1
+            priceDetailsStackView.addArrangedSubview(lineView)
+            NSLayoutConstraint.activate([
+                lineView.leadingAnchor.constraint(equalTo: priceDetailsStackView.leadingAnchor),
+                lineView.trailingAnchor.constraint(equalTo: priceDetailsStackView.trailingAnchor),
+                lineView.heightAnchor.constraint(equalToConstant: 1),
+            ])
+        }
+        totalAmountLabel.text = makePriceString(with: flightData.saleTotal)
         
         view.layoutSubviews()
     }
@@ -258,6 +353,23 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         return formatter.string(from: price)
+    }
+    
+    private func makePassengerString(withPassengers passengers: Passengers) -> String {
+        var passengerArray = [String]()
+        if let adults = passengers.adultCount {
+            passengerArray.append("\(adults) \(adults == 1 ? "Adult" : "Adults")")
+        }
+        
+        if let children = passengers.childCount {
+            passengerArray.append("\(children) \(children == 1 ? "Child" : "Children")")
+        }
+        
+        if let infants = passengers.infantCount {
+            passengerArray.append("\(infants) \(infants == 1 ? "Infant" : "Infants")")
+        }
+        
+        return passengerArray.joined(separator: ", ")
     }
     
     @objc func saveFlight() {

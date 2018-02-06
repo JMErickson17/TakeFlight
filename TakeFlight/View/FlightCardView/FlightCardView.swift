@@ -19,10 +19,7 @@ class FlightCardView: UIView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
-        imageView.image = #imageLiteral(resourceName: "SkyHeaderImage")
-        imageView.layer.shadowColor = #colorLiteral(red: 0.4087824948, green: 0.4343314007, blue: 0.4343314007, alpha: 1)
-        imageView.layer.shadowRadius = 10
-        imageView.layer.shadowOpacity = 0.7
+        imageView.image = #imageLiteral(resourceName: "SkyHeaderImage_3")
         return imageView
     }()
     
@@ -32,6 +29,11 @@ class FlightCardView: UIView {
         label.font = UIFont.systemFont(ofSize: 36, weight: UIFont.Weight.light)
         label.textAlignment = .center
         label.textColor = .white
+        label.layer.shadowColor = UIColor.black.cgColor
+        label.layer.shadowRadius = 3
+        label.layer.shadowOpacity = 1.0
+        label.layer.shadowOffset = CGSize(width: 2, height: 2)
+        label.layer.masksToBounds = false
         return label
     }()
     
@@ -108,7 +110,6 @@ class FlightCardView: UIView {
         backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         layer.cornerRadius = 5
         clipsToBounds = true
-        addShadow()
         
         addSubview(headerImage)
         NSLayoutConstraint.activate([
@@ -164,13 +165,6 @@ class FlightCardView: UIView {
         ])
     }
     
-    private func addShadow() {
-        self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOpacity = 1
-        self.layer.shadowOffset = CGSize.zero
-        self.layer.shadowRadius = 10
-    }
-    
     func setupCard(withFlight flight: FlightData.Flight) {
         headerLabel.text = "\(flight.originAirportCode)-\(flight.destinationAirportCode)"
         carrierImage.image = flight.carrierLogo
@@ -218,217 +212,3 @@ class FlightCardView: UIView {
         }
     }
 }
-
-// MARK: - FlightCardView+SegmentTimelineView
-
-extension FlightCardView {
-    
-    class SegmentTimelineView: TimelineView {
-        
-        // MARK: Properties
-        
-        var segment: FlightSegment?
-        
-        let legStackView: UIStackView = {
-            let stackView = UIStackView()
-            stackView.translatesAutoresizingMaskIntoConstraints = false
-            stackView.axis = .vertical
-            stackView.spacing = 10
-            return stackView
-        }()
-        
-        // MARK: Lifecycle
-        
-        required init?(coder aDecoder: NSCoder) {
-            fatalError("init(coder: ) has not been implemented")
-        }
-        
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            
-            self.setupView()
-        }
-        
-        // MARK: Setup
-        
-        private func setupView() {
-            self.backgroundColor = .clear
-            
-            contentView.addSubview(legStackView)
-            NSLayoutConstraint.activate([
-                legStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                legStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-                legStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-                legStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-            ])
-        }
-        
-        // MARK: Drawing
-        
-        override func draw(_ rect: CGRect) {
-            guard let segment = segment else { return }
-            
-            drawCircle(at: topCircleLocation, ofSize: circleSize)
-            draw(text: makeAttributedString(fromString: segment.originAirportCode), at: topLabelLocation)
-            drawCircle(at: bottomCircleLocation, ofSize: circleSize)
-            draw(text: makeAttributedString(fromString: segment.destinationAirportCode), at: bottomLabelLocation)
-            drawConnectingLine()
-        }
-        
-        // MARK: Convenience
-        
-        func configureSegmentTimelineView(withSegment segment: FlightSegment) {
-            self.segment = segment
-            
-            for leg in segment.legs {
-                let legTimelineView = LegTimeLineView()
-                legTimelineView.configureLegTimelineView(withLeg: leg)
-                legStackView.addArrangedSubview(legTimelineView)
-                
-//                if let connectionDuration = leg.connectionDuration {
-//                    let label = makeLayoverLabel(withDuration: connectionDuration, andAirport: leg.destinationAirport)
-//                    legStackView.addArrangedSubview(label)
-//                }
-            }
-            setNeedsLayout()
-            setNeedsDisplay()
-        }
-        
-        // TODO: Consolidate makeLayoverLabel into single helper class
-        
-        func makeLayoverLabel(withDuration duration: Int, andAirport airport: Airport?) -> UILabel {
-            let label = UILabel()
-            label.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.light)
-            label.textColor = .white
-            label.textAlignment = .center
-            let durationString = makeString(withDuration: duration)
-            
-            if let airport = airport {
-                label.text = "\(durationString) layover in \(airport.city.capitalized), \(airport.state)"
-            } else {
-                label.text = "\(durationString) layover"
-            }
-            
-            return label
-        }
-        
-        func makeString(withDuration duration: Int) -> String {
-            let hours = duration / 60
-            let minutes = duration % 60
-            if hours == 0 {
-                return "\(minutes)m"
-            } else {
-                return "\(hours)h \(minutes)m"
-            }
-        }
-    }
-}
-
-// MARK: FlightCardView+LegTimeLineView
-
-extension FlightCardView {
-    
-    class LegTimeLineView: TimelineView {
-        
-        // MARK: Propeties
-        
-        private var leg: FlightSegment.Leg?
-        private let detailsStackViewXInset: CGFloat = 10
-        private let detailsStackViewYInset: CGFloat = 10
-        private let detailImages: [String: UIImage] = [
-            "duration": #imageLiteral(resourceName: "DetailsClockIcon"),
-            "meal": #imageLiteral(resourceName: "DetailsKnifeForkIcon"),
-            "wifi": #imageLiteral(resourceName: "DetailsWifiIcon"),
-            "aircraft": #imageLiteral(resourceName: "DetailsAirplaneIcon"),
-            "onTimePerformance": #imageLiteral(resourceName: "DetailsStopWatchIcon")
-        ]
-        
-        lazy var detailsStackView: UIStackView = {
-            let stackView = UIStackView()
-            stackView.translatesAutoresizingMaskIntoConstraints = false
-            stackView.axis = .vertical
-            stackView.spacing = 10
-            return stackView
-        }()
-        
-        override var circleDiameter: CGFloat {
-            get {
-                return 10
-            }
-            set {
-                self.circleDiameter = newValue
-            }
-        }
-        
-        // MARK: Licecycle
-        
-        required init?(coder aDecoder: NSCoder) {
-            fatalError("init(coder: ) has not been implemented")
-        }
-        
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            
-            self.setupView()
-        }
-        
-        // MARK: Setup
-        
-        private func setupView() {
-            self.backgroundColor = .clear
-            contentView.addSubview(detailsStackView)
-            NSLayoutConstraint.activate([
-                detailsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: detailsStackViewXInset),
-                detailsStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: detailsStackViewYInset),
-                detailsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -detailsStackViewXInset),
-                detailsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -detailsStackViewYInset)
-            ])
-        }
-        
-        // MARK: Drawing
-        
-        override func draw(_ rect: CGRect) {
-            guard let leg = leg else { return }
-            drawCircle(at: topCircleLocation, ofSize: circleSize)
-            draw(text: makeTimeString(fromDateAndTimeZone: leg.departureTime), at: topLabelLocation)
-            drawCircle(at: bottomCircleLocation, ofSize: circleSize)
-            draw(text: makeTimeString(fromDateAndTimeZone: leg.arrivalTime), at: bottomLabelLocation)
-            drawConnectingLine()
-        }
-        
-        // MARK: Convenience
-        
-        func configureLegTimelineView(withLeg leg: FlightSegment.Leg) {
-            self.leg = leg
-            
-            let legDetails: [String: String] = [
-                "duration": makeString(withDuration: leg.duration),
-                "aircraft": leg.aircraft,
-                "wifi": "",
-                "meal": leg.meal ?? "",
-                "onTimePerformance": makeString(withOnTimePerformance: leg.onTimePerformance)
-            ]
-            
-            for (key, value) in legDetails where value != "" {
-                let detailsView = IconAndLabelView()
-                detailsView.image = detailImages[key]
-                detailsView.text = value
-                detailsStackView.addArrangedSubview(detailsView)
-            }
-            setNeedsLayout()
-            setNeedsDisplay()
-        }
-
-        func makeString(withDuration duration: Int) -> String {
-            let hours = duration / 60
-            let minutes = duration % 60
-            return "\(hours)h \(minutes)m"
-        }
-        
-        func makeString(withOnTimePerformance onTimePerformance: Int?) -> String {
-            guard let onTimePerformance = onTimePerformance else { return "" }
-            return "\(onTimePerformance)% On Time"
-        }
-    }
-}
-

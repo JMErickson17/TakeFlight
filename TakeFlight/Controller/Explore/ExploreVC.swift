@@ -47,7 +47,7 @@ class ExploreVC: UIViewController {
 extension ExploreVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "DestinationCell", for: indexPath) as? DestinationCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: DestinationCell.reuseIdentifier, for: indexPath) as? DestinationCell {
             let destination = viewModel.popularDestinations[indexPath.row]
             cell.configureCell(with: destination, image: nil)
             viewModel.image(for: destination, completion: { image in

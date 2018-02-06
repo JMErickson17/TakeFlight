@@ -160,8 +160,17 @@ extension QPXExpress {
             }
         }
         
+        struct SegmentPricing: Decodable {
+            private(set) var segmentId: String
+            
+            enum CodingKeys: String, CodingKey {
+                case segmentId
+            }
+        }
+        
         struct Pricing: Decodable {
             private(set) var fare: [Fare]
+            private(set) var segmentPricing: [SegmentPricing]
             private(set) var baseFareTotal: String
             private(set) var saleFareTotal: String
             private(set) var saleTaxTotal: String
@@ -174,6 +183,7 @@ extension QPXExpress {
             
             enum CodingKeys: String, CodingKey {
                 case fare
+                case segmentPricing
                 case baseFareTotal
                 case saleFareTotal
                 case saleTaxTotal

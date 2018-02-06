@@ -13,12 +13,13 @@ class FlightPriceCardView: UIView {
     // MARK: Properties
     
     @IBOutlet var contentView: UIView!
+    @IBOutlet weak var passengersLabel: UILabel!
     @IBOutlet weak var baseFareLabel: UILabel!
     @IBOutlet weak var saleFareLabel: UILabel!
     @IBOutlet weak var saleTaxLabel: UILabel!
     @IBOutlet weak var saleTotalLabel: UILabel!
     
-    // MARK: Lifecycle
+    // MARK: Initialization
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -39,16 +40,18 @@ class FlightPriceCardView: UIView {
         addSubview(contentView)
         contentView.frame = self.bounds
         contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        contentView.layer.cornerRadius = 5
-        contentView.clipsToBounds = true
     }
     
     // MARK: Configuration
     
-    func configureView(withBaseFare baseFare: String?, saleFare: String?, saleTax: String?, saleTotal: String?) {
+    func configureView(withPassengers passengers: String, baseFare: String?, saleFare: String?, saleTax: String?, saleTotal: String?) {
+        self.passengersLabel.text = passengers
         self.baseFareLabel.text = baseFare
         self.saleFareLabel.text = saleFare
         self.saleTaxLabel.text = saleTax
         self.saleTotalLabel.text = saleTotal
     }
 }
+
+
+

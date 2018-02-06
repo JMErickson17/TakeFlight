@@ -11,6 +11,12 @@ import JTAppleCalendar
 
 class DatePickerVC: UIViewController {
     
+    // MARK: Constants
+    
+    private enum Constants {
+        static let UICollectionElementKindSectionHeader = "UICollectionElementKindSectionHeader"
+    }
+    
     // MARK: Properties
     
     weak var delegate: DatePickerVCDelegate?
@@ -97,8 +103,8 @@ class DatePickerVC: UIViewController {
         calendarView.calendarDelegate = self
         calendarView.calendarDataSource = self
         
-        calendarView.register(UINib(nibName: Constants.MONTH_SECTION_HEADER_VIEW, bundle: nil), forSupplementaryViewOfKind: "UICollectionElementKindSectionHeader", withReuseIdentifier: Constants.MONTH_SECTION_HEADER_VIEW)
-        calendarView.register(DatePickerCell.self, forCellWithReuseIdentifier: Constants.DATE_PICKER_CELL)
+        calendarView.register(UINib(nibName: MonthSectionHeaderView.reuseIdentifier, bundle: nil), forSupplementaryViewOfKind: Constants.UICollectionElementKindSectionHeader, withReuseIdentifier: MonthSectionHeaderView.reuseIdentifier)
+        calendarView.register(DatePickerCell.self, forCellWithReuseIdentifier: DatePickerCell.reuseIdentifier)
         
         switch userDefaults.searchType {
         case .oneWay:
@@ -162,7 +168,7 @@ class DatePickerVC: UIViewController {
 extension DatePickerVC: JTAppleCalendarViewDelegate {
 
     func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {
-        if let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: Constants.DATE_PICKER_CELL, for: indexPath) as? DatePickerCell {
+        if let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: DatePickerCell.reuseIdentifier, for: indexPath) as? DatePickerCell {
             cell.configureCell(withCellState: cellState)
             return cell
         }
@@ -238,7 +244,7 @@ extension DatePickerVC: JTAppleCalendarViewDelegate {
     }
     
     func calendar(_ calendar: JTAppleCalendarView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTAppleCollectionReusableView {
-        if let header = calendar.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: Constants.MONTH_SECTION_HEADER_VIEW, for: indexPath) as? MonthSectionHeaderView {
+        if let header = calendar.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: MonthSectionHeaderView.reuseIdentifier, for: indexPath) as? MonthSectionHeaderView {
             header.configureHeader(withDate: range.start, delegate: self)
             return header
         }

@@ -88,6 +88,8 @@
 		CA900CA41FF93D2700EBA3D0 /* DurationFilterVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA900CA31FF93D2700EBA3D0 /* DurationFilterVCDelegate.swift */; };
 		CA9563C31FFAED6600D5B3B0 /* MyFlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9563C21FFAED6600D5B3B0 /* MyFlightCell.swift */; };
 		CA9563C51FFAFEDC00D5B3B0 /* UnderlineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9563C41FFAFEDC00D5B3B0 /* UnderlineTextField.swift */; };
+		CA98A320202A301D00EFEA5A /* FlightCardView+SegmentTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98A31F202A301D00EFEA5A /* FlightCardView+SegmentTimelineView.swift */; };
+		CA98A322202A307A00EFEA5A /* FlightCardView+LegTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98A321202A307A00EFEA5A /* FlightCardView+LegTimelineView.swift */; };
 		CA98C4881FEC22AA0009D326 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98C4871FEC22AA0009D326 /* SettingsVC.swift */; };
 		CA98C48A1FEC4DE60009D326 /* FlightSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98C4891FEC4DE60009D326 /* FlightSearchRequest.swift */; };
 		CA98C48D1FEC4EFE0009D326 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA98C48C1FEC4EFE0009D326 /* Settings.storyboard */; };
@@ -133,7 +135,6 @@
 		CAEC73CA1F813C2A004D6F0B /* TakeFlightUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73C91F813C2A004D6F0B /* TakeFlightUITests.swift */; };
 		CAEC73E01F8144D1004D6F0B /* RoundTripFlightDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73DE1F8144D1004D6F0B /* RoundTripFlightDataCell.swift */; };
 		CAEC73E11F8144D1004D6F0B /* RoundTripFlightDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAEC73DF1F8144D1004D6F0B /* RoundTripFlightDataCell.xib */; };
-		CAEC73E41F814F2E004D6F0B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E31F814F2E004D6F0B /* Constants.swift */; };
 		CAEC73E61F81638F004D6F0B /* FlightData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E51F81638F004D6F0B /* FlightData.swift */; };
 		CAEC73EA1F8184D8004D6F0B /* QPXExpress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC73E91F8184D8004D6F0B /* QPXExpress.swift */; };
 		CAECB8741FEA019A00F84359 /* DropDownNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAECB8731FEA019A00F84359 /* DropDownNotification.swift */; };
@@ -257,6 +258,8 @@
 		CA900CA31FF93D2700EBA3D0 /* DurationFilterVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationFilterVCDelegate.swift; sourceTree = "<group>"; };
 		CA9563C21FFAED6600D5B3B0 /* MyFlightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFlightCell.swift; sourceTree = "<group>"; };
 		CA9563C41FFAFEDC00D5B3B0 /* UnderlineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineTextField.swift; sourceTree = "<group>"; };
+		CA98A31F202A301D00EFEA5A /* FlightCardView+SegmentTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlightCardView+SegmentTimelineView.swift"; sourceTree = "<group>"; };
+		CA98A321202A307A00EFEA5A /* FlightCardView+LegTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlightCardView+LegTimelineView.swift"; sourceTree = "<group>"; };
 		CA98C4871FEC22AA0009D326 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		CA98C4891FEC4DE60009D326 /* FlightSearchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightSearchRequest.swift; sourceTree = "<group>"; };
 		CA98C48C1FEC4EFE0009D326 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -308,7 +311,6 @@
 		CAEC73CB1F813C2A004D6F0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CAEC73DE1F8144D1004D6F0B /* RoundTripFlightDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundTripFlightDataCell.swift; sourceTree = "<group>"; };
 		CAEC73DF1F8144D1004D6F0B /* RoundTripFlightDataCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoundTripFlightDataCell.xib; sourceTree = "<group>"; };
-		CAEC73E31F814F2E004D6F0B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CAEC73E51F81638F004D6F0B /* FlightData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightData.swift; sourceTree = "<group>"; };
 		CAEC73E91F8184D8004D6F0B /* QPXExpress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QPXExpress.swift; sourceTree = "<group>"; };
 		CAECB8731FEA019A00F84359 /* DropDownNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownNotification.swift; sourceTree = "<group>"; };
@@ -462,9 +464,11 @@
 			isa = PBXGroup;
 			children = (
 				CAEDB6A51FCCCD450041878F /* FlightCardView.swift */,
+				CA98A31F202A301D00EFEA5A /* FlightCardView+SegmentTimelineView.swift */,
 				CAD6FC281FE19B7300691A8B /* TimelineView.swift */,
 				CA6655F41FDF4E5E00918502 /* LineView.swift */,
 				CAD1A0311FE318C50052E16A /* IconAndLabelView.swift */,
+				CA98A321202A307A00EFEA5A /* FlightCardView+LegTimelineView.swift */,
 			);
 			path = FlightCardView;
 			sourceTree = "<group>";
@@ -822,7 +826,6 @@
 		CAEC73E21F814F1D004D6F0B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				CAEC73E31F814F2E004D6F0B /* Constants.swift */,
 				CA82E686200EBCC000F7DD29 /* TypeAliases.swift */,
 			);
 			path = Utilities;
@@ -1247,6 +1250,7 @@
 				CA55C0F31FE99965008990C8 /* LoggedInStatusView.swift in Sources */,
 				CA76EB0020211CA200D5D91C /* Destination.swift in Sources */,
 				CAFA6E53201047A600FA39B2 /* SearchState.swift in Sources */,
+				CA98A320202A301D00EFEA5A /* FlightCardView+SegmentTimelineView.swift in Sources */,
 				CA98C4931FEC55840009D326 /* BillingCountryPickerVC.swift in Sources */,
 				CA192CF71FF726B300943C74 /* StopFilterVCDelegate.swift in Sources */,
 				CA66A757200EA26B00D08E80 /* FirebaseCarrierService.swift in Sources */,
@@ -1310,6 +1314,7 @@
 				CAA656241FF4175500DB59C4 /* DurationFilterVC.swift in Sources */,
 				CAA656291FF423A300DB59C4 /* CarrierPickerCell.swift in Sources */,
 				CAAD01FD1FD0E23A00E76B88 /* NetworkManager.swift in Sources */,
+				CA98A322202A307A00EFEA5A /* FlightCardView+LegTimelineView.swift in Sources */,
 				CA66A75C200EA6E300D08E80 /* FirebaseAirportService.swift in Sources */,
 				CAFD5AD7201BA6D300C6FC88 /* MonthSectionHeaderViewDelegate.swift in Sources */,
 				CAFD5ADA201BAB9F00C6FC88 /* FlightPriceCardView.swift in Sources */,
@@ -1349,7 +1354,6 @@
 				CA12FC7A201F8341003053DF /* FlightData+Flight.swift in Sources */,
 				CA98C4881FEC22AA0009D326 /* SettingsVC.swift in Sources */,
 				CAD1A0321FE318C50052E16A /* IconAndLabelView.swift in Sources */,
-				CAEC73E41F814F2E004D6F0B /* Constants.swift in Sources */,
 				CA76EAFE202101E500D5D91C /* Section.swift in Sources */,
 				CAD659BD2018008A006AB441 /* MyFlightCardView.swift in Sources */,
 				CA66A74F200E91C000D08E80 /* UserService.swift in Sources */,

@@ -56,7 +56,7 @@ class SearchVC: UIViewController {
         spinner.translatesAutoresizingMaskIntoConstraints = false
         spinner.activityIndicatorViewStyle = .whiteLarge
         spinner.hidesWhenStopped = true
-        spinner.color = UIColor(named: "PrimaryBlue")
+        spinner.color = UIColor.primaryBlue
         return spinner
     }()
     
@@ -134,11 +134,11 @@ class SearchVC: UIViewController {
         refreshControl.addTarget(self, action: #selector(tableViewShouldRefresh), for: .valueChanged)
         refreshControl.tintColor = .primaryBlue
         
-        let oneWayCell = UINib(nibName: Constants.ONE_WAY_FLIGHT_DATA_CELL, bundle: nil)
-        flightDataTableView.register(oneWayCell, forCellReuseIdentifier: Constants.ONE_WAY_FLIGHT_DATA_CELL)
+        let oneWayCell = UINib(nibName: OneWayFlightDataCell.reuseIdentifier, bundle: nil)
+        flightDataTableView.register(oneWayCell, forCellReuseIdentifier: OneWayFlightDataCell.reuseIdentifier)
         
-        let roundTripCell = UINib(nibName: Constants.ROUND_TRIP_FLIGHT_DATA_CELL, bundle: nil)
-        flightDataTableView.register(roundTripCell, forCellReuseIdentifier: Constants.ROUND_TRIP_FLIGHT_DATA_CELL)
+        let roundTripCell = UINib(nibName: RoundTripFlightDataCell.reuseIdentifier, bundle: nil)
+        flightDataTableView.register(roundTripCell, forCellReuseIdentifier: RoundTripFlightDataCell.reuseIdentifier)
     }
     
     private func bindViewModel() {
@@ -374,12 +374,12 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
         let flightData = viewModel.flights.value[indexPath.row]
         
         if flightData.isRoundTrip {
-            if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.ROUND_TRIP_FLIGHT_DATA_CELL, for: indexPath) as? RoundTripFlightDataCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: RoundTripFlightDataCell.reuseIdentifier, for: indexPath) as? RoundTripFlightDataCell {
                 cell.configureCell(withFlightData: flightData)
                 return cell
             }
         } else {
-            if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.ONE_WAY_FLIGHT_DATA_CELL, for: indexPath) as? OneWayFlightDataCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: OneWayFlightDataCell.reuseIdentifier, for: indexPath) as? OneWayFlightDataCell {
                 cell.configureCell(withFlightData: flightData)
                 return cell
             }

@@ -44,7 +44,7 @@ class AirportPickerCell: UITableViewCell {
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             locationLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
             locationLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10)
-            ])
+        ])
     }
     
     // MARK: Convenience

@@ -18,7 +18,6 @@ class SelectedDateView: UIView {
         static let circleLineColor: UIColor = UIColor.primaryBlue
         static let circleBackgroundColor: UIColor = .white
         static let circleInset: CGFloat = 10
-        
         static let connectingLineWidth: CGFloat = 15
         static let connectingLineColor: UIColor = .lightGray
     }
