@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuites name='TakeFlightTests.xctest' tests='7' failures='0'>
+  <testsuite name='TakeFlightTests.SearchVCTests' tests='2' failures='0'>
+    <testcase classname='TakeFlightTests.SearchVCTests' name='testClearDates_clearsTextFields' time='0.020'/>
+    <testcase classname='TakeFlightTests.SearchVCTests' name='testClearLocations_clearsTextFields' time='0.012'/>
+  </testsuite>
+  <testsuite name='TakeFlightTests.SearchViewModelTests' tests='3' failures='0'>
+    <testcase classname='TakeFlightTests.SearchViewModelTests' name='testResetSortAndFilters_resetsSortAndFilters' time='0.004'/>
+    <testcase classname='TakeFlightTests.SearchViewModelTests' name='testSearchFlights_returnsFromInvalidRequest' time='0.002'/>
+    <testcase classname='TakeFlightTests.SearchViewModelTests' name='testSearchFlights_searchesOneWayFlights' time='0.008'/>
+  </testsuite>
+  <testsuite name='TakeFlightTests.TakeFlightTests' tests='2' failures='0'>
+    <testcase classname='TakeFlightTests.TakeFlightTests' name='testExample' time='0.000'/>
+    <testcase classname='TakeFlightTests.TakeFlightTests' name='testPerformanceExample' time='0.515'/>
+  </testsuite>
+</testsuites>
