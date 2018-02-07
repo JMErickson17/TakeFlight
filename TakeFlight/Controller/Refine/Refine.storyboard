@@ -13,7 +13,7 @@
         <!--Refine-->
         <scene sceneID="eLZ-NF-JKw">
             <objects>
-                <viewController title="Refine" id="t3T-4W-tZS" customClass="SortFilterVC" customModule="TakeFlight" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Refine" id="t3T-4W-tZS" customClass="RefineVC" customModule="TakeFlight" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5wf-Ok-J3q">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -55,7 +55,7 @@
                                 <rect key="frame" x="0.0" y="111" width="375" height="216"/>
                             </pickerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filter By Stops" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZFt-Rv-MdP">
-                                <rect key="frame" x="131.5" y="70" width="111" height="21"/>
+                                <rect key="frame" x="132" y="70" width="111" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>

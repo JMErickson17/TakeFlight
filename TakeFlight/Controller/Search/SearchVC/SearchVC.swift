@@ -186,7 +186,7 @@ class SearchVC: UIViewController {
     // MARK: Actions
     
     @IBAction func refineButtonTapped(_ sender: Any) {
-        performSegue(withIdentifier: "toSortFilterVC", sender: nil)
+        performSegue(withIdentifier: "toRefineVC", sender: nil)
     }
     
     @IBAction func roundTripButtonTapped(_ sender: UIButton) {
@@ -272,7 +272,7 @@ class SearchVC: UIViewController {
     // MARK: Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? SortFilterVC {
+        if let destination = segue.destination as? RefineVC {
             destination.delegate = self
             destination.selectedSortOption = viewModel.sortOption
             destination.filterOptions = viewModel.flightDataManager.filterOptions
@@ -508,34 +508,34 @@ extension SearchVC: AirportPickerVCDelegate {
     }
 }
 
-// MARK:- SearchVC+SortFilterVCDelegate
+// MARK:- SearchVC+RefineVCDelegate
 
-extension SearchVC: SortFilterVCDelegate {
-    func sortFilterVCDidResetSortAndFilter(_ sortFilterVC: SortFilterVC) {
+extension SearchVC: RefineVCDelegate {
+    func refineVCDidResetSortAndFilter(_ refineVC: RefineVC) {
         self.viewModel.resetSortAndFilters()
         self.viewModel.updateFlights()
     }
     
-    func sortFilterVC(_ sortFilterVC: SortFilterVC, carrierDataDidChangeTo carrierData: [CarrierData]) {
+    func refineVC(_ refineVC: RefineVC, carrierDataDidChangeTo carrierData: [CarrierData]) {
         self.viewModel.carrierData = carrierData
     }
     
-    func sortFilterVC(_ sortFilterVC: SortFilterVC, sortOptionDidChangeTo option: SortOption) {
+    func refineVC(_ refineVC: RefineVC, sortOptionDidChangeTo option: SortOption) {
         self.viewModel.sortOption = option
         self.viewModel.updateFlights()
     }
     
-    func sortFilterVC(_ sortFilterVC: SortFilterVC, maxStopsDidChangeTo stops: MaxStops) {
+    func refineVC(_ refineVC: RefineVC, maxStopsDidChangeTo stops: MaxStops) {
         self.viewModel.flightDataManager.filterOptions.maxStops = stops
         self.viewModel.updateFlights()
     }
     
-    func sortFilterVC(_ sortFilterVC: SortFilterVC, maxDurationDidChangeTo duration: Hour) {
+    func refineVC(_ refineVC: RefineVC, maxDurationDidChangeTo duration: Hour) {
         self.viewModel.flightDataManager.filterOptions.maxDuration = duration
         self.viewModel.updateFlights()
     }
     
-    func sortFilterVC(_ sortFilterVC: SortFilterVC, didUpdate option: PassengerOption) {
+    func refineVC(_ refineVC: RefineVC, didUpdate option: PassengerOption) {
         self.passengerOptionsDidChange = true
         self.viewModel.update(option)
     }

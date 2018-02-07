@@ -104,11 +104,11 @@
 		CAA19A0A1FA3BDD800A479A8 /* AirportPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA19A081FA3BDD800A479A8 /* AirportPickerVC.swift */; };
 		CAA19A0E1FA3C08000A479A8 /* AirportPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA19A0C1FA3C08000A479A8 /* AirportPickerCell.swift */; };
 		CAA19A111FA3D1CA00A479A8 /* AirportPickerVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA19A101FA3D1CA00A479A8 /* AirportPickerVCDelegate.swift */; };
-		CAA6561E1FF40D2F00DB59C4 /* SortFilterVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA6561D1FF40D2F00DB59C4 /* SortFilterVCDelegate.swift */; };
+		CAA6561E1FF40D2F00DB59C4 /* RefineVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA6561D1FF40D2F00DB59C4 /* RefineVCDelegate.swift */; };
 		CAA656201FF4153700DB59C4 /* CarrierFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA6561F1FF4153700DB59C4 /* CarrierFilterVC.swift */; };
 		CAA656221FF416E000DB59C4 /* StopFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA656211FF416E000DB59C4 /* StopFilterVC.swift */; };
 		CAA656241FF4175500DB59C4 /* DurationFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA656231FF4175500DB59C4 /* DurationFilterVC.swift */; };
-		CAA656271FF419C900DB59C4 /* SortFilter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAA656261FF419C900DB59C4 /* SortFilter.storyboard */; };
+		CAA656271FF419C900DB59C4 /* Refine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAA656261FF419C900DB59C4 /* Refine.storyboard */; };
 		CAA656291FF423A300DB59C4 /* CarrierPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA656281FF423A300DB59C4 /* CarrierPickerCell.swift */; };
 		CAA6562F1FF44FD700DB59C4 /* CarrierPickerCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA6562E1FF44FD700DB59C4 /* CarrierPickerCellDelegate.swift */; };
 		CAA99F781FF9835F008D4A4D /* PickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA99F771FF9835F008D4A4D /* PickerVC.swift */; };
@@ -116,8 +116,9 @@
 		CAAF0CDB1FCE1F6A0089BF74 /* QPXExpress+Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF0CDA1FCE1F6A0089BF74 /* QPXExpress+Response.swift */; };
 		CAAF0CDD1FCE3F120089BF74 /* QPXExpress+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF0CDC1FCE3F120089BF74 /* QPXExpress+Request.swift */; };
 		CAB96C4E202A6C9800C5101D /* SearchVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB96C4D202A6C9800C5101D /* SearchVCTests.swift */; };
+		CAB96C54202A77DF00C5101D /* PassengerOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB96C53202A77DF00C5101D /* PassengerOption.swift */; };
 		CAC6BA741FF2D64E005307C1 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC6BA731FF2D64E005307C1 /* RoundedButton.swift */; };
-		CAC6BA761FF2F4D1005307C1 /* SortFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC6BA751FF2F4D1005307C1 /* SortFilterVC.swift */; };
+		CAC6BA761FF2F4D1005307C1 /* RefineVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC6BA751FF2F4D1005307C1 /* RefineVC.swift */; };
 		CAC6BA781FF303E5005307C1 /* SortOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC6BA771FF303E5005307C1 /* SortOptionCell.swift */; };
 		CAC6BA7A1FF3055C005307C1 /* FilterOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC6BA791FF3055C005307C1 /* FilterOptionCell.swift */; };
 		CACB0EA51FF55CDE00500D10 /* CarrierFilterVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACB0EA41FF55CDE00500D10 /* CarrierFilterVCDelegate.swift */; };
@@ -275,11 +276,11 @@
 		CAA19A081FA3BDD800A479A8 /* AirportPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportPickerVC.swift; sourceTree = "<group>"; };
 		CAA19A0C1FA3C08000A479A8 /* AirportPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportPickerCell.swift; sourceTree = "<group>"; };
 		CAA19A101FA3D1CA00A479A8 /* AirportPickerVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportPickerVCDelegate.swift; sourceTree = "<group>"; };
-		CAA6561D1FF40D2F00DB59C4 /* SortFilterVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortFilterVCDelegate.swift; sourceTree = "<group>"; };
+		CAA6561D1FF40D2F00DB59C4 /* RefineVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefineVCDelegate.swift; sourceTree = "<group>"; };
 		CAA6561F1FF4153700DB59C4 /* CarrierFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrierFilterVC.swift; sourceTree = "<group>"; };
 		CAA656211FF416E000DB59C4 /* StopFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopFilterVC.swift; sourceTree = "<group>"; };
 		CAA656231FF4175500DB59C4 /* DurationFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationFilterVC.swift; sourceTree = "<group>"; };
-		CAA656261FF419C900DB59C4 /* SortFilter.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SortFilter.storyboard; sourceTree = "<group>"; };
+		CAA656261FF419C900DB59C4 /* Refine.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Refine.storyboard; sourceTree = "<group>"; };
 		CAA656281FF423A300DB59C4 /* CarrierPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrierPickerCell.swift; sourceTree = "<group>"; };
 		CAA6562E1FF44FD700DB59C4 /* CarrierPickerCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrierPickerCellDelegate.swift; sourceTree = "<group>"; };
 		CAA99F771FF9835F008D4A4D /* PickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerVC.swift; sourceTree = "<group>"; };
@@ -287,8 +288,9 @@
 		CAAF0CDA1FCE1F6A0089BF74 /* QPXExpress+Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QPXExpress+Response.swift"; sourceTree = "<group>"; };
 		CAAF0CDC1FCE3F120089BF74 /* QPXExpress+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QPXExpress+Request.swift"; sourceTree = "<group>"; };
 		CAB96C4D202A6C9800C5101D /* SearchVCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVCTests.swift; sourceTree = "<group>"; };
+		CAB96C53202A77DF00C5101D /* PassengerOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassengerOption.swift; sourceTree = "<group>"; };
 		CAC6BA731FF2D64E005307C1 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
-		CAC6BA751FF2F4D1005307C1 /* SortFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortFilterVC.swift; sourceTree = "<group>"; };
+		CAC6BA751FF2F4D1005307C1 /* RefineVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefineVC.swift; sourceTree = "<group>"; };
 		CAC6BA771FF303E5005307C1 /* SortOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOptionCell.swift; sourceTree = "<group>"; };
 		CAC6BA791FF3055C005307C1 /* FilterOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionCell.swift; sourceTree = "<group>"; };
 		CACB0EA41FF55CDE00500D10 /* CarrierFilterVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrierFilterVCDelegate.swift; sourceTree = "<group>"; };
@@ -518,7 +520,7 @@
 		CA6F704F1FF8607900DD9C08 /* SortFilter Delegates */ = {
 			isa = PBXGroup;
 			children = (
-				CAA6561D1FF40D2F00DB59C4 /* SortFilterVCDelegate.swift */,
+				CAA6561D1FF40D2F00DB59C4 /* RefineVCDelegate.swift */,
 				CAA6562E1FF44FD700DB59C4 /* CarrierPickerCellDelegate.swift */,
 				CACB0EA41FF55CDE00500D10 /* CarrierFilterVCDelegate.swift */,
 				CA9DB63C1FF5A87C0036B227 /* RefineOption.swift */,
@@ -622,17 +624,17 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		CAA656251FF4197300DB59C4 /* SortFilter */ = {
+		CAA656251FF4197300DB59C4 /* Refine */ = {
 			isa = PBXGroup;
 			children = (
-				CAA656261FF419C900DB59C4 /* SortFilter.storyboard */,
-				CAC6BA751FF2F4D1005307C1 /* SortFilterVC.swift */,
+				CAA656261FF419C900DB59C4 /* Refine.storyboard */,
+				CAC6BA751FF2F4D1005307C1 /* RefineVC.swift */,
 				CAA6561F1FF4153700DB59C4 /* CarrierFilterVC.swift */,
 				CAA656211FF416E000DB59C4 /* StopFilterVC.swift */,
 				CAA656231FF4175500DB59C4 /* DurationFilterVC.swift */,
 				CAA99F771FF9835F008D4A4D /* PickerVC.swift */,
 			);
-			path = SortFilter;
+			path = Refine;
 			sourceTree = "<group>";
 		};
 		CAA6562A1FF442EB00DB59C4 /* SortFilter */ = {
@@ -670,6 +672,14 @@
 				CA98A323202A370500EFEA5A /* SearchViewModelTests.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		CAB96C52202A77C900C5101D /* Passenger */ = {
+			isa = PBXGroup;
+			children = (
+				CAB96C53202A77DF00C5101D /* PassengerOption.swift */,
+			);
+			path = Passenger;
 			sourceTree = "<group>";
 		};
 		CAD659BB2017FFF1006AB441 /* MyFlightCardView */ = {
@@ -770,7 +780,7 @@
 			children = (
 				CA8559081FE7467A00E72913 /* Explore */,
 				CA8559071FE7466200E72913 /* Search */,
-				CAA656251FF4197300DB59C4 /* SortFilter */,
+				CAA656251FF4197300DB59C4 /* Refine */,
 				CA8559091FE7468100E72913 /* Profile */,
 				CA98C48B1FEC4EAF0009D326 /* Settings */,
 			);
@@ -809,6 +819,7 @@
 				CA3185E21FE0652C0055A1B1 /* QPXExpress */,
 				CAA6562A1FF442EB00DB59C4 /* SortFilter */,
 				CAEBDBC72017BB37006C2F43 /* Carrier */,
+				CAB96C52202A77C900C5101D /* Passenger */,
 				CA8923D11F93F5F50091968B /* Airport.swift */,
 				CAF3714D1FA232EE002C3455 /* SelectedState.swift */,
 				CAA0C7191FABE77B00FAFD69 /* DateRange.swift */,
@@ -1046,7 +1057,7 @@
 				CAA0C71C1FAC036600FAFD69 /* MonthSectionHeaderView.xib in Resources */,
 				CAFD5AE1201BBA1100C6FC88 /* APIKeys.plist in Resources */,
 				CAEC73B11F813C29004D6F0B /* Assets.xcassets in Resources */,
-				CAA656271FF419C900DB59C4 /* SortFilter.storyboard in Resources */,
+				CAA656271FF419C900DB59C4 /* Refine.storyboard in Resources */,
 				CA68F1FF1FFC2E9900B5CEFB /* Search.storyboard in Resources */,
 				CAD659BF201800EB006AB441 /* MyFlightCardView.xib in Resources */,
 				CAFD5ADC201BADD200C6FC88 /* FlightPriceCardView.xib in Resources */,
@@ -1270,7 +1281,7 @@
 				CAFD5ADF201BB9DB00C6FC88 /* KeyManager.swift in Sources */,
 				CA66A75A200EA33E00D08E80 /* FirebaseFirestoreError.swift in Sources */,
 				CA55C0F51FE99F2D008990C8 /* LoggedInStatusViewDelegate.swift in Sources */,
-				CAA6561E1FF40D2F00DB59C4 /* SortFilterVCDelegate.swift in Sources */,
+				CAA6561E1FF40D2F00DB59C4 /* RefineVCDelegate.swift in Sources */,
 				CA55C0F31FE99965008990C8 /* LoggedInStatusView.swift in Sources */,
 				CA76EB0020211CA200D5D91C /* Destination.swift in Sources */,
 				CAFA6E53201047A600FA39B2 /* SearchState.swift in Sources */,
@@ -1295,7 +1306,7 @@
 				CA22949D2026466A00C38C71 /* UIViewController+AppDelegate.swift in Sources */,
 				CAEE8AC31FFD9E78004558A6 /* Carrier.swift in Sources */,
 				CA5B224E1FF967D200F36B7E /* StatusButton.swift in Sources */,
-				CAC6BA761FF2F4D1005307C1 /* SortFilterVC.swift in Sources */,
+				CAC6BA761FF2F4D1005307C1 /* RefineVC.swift in Sources */,
 				CA66A751200E960F00D08E80 /* FirebaseUserService.swift in Sources */,
 				CA6A7A1D201E678500AE89CD /* Coordinates.swift in Sources */,
 				CA9563C31FFAED6600D5B3B0 /* MyFlightCell.swift in Sources */,
@@ -1338,6 +1349,7 @@
 				CAA656241FF4175500DB59C4 /* DurationFilterVC.swift in Sources */,
 				CAA656291FF423A300DB59C4 /* CarrierPickerCell.swift in Sources */,
 				CAAD01FD1FD0E23A00E76B88 /* NetworkManager.swift in Sources */,
+				CAB96C54202A77DF00C5101D /* PassengerOption.swift in Sources */,
 				CA98A322202A307A00EFEA5A /* FlightCardView+LegTimelineView.swift in Sources */,
 				CA66A75C200EA6E300D08E80 /* FirebaseAirportService.swift in Sources */,
 				CAFD5AD7201BA6D300C6FC88 /* MonthSectionHeaderViewDelegate.swift in Sources */,

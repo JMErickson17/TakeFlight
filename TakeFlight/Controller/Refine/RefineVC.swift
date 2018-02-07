@@ -1,5 +1,5 @@
 //
-//  SortFilterVC.swift
+//  RefineVC.swift
 //  TakeFlight
 //
 //  Created by Justin Erickson on 12/26/17.
@@ -8,29 +8,7 @@
 
 import UIKit
 
-enum PassengerOption {
-    case adultPassengers(Int)
-    case childPassengers(Int)
-    case infantPassengers(Int)
-    
-    var value: Int {
-        switch self {
-        case .adultPassengers(let value):
-            return value
-        case .childPassengers(let value):
-            return value
-        case .infantPassengers(let value):
-            return value
-            
-        }
-    }
-}
-
-enum PassengerOptionCell: RefineOption {
-    case passengerOptionCell
-}
-
-class SortFilterVC: UIViewController {
+class RefineVC: UIViewController {
     
     // MARK: Types
     
@@ -47,11 +25,15 @@ class SortFilterVC: UIViewController {
         let items: [RefineOption]
     }
     
+    enum PassengerOptionCell: RefineOption {
+        case passengerOptionCell
+    }
+    
     // MARK: Properties
     
     @IBOutlet weak var tableView: UITableView!
     
-    weak var delegate: SortFilterVCDelegate?
+    weak var delegate: RefineVCDelegate?
     
     var selectedSortOption: SortOption?
     var filterOptions: FlightFilterOptions?
@@ -153,7 +135,7 @@ class SortFilterVC: UIViewController {
         filterOptions?.resetFilters()
         resetCarrierFilters()
         tableView.reloadData()
-        delegate?.sortFilterVCDidResetSortAndFilter(self)
+        delegate?.refineVCDidResetSortAndFilter(self)
     }
     
     func resetCarrierFilters() {
@@ -165,9 +147,9 @@ class SortFilterVC: UIViewController {
     }
 }
 
-// MARK: - SortFilterVC+UITableViewDelegate & UITableViewDataSource
+// MARK: - UITableViewDelegate & UITableViewDataSource
 
-extension SortFilterVC: UITableViewDelegate, UITableViewDataSource {
+extension RefineVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
@@ -201,7 +183,7 @@ extension SortFilterVC: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             let newSortOption = tableData[0].items[indexPath.row] as! SortOption
             selectedSortOption = newSortOption
-            delegate?.sortFilterVC(self, sortOptionDidChangeTo: newSortOption)
+            delegate?.refineVC(self, sortOptionDidChangeTo: newSortOption)
             tableView.reloadData()
         } else if indexPath.section == 1 {
             performSegue(withIdentifier: filterSegues[indexPath.row], sender: nil)
@@ -222,42 +204,42 @@ extension SortFilterVC: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-// MARK:- SortFilterVC+CarrierFilterVCDelegate
+// MARK:- CarrierFilterVCDelegate
 
-extension SortFilterVC: CarrierFilterVCDelegate {
+extension RefineVC: CarrierFilterVCDelegate {
     func carrierFilterVC(_ carrierFilterVC: CarrierFilterVC, didUpdateCarrierData carrierData: CarrierData) {
         if let index = self.carrierData?.index(where: { $0.carrier == carrierData.carrier }) {
             guard self.carrierData != nil else { return }
             self.carrierData![index] = carrierData
             tableView.reloadRows(at: [IndexPath(row: 0, section: 1)], with: .top)
-            delegate?.sortFilterVC(self, carrierDataDidChangeTo: self.carrierData!)
+            delegate?.refineVC(self, carrierDataDidChangeTo: self.carrierData!)
         }
     }
 }
 
-// MARK:- SortFilterVC+StopFilterVCDelegate
+// MARK:- StopFilterVCDelegate
 
-extension SortFilterVC: StopFilterVCDelegate {
+extension RefineVC: StopFilterVCDelegate {
     func stopFilterVC(_ stopFilterVC: StopFilterVC, didUpdateMaxStopsTo maxStops: MaxStops) {
         filterOptions?.maxStops = maxStops
         tableView.reloadRows(at: [IndexPath(row: 1, section: 1)], with: .top)
-        delegate?.sortFilterVC(self, maxStopsDidChangeTo: maxStops)
+        delegate?.refineVC(self, maxStopsDidChangeTo: maxStops)
     }
 }
 
-// MARK:- SortFilterVC+DurationFilterVCDelegate
+// MARK:- DurationFilterVCDelegate
 
-extension SortFilterVC: DurationFilterVCDelegate {
+extension RefineVC: DurationFilterVCDelegate {
     func durationFilterVC(_ durationFilterVC: DurationFilterVC, didUpdateMaxDurationTo maxDuration: Hour) {
         filterOptions?.maxDuration = maxDuration
         tableView.reloadRows(at: [IndexPath(row: 2, section: 1)], with: .top)
-        delegate?.sortFilterVC(self, maxDurationDidChangeTo: maxDuration)
+        delegate?.refineVC(self, maxDurationDidChangeTo: maxDuration)
     }
 }
 
-// MARK:- SortFilterVC+PassengerCellDelegate
+// MARK:- PassengerCellDelegate
 
-extension SortFilterVC: PassengerCellDelegate {
+extension RefineVC: PassengerCellDelegate {
     func passengerCell(_ passengerCell: PassengerCell, didUpdate option: PassengerOption) {
         switch option {
         case .adultPassengers(let value):
@@ -267,6 +249,6 @@ extension SortFilterVC: PassengerCellDelegate {
         case .infantPassengers(let value):
             self.passengerOptions?.infantCount = value
         }
-        delegate?.sortFilterVC(self, didUpdate: option)
+        delegate?.refineVC(self, didUpdate: option)
     }
 }

@@ -159,7 +159,7 @@
                         <outlet property="returnDateTextField" destination="SMo-cG-Sc2" id="9WX-qw-eMJ"/>
                         <outlet property="roundTripButton" destination="s82-Lx-tCF" id="CeB-Fw-vpJ"/>
                         <outlet property="searchContainerView" destination="GZy-mC-ZRT" id="9vZ-6k-YJ9"/>
-                        <segue destination="Xjo-1b-Y6k" kind="show" identifier="toSortFilterVC" id="Wlb-er-lyD"/>
+                        <segue destination="Xjo-1b-Y6k" kind="show" identifier="toRefineVC" id="Wlb-er-lyD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
