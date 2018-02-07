@@ -190,10 +190,10 @@
             </objects>
             <point key="canvasLocation" x="-585" y="116"/>
         </scene>
-        <!--SortFilter-->
+        <!--Refine-->
         <scene sceneID="lzb-UK-zVv">
             <objects>
-                <viewControllerPlaceholder storyboardName="SortFilter" id="Xjo-1b-Y6k" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Refine" id="Xjo-1b-Y6k" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JtV-xO-ZJD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1109" y="115"/>

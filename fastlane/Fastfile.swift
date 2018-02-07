@@ -12,6 +12,7 @@ class Fastfile: LaneFile {
     
 	func releaseLane() {
 	desc("Push a new release build to the App Store")
+        incrementVersionNumber()
         incrementBuildNumber()
 		buildApp(workspace: "TakeFlight.xcworkspace", scheme: "TakeFlight")
 		uploadToAppStore(username: "JMEricksonDev@gmail.com", app: "com.JustinErickson.TakeFlight")
