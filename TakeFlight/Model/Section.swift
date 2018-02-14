@@ -8,9 +8,9 @@
 
 import Foundation
 
-struct Section {
+struct Section<T> {
     var title: String
-    var items: [Any]
+    var items: [T]
 }
 
 

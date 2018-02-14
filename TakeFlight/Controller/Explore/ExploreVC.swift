@@ -18,6 +18,7 @@ class ExploreVC: UIViewController {
     @IBOutlet weak var exploreTableView: UITableView!
     
     private var viewModel: ExploreViewModel!
+    private var disposeBag = DisposeBag()
     
     private lazy var originTextField: UITextField = {
         let textField = UITextField()
@@ -30,6 +31,7 @@ class ExploreVC: UIViewController {
         super.viewDidLoad()
 
         setupView()
+        bindViewModel()
     }
     
     // MARK: Setup
@@ -40,6 +42,12 @@ class ExploreVC: UIViewController {
         exploreTableView.delegate = self
         exploreTableView.dataSource = self
     }
+    
+    private func bindViewModel() {
+        viewModel.tableData.asObservable().subscribe(onNext: { tableData in
+            self.exploreTableView.reloadData()
+        }).disposed(by: disposeBag)
+    }
 }
 
 // MARK: ExploreVC+UITableViewDelegate, UITableViewDataSource
@@ -48,9 +56,10 @@ extension ExploreVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: DestinationCell.reuseIdentifier, for: indexPath) as? DestinationCell {
-            let destination = viewModel.popularDestinations[indexPath.row]
-            cell.configureCell(with: destination, image: nil)
+            let destination = viewModel.destination(for: indexPath)
+            cell.tag = indexPath.row
             viewModel.image(for: destination, completion: { image in
+                guard cell.tag == indexPath.row else { return }
                 cell.configureCell(with: destination, image: image)
             })
             return cell
@@ -59,7 +68,7 @@ extension ExploreVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let destinationAirportCode = viewModel.popularDestinations[indexPath.row].airports.first!
+        let destinationAirportCode = viewModel.destination(for: indexPath).airports.first!
         let destinationAirport = appDelegate.firebaseAirportService!.airport(withIdentifier: destinationAirportCode)
         UserDefaultsService.instance.destination = destinationAirport!
         tableView.deselectRow(at: indexPath, animated: true)
@@ -74,11 +83,15 @@ extension ExploreVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Popular Destinations"
+        return viewModel.title(for: section)
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return viewModel.tableData.value.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.popularDestinations.count
+        return viewModel.tableData.value[section].items.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

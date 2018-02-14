@@ -12,17 +12,36 @@ import RxCocoa
 
 class ExploreViewModel {
     
+    // MARK: ViewController Properties
+    
+    var tableData: BehaviorRelay = BehaviorRelay<[Section<Destination>]>(value: [])
+    
     // MARK: Properties
     
-    private(set) var popularDestinations = [Destination]()
-    
     private let destinationService: DestinationService!
+    
+    private var _tableData: [Section<Destination>]! {
+        didSet {
+            self.tableData.accept(_tableData)
+        }
+    }
     
     // MARK: Lifecycle
     
     init(destinationService: DestinationService) {
         self.destinationService = destinationService
-        popularDestinations = destinationService.destinations
+        setupTableData()
+    }
+    
+    // MARK: Setup
+    
+    private func setupTableData() {
+        let popularDestinations = destinationService.destinations
+        
+        self._tableData = [
+            Section(title: "Popular Destinations", items: popularDestinations),
+            Section(title: "Quick Get Aways", items: popularDestinations)
+        ]
     }
     
     // MARK: Convenience
@@ -35,5 +54,13 @@ class ExploreViewModel {
                 completion(image)
             }
         }
+    }
+    
+    func destination(for indexPath: IndexPath) -> Destination {
+        return _tableData[indexPath.section].items[indexPath.row]
+    }
+    
+    func title(for section: Int) -> String {
+        return _tableData[section].title
     }
 }
