@@ -93,6 +93,13 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ProfileImagePlus" translatesAutoresizingMaskIntoConstraints="NO" id="rX1-qV-EU7">
+                                <rect key="frame" x="212" y="83" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="0c4-J4-KVw"/>
+                                    <constraint firstAttribute="height" constant="20" id="vW2-Yh-0GO"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" name="PrimaryBlue"/>
                         <constraints>
@@ -101,8 +108,10 @@
                             <constraint firstItem="LPE-Hd-icy" firstAttribute="leading" secondItem="zb4-aj-G0n" secondAttribute="leadingMargin" id="9GP-cz-JSq"/>
                             <constraint firstItem="HYM-lK-I99" firstAttribute="top" secondItem="vEO-Dn-8IA" secondAttribute="bottom" constant="12" id="Er2-BT-ZLX"/>
                             <constraint firstItem="LPE-Hd-icy" firstAttribute="trailing" secondItem="zb4-aj-G0n" secondAttribute="trailingMargin" id="S5v-EN-ES3"/>
+                            <constraint firstItem="rX1-qV-EU7" firstAttribute="centerY" secondItem="vEO-Dn-8IA" secondAttribute="centerY" constant="35" id="WH5-9F-L3E"/>
                             <constraint firstItem="LPE-Hd-icy" firstAttribute="top" secondItem="HYM-lK-I99" secondAttribute="bottom" constant="12" id="XSk-ue-3TQ"/>
                             <constraint firstItem="HYM-lK-I99" firstAttribute="centerX" secondItem="zb4-aj-G0n" secondAttribute="centerX" id="aGX-3O-M5o"/>
+                            <constraint firstItem="rX1-qV-EU7" firstAttribute="centerX" secondItem="vEO-Dn-8IA" secondAttribute="centerX" constant="35" id="bWM-MA-JGK"/>
                             <constraint firstItem="vEO-Dn-8IA" firstAttribute="centerX" secondItem="zb4-aj-G0n" secondAttribute="centerX" id="hbw-oE-gOg"/>
                             <constraint firstItem="b3o-zA-bii" firstAttribute="leading" secondItem="mqY-rs-bhS" secondAttribute="leading" constant="8" id="hub-fD-Z86"/>
                             <constraint firstItem="vEO-Dn-8IA" firstAttribute="top" secondItem="mqY-rs-bhS" secondAttribute="top" constant="8" id="lzu-fr-A1b"/>
@@ -325,6 +334,7 @@
     <resources>
         <image name="DefaultProfileImage" width="101" height="101"/>
         <image name="ProfileIcon" width="17" height="21"/>
+        <image name="ProfileImagePlus" width="22" height="22"/>
         <image name="SettingsIcon" width="21" height="21"/>
         <namedColor name="PrimaryBlue">
             <color red="0.15700000524520874" green="0.37599998712539673" blue="0.87099999189376831" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

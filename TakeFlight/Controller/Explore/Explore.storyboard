@@ -29,7 +29,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="G11-ar-e5V">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DefaultDestinationImage" translatesAutoresizingMaskIntoConstraints="NO" id="G11-ar-e5V">
                                                     <rect key="frame" x="5" y="5" width="365" height="110"/>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="KA0-Ob-vyU">
@@ -114,6 +114,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="DefaultDestinationImage" width="381" height="175"/>
         <image name="ExploreIcon" width="21" height="21"/>
         <namedColor name="PrimaryBlue">
             <color red="0.15700000524520874" green="0.37599998712539673" blue="0.87099999189376831" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

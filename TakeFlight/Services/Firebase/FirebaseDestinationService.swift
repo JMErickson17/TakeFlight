@@ -9,10 +9,6 @@
 import Foundation
 import Firebase
 
-enum FirebaseDestinationError: Error {
-    case couldNotCreateImage
-}
-
 class FirebaseDestinationService: DestinationService {
     
     // MARK: Properties

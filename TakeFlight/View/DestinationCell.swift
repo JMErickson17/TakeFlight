@@ -42,9 +42,12 @@ class DestinationCell: UITableViewCell {
     }
 
     func configureCell(with destination: Destination, image: UIImage?) {
-        self.backgroundImage.image = image
         self.locationLabel.text = "\(destination.city), \(destination.state)"
         self.locationDetailLabel.text = destination.country
+        
+        if let image = image {
+            self.backgroundImage.image = image
+        }
     }
 
 }
