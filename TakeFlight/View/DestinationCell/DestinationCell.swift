@@ -23,6 +23,11 @@ class DestinationCell: UITableViewCell {
         label.textColor = .white
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20)
+        label.layer.shadowColor = UIColor.black.cgColor
+        label.layer.shadowRadius = 3
+        label.layer.shadowOpacity = 1.0
+        label.layer.shadowOffset = CGSize(width: 2, height: 2)
+        label.layer.masksToBounds = false
         return label
     }()
     

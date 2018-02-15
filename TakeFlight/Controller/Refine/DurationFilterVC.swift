@@ -10,14 +10,23 @@ import UIKit
 
 class DurationFilterVC: UIViewController {
     
+    // MARK: Constants
+    
     private struct Constants {
         static let minDuration: Hour = 5
         static let maxDuration: Hour = 30
     }
+    
+    // MARK: Properties
 
     @IBOutlet weak var durationPicker: UIPickerView!
+    @IBOutlet weak var containerView: UIView!
     
     weak var delegate: DurationFilterVCDelegate?
+    
+    private lazy var durations: [Hour] = {
+        return Array(stride(from: Constants.minDuration, to: Constants.maxDuration + 1, by: 1))
+    }()
     
     var selectedMaxDuration: Hour? {
         didSet {
@@ -29,17 +38,7 @@ class DurationFilterVC: UIViewController {
         }
     }
     
-    private lazy var durations: [Hour] = {
-        return Array(stride(from: Constants.minDuration, to: Constants.maxDuration + 1, by: 1))
-    }()
-    
-    private lazy var applyButton: UIBarButtonItem = {
-        let button = UIBarButtonItem()
-        button.title = "Apply"
-        button.target = self
-        button.action = #selector(handleApplyButtonWasTapped)
-        return button
-    }()
+    // MARK: View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,18 +56,62 @@ class DurationFilterVC: UIViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        addBackground()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        removeBackground()
+    }
+    
+    // MARK: Setup
+    
     private func setupView() {
+        containerView.layer.shadowColor = UIColor.black.cgColor
+        containerView.layer.shadowOpacity = 1
+        containerView.layer.shadowRadius = 20
+        containerView.layer.shadowOffset = CGSize(width: 0, height: 15)
+        containerView.layer.masksToBounds = false
+        containerView.clipsToBounds = true
+        containerView.layer.cornerRadius = 10
+        
         durationPicker.delegate = self
-        navigationItem.rightBarButtonItem = applyButton
         if selectedMaxDuration == nil {
             selectedMaxDuration = durations.last!
         }
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissView(_:))))
     }
     
-    @objc private func handleApplyButtonWasTapped() {
+    // MARK: Actions
+    
+    @IBAction func applyButtonWasTapped(_ sender: Any) {
         if let selectedMaxDuration = selectedMaxDuration {
-            delegate?.durationFilterVC(self, didUpdateMaxDurationTo: selectedMaxDuration)
-            navigationController?.popViewController(animated: true)
+            self.presentingViewController?.dismiss(animated: true, completion: {
+                self.delegate?.durationFilterVC(self, didUpdateMaxDurationTo: selectedMaxDuration)
+            })
+        }
+    }
+    
+    // MARK: Convenience
+    
+    @objc private func dismissView(_ sender: Any) {
+        self.presentingViewController?.dismiss(animated: true)
+    }
+    
+    private func addBackground() {
+        UIView.animate(withDuration: 0.3) {
+            self.view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.5)
+        }
+    }
+    
+    private func removeBackground() {
+        UIView.animate(withDuration: 0.3) {
+            self.view.backgroundColor = .clear
         }
     }
 }

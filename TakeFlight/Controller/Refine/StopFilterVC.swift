@@ -12,7 +12,9 @@ class StopFilterVC: UIViewController {
     
     // MARK: Properties
     
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var maxStopPicker: UIPickerView!
+    @IBOutlet weak var applyButton: UIButton!
     
     weak var delegate: StopFilterVCDelegate?
     
@@ -27,14 +29,6 @@ class StopFilterVC: UIViewController {
         .five,
         .six
     ]
-    
-    private lazy var applyButton: UIBarButtonItem = {
-        let button = UIBarButtonItem()
-        button.title = "Apply"
-        button.target = self
-        button.action = #selector(handleApplyButtonWasTapped)
-        return button
-    }()
     
     // MARK: Lifecycle
     
@@ -54,22 +48,60 @@ class StopFilterVC: UIViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        addBackground()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        removeBackground()
+    }
+    
     // MARK: Setup
 
     private func setupView() {
+        containerView.layer.shadowColor = UIColor.black.cgColor
+        containerView.layer.shadowOpacity = 1
+        containerView.layer.shadowRadius = 20
+        containerView.layer.shadowOffset = CGSize(width: 0, height: 15)
+        containerView.layer.masksToBounds = false
+        containerView.clipsToBounds = true
+        containerView.layer.cornerRadius = 10
+        
         maxStopPicker.delegate = self
-        navigationItem.rightBarButtonItem = applyButton
         if selectedMaxStops == nil {
             selectedMaxStops = maxStops.last!
         }
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissView(_:))))
     }
     
     // MARK: Convenience
     
-    @objc private func handleApplyButtonWasTapped() {
+    @IBAction func applyButtonWasTapped(_ sender: Any) {
         if let selectedMaxStops = selectedMaxStops {
-            delegate?.stopFilterVC(self, didUpdateMaxStopsTo: selectedMaxStops)
-            navigationController?.popViewController(animated: true)
+            self.presentingViewController?.dismiss(animated: true, completion: {
+                self.delegate?.stopFilterVC(self, didUpdateMaxStopsTo: selectedMaxStops)
+            })
+        }
+    }
+    
+    @objc private func dismissView(_ sender: Any) {
+        self.presentingViewController?.dismiss(animated: true)
+    }
+    
+    private func addBackground() {
+        UIView.animate(withDuration: 0.3) {
+            self.view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.5)
+        }
+    }
+    
+    private func removeBackground() {
+        UIView.animate(withDuration: 0.3) {
+            self.view.backgroundColor = .clear
         }
     }
 }

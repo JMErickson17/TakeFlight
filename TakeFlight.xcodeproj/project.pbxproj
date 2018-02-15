@@ -111,7 +111,6 @@
 		CAA656271FF419C900DB59C4 /* Refine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAA656261FF419C900DB59C4 /* Refine.storyboard */; };
 		CAA656291FF423A300DB59C4 /* CarrierPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA656281FF423A300DB59C4 /* CarrierPickerCell.swift */; };
 		CAA6562F1FF44FD700DB59C4 /* CarrierPickerCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA6562E1FF44FD700DB59C4 /* CarrierPickerCellDelegate.swift */; };
-		CAA99F781FF9835F008D4A4D /* PickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA99F771FF9835F008D4A4D /* PickerVC.swift */; };
 		CAAD01FD1FD0E23A00E76B88 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAD01FC1FD0E23A00E76B88 /* NetworkManager.swift */; };
 		CAAF0CDB1FCE1F6A0089BF74 /* QPXExpress+Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF0CDA1FCE1F6A0089BF74 /* QPXExpress+Response.swift */; };
 		CAAF0CDD1FCE3F120089BF74 /* QPXExpress+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF0CDC1FCE3F120089BF74 /* QPXExpress+Request.swift */; };
@@ -289,7 +288,6 @@
 		CAA656261FF419C900DB59C4 /* Refine.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Refine.storyboard; sourceTree = "<group>"; };
 		CAA656281FF423A300DB59C4 /* CarrierPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrierPickerCell.swift; sourceTree = "<group>"; };
 		CAA6562E1FF44FD700DB59C4 /* CarrierPickerCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrierPickerCellDelegate.swift; sourceTree = "<group>"; };
-		CAA99F771FF9835F008D4A4D /* PickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerVC.swift; sourceTree = "<group>"; };
 		CAAD01FC1FD0E23A00E76B88 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		CAAF0CDA1FCE1F6A0089BF74 /* QPXExpress+Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QPXExpress+Response.swift"; sourceTree = "<group>"; };
 		CAAF0CDC1FCE3F120089BF74 /* QPXExpress+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QPXExpress+Request.swift"; sourceTree = "<group>"; };
@@ -647,7 +645,6 @@
 				CAA6561F1FF4153700DB59C4 /* CarrierFilterVC.swift */,
 				CAA656211FF416E000DB59C4 /* StopFilterVC.swift */,
 				CAA656231FF4175500DB59C4 /* DurationFilterVC.swift */,
-				CAA99F771FF9835F008D4A4D /* PickerVC.swift */,
 			);
 			path = Refine;
 			sourceTree = "<group>";
@@ -1370,7 +1367,6 @@
 				CAFD5AEE201C10C200C6FC88 /* NotificationView.swift in Sources */,
 				CAD659C220180C81006AB441 /* FlightDetailsVCFactory.swift in Sources */,
 				CAEBDBC92017BB68006C2F43 /* CarrierData.swift in Sources */,
-				CAA99F781FF9835F008D4A4D /* PickerVC.swift in Sources */,
 				CAA0C71A1FABE77B00FAFD69 /* DateRange.swift in Sources */,
 				CAFD5AE6201BFD9600C6FC88 /* BookingDetailsCardView.swift in Sources */,
 				CA8EB1DE20224350003C4A16 /* UITabBarController+SelectTab.swift in Sources */,
