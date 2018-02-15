@@ -20,11 +20,6 @@ class ExploreVC: UIViewController {
     private var viewModel: ExploreViewModel!
     private var disposeBag = DisposeBag()
     
-    private lazy var originTextField: UITextField = {
-        let textField = UITextField()
-        return textField
-    }()
-    
     // MARK: Lifecycle
 
     override func viewDidLoad() {
@@ -41,12 +36,42 @@ class ExploreVC: UIViewController {
         
         exploreTableView.delegate = self
         exploreTableView.dataSource = self
+        exploreTableView.register(UINib(nibName: DestinationCell.reuseIdentifier,
+                                      bundle: Bundle.main), forCellReuseIdentifier: DestinationCell.reuseIdentifier)
     }
     
     private func bindViewModel() {
         viewModel.tableData.asObservable().subscribe(onNext: { tableData in
             self.exploreTableView.reloadData()
         }).disposed(by: disposeBag)
+    }
+    
+    // MARK: Convenience
+    
+    private func presentDestinationsVC(withDestinationsAt indexPath: IndexPath) {
+        let destinations = viewModel.allItems(for: indexPath.section)
+        let storyboard = UIStoryboard(name: "Explore", bundle: Bundle.main)
+        
+        if let destinationsVC = storyboard.instantiateViewController(withIdentifier: DestinationsVC.identifier) as? DestinationsVC {
+            destinationsVC.destinationService = appDelegate.firebaseDestinationServive!
+            destinationsVC.destinations = destinations
+            destinationsVC.title = viewModel.title(for: indexPath.section)
+            self.navigationController?.pushViewController(destinationsVC, animated: true)
+        }
+    }
+    
+    private func searchDestination(at indexPath: IndexPath) {
+        let destinationAirportCode = viewModel.destination(for: indexPath).airports.first!
+        let destinationAirport = appDelegate.firebaseAirportService!.airport(withIdentifier: destinationAirportCode)
+        UserDefaultsService.instance.destination = destinationAirport!
+        
+        self.tabBarController?.selectTab(1, animated: true, completion: {
+            if let navigationController = self.tabBarController?.selectedViewController as? UINavigationController {
+                if let searchVC = navigationController.topViewController as? SearchVC {
+                    searchVC.updateUserDefaultsAndSearch()
+                }
+            }
+        })
     }
 }
 
@@ -56,6 +81,11 @@ extension ExploreVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: DestinationCell.reuseIdentifier, for: indexPath) as? DestinationCell {
+            if indexPath.row == viewModel.trimmedItems(for: indexPath.section).count - 1 {
+                cell.configureCell(with: "View All", image: #imageLiteral(resourceName: "SkyHeaderImage_3"))
+                return cell
+            }
+            
             let destination = viewModel.destination(for: indexPath)
             cell.tag = indexPath.row
             viewModel.image(for: destination, completion: { image in
@@ -68,18 +98,12 @@ extension ExploreVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let destinationAirportCode = viewModel.destination(for: indexPath).airports.first!
-        let destinationAirport = appDelegate.firebaseAirportService!.airport(withIdentifier: destinationAirportCode)
-        UserDefaultsService.instance.destination = destinationAirport!
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        self.tabBarController?.selectTab(1, animated: true, completion: {
-            if let navigationController = self.tabBarController?.selectedViewController as? UINavigationController {
-                if let searchVC = navigationController.topViewController as? SearchVC {
-                    searchVC.updateUserDefaultsAndSearch()
-                }
-            }
-        })
+        if indexPath.row == viewModel.trimmedItems(for: indexPath.section).count - 1 {
+            presentDestinationsVC(withDestinationsAt: indexPath)
+        } else {
+            searchDestination(at: indexPath)
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

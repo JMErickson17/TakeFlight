@@ -32,7 +32,6 @@ extension UIViewController: DropDownNotificationDismissable {
             }
         default:
             break
-            
         }
     }
 }

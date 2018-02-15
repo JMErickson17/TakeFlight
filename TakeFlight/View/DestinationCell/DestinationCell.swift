@@ -17,6 +17,15 @@ class DestinationCell: UITableViewCell {
     @IBOutlet weak var locationDetailLabel: UILabel!
     @IBOutlet weak var labelStackView: UIStackView!
     
+    private lazy var viewMoreLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 20)
+        return label
+    }()
+    
     // MARK: Lifecycle
     
     override func awakeFromNib() {
@@ -44,10 +53,24 @@ class DestinationCell: UITableViewCell {
     func configureCell(with destination: Destination, image: UIImage?) {
         self.locationLabel.text = "\(destination.city), \(destination.state)"
         self.locationDetailLabel.text = destination.country
-        
+        self.viewMoreLabel.isHidden = true
         if let image = image {
             self.backgroundImage.image = image
         }
+    }
+    
+    func configureCell(with text: String, image: UIImage) {
+        self.locationLabel.text = ""
+        self.locationDetailLabel.text = ""
+        self.backgroundImage.image = image
+        self.viewMoreLabel.text = text
+        self.viewMoreLabel.isHidden = false
+        
+        addSubview(viewMoreLabel)
+        NSLayoutConstraint.activate([
+            viewMoreLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            viewMoreLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
     }
 
 }

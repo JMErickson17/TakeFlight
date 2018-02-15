@@ -22,8 +22,12 @@ class ExploreViewModel {
     
     private var _tableData: [Section<Destination>]! {
         didSet {
-            self.tableData.accept(_tableData)
+            self.tableData.accept(trimmed(_tableData))
         }
+    }
+    
+    private var popularDestinations: [Destination] {
+        return destinationService.destinations
     }
     
     // MARK: Lifecycle
@@ -36,15 +40,18 @@ class ExploreViewModel {
     // MARK: Setup
     
     private func setupTableData() {
-        let popularDestinations = destinationService.destinations
-        
         self._tableData = [
             Section(title: "Popular Destinations", items: popularDestinations),
-            Section(title: "Quick Get Aways", items: popularDestinations)
+            Section(title: "Quick Get Aways", items: popularDestinations),
+            Section(title: "Close to Home", items: popularDestinations)
         ]
     }
     
     // MARK: Convenience
+    
+    private func trimmed(_ tableData: [Section<Destination>]) -> [Section<Destination>] {
+        return tableData.map { Section(title: $0.title, items: $0.items.first(5)) }
+    }
     
     func image(for destination: Destination, completion: @escaping (UIImage?) -> Void) {
         destinationService.image(for: destination) { image, error in
@@ -57,10 +64,18 @@ class ExploreViewModel {
     }
     
     func destination(for indexPath: IndexPath) -> Destination {
-        return _tableData[indexPath.section].items[indexPath.row]
+        return tableData.value[indexPath.section].items[indexPath.row]
     }
     
     func title(for section: Int) -> String {
-        return _tableData[section].title
+        return tableData.value[section].title
+    }
+    
+    func trimmedItems(for section: Int) -> [Destination] {
+        return tableData.value[section].items
+    }
+    
+    func allItems(for section: Int) -> [Destination] {
+        return _tableData[section].items
     }
 }
