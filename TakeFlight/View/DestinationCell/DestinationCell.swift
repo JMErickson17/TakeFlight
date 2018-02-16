@@ -31,6 +31,17 @@ class DestinationCell: UITableViewCell {
         return label
     }()
     
+    private lazy var blurredView: UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: .light)
+        let blurredEffectView = UIVisualEffectView(effect: blurEffect)
+        blurredEffectView.frame = backgroundImage.bounds
+        blurredEffectView.layer.cornerRadius = 5
+        blurredEffectView.clipsToBounds = true
+        blurredEffectView.translatesAutoresizingMaskIntoConstraints = false
+        blurredEffectView.isHidden = true
+        return blurredEffectView
+    }()
+    
     // MARK: Lifecycle
     
     override func awakeFromNib() {
@@ -53,12 +64,21 @@ class DestinationCell: UITableViewCell {
         locationDetailLabel.layer.shadowOpacity = 1.0
         locationDetailLabel.layer.shadowOffset = CGSize(width: 2, height: 2)
         locationDetailLabel.layer.masksToBounds = false
+        
+        addSubview(blurredView)
+        NSLayoutConstraint.activate([
+            blurredView.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor),
+            blurredView.topAnchor.constraint(equalTo: backgroundImage.topAnchor),
+            blurredView.trailingAnchor.constraint(equalTo: backgroundImage.trailingAnchor),
+            blurredView.bottomAnchor.constraint(equalTo: backgroundImage.bottomAnchor)
+        ])
     }
 
     func configureCell(with destination: Destination, image: UIImage?) {
         self.locationLabel.text = "\(destination.city), \(destination.state)"
         self.locationDetailLabel.text = destination.country
         self.viewMoreLabel.isHidden = true
+        self.blurredView.isHidden = true
         if let image = image {
             self.backgroundImage.image = image
         }
@@ -67,9 +87,10 @@ class DestinationCell: UITableViewCell {
     func configureCell(with text: String, image: UIImage) {
         self.locationLabel.text = ""
         self.locationDetailLabel.text = ""
-        self.backgroundImage.image = image
         self.viewMoreLabel.text = text
         self.viewMoreLabel.isHidden = false
+        self.backgroundImage.image = image
+        self.blurredView.isHidden = false
         
         addSubview(viewMoreLabel)
         NSLayoutConstraint.activate([

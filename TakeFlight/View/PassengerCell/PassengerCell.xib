@@ -36,7 +36,7 @@
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AdultIcon" translatesAutoresizingMaskIntoConstraints="NO" id="nyY-yS-eu5">
                                                 <rect key="frame" x="11" y="22" width="21" height="20"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="20" id="aWf-Ry-37O"/>
+                                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="20" id="aWf-Ry-37O"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt; 12 years" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="35X-qU-Bl6">
@@ -70,7 +70,7 @@
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ChildIcon" translatesAutoresizingMaskIntoConstraints="NO" id="RYD-1s-1jq">
                                                 <rect key="frame" x="13" y="22" width="31" height="20"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="20" id="X50-tE-jhF"/>
+                                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="20" id="X50-tE-jhF"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2-12 years" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TAP-L5-VYg">
@@ -104,7 +104,7 @@
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="InfantIcon" translatesAutoresizingMaskIntoConstraints="NO" id="C1Q-WT-yBQ">
                                                 <rect key="frame" x="12.5" y="22" width="22" height="20"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="20" id="0KQ-KZ-Gio"/>
+                                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="20" id="0KQ-KZ-Gio"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt; 2 years" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iXa-tz-4ow">
