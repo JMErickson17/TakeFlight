@@ -51,6 +51,14 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
         return label
     }()
     
+    private lazy var mapCard: MapCardVC = {
+        let mapCard = MapCardVC()
+        mapCard.view.translatesAutoresizingMaskIntoConstraints = false
+        mapCard.view.layer.cornerRadius = 5
+        mapCard.view.clipsToBounds = true
+        return mapCard
+    }()
+    
     private lazy var departingFlightCardView: FlightCardView = {
         let flightCard = FlightCardView()
         flightCard.translatesAutoresizingMaskIntoConstraints = false
@@ -229,11 +237,25 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
             longDescription.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
         ])
         
+        add(mapCard)
+        NSLayoutConstraint.activate([
+            mapCard.view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            mapCard.view.topAnchor.constraint(equalTo: longDescription.bottomAnchor, constant: 20),
+            mapCard.view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            mapCard.view.heightAnchor.constraint(equalToConstant: 250)
+        ])
+        
+        let airportService = appDelegate.firebaseAirportService!
+        if let origin = airportService.airport(withIdentifier: flightData.departingFlight.originAirportCode),
+            let destination = airportService.airport(withIdentifier: flightData.departingFlight.destinationAirportCode) {
+            mapCard.addFlightPathAnnotations(from: origin.coordinates, to: destination.coordinates)
+        }
+        
         departingFlightCardView.setupCard(withFlight: flightData.departingFlight)
         contentView.addSubview(departingFlightCardView)
         NSLayoutConstraint.activate([
             departingFlightCardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            departingFlightCardView.topAnchor.constraint(equalTo: longDescription.bottomAnchor, constant: 20),
+            departingFlightCardView.topAnchor.constraint(equalTo: mapCard.view.bottomAnchor, constant: 20),
             departingFlightCardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
         ])
         

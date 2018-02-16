@@ -19,7 +19,7 @@ struct Airport: Codable {
     let country: String
     let municipality: String
     let iata: String
-    let coordinates: Coordinates
+    var coordinates: Coordinates
     
     var searchRepresentation: String {
         return "\(name) [\(iata.uppercased())]"

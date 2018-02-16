@@ -9,6 +9,6 @@
 import Foundation
 
 struct Coordinates: Codable {
-    let latitide: Double
-    let longitude: Double
+    var latitide: Double
+    var longitude: Double
 }

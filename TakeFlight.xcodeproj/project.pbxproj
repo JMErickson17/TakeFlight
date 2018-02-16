@@ -43,6 +43,7 @@
 		CA5732541FF7107300D10DAD /* UIImage+JPEGQuality.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5732531FF7107300D10DAD /* UIImage+JPEGQuality.swift */; };
 		CA5B224E1FF967D200F36B7E /* StatusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5B224D1FF967D200F36B7E /* StatusButton.swift */; };
 		CA5B598C1FE83BE800B08A9D /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5B598B1FE83BE800B08A9D /* ProfileImageView.swift */; };
+		CA6543BB203799F500D70711 /* PlaneAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6543BA203799F500D70711 /* PlaneAnnotation.swift */; };
 		CA6655F51FDF4E5E00918502 /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6655F41FDF4E5E00918502 /* LineView.swift */; };
 		CA66A74B200E8F2100D08E80 /* CarrierService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA66A74A200E8F2100D08E80 /* CarrierService.swift */; };
 		CA66A74D200E900D00D08E80 /* AirportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA66A74C200E900D00D08E80 /* AirportService.swift */; };
@@ -114,6 +115,10 @@
 		CAAD01FD1FD0E23A00E76B88 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAD01FC1FD0E23A00E76B88 /* NetworkManager.swift */; };
 		CAAF0CDB1FCE1F6A0089BF74 /* QPXExpress+Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF0CDA1FCE1F6A0089BF74 /* QPXExpress+Response.swift */; };
 		CAAF0CDD1FCE3F120089BF74 /* QPXExpress+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF0CDC1FCE3F120089BF74 /* QPXExpress+Request.swift */; };
+		CAB0B4E3203764C4000A13EE /* MapCardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB0B4E2203764C4000A13EE /* MapCardVC.swift */; };
+		CAB0B4E9203769E9000A13EE /* UIViewController+ChildViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB0B4E8203769E9000A13EE /* UIViewController+ChildViewControllers.swift */; };
+		CAB0B4EB2037717C000A13EE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAB0B4EA2037717C000A13EE /* MapKit.framework */; };
+		CAB0B4ED20377223000A13EE /* AirportAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB0B4EC20377223000A13EE /* AirportAnnotation.swift */; };
 		CAB96C4E202A6C9800C5101D /* SearchVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB96C4D202A6C9800C5101D /* SearchVCTests.swift */; };
 		CAB96C54202A77DF00C5101D /* PassengerOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB96C53202A77DF00C5101D /* PassengerOption.swift */; };
 		CAC4CB042035EE3200B4665A /* DestinationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC4CB032035EE3200B4665A /* DestinationsVC.swift */; };
@@ -220,6 +225,7 @@
 		CA5732531FF7107300D10DAD /* UIImage+JPEGQuality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+JPEGQuality.swift"; sourceTree = "<group>"; };
 		CA5B224D1FF967D200F36B7E /* StatusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusButton.swift; sourceTree = "<group>"; };
 		CA5B598B1FE83BE800B08A9D /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
+		CA6543BA203799F500D70711 /* PlaneAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneAnnotation.swift; sourceTree = "<group>"; };
 		CA6655F41FDF4E5E00918502 /* LineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
 		CA66A74A200E8F2100D08E80 /* CarrierService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrierService.swift; sourceTree = "<group>"; };
 		CA66A74C200E900D00D08E80 /* AirportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportService.swift; sourceTree = "<group>"; };
@@ -291,6 +297,10 @@
 		CAAD01FC1FD0E23A00E76B88 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		CAAF0CDA1FCE1F6A0089BF74 /* QPXExpress+Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QPXExpress+Response.swift"; sourceTree = "<group>"; };
 		CAAF0CDC1FCE3F120089BF74 /* QPXExpress+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QPXExpress+Request.swift"; sourceTree = "<group>"; };
+		CAB0B4E2203764C4000A13EE /* MapCardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCardVC.swift; sourceTree = "<group>"; };
+		CAB0B4E8203769E9000A13EE /* UIViewController+ChildViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ChildViewControllers.swift"; sourceTree = "<group>"; };
+		CAB0B4EA2037717C000A13EE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		CAB0B4EC20377223000A13EE /* AirportAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportAnnotation.swift; sourceTree = "<group>"; };
 		CAB96C4D202A6C9800C5101D /* SearchVCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVCTests.swift; sourceTree = "<group>"; };
 		CAB96C53202A77DF00C5101D /* PassengerOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassengerOption.swift; sourceTree = "<group>"; };
 		CAC4CB032035EE3200B4665A /* DestinationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationsVC.swift; sourceTree = "<group>"; };
@@ -355,6 +365,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAB0B4EB2037717C000A13EE /* MapKit.framework in Frameworks */,
 				5EC349B0BBE2F6B536A70966 /* Pods_TakeFlight.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -669,6 +680,16 @@
 			path = SortFilterCells;
 			sourceTree = "<group>";
 		};
+		CAB0B4E120376469000A13EE /* MapCard */ = {
+			isa = PBXGroup;
+			children = (
+				CAB0B4E2203764C4000A13EE /* MapCardVC.swift */,
+				CAB0B4EC20377223000A13EE /* AirportAnnotation.swift */,
+				CA6543BA203799F500D70711 /* PlaneAnnotation.swift */,
+			);
+			path = MapCard;
+			sourceTree = "<group>";
+		};
 		CAB96C4F202A76AB00C5101D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -832,6 +853,7 @@
 		CAEC73D71F813C4F004D6F0B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				CAB0B4E120376469000A13EE /* MapCard */,
 				CA8559081FE7467A00E72913 /* Explore */,
 				CA8559071FE7466200E72913 /* Search */,
 				CAA656251FF4197300DB59C4 /* Refine */,
@@ -921,6 +943,7 @@
 				CA22949C2026466A00C38C71 /* UIViewController+appDelegate.swift */,
 				CAC4CB052035F27C00B4665A /* Array+FirstElements.swift */,
 				CAC4CB0B20362FA600B4665A /* UIViewController+Identifier.swift */,
+				CAB0B4E8203769E9000A13EE /* UIViewController+ChildViewControllers.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -968,6 +991,7 @@
 		D132DC59ACFEDB4A5D7D3905 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CAB0B4EA2037717C000A13EE /* MapKit.framework */,
 				E1CD68BDBB2978CC87E5D867 /* Pods_TakeFlight.framework */,
 				962EB3CAD75C4C9C854C85D2 /* Pods_TakeFlightTests.framework */,
 				955C8FECD5270A6EC65FC55D /* Pods_TakeFlightUITests.framework */,
@@ -1054,6 +1078,9 @@
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -1334,6 +1361,7 @@
 				CA76EB0020211CA200D5D91C /* Destination.swift in Sources */,
 				CAFA6E53201047A600FA39B2 /* SearchState.swift in Sources */,
 				CA98A320202A301D00EFEA5A /* FlightCardView+SegmentTimelineView.swift in Sources */,
+				CA6543BB203799F500D70711 /* PlaneAnnotation.swift in Sources */,
 				CA98C4931FEC55840009D326 /* BillingCountryPickerVC.swift in Sources */,
 				CA192CF71FF726B300943C74 /* StopFilterVCDelegate.swift in Sources */,
 				CA66A757200EA26B00D08E80 /* FirebaseCarrierService.swift in Sources */,
@@ -1389,6 +1417,7 @@
 				CAFF4A311FD2452F0036083C /* String+AlphanumericCharacters.swift in Sources */,
 				CAC71456203388E400C4E8A5 /* FirebaseDestinationError.swift in Sources */,
 				CA2BE2CA1FEB160400DAF73F /* User.swift in Sources */,
+				CAB0B4E9203769E9000A13EE /* UIViewController+ChildViewControllers.swift in Sources */,
 				CA8EB1E020225588003C4A16 /* UIStackView+BackgroundColor.swift in Sources */,
 				CAEC73E01F8144D1004D6F0B /* RoundTripFlightDataCell.swift in Sources */,
 				CA66A753200E9CFC00D08E80 /* UserDefaultsService.swift in Sources */,
@@ -1422,11 +1451,13 @@
 				CAC6BA741FF2D64E005307C1 /* RoundedButton.swift in Sources */,
 				CA49BB8F1FED8D2600C3940C /* DateTextField.swift in Sources */,
 				CA696F4820268262009CA2FE /* PassengerCell.swift in Sources */,
+				CAB0B4E3203764C4000A13EE /* MapCardVC.swift in Sources */,
 				CACB0EA51FF55CDE00500D10 /* CarrierFilterVCDelegate.swift in Sources */,
 				CA55C0F91FE9C974008990C8 /* LoginVC.swift in Sources */,
 				CAA19A0E1FA3C08000A479A8 /* AirportPickerCell.swift in Sources */,
 				CA76EB0220211DB700D5D91C /* DestinationCell.swift in Sources */,
 				CA5328231FE7571D00867E35 /* FlightDataTableViewHeaderView.swift in Sources */,
+				CAB0B4ED20377223000A13EE /* AirportAnnotation.swift in Sources */,
 				CAC4CB0C20362FA600B4665A /* UIViewController+Identifier.swift in Sources */,
 				CA9B20831FD5F4990008447C /* FlightDataCell.swift in Sources */,
 				CA3E533120117D1D00148910 /* FlightFilterOptions.swift in Sources */,
