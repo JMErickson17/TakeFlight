@@ -36,6 +36,8 @@ class ExploreVC: UIViewController {
         
         exploreTableView.delegate = self
         exploreTableView.dataSource = self
+        exploreTableView.registerReusableCell(DestinationCollectionCell.self)
+        
         exploreTableView.register(UINib(nibName: DestinationCell.reuseIdentifier,
                                       bundle: Bundle.main), forCellReuseIdentifier: DestinationCell.reuseIdentifier)
     }
@@ -80,30 +82,15 @@ class ExploreVC: UIViewController {
 extension ExploreVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: DestinationCell.reuseIdentifier, for: indexPath) as? DestinationCell {
-            if indexPath.row == viewModel.trimmedItems(for: indexPath.section).count - 1 {
-                cell.configureCell(with: "View More", image: #imageLiteral(resourceName: "SkyHeaderImage_3"))
-                return cell
-            }
-            
-            let destination = viewModel.destination(for: indexPath)
-            cell.tag = indexPath.row
-            viewModel.image(for: destination, completion: { image in
-                guard cell.tag == indexPath.row else { return }
-                cell.configureCell(with: destination, image: image)
-            })
-            return cell
-        }
-        return UITableViewCell()
+        let cell = tableView.deqeueReusableCell(indexPath: indexPath) as DestinationCollectionCell
+        let items = viewModel.allItems(for: indexPath.section)
+        let contentManager = DestinationCollectionCellManager(destinations: items, destinationService: appDelegate.firebaseDestinationServive!)
+        cell.contentManager = contentManager
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == viewModel.trimmedItems(for: indexPath.section).count - 1 {
-            presentDestinationsVC(withDestinationsAt: indexPath)
-        } else {
-            searchDestination(at: indexPath)
-            tableView.deselectRow(at: indexPath, animated: true)
-        }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -115,10 +102,10 @@ extension ExploreVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.tableData.value[section].items.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 175
+        return 200
     }
 }

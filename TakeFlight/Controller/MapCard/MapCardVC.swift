@@ -110,7 +110,6 @@ class MapCardVC: UIViewController {
 
 extension MapCardVC: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
         guard let annotation = annotation as? PlaneAnnotation else { return MKAnnotationView() }
         let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotation.reuseIdentifier) ??
             MKAnnotationView(annotation: annotation, reuseIdentifier: annotation.reuseIdentifier)

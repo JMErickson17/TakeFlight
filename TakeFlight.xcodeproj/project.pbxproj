@@ -79,6 +79,11 @@
 		CA82E68E200EC84000F7DD29 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA82E68D200EC84000F7DD29 /* SearchViewModel.swift */; };
 		CA85590B1FE747D800E72913 /* ExploreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA85590A1FE747D800E72913 /* ExploreVC.swift */; };
 		CA85590D1FE747EA00E72913 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA85590C1FE747EA00E72913 /* ProfileVC.swift */; };
+		CA86A323203887A90023A49D /* DestinationCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA86A322203887A90023A49D /* DestinationCollectionCell.swift */; };
+		CA86A325203891E50023A49D /* UITableView+ReusableCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA86A324203891E50023A49D /* UITableView+ReusableCells.swift */; };
+		CA86A3272038939F0023A49D /* UICollectionView+ReusableCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA86A3262038939F0023A49D /* UICollectionView+ReusableCells.swift */; };
+		CA86A32A203894FE0023A49D /* DestinationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA86A329203894FE0023A49D /* DestinationCollectionViewCell.swift */; };
+		CA86A32E2038BDAA0023A49D /* DestinationsCollectionCellManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA86A32D2038BDAA0023A49D /* DestinationsCollectionCellManager.swift */; };
 		CA8923D21F93F5F50091968B /* Airport.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8923D11F93F5F50091968B /* Airport.swift */; };
 		CA8A2D1C1FAE498F00C8D5E0 /* OneWayFlightDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8A2D1A1FAE498F00C8D5E0 /* OneWayFlightDataCell.swift */; };
 		CA8A2D1D1FAE498F00C8D5E0 /* OneWayFlightDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA8A2D1B1FAE498F00C8D5E0 /* OneWayFlightDataCell.xib */; };
@@ -263,6 +268,11 @@
 		CA82E68D200EC84000F7DD29 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		CA85590A1FE747D800E72913 /* ExploreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreVC.swift; sourceTree = "<group>"; };
 		CA85590C1FE747EA00E72913 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		CA86A322203887A90023A49D /* DestinationCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationCollectionCell.swift; sourceTree = "<group>"; };
+		CA86A324203891E50023A49D /* UITableView+ReusableCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+ReusableCells.swift"; sourceTree = "<group>"; };
+		CA86A3262038939F0023A49D /* UICollectionView+ReusableCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+ReusableCells.swift"; sourceTree = "<group>"; };
+		CA86A329203894FE0023A49D /* DestinationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationCollectionViewCell.swift; sourceTree = "<group>"; };
+		CA86A32D2038BDAA0023A49D /* DestinationsCollectionCellManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationsCollectionCellManager.swift; sourceTree = "<group>"; };
 		CA8923D11F93F5F50091968B /* Airport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Airport.swift; sourceTree = "<group>"; };
 		CA8A2D1A1FAE498F00C8D5E0 /* OneWayFlightDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneWayFlightDataCell.swift; sourceTree = "<group>"; };
 		CA8A2D1B1FAE498F00C8D5E0 /* OneWayFlightDataCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OneWayFlightDataCell.xib; sourceTree = "<group>"; };
@@ -630,6 +640,23 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		CA86A321203887730023A49D /* DestinationCollectionCell */ = {
+			isa = PBXGroup;
+			children = (
+				CA86A322203887A90023A49D /* DestinationCollectionCell.swift */,
+				CA86A32D2038BDAA0023A49D /* DestinationsCollectionCellManager.swift */,
+			);
+			path = DestinationCollectionCell;
+			sourceTree = "<group>";
+		};
+		CA86A328203894DA0023A49D /* DestinationCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				CA86A329203894FE0023A49D /* DestinationCollectionViewCell.swift */,
+			);
+			path = DestinationCollectionViewCell;
+			sourceTree = "<group>";
+		};
 		CA9563C11FFAED1F00D5B3B0 /* MyFlightCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -880,6 +907,8 @@
 				CAA6562B1FF4431D00DB59C4 /* SortFilterCells */,
 				CA696F4A2026826D009CA2FE /* PassengerCell */,
 				CAC4CB092036153F00B4665A /* DestinationCell */,
+				CA86A321203887730023A49D /* DestinationCollectionCell */,
+				CA86A328203894DA0023A49D /* DestinationCollectionViewCell */,
 				CAA19A0C1FA3C08000A479A8 /* AirportPickerCell.swift */,
 				CA18454A1FD8667E003B56C6 /* TooltipView.swift */,
 				CA5328221FE7571D00867E35 /* FlightDataTableViewHeaderView.swift */,
@@ -947,6 +976,8 @@
 				CAC4CB0B20362FA600B4665A /* UIViewController+Identifier.swift */,
 				CAB0B4E8203769E9000A13EE /* UIViewController+ChildViewControllers.swift */,
 				CA6543BC2037C1E900D70711 /* Double+asCurrencyString.swift */,
+				CA86A324203891E50023A49D /* UITableView+ReusableCells.swift */,
+				CA86A3262038939F0023A49D /* UICollectionView+ReusableCells.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1365,9 +1396,11 @@
 				CAFA6E53201047A600FA39B2 /* SearchState.swift in Sources */,
 				CA98A320202A301D00EFEA5A /* FlightCardView+SegmentTimelineView.swift in Sources */,
 				CA6543BB203799F500D70711 /* PlaneAnnotation.swift in Sources */,
+				CA86A325203891E50023A49D /* UITableView+ReusableCells.swift in Sources */,
 				CA98C4931FEC55840009D326 /* BillingCountryPickerVC.swift in Sources */,
 				CA192CF71FF726B300943C74 /* StopFilterVCDelegate.swift in Sources */,
 				CA66A757200EA26B00D08E80 /* FirebaseCarrierService.swift in Sources */,
+				CA86A3272038939F0023A49D /* UICollectionView+ReusableCells.swift in Sources */,
 				CAF371501FA2426E002C3455 /* DatePickerVCDelegate.swift in Sources */,
 				CA1EFF71201D0BF200B90137 /* DropDownNotificationDismissable.swift in Sources */,
 				CA18454D1FD86D3B003B56C6 /* CGFloat+Lerp.swift in Sources */,
@@ -1426,6 +1459,7 @@
 				CAEC73E01F8144D1004D6F0B /* RoundTripFlightDataCell.swift in Sources */,
 				CA66A753200E9CFC00D08E80 /* UserDefaultsService.swift in Sources */,
 				CAFD5AE3201BBACD00C6FC88 /* APIKey.swift in Sources */,
+				CA86A32E2038BDAA0023A49D /* DestinationsCollectionCellManager.swift in Sources */,
 				CA9563C51FFAFEDC00D5B3B0 /* UnderlineTextField.swift in Sources */,
 				CAA19A111FA3D1CA00A479A8 /* AirportPickerVCDelegate.swift in Sources */,
 				CAA656241FF4175500DB59C4 /* DurationFilterVC.swift in Sources */,
@@ -1436,6 +1470,7 @@
 				CA66A75C200EA6E300D08E80 /* FirebaseAirportService.swift in Sources */,
 				CAFD5AD7201BA6D300C6FC88 /* MonthSectionHeaderViewDelegate.swift in Sources */,
 				CAFD5ADA201BAB9F00C6FC88 /* FlightPriceCardView.swift in Sources */,
+				CA86A32A203894FE0023A49D /* DestinationCollectionViewCell.swift in Sources */,
 				CA53248A1FD8BF67002ABBC3 /* PillButton.swift in Sources */,
 				CAC6BA7A1FF3055C005307C1 /* FilterOptionCell.swift in Sources */,
 				CA85590B1FE747D800E72913 /* ExploreVC.swift in Sources */,
@@ -1458,6 +1493,7 @@
 				CAB0B4E3203764C4000A13EE /* MapCardVC.swift in Sources */,
 				CACB0EA51FF55CDE00500D10 /* CarrierFilterVCDelegate.swift in Sources */,
 				CA55C0F91FE9C974008990C8 /* LoginVC.swift in Sources */,
+				CA86A323203887A90023A49D /* DestinationCollectionCell.swift in Sources */,
 				CAA19A0E1FA3C08000A479A8 /* AirportPickerCell.swift in Sources */,
 				CA76EB0220211DB700D5D91C /* DestinationCell.swift in Sources */,
 				CA5328231FE7571D00867E35 /* FlightDataTableViewHeaderView.swift in Sources */,

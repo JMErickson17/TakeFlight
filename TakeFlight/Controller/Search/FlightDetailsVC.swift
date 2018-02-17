@@ -58,7 +58,7 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
     private lazy var longDescription: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.light)
+        label.font = UIFont.systemFont(ofSize: 18, weight: .light)
         label.adjustsFontSizeToFitWidth = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
