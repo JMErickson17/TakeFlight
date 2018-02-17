@@ -21,8 +21,16 @@ class DestinationCollectionViewCell: UICollectionViewCell {
     }()
     
     private lazy var blurredView: UIVisualEffectView = {
-        let blurEffect = UIBlurEffect(style: .light)
+        let blurEffect = UIBlurEffect(style: .dark)
         let view = UIVisualEffectView(effect: blurEffect)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var vibrantView: UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: .dark)
+        let vibrantEffect = UIVibrancyEffect(blurEffect: blurEffect)
+        let view = UIVisualEffectView(effect: vibrantEffect)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -31,6 +39,7 @@ class DestinationCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        label.textColor = .white
         label.numberOfLines = 2
         return label
     }()
@@ -72,13 +81,21 @@ class DestinationCollectionViewCell: UICollectionViewCell {
             blurredView.leadingAnchor.constraint(equalTo: leadingAnchor),
             blurredView.trailingAnchor.constraint(equalTo: trailingAnchor),
             blurredView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            blurredView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.25)
+            blurredView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.15)
         ])
         
-        blurredView.contentView.addSubview(title)
+        blurredView.contentView.addSubview(vibrantView)
         NSLayoutConstraint.activate([
-            title.leadingAnchor.constraint(equalTo: blurredView.contentView.leadingAnchor, constant: 8),
-            title.centerYAnchor.constraint(equalTo: blurredView.contentView.centerYAnchor)
+            vibrantView.leadingAnchor.constraint(equalTo: blurredView.contentView.leadingAnchor),
+            vibrantView.topAnchor.constraint(equalTo: blurredView.contentView.topAnchor),
+            vibrantView.trailingAnchor.constraint(equalTo: blurredView.contentView.trailingAnchor),
+            vibrantView.bottomAnchor.constraint(equalTo: blurredView.contentView.bottomAnchor),
+        ])
+        
+        addSubview(title)
+        NSLayoutConstraint.activate([
+            title.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            title.centerYAnchor.constraint(equalTo: blurredView.centerYAnchor)
         ])
     }
     
@@ -88,7 +105,7 @@ class DestinationCollectionViewCell: UICollectionViewCell {
         if let image = image {
             self.backgroundImage.image = image
         }
-        self.title.text = [title, subtitle].joined(separator: "\n")
+        self.title.text = [title, subtitle].joined(separator: ", ")
     }
 }
 

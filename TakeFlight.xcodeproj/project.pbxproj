@@ -84,6 +84,7 @@
 		CA86A3272038939F0023A49D /* UICollectionView+ReusableCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA86A3262038939F0023A49D /* UICollectionView+ReusableCells.swift */; };
 		CA86A32A203894FE0023A49D /* DestinationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA86A329203894FE0023A49D /* DestinationCollectionViewCell.swift */; };
 		CA86A32E2038BDAA0023A49D /* DestinationsCollectionCellManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA86A32D2038BDAA0023A49D /* DestinationsCollectionCellManager.swift */; };
+		CA86A3342038E53C0023A49D /* DestinationCollectionCellManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA86A3332038E53C0023A49D /* DestinationCollectionCellManagerDelegate.swift */; };
 		CA8923D21F93F5F50091968B /* Airport.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8923D11F93F5F50091968B /* Airport.swift */; };
 		CA8A2D1C1FAE498F00C8D5E0 /* OneWayFlightDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8A2D1A1FAE498F00C8D5E0 /* OneWayFlightDataCell.swift */; };
 		CA8A2D1D1FAE498F00C8D5E0 /* OneWayFlightDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA8A2D1B1FAE498F00C8D5E0 /* OneWayFlightDataCell.xib */; };
@@ -273,6 +274,7 @@
 		CA86A3262038939F0023A49D /* UICollectionView+ReusableCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+ReusableCells.swift"; sourceTree = "<group>"; };
 		CA86A329203894FE0023A49D /* DestinationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationCollectionViewCell.swift; sourceTree = "<group>"; };
 		CA86A32D2038BDAA0023A49D /* DestinationsCollectionCellManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationsCollectionCellManager.swift; sourceTree = "<group>"; };
+		CA86A3332038E53C0023A49D /* DestinationCollectionCellManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationCollectionCellManagerDelegate.swift; sourceTree = "<group>"; };
 		CA8923D11F93F5F50091968B /* Airport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Airport.swift; sourceTree = "<group>"; };
 		CA8A2D1A1FAE498F00C8D5E0 /* OneWayFlightDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneWayFlightDataCell.swift; sourceTree = "<group>"; };
 		CA8A2D1B1FAE498F00C8D5E0 /* OneWayFlightDataCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OneWayFlightDataCell.xib; sourceTree = "<group>"; };
@@ -612,8 +614,6 @@
 			children = (
 				CA68F1FE1FFC2E9900B5CEFB /* Search.storyboard */,
 				CA82E68C200EC82700F7DD29 /* SearchVC */,
-				CA825CD71F93A8BB006871B2 /* DatePickerVC.swift */,
-				CAA19A081FA3BDD800A479A8 /* AirportPickerVC.swift */,
 				CA7C3A1F1FBA42FF00E4CD40 /* FlightDetailsVC.swift */,
 			);
 			path = Search;
@@ -643,8 +643,8 @@
 		CA86A321203887730023A49D /* DestinationCollectionCell */ = {
 			isa = PBXGroup;
 			children = (
+				CA86A3352038E7890023A49D /* DestinationCollectionCellManager */,
 				CA86A322203887A90023A49D /* DestinationCollectionCell.swift */,
-				CA86A32D2038BDAA0023A49D /* DestinationsCollectionCellManager.swift */,
 			);
 			path = DestinationCollectionCell;
 			sourceTree = "<group>";
@@ -655,6 +655,48 @@
 				CA86A329203894FE0023A49D /* DestinationCollectionViewCell.swift */,
 			);
 			path = DestinationCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		CA86A32F2038E3FF0023A49D /* Modal View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CA86A3312038E4650023A49D /* DatePicker */,
+				CA86A3302038E42C0023A49D /* AirportPicker */,
+				CAB0B4E120376469000A13EE /* MapCard */,
+			);
+			path = "Modal View Controllers";
+			sourceTree = "<group>";
+		};
+		CA86A3302038E42C0023A49D /* AirportPicker */ = {
+			isa = PBXGroup;
+			children = (
+				CAA19A081FA3BDD800A479A8 /* AirportPickerVC.swift */,
+			);
+			path = AirportPicker;
+			sourceTree = "<group>";
+		};
+		CA86A3312038E4650023A49D /* DatePicker */ = {
+			isa = PBXGroup;
+			children = (
+				CA825CD71F93A8BB006871B2 /* DatePickerVC.swift */,
+			);
+			path = DatePicker;
+			sourceTree = "<group>";
+		};
+		CA86A3322038E4790023A49D /* Details */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		CA86A3352038E7890023A49D /* DestinationCollectionCellManager */ = {
+			isa = PBXGroup;
+			children = (
+				CA86A3332038E53C0023A49D /* DestinationCollectionCellManagerDelegate.swift */,
+				CA86A32D2038BDAA0023A49D /* DestinationsCollectionCellManager.swift */,
+			);
+			path = DestinationCollectionCellManager;
 			sourceTree = "<group>";
 		};
 		CA9563C11FFAED1F00D5B3B0 /* MyFlightCell */ = {
@@ -882,12 +924,13 @@
 		CAEC73D71F813C4F004D6F0B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				CAB0B4E120376469000A13EE /* MapCard */,
-				CA8559081FE7467A00E72913 /* Explore */,
 				CA8559071FE7466200E72913 /* Search */,
-				CAA656251FF4197300DB59C4 /* Refine */,
+				CA8559081FE7467A00E72913 /* Explore */,
 				CA8559091FE7468100E72913 /* Profile */,
+				CA86A3322038E4790023A49D /* Details */,
+				CAA656251FF4197300DB59C4 /* Refine */,
 				CA98C48B1FEC4EAF0009D326 /* Settings */,
+				CA86A32F2038E3FF0023A49D /* Modal View Controllers */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1239,6 +1282,7 @@
 				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/RSKImageCropper/RSKImageCropper.framework",
+				"${PODS_ROOT}/Reveal-SDK/RevealServer-13/iOS/RevealServer.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Spring/Spring.framework",
@@ -1258,6 +1302,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RSKImageCropper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Spring.framework",
@@ -1503,6 +1548,7 @@
 				CA3E533120117D1D00148910 /* FlightFilterOptions.swift in Sources */,
 				CA82E687200EBCC000F7DD29 /* TypeAliases.swift in Sources */,
 				CA76EB0420211F2600D5D91C /* FirebaseDestinationService.swift in Sources */,
+				CA86A3342038E53C0023A49D /* DestinationCollectionCellManagerDelegate.swift in Sources */,
 				CA12FC7C201F837A003053DF /* FlightData+CustomStringConvertable.swift in Sources */,
 				CAECB8741FEA019A00F84359 /* DropDownNotification.swift in Sources */,
 				CA55C0F01FE99163008990C8 /* OutlineButton.swift in Sources */,

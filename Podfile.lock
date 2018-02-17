@@ -99,6 +99,7 @@ PODS:
   - Nimble (7.0.3)
   - Protobuf (3.5.0)
   - Quick (1.2.0)
+  - Reveal-SDK (13)
   - RSKImageCropper (2.0.0)
   - RxCocoa (4.1.2):
     - RxSwift (~> 4.0)
@@ -116,6 +117,7 @@ DEPENDENCIES:
   - JTAppleCalendar (from `https://github.com/patchthecode/JTAppleCalendar.git`, branch `master`)
   - Nimble
   - Quick
+  - Reveal-SDK
   - RSKImageCropper
   - RxCocoa (~> 4.0)
   - RxSwift (~> 4.0)
@@ -160,11 +162,12 @@ SPEC CHECKSUMS:
   Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
+  Reveal-SDK: ccc2b0f8014965ea448b7534a7c2c8da232b75e8
   RSKImageCropper: d9a1acbc0600bf8decc8f0d21895872c99a9e4cf
   RxCocoa: d88ba0f1f6abf040011a9eb4b539324fc426843a
   RxSwift: e49536837d9901277638493ea537394d4b55f570
   Spring: 48aad470f3ead043b2da98b64e0bf0630b7ebc42
 
-PODFILE CHECKSUM: 1c32aabb5ba79378585b1c9f0dc33c2b91a90951
+PODFILE CHECKSUM: f57c43df77a12ac7dbea2585aeb8ec13d38163e5
 
 COCOAPODS: 1.4.0

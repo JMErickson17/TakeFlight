@@ -18,6 +18,7 @@ class ExploreVC: UIViewController {
     @IBOutlet weak var exploreTableView: UITableView!
     
     private var viewModel: ExploreViewModel!
+    private var airportService: AirportService!
     private var disposeBag = DisposeBag()
     
     // MARK: Lifecycle
@@ -33,13 +34,14 @@ class ExploreVC: UIViewController {
     
     private func setupView() {
         self.viewModel = ExploreViewModel(destinationService: appDelegate.firebaseDestinationServive!)
+        self.airportService = appDelegate.firebaseAirportService!
         
         exploreTableView.delegate = self
         exploreTableView.dataSource = self
         exploreTableView.registerReusableCell(DestinationCollectionCell.self)
         
-        exploreTableView.register(UINib(nibName: DestinationCell.reuseIdentifier,
-                                      bundle: Bundle.main), forCellReuseIdentifier: DestinationCell.reuseIdentifier)
+//        exploreTableView.register(UINib(nibName: DestinationCell.reuseIdentifier,
+//                                      bundle: Bundle.main), forCellReuseIdentifier: DestinationCell.reuseIdentifier)
     }
     
     private func bindViewModel() {
@@ -50,17 +52,17 @@ class ExploreVC: UIViewController {
     
     // MARK: Convenience
     
-    private func presentDestinationsVC(withDestinationsAt indexPath: IndexPath) {
-        let destinations = viewModel.allItems(for: indexPath.section)
-        let storyboard = UIStoryboard(name: "Explore", bundle: Bundle.main)
-        
-        if let destinationsVC = storyboard.instantiateViewController(withIdentifier: DestinationsVC.identifier) as? DestinationsVC {
-            destinationsVC.destinationService = appDelegate.firebaseDestinationServive!
-            destinationsVC.destinations = destinations
-            destinationsVC.title = viewModel.title(for: indexPath.section)
-            self.navigationController?.pushViewController(destinationsVC, animated: true)
-        }
-    }
+//    private func presentDestinationsVC(withDestinationsAt indexPath: IndexPath) {
+//        let destinations = viewModel.allItems(for: indexPath.section)
+//        let storyboard = UIStoryboard(name: "Explore", bundle: Bundle.main)
+//
+//        if let destinationsVC = storyboard.instantiateViewController(withIdentifier: DestinationsVC.identifier) as? DestinationsVC {
+//            destinationsVC.destinationService = appDelegate.firebaseDestinationServive!
+//            destinationsVC.destinations = destinations
+//            destinationsVC.title = viewModel.title(for: indexPath.section)
+//            self.navigationController?.pushViewController(destinationsVC, animated: true)
+//        }
+//    }
     
     private func searchDestination(at indexPath: IndexPath) {
         let destinationAirportCode = viewModel.destination(for: indexPath).airports.first!
@@ -75,6 +77,21 @@ class ExploreVC: UIViewController {
             }
         })
     }
+    
+    private func search(_ destination: Destination) {
+        guard let identifier = destination.airports.first else { return }
+        if let airport = airportService.airport(withIdentifier: identifier) {
+            UserDefaultsService.instance.destination = airport
+            
+            self.tabBarController?.selectTab(1, animated: true, completion: {
+                if let navigationController = self.tabBarController?.selectedViewController as? UINavigationController {
+                    if let searchVC = navigationController.topViewController as? SearchVC {
+                        searchVC.updateUserDefaultsAndSearch()
+                    }
+                }
+            })
+        }
+    }
 }
 
 // MARK: ExploreVC+UITableViewDelegate, UITableViewDataSource
@@ -86,6 +103,7 @@ extension ExploreVC: UITableViewDelegate, UITableViewDataSource {
         let items = viewModel.allItems(for: indexPath.section)
         let contentManager = DestinationCollectionCellManager(destinations: items, destinationService: appDelegate.firebaseDestinationServive!)
         cell.contentManager = contentManager
+        cell.contentManager?.delegate = self
         return cell
     }
     
@@ -107,5 +125,13 @@ extension ExploreVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 200
+    }
+}
+
+// MARK:- DestinationCollectionCellManagerDelegate
+
+extension ExploreVC: DestinationCollectionCellManagerDelegate {
+    func destinationCollectionCellManager(_ destinationCollectionCellManager: DestinationCollectionCellManager, didSelectDestination destination: Destination) {
+        search(destination)
     }
 }

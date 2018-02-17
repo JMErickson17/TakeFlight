@@ -23,10 +23,9 @@ class DestinationCollectionCell: UITableViewCell {
     
     private lazy var collectionViewLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 200, height: 200)
         layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = 10
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        layout.minimumInteritemSpacing = 5
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
         return layout
     }()
     
@@ -34,7 +33,9 @@ class DestinationCollectionCell: UITableViewCell {
         let collectionView = UICollectionView(frame: self.frame, collectionViewLayout: collectionViewLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.registerCell(DestinationCollectionViewCell.self)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = UIColor.backgroundGray
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
         return collectionView
     }()
 

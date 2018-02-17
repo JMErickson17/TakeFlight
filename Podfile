@@ -27,6 +27,7 @@ target 'TakeFlight' do
   
   # Other
   pod 'JTAppleCalendar', :git => 'https://github.com/patchthecode/JTAppleCalendar.git', :branch => 'master'
+  pod 'Reveal-SDK', configurations: ['Debug']
 
   target 'TakeFlightTests' do
     inherit! :search_paths
