@@ -64,6 +64,27 @@ struct FlightData: Codable {
         return isRoundTrip ? (departingFlight.bookingCode + " " + returningFlight!.bookingCode) : departingFlight.bookingCode
     }
     
+    var passengerCountString: String {
+        var passengerArray = [String]()
+        if adultCount > 0 {
+            passengerArray.append("\(adultCount) \(adultCount == 1 ? "Adult" : "Adults")")
+        }
+        
+        if childCount > 0 {
+            passengerArray.append("\(childCount) \(childCount == 1 ? "Child" : "Children")")
+        }
+        
+        if infantCount > 0 {
+            passengerArray.append("\(infantCount) \(infantCount == 1 ? "Infant" : "Infants")")
+        }
+        
+        return passengerArray.joined(separator: ", ")
+    }
+    
+    var passengerCount: Int {
+        return [adultCount, childCount, infantCount].reduce(0, +)
+    }
+    
     mutating func longDescription() -> String {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let airportService = appDelegate.firebaseAirportService!

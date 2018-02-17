@@ -82,7 +82,7 @@ extension ExploreVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: DestinationCell.reuseIdentifier, for: indexPath) as? DestinationCell {
             if indexPath.row == viewModel.trimmedItems(for: indexPath.section).count - 1 {
-                cell.configureCell(with: "View All", image: #imageLiteral(resourceName: "SkyHeaderImage_3"))
+                cell.configureCell(with: "View More", image: #imageLiteral(resourceName: "SkyHeaderImage_3"))
                 return cell
             }
             

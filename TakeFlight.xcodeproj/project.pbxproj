@@ -44,6 +44,7 @@
 		CA5B224E1FF967D200F36B7E /* StatusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5B224D1FF967D200F36B7E /* StatusButton.swift */; };
 		CA5B598C1FE83BE800B08A9D /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5B598B1FE83BE800B08A9D /* ProfileImageView.swift */; };
 		CA6543BB203799F500D70711 /* PlaneAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6543BA203799F500D70711 /* PlaneAnnotation.swift */; };
+		CA6543BD2037C1E900D70711 /* Double+asCurrencyString.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6543BC2037C1E900D70711 /* Double+asCurrencyString.swift */; };
 		CA6655F51FDF4E5E00918502 /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6655F41FDF4E5E00918502 /* LineView.swift */; };
 		CA66A74B200E8F2100D08E80 /* CarrierService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA66A74A200E8F2100D08E80 /* CarrierService.swift */; };
 		CA66A74D200E900D00D08E80 /* AirportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA66A74C200E900D00D08E80 /* AirportService.swift */; };
@@ -226,6 +227,7 @@
 		CA5B224D1FF967D200F36B7E /* StatusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusButton.swift; sourceTree = "<group>"; };
 		CA5B598B1FE83BE800B08A9D /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		CA6543BA203799F500D70711 /* PlaneAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneAnnotation.swift; sourceTree = "<group>"; };
+		CA6543BC2037C1E900D70711 /* Double+asCurrencyString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+asCurrencyString.swift"; sourceTree = "<group>"; };
 		CA6655F41FDF4E5E00918502 /* LineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
 		CA66A74A200E8F2100D08E80 /* CarrierService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrierService.swift; sourceTree = "<group>"; };
 		CA66A74C200E900D00D08E80 /* AirportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportService.swift; sourceTree = "<group>"; };
@@ -944,6 +946,7 @@
 				CAC4CB052035F27C00B4665A /* Array+FirstElements.swift */,
 				CAC4CB0B20362FA600B4665A /* UIViewController+Identifier.swift */,
 				CAB0B4E8203769E9000A13EE /* UIViewController+ChildViewControllers.swift */,
+				CA6543BC2037C1E900D70711 /* Double+asCurrencyString.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1394,6 +1397,7 @@
 				CA2BE2CC1FEB463900DAF73F /* Notification+Name.swift in Sources */,
 				CAFD5AEE201C10C200C6FC88 /* NotificationView.swift in Sources */,
 				CAD659C220180C81006AB441 /* FlightDetailsVCFactory.swift in Sources */,
+				CA6543BD2037C1E900D70711 /* Double+asCurrencyString.swift in Sources */,
 				CAEBDBC92017BB68006C2F43 /* CarrierData.swift in Sources */,
 				CAA0C71A1FABE77B00FAFD69 /* DateRange.swift in Sources */,
 				CAFD5AE6201BFD9600C6FC88 /* BookingDetailsCardView.swift in Sources */,

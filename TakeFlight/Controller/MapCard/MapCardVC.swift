@@ -24,8 +24,7 @@ class MapCardVC: UIViewController {
         mapView.translatesAutoresizingMaskIntoConstraints = false
         mapView.mapType = .standard
         mapView.delegate = self
-        mapView.isZoomEnabled = false
-        mapView.isScrollEnabled = false
+        mapView.isUserInteractionEnabled = false
         return mapView
     }()
     
@@ -111,7 +110,8 @@ class MapCardVC: UIViewController {
 
 extension MapCardVC: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let annotation = annotation as? PlaneAnnotation else { return nil }
+        
+        guard let annotation = annotation as? PlaneAnnotation else { return MKAnnotationView() }
         let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotation.reuseIdentifier) ??
             MKAnnotationView(annotation: annotation, reuseIdentifier: annotation.reuseIdentifier)
         annotationView.image = annotation.image
