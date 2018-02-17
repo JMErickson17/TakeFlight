@@ -39,9 +39,6 @@ class ExploreVC: UIViewController {
         exploreTableView.delegate = self
         exploreTableView.dataSource = self
         exploreTableView.registerReusableCell(DestinationCollectionCell.self)
-        
-//        exploreTableView.register(UINib(nibName: DestinationCell.reuseIdentifier,
-//                                      bundle: Bundle.main), forCellReuseIdentifier: DestinationCell.reuseIdentifier)
     }
     
     private func bindViewModel() {
@@ -51,18 +48,6 @@ class ExploreVC: UIViewController {
     }
     
     // MARK: Convenience
-    
-//    private func presentDestinationsVC(withDestinationsAt indexPath: IndexPath) {
-//        let destinations = viewModel.allItems(for: indexPath.section)
-//        let storyboard = UIStoryboard(name: "Explore", bundle: Bundle.main)
-//
-//        if let destinationsVC = storyboard.instantiateViewController(withIdentifier: DestinationsVC.identifier) as? DestinationsVC {
-//            destinationsVC.destinationService = appDelegate.firebaseDestinationServive!
-//            destinationsVC.destinations = destinations
-//            destinationsVC.title = viewModel.title(for: indexPath.section)
-//            self.navigationController?.pushViewController(destinationsVC, animated: true)
-//        }
-//    }
     
     private func searchDestination(at indexPath: IndexPath) {
         let destinationAirportCode = viewModel.destination(for: indexPath).airports.first!
@@ -83,13 +68,13 @@ class ExploreVC: UIViewController {
         if let airport = airportService.airport(withIdentifier: identifier) {
             UserDefaultsService.instance.destination = airport
             
-            self.tabBarController?.selectTab(1, animated: true, completion: {
+            self.tabBarController?.selectTab(1, animated: true) {
                 if let navigationController = self.tabBarController?.selectedViewController as? UINavigationController {
                     if let searchVC = navigationController.topViewController as? SearchVC {
                         searchVC.updateUserDefaultsAndSearch()
                     }
                 }
-            })
+            }
         }
     }
 }
@@ -100,7 +85,7 @@ extension ExploreVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.deqeueReusableCell(indexPath: indexPath) as DestinationCollectionCell
-        let items = viewModel.allItems(for: indexPath.section)
+        let items = viewModel.items(for: indexPath.section)
         let contentManager = DestinationCollectionCellManager(destinations: items, destinationService: appDelegate.firebaseDestinationServive!)
         cell.contentManager = contentManager
         cell.contentManager?.delegate = self

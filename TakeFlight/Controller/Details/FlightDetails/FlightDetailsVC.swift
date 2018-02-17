@@ -52,6 +52,8 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
     private lazy var mapCard: MapCardVC = {
         let mapCard = MapCardVC()
         mapCard.view.translatesAutoresizingMaskIntoConstraints = false
+        mapCard.view.layer.cornerRadius = 5
+        mapCard.view.clipsToBounds = true
         return mapCard
     }()
     
@@ -122,9 +124,9 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
         configureActionButton()
         
         setupScrollView()
-        setupMapView()
         setupLongDescriptionLabel()
         setupContentStackView()
+        setupMapView()
         setupFlightCards()
         setupBookingDetailsCard()
         setupPriceDetailsCard()
@@ -148,31 +150,13 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
         ])
     }
     
-    private func setupMapView() {
-        guard let flightData = flightData else { return }
-        
-        add(mapCard)
-        NSLayoutConstraint.activate([
-            mapCard.view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            mapCard.view.topAnchor.constraint(equalTo: contentView.topAnchor),
-            mapCard.view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            mapCard.view.heightAnchor.constraint(equalToConstant: 250)
-        ])
-        
-        let airportService = appDelegate.firebaseAirportService!
-        if let origin = airportService.airport(withIdentifier: flightData.departingFlight.originAirportCode),
-            let destination = airportService.airport(withIdentifier: flightData.departingFlight.destinationAirportCode) {
-            mapCard.addFlightPathAnnotations(from: origin.coordinates, to: destination.coordinates)
-        }
-    }
-    
     private func setupLongDescriptionLabel() {
         guard var flightData = flightData else { return }
         longDescription.text = flightData.longDescription()
         contentView.addSubview(longDescription)
         NSLayoutConstraint.activate([
             longDescription.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            longDescription.topAnchor.constraint(equalTo: mapCard.view.bottomAnchor, constant: 20),
+            longDescription.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             longDescription.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
             ])
     }
@@ -184,9 +168,25 @@ class FlightDetailsVC: UIViewController, UIScrollViewDelegate {
             contentStackView.topAnchor.constraint(equalTo: longDescription.bottomAnchor, constant: 20),
             contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             contentStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
-        ])
+            ])
     }
     
+    private func setupMapView() {
+        guard let flightData = flightData else { return }
+        
+        add(mapCard)
+        contentStackView.addArrangedSubview(mapCard.view)
+        NSLayoutConstraint.activate([
+            mapCard.view.heightAnchor.constraint(equalToConstant: 250)
+        ])
+        
+        let airportService = appDelegate.firebaseAirportService!
+        if let origin = airportService.airport(withIdentifier: flightData.departingFlight.originAirportCode),
+            let destination = airportService.airport(withIdentifier: flightData.departingFlight.destinationAirportCode) {
+            mapCard.addFlightPathAnnotations(from: origin.coordinates, to: destination.coordinates)
+        }
+    }
+
     private func setupFlightCards() {
         guard let flightData = flightData else { return }
         departingFlightCardView.setupCard(withFlight: flightData.departingFlight)
