@@ -34,7 +34,7 @@ class UserDefaultsService {
     var origin: Airport? {
         get {
             if let data: Data = defaults.object(forKey: UserDefaults.Keys.UserOrigin) as? Data {
-                return try! decoder.decode(Airport.self, from: data)
+                return try? decoder.decode(Airport.self, from: data)
             }
             return nil
         }
@@ -47,7 +47,7 @@ class UserDefaultsService {
     var destination: Airport? {
         get {
             if let data: Data = defaults.object(forKey: UserDefaults.Keys.UserDestination) as? Data {
-                return try! decoder.decode(Airport.self, from: data)
+                return try? decoder.decode(Airport.self, from: data)
             }
             return nil
         }

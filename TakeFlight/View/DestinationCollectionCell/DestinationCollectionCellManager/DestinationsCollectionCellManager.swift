@@ -33,7 +33,8 @@ class DestinationCollectionCellManager: NSObject, UICollectionViewDelegate, UICo
         destinationService.image(for: destination) { image, error in
             DispatchQueue.main.async {
                 guard cell.tag == indexPath.item else { return }
-                cell.configureCell(with: image, title: destination.city, subtitle: destination.state)
+                cell.delegate = self
+                cell.configureCell(with: image, destination: destination)
             }
         }
         return cell
@@ -50,5 +51,13 @@ class DestinationCollectionCellManager: NSObject, UICollectionViewDelegate, UICo
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 200, height: 200)
+    }
+}
+
+// MARK:- DestinationCollectionViewCellDelegate
+
+extension DestinationCollectionCellManager: DestinationCollectionViewCellDelegate {
+    func destinationCollectionViewCell(_ destinationCollectionViewCell: DestinationCollectionViewCell, didSelectDestinationDetailsFor destination: Destination) {
+        delegate?.destinationCollectionCellManager(self, didSelectDestinationDetailsFor: destination)
     }
 }

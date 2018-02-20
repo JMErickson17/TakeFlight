@@ -1,19 +1,16 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<testsuites name='TakeFlightUITests.xctest' tests='8' failures='0'>
+<testsuites name='TakeFlightTests.xctest' tests='7' failures='0'>
   <testsuite name='TakeFlightTests.SearchVCTests' tests='2' failures='0'>
-    <testcase classname='TakeFlightTests.SearchVCTests' name='testClearDates_clearsTextFields' time='0.020'/>
-    <testcase classname='TakeFlightTests.SearchVCTests' name='testClearLocations_clearsTextFields' time='0.014'/>
+    <testcase classname='TakeFlightTests.SearchVCTests' name='testClearDates_clearsTextFields' time='0.017'/>
+    <testcase classname='TakeFlightTests.SearchVCTests' name='testClearLocations_clearsTextFields' time='0.010'/>
   </testsuite>
   <testsuite name='TakeFlightTests.SearchViewModelTests' tests='3' failures='0'>
-    <testcase classname='TakeFlightTests.SearchViewModelTests' name='testResetSortAndFilters_resetsSortAndFilters' time='0.006'/>
-    <testcase classname='TakeFlightTests.SearchViewModelTests' name='testSearchFlights_returnsFromInvalidRequest' time='0.002'/>
+    <testcase classname='TakeFlightTests.SearchViewModelTests' name='testResetSortAndFilters_resetsSortAndFilters' time='0.003'/>
+    <testcase classname='TakeFlightTests.SearchViewModelTests' name='testSearchFlights_returnsFromInvalidRequest' time='0.001'/>
     <testcase classname='TakeFlightTests.SearchViewModelTests' name='testSearchFlights_searchesOneWayFlights' time='0.008'/>
   </testsuite>
   <testsuite name='TakeFlightTests.TakeFlightTests' tests='2' failures='0'>
     <testcase classname='TakeFlightTests.TakeFlightTests' name='testExample' time='0.000'/>
-    <testcase classname='TakeFlightTests.TakeFlightTests' name='testPerformanceExample' time='0.303'/>
-  </testsuite>
-  <testsuite name='TakeFlightUITests.TakeFlightUITests' tests='1' failures='0'>
-    <testcase classname='TakeFlightUITests.TakeFlightUITests' name='testExample' time='5.688'/>
+    <testcase classname='TakeFlightTests.TakeFlightTests' name='testPerformanceExample' time='0.357'/>
   </testsuite>
 </testsuites>

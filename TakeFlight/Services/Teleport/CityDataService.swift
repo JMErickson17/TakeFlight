@@ -17,51 +17,123 @@ class TeleportCityDataService: CityDataService {
     
     // MARK: Properties
     
-    private var rootURLComponents: URLComponents {
-        var components = URLComponents()
-        components.scheme = "https"
-        components.host = "api.teleport.org"
-        components.path = "/api/"
+    init() {
+        getDetails()
+    }
+    
+    struct Location: Codable {
+        let coordinates: Coordinates
+        
+        enum CodingKeys: String, CodingKey {
+            case coordinates = "latlon"
+        }
+    }
+    
+    struct City: Codable {
+        let name: String
+        let population: Int
+        let location: Location
+    }
+    
+    struct CityResource {
+        let name: String
+        let url: String
+    }
+    
+    enum TeleportResource {
+        case search
+    }
+    
+    func getDetails() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let destinations = appDelegate.firebaseDestinationServive!.destinations
+        let destinationService = appDelegate.firebaseDestinationServive
+        
+        for destination in destinations {
+            details(for: destination.city, completion: { (resource, error) in
+                if let error = error { print(error) }
+                if let urlString = resource?.url, let url = URL(string: urlString) {
+                    self.city(at: url, completion: { (city, error) in
+                        if let error = error { print(error) }
+                        if let city = city {
+                            guard destination.city == city.name else { return }
+                            
+                            let updatedDestination = Destination(city: destination.city, state: destination.state, country: destination.country, coordinates: destination.coordinates, population: city.population, airports: destination.airports)
+                            print(updatedDestination)
+                            destinationService?.create(destination: updatedDestination, completion: { (error) in
+                                if let error = error {
+                                    print(error)
+                                }
+                            })
+                        }
+                    })
+                }
+            })
+        }
+    }
+    
+    let teleportURLString = "https://api.teleport.org"
+    
+    func urlComponents(for resource: TeleportResource) -> URLComponents? {
+        guard var components = URLComponents(string: teleportURLString) else { return nil }
+        components.path = "/api/cities"
         return components
     }
     
-    let cities = ["Albuquerque", "Fort Worth", "Bush Field", "Amarillo", "Anchorage", "Atlanta", "Austin", "Asheville", "Windsor Locks", "Seattle",
-                  "Bangor", "Birmingham", "Billings", "Belleville", "Bloomington", "Nashville", "Boise", "Boston", "Baton Rouge", "Buffalo", "Baltimore",
-                  "Columbia", "Chattanooga", "Cedar Rapids", "Cleveland", "Charlotte", "Columbus", "Colorado Springs", "Casper", "Corpus Christi",
-                  "Charleston", "Cincinnati", "Daytona Beach", "Dallas", "Dayton", "Dubuque IA", "Washington", "Denver", "Dallas-Fort Worth", "Duluth",
-                  "Des Moines", "Detroit", "Erie", "Newark", "Fairbanks", "Fort Lauderdale", "Fort Smith", "Fort Worth", "Fort Wayne", "Spokane",
-                  "Gulfport", "Green Bay", "Greensboro", "Greenville", "Peru", "Hibbing", "Honolulu", "Houston", "Huntsville", "Huntington", "Washington",
-                  "Houston", "Wichita", "Indianapolis", "Jackson", "Jacksonville", "New York", "Joplin", "Las Vegas", "Los Angeles", "Lubbock",
-                  "Columbus", "Lexington KY", "Lafayette", "New York", "Little Rock", "Saginaw", "Kansas City", "Orlando", "Chicago", "Memphis", "Marietta",
-                  "MONTGOMERY", "Manchester NH", "Miami", "Milwaukee", "Moline", "Monroe", "Mobile", "Madison", "Minneapolis", "New Orleans", "Oakland",
-                  "Oklahoma City", "Ontario", "Chicago", "Norfolk", "West Palm Beach", "Portland", "Newport News", "Philadelphia", "Phoenix", "Peoria",
-                  "Pittsburgh", "Portland", "Raleigh-durham", "Rockford", "Richmond", "Reno", "Roanoke VA", "Rochester", "Rochester", "Fort Myers",
-                  "San Diego", "San Antonio", "Savannah", "South Bend", "Louisville", "Seattle", "Sanford", "San Francisco", "Springfield", "Shreveport",
-                  "San Jose", "Salt Lake City", "Sacramento", "Santa Ana", "Springfield", "Sarasota", "St. Louis", "Null", "Sioux City", "Syracuse", "Tallahassee",
-                  "Toledo", "Tampa", "BRISTOL", "Tulsa", "Tucson", "Knoxville", "Valparaiso"
-    ]
-    
-//    private let allImagesURL = URL(string: "https://api.teleport.org/api/urban_areas/?embed=ua:item/ua:images")!
-    
-    init() {}
-    
-    func details(for destination: String, completion: @escaping (Destination?, Error?) -> Void) {
-        let searchQuery = URLQueryItem(name: "search", value: destination)
-        var urlComponents = rootURLComponents
-        urlComponents.path += "cities"
-        urlComponents.queryItems = [searchQuery]
-        
-        guard let url = urlComponents.url else { return completion(nil, nil) }
-        
-        Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: { response in
-            guard let data = response.data else { return completion(nil, nil) }
-            
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                print(json)
-            } catch {
-                print(error)
-            }
-        })
+    func details(for city: String, completion: @escaping (CityResource?, Error?) -> Void) {
+        guard var searchURLComponents = urlComponents(for: .search) else { return }
+        let searchQuery = URLQueryItem(name: "search", value: city.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))
+        searchURLComponents.queryItems = [searchQuery]
+        print(searchQuery)
+        if let url = searchURLComponents.url {
+            print(url)
+            let session = URLSession.shared
+            let request = URLRequest(url: url)
+            let dataTask = session.dataTask(with: request, completionHandler: { data, response, error in
+                if let error = error { print(error) }
+                if let data = data {
+                    guard let json = (try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)) as? [String: Any] else {
+                        return print("Could not create JSON")
+                    }
+                    guard let embedded = json["_embedded"] as? [String: Any] else { return }
+                    guard let searchResults = embedded["city:search-results"] as? [[String: Any]] else { return }
+                    guard searchResults.count > 0 else { print("No Results for \(city)"); return }
+                    guard let cityName = searchResults[0]["matching_full_name"] as? String else { return }
+                    guard let links = searchResults[0]["_links"] as? [String: Any] else { return }
+                    guard let item = links["city:item"] as? [String: Any] else { return }
+                    guard let url = item["href"] as? String else { return }
+                    
+                    let city = CityResource(name: cityName, url: url)
+                    return completion(city, nil)
+                }
+            })
+            dataTask.resume()
+        }
     }
+    
+    
+    func city(at url: URL, completion: @escaping (City?, Error?) -> Void) {
+        let session = URLSession.shared
+        let request = URLRequest(url: url)
+        session.dataTask(with: request) { data, response, error in
+            if let data = data {
+                guard let json = (try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)) as? [String: Any] else {
+                    return print("Could not create JSON")
+                }
+                guard let name = json["name"] as? String else { return }
+                guard let population = json["population"] as? Int else { return }
+                guard let location = json["location"] as? [String: Any] else { return }
+                guard let latLon = location["latlon"] as? [String: Any] else { return }
+                guard let lat = latLon["latitude"] as? Double else { return }
+                guard let lon = latLon["longitude"] as? Double else { return }
+                
+                let coords = Coordinates(latitude: lat, longitude: lon)
+                
+                let _location = Location(coordinates: coords)
+                let city = City(name: name, population: population, location: _location)
+                completion(city, nil)
+            }
+            }.resume()
+    }
+
 }

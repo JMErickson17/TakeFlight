@@ -51,10 +51,10 @@ class MapCardVC: UIViewController {
     // MARK: Public API
     
     func addFlightPathAnnotations(from origin: Coordinates, to destination: Coordinates) {
-        let origin = CLLocation(latitude: origin.latitide, longitude: origin.longitude)
+        let origin = CLLocation(latitude: origin.latitude, longitude: origin.longitude)
         let originAnnotation = AirportAnnotation(title: "Origin", coordinate: origin.coordinate)
         
-        let destination = CLLocation(latitude: destination.latitide, longitude: destination.longitude)
+        let destination = CLLocation(latitude: destination.latitude, longitude: destination.longitude)
         let destinationAnnotation = AirportAnnotation(title: "Destination", coordinate: destination.coordinate)
         
         mapView.addAnnotation(originAnnotation)

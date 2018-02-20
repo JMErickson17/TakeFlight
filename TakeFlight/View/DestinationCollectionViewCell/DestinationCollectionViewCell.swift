@@ -12,12 +12,24 @@ class DestinationCollectionViewCell: UICollectionViewCell {
     
     // MARK: Properties
     
+    weak var delegate: DestinationCollectionViewCellDelegate?
+    
+    private var destination: Destination?
+    
     private lazy var backgroundImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.image = #imageLiteral(resourceName: "DefaultDestinationImage")
         return imageView
+    }()
+    
+    private lazy var destinationDetailsButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(#imageLiteral(resourceName: "CityInfoIcon"), for: .normal)
+        button.addTarget(self, action: #selector(destinationDetailsButtonWasTapped(_:)), for: .touchUpInside)
+        return button
     }()
     
     private lazy var blurredView: UIVisualEffectView = {
@@ -76,6 +88,14 @@ class DestinationCollectionViewCell: UICollectionViewCell {
             backgroundImage.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         
+        addSubview(destinationDetailsButton)
+        NSLayoutConstraint.activate([
+            destinationDetailsButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+            destinationDetailsButton.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+            destinationDetailsButton.heightAnchor.constraint(equalToConstant: 50),
+            destinationDetailsButton.widthAnchor.constraint(equalToConstant: 50)
+        ])
+        
         addSubview(blurredView)
         NSLayoutConstraint.activate([
             blurredView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -101,11 +121,17 @@ class DestinationCollectionViewCell: UICollectionViewCell {
     
     // MARK: Convenience
     
-    func configureCell(with image: UIImage?, title: String, subtitle: String) {
+    func configureCell(with image: UIImage?, destination: Destination) {
+        self.destination = destination
         if let image = image {
             self.backgroundImage.image = image
         }
-        self.title.text = [title, subtitle].joined(separator: ", ")
+        self.title.text = [destination.city, destination.state].joined(separator: ", ")
+    }
+    
+    @objc private func destinationDetailsButtonWasTapped(_ sender: UIButton) {
+        guard let destination = destination else { return }
+        delegate?.destinationCollectionViewCell(self, didSelectDestinationDetailsFor: destination)
     }
 }
 

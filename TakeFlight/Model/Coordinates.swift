@@ -7,8 +7,15 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct Coordinates: Codable {
-    var latitide: Double
+    var latitude: Double
     var longitude: Double
+}
+
+extension Coordinates {
+    var clLocation: CLLocation {
+        return CLLocation(latitude: latitude, longitude: longitude)
+    }
 }

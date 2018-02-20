@@ -72,6 +72,10 @@ extension FirebaseStorageService: DestinationStorageService {
         return storageRef.child("destinationCellImages")
     }
     
+    private var destinationImagesRef: StorageReference {
+        return storageRef.child("DestinationImages")
+    }
+    
     func upload(imageData: Data, for destination: Destination, completion: @escaping (URL?, Error?) -> Void) {
         DispatchQueue.global().async {
             let imagePath = self.destinationCellImagesRef.child(destination.city)
@@ -86,8 +90,8 @@ extension FirebaseStorageService: DestinationStorageService {
     
     func download(imageForDestination destination: Destination, completion: @escaping (Data?, Error?) -> Void) {
         DispatchQueue.global().async {
-            let imagePath = self.destinationCellImagesRef.child(destination.city)
-            imagePath.getData(maxSize: 1 * 1024 * 1024, completion: completion)
+            let imagePath = self.destinationImagesRef.child("\(destination.city).png")
+            imagePath.getData(maxSize: 2 * 1024 * 1024, completion: completion)
         }
     }
 }

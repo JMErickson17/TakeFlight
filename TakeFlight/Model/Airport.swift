@@ -59,22 +59,7 @@ struct Airport: Codable {
         self.country = country
         self.municipality = municipality
         self.iata = iata
-        self.coordinates = Coordinates(latitide: lat, longitude: lon)
-    }
-    
-    init?(airportDictionary: [String: Any]) {
-        guard let name = airportDictionary["name"] as? String else { return nil }
-        guard let city = airportDictionary["city"] as? String else { return nil }
-        guard let state = airportDictionary["state"] as? String else { return nil }
-        guard let stateAbbreviation = airportDictionary["stateAbbreviation"] as? String else { return nil }
-        guard let country = airportDictionary["country"] as? String else { return nil }
-        guard let municipality = airportDictionary["municipality"] as? String else { return nil }
-        guard let iata = airportDictionary["iata"] as? String else { return nil }
-        guard let lat = airportDictionary["lat"] as? String else { return nil }
-        guard let lon = airportDictionary["lon"] as? String else { return nil }
-        
-        self.init(name: name, city: city, state: state, stateAbbreviation: stateAbbreviation,
-                  country: country, municipality: municipality, iata: iata, lat: Double(lat)!, lon: Double(lon)!)
+        self.coordinates = Coordinates(latitude: lat, longitude: lon)
     }
 }
 
@@ -87,7 +72,7 @@ extension Airport: Equatable {
                 lhs.country == rhs.country &&
                 lhs.municipality == rhs.municipality &&
                 lhs.iata == rhs.iata &&
-                lhs.coordinates.latitide == rhs.coordinates.latitide &&
+                lhs.coordinates.latitude == rhs.coordinates.latitude &&
                 lhs.coordinates.longitude == rhs.coordinates.longitude
         
     }

@@ -58,7 +58,11 @@ class FirebaseDestinationService: DestinationService {
                 if let error = error { return completion(nil, error) }
                 let destinations: [Destination] = snapshot!.documents.flatMap { destination in
                     if let data = try? JSONSerialization.data(withJSONObject: destination.data(), options: .sortedKeys) {
-                        return try? JSONDecoder().decode(Destination.self, from: data)
+                        do {
+                            return try JSONDecoder().decode(Destination.self, from: data)
+                        } catch {
+                            print(error)
+                        }
                     }
                     return nil
                 }
@@ -76,19 +80,6 @@ class FirebaseDestinationService: DestinationService {
         }
         DispatchQueue.global().async {
             self.destinationsCollectionRef.document(destination.city).setData(destinationDictionary, completion: completion)
-        }
-    }
-    
-    func create(destination: Destination, with image: UIImage) {
-        guard let imageData = UIImagePNGRepresentation(image) else { return print("Could not create data") }
-        storageService.upload(imageData: imageData, for: destination) { url, error in
-            if let error = error { return print(error) }
-            if let url = url {
-                let newDestination = Destination(city: destination.city, state: destination.state, country: destination.country, imageURL: url, airports: destination.airports)
-                self.create(destination: newDestination, completion: { error in
-                    if let error = error { print(error) }
-                })
-            }
         }
     }
     

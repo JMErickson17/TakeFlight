@@ -7,19 +7,22 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct Destination: Codable {
     let city: String
     let state: String
     let country: String
-    let imageURL: URL
+    let coordinates: Coordinates
+    let population: Int
     let airports: [String]
     
-    init(city: String, state: String, country: String, imageURL: URL, airports: [String]) {
+    init(city: String, state: String, country: String, coordinates: Coordinates, population: Int, airports: [String]) {
         self.city = city
         self.state = state
         self.country = country
-        self.imageURL = imageURL
+        self.coordinates = coordinates
+        self.population = population
         self.airports = airports
     }
 }

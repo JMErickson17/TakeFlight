@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 import RxSwift
 import RxCocoa
 
@@ -26,9 +27,7 @@ class ExploreViewModel {
         }
     }
     
-    private var popularDestinations: [Destination] {
-        return destinationService.destinations
-    }
+    private let topRatedCities = ["New York", "Philadelphia", "Honolulu", "San Fransico", "Washington DC", "Miami", "Los Angeles", "Seattle", "Denver", "Las Vegas", "Orlando"]
     
     // MARK: Lifecycle
     
@@ -40,11 +39,21 @@ class ExploreViewModel {
     // MARK: Setup
     
     private func setupTableData() {
+        print(destinationService.destinations.count)
+        let popularDestinations = destinationService.destinations.filter { topRatedCities.contains($0.city) }
+        let largeCities = destinationService.destinations.filter { $0.population > 800000 }
+        
         self._tableData = [
             Section(title: "Popular Destinations", items: popularDestinations),
-            Section(title: "Quick Get Aways", items: popularDestinations),
-            Section(title: "Close to Home", items: popularDestinations)
+            Section(title: "Big Cities", items: largeCities)
         ]
+        
+        if let origin = UserDefaultsService.instance.origin {
+            let nearby = destinationService.destinations.filter { $0.coordinates.clLocation.distance(from: origin.coordinates.clLocation) < 1000000 }
+            if !nearby.isEmpty {
+                _tableData.append(Section(title: "Nearby \(origin.city)", items: nearby))
+            }
+        }
     }
     
     // MARK: Convenience

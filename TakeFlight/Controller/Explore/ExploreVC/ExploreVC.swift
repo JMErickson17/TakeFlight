@@ -49,20 +49,6 @@ class ExploreVC: UIViewController {
     
     // MARK: Convenience
     
-    private func searchDestination(at indexPath: IndexPath) {
-        let destinationAirportCode = viewModel.destination(for: indexPath).airports.first!
-        let destinationAirport = appDelegate.firebaseAirportService!.airport(withIdentifier: destinationAirportCode)
-        UserDefaultsService.instance.destination = destinationAirport!
-        
-        self.tabBarController?.selectTab(1, animated: true, completion: {
-            if let navigationController = self.tabBarController?.selectedViewController as? UINavigationController {
-                if let searchVC = navigationController.topViewController as? SearchVC {
-                    searchVC.updateUserDefaultsAndSearch()
-                }
-            }
-        })
-    }
-    
     private func search(_ destination: Destination) {
         guard let identifier = destination.airports.first else { return }
         if let airport = airportService.airport(withIdentifier: identifier) {
@@ -76,6 +62,11 @@ class ExploreVC: UIViewController {
                 }
             }
         }
+    }
+    
+    private func presentDestinationDetailsVC(with destination: Destination) {
+        let destinationDetailsVC = DestinationDetailsVC(destination: destination)
+        self.navigationController?.pushViewController(destinationDetailsVC, animated: true)
     }
 }
 
@@ -118,5 +109,9 @@ extension ExploreVC: UITableViewDelegate, UITableViewDataSource {
 extension ExploreVC: DestinationCollectionCellManagerDelegate {
     func destinationCollectionCellManager(_ destinationCollectionCellManager: DestinationCollectionCellManager, didSelectDestination destination: Destination) {
         search(destination)
+    }
+    
+    func destinationCollectionCellManager(_ destinationCollectionCellManager: DestinationCollectionCellManager, didSelectDestinationDetailsFor destination: Destination) {
+        presentDestinationDetailsVC(with: destination)
     }
 }

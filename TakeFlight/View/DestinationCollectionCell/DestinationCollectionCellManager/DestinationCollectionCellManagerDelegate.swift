@@ -10,4 +10,5 @@ import Foundation
 
 protocol DestinationCollectionCellManagerDelegate: class {
     func destinationCollectionCellManager(_ destinationCollectionCellManager: DestinationCollectionCellManager, didSelectDestination destination: Destination)
+    func destinationCollectionCellManager(_ destinationCollectionCellManager: DestinationCollectionCellManager, didSelectDestinationDetailsFor destination: Destination)
 }
