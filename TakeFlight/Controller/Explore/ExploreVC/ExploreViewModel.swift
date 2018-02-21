@@ -27,7 +27,8 @@ class ExploreViewModel {
         }
     }
     
-    private let topRatedCities = ["New York", "Philadelphia", "Honolulu", "San Fransico", "Washington DC", "Miami", "Los Angeles", "Seattle", "Denver", "Las Vegas", "Orlando"]
+    private let topRatedCities = ["New York", "Philadelphia", "Honolulu", "San Fransico", "Washington DC",
+                                  "Miami", "Los Angeles", "Seattle", "Denver", "Las Vegas", "Orlando"]
     
     // MARK: Lifecycle
     
@@ -39,7 +40,6 @@ class ExploreViewModel {
     // MARK: Setup
     
     private func setupTableData() {
-        print(destinationService.destinations.count)
         let popularDestinations = destinationService.destinations.filter { topRatedCities.contains($0.city) }
         let largeCities = destinationService.destinations.filter { $0.population > 800000 }
         
@@ -66,8 +66,11 @@ class ExploreViewModel {
         return tableData.value[section].title
     }
     
-    
     func items(for section: Int) -> [Destination] {
         return _tableData[section].items
+    }
+    
+    func updateTableData() {
+        setupTableData()
     }
 }

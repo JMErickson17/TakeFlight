@@ -22,24 +22,34 @@ class DestinationDetailsVC: UIViewController {
         }
     }
     
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.delegate = self
-        tableView.dataSource = self
-        return tableView
+    private let scrollView: UIScrollView  = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.backgroundColor = .white
+        return scrollView
     }()
     
-    private lazy var destinationImageHeader: UIImageView = {
+    private let contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let destinationHeaderView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let destinationHeaderImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.image = #imageLiteral(resourceName: "SkyHeaderImage_2")
         return imageView
     }()
     
-    private lazy var destinationLabel: UILabel = {
+    private let destinationLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 24)
@@ -47,13 +57,34 @@ class DestinationDetailsVC: UIViewController {
         return label
     }()
     
+    private let contentStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        return stackView
+    }()
+    
+    private let cityDetailsVC: CityDetailsVC = {
+        let cityDetailsVC = CityDetailsVC()
+        cityDetailsVC.view.translatesAutoresizingMaskIntoConstraints = false
+        cityDetailsVC.view.backgroundColor = .white
+        return cityDetailsVC
+    }()
+    
+    private lazy var destinationFlightsVC: DestinationFlightsVC = {
+        let destinationFlightsVC = DestinationFlightsVC(destination: self.destination!)
+        destinationFlightsVC.view.translatesAutoresizingMaskIntoConstraints = false
+        destinationFlightsVC.view.backgroundColor = .white
+        return destinationFlightsVC
+    }()
+    
+    
     // MARK: View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupView()
-        setupTableView()
     }
     
     // MARK: Initialization
@@ -69,25 +100,74 @@ class DestinationDetailsVC: UIViewController {
     // MARK: Setup
     
     private func setupView() {
-        destinationImageHeader.addSubview(destinationLabel)
+        view.backgroundColor = .white
+        
+        view.addSubview(scrollView)
         NSLayoutConstraint.activate([
-            destinationLabel.leadingAnchor.constraint(equalTo: destinationImageHeader.leadingAnchor, constant: 8),
-            destinationLabel.bottomAnchor.constraint(equalTo: destinationImageHeader.bottomAnchor, constant: -8)
-        ])
-    }
-    
-    private func setupTableView() {
-        view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
-        tableView.tableHeaderView = destinationImageHeader
-        tableView.contentInset = UIEdgeInsets(top: destinationImageHeader.frame.height, left: 0, bottom: 0, right: 0)
+        scrollView.addSubview(contentView)
+        NSLayoutConstraint.activate([
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+        ])
+        
+        destinationHeaderView.addSubview(destinationHeaderImage)
+        NSLayoutConstraint.activate([
+            destinationHeaderImage.leadingAnchor.constraint(equalTo: destinationHeaderView.leadingAnchor),
+            destinationHeaderImage.topAnchor.constraint(equalTo: destinationHeaderView.topAnchor),
+            destinationHeaderImage.trailingAnchor.constraint(equalTo: destinationHeaderView.trailingAnchor),
+            destinationHeaderImage.bottomAnchor.constraint(equalTo: destinationHeaderView.bottomAnchor)
+        ])
+        
+        
+        destinationHeaderView.addSubview(destinationLabel)
+        NSLayoutConstraint.activate([
+            destinationLabel.leadingAnchor.constraint(equalTo: destinationHeaderView.leadingAnchor, constant: 8),
+            destinationLabel.bottomAnchor.constraint(equalTo: destinationHeaderView.bottomAnchor, constant: -8)
+        ])
+        
+        contentView.addSubview(destinationHeaderView)
+        NSLayoutConstraint.activate([
+            destinationHeaderView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            destinationHeaderView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            destinationHeaderView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            destinationHeaderView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+            destinationHeaderView.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.80)
+        ])
+        
+        contentView.addSubview(contentStackView)
+        NSLayoutConstraint.activate([
+            contentStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            contentStackView.topAnchor.constraint(equalTo: destinationHeaderView.bottomAnchor),
+            contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            contentStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
+        
+        add(cityDetailsVC)
+        contentStackView.addArrangedSubview(cityDetailsVC.view)
+        cityDetailsVC.destination = destination
+        NSLayoutConstraint.activate([
+            cityDetailsVC.view.widthAnchor.constraint(equalTo: contentStackView.widthAnchor),
+            cityDetailsVC.view.heightAnchor.constraint(equalToConstant: 100)
+        ])
+        
+        add(destinationFlightsVC)
+        contentStackView.addArrangedSubview(destinationFlightsVC.view)
+        NSLayoutConstraint.activate([
+            destinationFlightsVC.view.widthAnchor.constraint(equalTo: contentStackView.widthAnchor),
+            destinationFlightsVC.view.heightAnchor.constraint(equalToConstant: 500)
+        ])
+        
+        scrollView.contentSize = CGSize(width: contentView.bounds.width, height: contentView.bounds.height)
     }
+    
     
     // MARK: Configuration
     
@@ -97,23 +177,9 @@ class DestinationDetailsVC: UIViewController {
         destinationService.image(for: destination) { [weak self] image, error in
             if let error = error { print(error) }
             DispatchQueue.main.async {
-                self?.destinationImageHeader.image = image
+                self?.destinationHeaderImage.image = image
             }
         }
     }
 }
 
-// MARK:- UITableViewDelegate, UITableViewDataSource
-
-extension DestinationDetailsVC: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
-    }
-    
-    
-}

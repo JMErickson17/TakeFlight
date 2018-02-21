@@ -30,6 +30,12 @@ class ExploreVC: UIViewController {
         bindViewModel()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel.updateTableData()
+    }
+    
     // MARK: Setup
     
     private func setupView() {
