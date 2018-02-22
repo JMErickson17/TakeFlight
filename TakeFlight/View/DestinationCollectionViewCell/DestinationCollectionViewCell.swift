@@ -29,6 +29,7 @@ class DestinationCollectionViewCell: UICollectionViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(#imageLiteral(resourceName: "CityInfoIcon"), for: .normal)
         button.addTarget(self, action: #selector(destinationDetailsButtonWasTapped(_:)), for: .touchUpInside)
+        button.isHidden = true
         return button
     }()
     
