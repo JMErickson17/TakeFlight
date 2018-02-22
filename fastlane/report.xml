@@ -5,22 +5,22 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: increment_version_number" time="1.35287">
+      <testcase classname="fastlane.lanes" name="0: increment_version_number" time="1.146328">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: increment_build_number" time="1.572004">
+      <testcase classname="fastlane.lanes" name="1: increment_build_number" time="1.470608">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: build_app" time="319.442132">
+      <testcase classname="fastlane.lanes" name="2: build_app" time="336.527281">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: upload_to_app_store" time="207.531329">
+      <testcase classname="fastlane.lanes" name="3: upload_to_app_store" time="134.873645">
         
           <failure message="/Users/justinerickson/.fastlane/bin/bundle/lib/ruby/gems/2.2.0/gems/fastlane-2.81.0/fastlane/lib/fastlane/actions/actions_helper.rb:48:in `execute_action'&#10;/Users/justinerickson/.fastlane/bin/bundle/lib/ruby/gems/2.2.0/gems/fastlane-2.81.0/fastlane/lib/fastlane/runner.rb:235:in `block in execute_action'&#10;/Users/justinerickson/.fastlane/bin/bundle/lib/ruby/gems/2.2.0/gems/fastlane-2.81.0/fastlane/lib/fastlane/runner.rb:230:in `chdir'&#10;/Users/justinerickson/.fastlane/bin/bundle/lib/ruby/gems/2.2.0/gems/fastlane-2.81.0/fastlane/lib/fastlane/runner.rb:230:in `execute_action'&#10;/Users/justinerickson/.fastlane/bin/bundle/lib/ruby/gems/2.2.0/gems/fastlane-2.81.0/fastlane/lib/fastlane/server/socket_server_action_command_executor.rb:73:in `run'&#10;/Users/justinerickson/.fastlane/bin/bundle/lib/ruby/gems/2.2.0/gems/fastlane-2.81.0/fastlane/lib/fastlane/server/socket_server_action_command_executor.rb:42:in `execute'&#10;/Users/justinerickson/.fastlane/bin/bundle/lib/ruby/gems/2.2.0/gems/fastlane-2.81.0/fastlane/lib/fastlane/server/socket_server.rb:179:in `execute_action_command'&#10;/Users/justinerickson/.fastlane/bin/bundle/lib/ruby/gems/2.2.0/gems/fastlane-2.81.0/fastlane/lib/fastlane/server/socket_server.rb:174:in `process_action_command'&#10;/Users/justinerickson/.fastlane/bin/bundle/lib/ruby/gems/2.2.0/gems/fastlane-2.81.0/fastlane/lib/fastlane/server/socket_server.rb:121:in `handle_action_command'&#10;/Users/justinerickson/.fastlane/bin/bundle/lib/ruby/gems/2.2.0/gems/fastlane-2.81.0/fastlane/lib/fastlane/server/socket_server.rb:84:in `parse_and_execute_command'&#10;/Users/justinerickson/.fastlane/bin/bundle/lib/ruby/gems/2.2.0/gems/fastlane-2.81.0/fastlane/lib/fastlane/server/socket_server.rb:60:in `block in receive_and_process_commands'&#10;/Users/justinerickson/.fastlane/bin/bundle/lib/ruby/gems/2.2.0/gems/fastlane-2.81.0/fastlane/lib/fastlane/server/socket_server.rb:47:in `loop'&#10;/Users/justinerickson/.fastlane/bin/bundle/lib/ruby/gems/2.2.0/gems/fastlane-2.81.0/fastlane/lib/fastlane/server/socket_server.rb:47:in `receive_and_process_commands'&#10;/Users/justinerickson/.fastlane/bin/bundle/lib/ruby/gems/2.2.0/gems/fastlane-2.81.0/fastlane/lib/fastlane/server/socket_server.rb:156:in `listen'&#10;/Users/justinerickson/.fastlane/bin/bundle/lib/ruby/gems/2.2.0/gems/fastlane-2.81.0/fastlane/lib/fastlane/server/socket_server.rb:36:in `start'&#10;/Users/justinerickson/.fastlane/bin/bundle/lib/ruby/gems/2.2.0/gems/fastlane-2.81.0/fastlane/lib/fastlane/swift_lane_manager.rb:226:in `block in start_socket_thread'&#10;&#10;Could not upload binary to iTunes Connect. Check out the error above" />
         

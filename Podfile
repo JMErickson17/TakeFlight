@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '11.0'
 
 target 'TakeFlight' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
@@ -27,7 +27,7 @@ target 'TakeFlight' do
   
   # Other
   pod 'JTAppleCalendar', :git => 'https://github.com/patchthecode/JTAppleCalendar.git', :branch => 'master'
-  pod 'Reveal-SDK', configurations: ['Debug']
+  pod 'Reveal-SDK', :configurations => ['Debug']
 
   target 'TakeFlightTests' do
     inherit! :search_paths
@@ -41,4 +41,15 @@ target 'TakeFlight' do
     # Pods for testing
   end
 
+end
+
+
+# Post install to force all embeded binaries to arm64
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    plist_buddy = "/usr/libexec/PlistBuddy"
+    plist = "Pods/Target Support Files/#{target}/Info.plist"
+    `#{plist_buddy} -c "Add UIRequiredDeviceCapabilities array" "#{plist}"`
+    `#{plist_buddy} -c "Add UIRequiredDeviceCapabilities:0 string arm64" "#{plist}"`
+  end
 end
