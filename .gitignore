@@ -76,4 +76,8 @@ Pods/
 **/node_modules/*
 **/.firebaserc
 
+### App Binaries ###
+*.ipa
+*.app.dSYM.zip
+
 # End of https://www.gitignore.io/api/git,macos,xcode
