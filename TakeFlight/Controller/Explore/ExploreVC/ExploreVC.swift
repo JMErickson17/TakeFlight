@@ -34,6 +34,8 @@ class ExploreVC: UIViewController {
         super.viewWillAppear(animated)
         
         viewModel.updateTableData()
+        
+        let _ = TeleportDestinationDetailService()
     }
     
     // MARK: Setup

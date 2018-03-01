@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import CoreLocation
 
 struct Destination: Codable {
     let city: String
