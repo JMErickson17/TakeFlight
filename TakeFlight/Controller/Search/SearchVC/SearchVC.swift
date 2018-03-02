@@ -288,32 +288,32 @@ class SearchVC: UIViewController {
         dismissDatePicker()
         
         airportPickerVC = AirportPickerVC()
-        airportPickerVC?.delegate = self
-        airportPickerVC!.currentTextFieldTag = tag
+        guard let airportPicker = airportPickerVC else { return }
+        airportPicker.delegate = self
+        if tag == 1 {
+            airportPicker.airportStatus = .origin
+        } else if tag == 2 {
+            airportPicker.airportStatus = .destination
+        }
         
-        addChildViewController(airportPickerVC!)
-        airportPickerVC!.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(airportPickerVC!.view)
+        self.add(airportPicker)
+        airportPicker.view.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            airportPickerVC!.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
-            airportPickerVC!.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
-            airportPickerVC!.view.topAnchor.constraint(equalTo: originTextField.bottomAnchor, constant: 5),
-            airportPickerVC!.view.heightAnchor.constraint(equalToConstant: 250)
+            airportPicker.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
+            airportPicker.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+            airportPicker.view.topAnchor.constraint(equalTo: originTextField.bottomAnchor, constant: 5),
+            airportPicker.view.heightAnchor.constraint(equalToConstant: 250)
         ])
-        
-        airportPickerVC!.didMove(toParentViewController: self)
         
         completion?()
     }
     
     func dismissAirportPicker() {
-        guard airportPickerVC != nil else { return }
-        guard childViewControllers.contains(airportPickerVC!) else { return }
-        airportPickerVC!.willMove(toParentViewController: nil)
-        airportPickerVC!.view.removeFromSuperview()
-        airportPickerVC!.removeFromParentViewController()
-        airportPickerVC = nil
+        guard let airportPicker = airportPickerVC else { return }
+        guard childViewControllers.contains(airportPicker) else { return }
+        airportPicker.removeChildViewController()
+        self.airportPickerVC = nil
         if shouldSearch {
             viewModel.searchFlights()
         }

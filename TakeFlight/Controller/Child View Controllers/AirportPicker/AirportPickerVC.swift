@@ -9,13 +9,18 @@
 import UIKit
 import Firebase
 
+enum AirportStatus {
+    case origin
+    case destination
+}
+
 class AirportPickerVC: UIViewController {
     
     // MARK: Properties
     
     weak var delegate: AirportPickerVCDelegate?
     
-    var currentTextFieldTag: Int?
+    var airportStatus: AirportStatus?
     
     private var maxSearchResults = 20
     private var airportService: AirportService!
@@ -31,7 +36,7 @@ class AirportPickerVC: UIViewController {
     
     private lazy var tooltipView: TooltipView = {
         let view = TooltipView()
-        view.tooltipLocation = (currentTextFieldTag == 1 ? 0.25 : 0.75)
+        view.tooltipLocation = (airportStatus == .origin ? 0.25 : 0.75)
         view.isOpaque = false
         view.borderRadius = 5
         return view
@@ -109,16 +114,14 @@ extension AirportPickerVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let currentTextFieldTag = currentTextFieldTag else { return }
+        guard let airportStatus = airportStatus else { return }
         let airport = filteredAirports[indexPath.row]
         
-        switch currentTextFieldTag {
-        case 1:
+        switch airportStatus {
+        case .origin:
             delegate?.airportPickerVC(self, didPickOriginAirport: airport)
-        case 2:
+        case .destination:
             delegate?.airportPickerVC(self, didPickDestinationAirport: airport)
-        default:
-            return
         }
         
         delegate?.airportPickerVCDismiss(self)

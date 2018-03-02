@@ -151,6 +151,8 @@
 		CAC71456203388E400C4E8A5 /* FirebaseDestinationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC71455203388E400C4E8A5 /* FirebaseDestinationError.swift */; };
 		CACB0EA51FF55CDE00500D10 /* CarrierFilterVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACB0EA41FF55CDE00500D10 /* CarrierFilterVCDelegate.swift */; };
 		CAD1A0321FE318C50052E16A /* IconAndLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD1A0311FE318C50052E16A /* IconAndLabelView.swift */; };
+		CAD1C7342049D0CF0041FD90 /* OriginTextFieldHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD1C7332049D0CF0041FD90 /* OriginTextFieldHeaderView.swift */; };
+		CAD1C7362049F8A40041FD90 /* UITextField+Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD1C7352049F8A40041FD90 /* UITextField+Padding.swift */; };
 		CAD659BD2018008A006AB441 /* MyFlightCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD659BC2018008A006AB441 /* MyFlightCardView.swift */; };
 		CAD659BF201800EB006AB441 /* MyFlightCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAD659BE201800EB006AB441 /* MyFlightCardView.xib */; };
 		CAD659C220180C81006AB441 /* FlightDetailsVCFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD659C120180C81006AB441 /* FlightDetailsVCFactory.swift */; };
@@ -353,6 +355,8 @@
 		CAC71455203388E400C4E8A5 /* FirebaseDestinationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDestinationError.swift; sourceTree = "<group>"; };
 		CACB0EA41FF55CDE00500D10 /* CarrierFilterVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrierFilterVCDelegate.swift; sourceTree = "<group>"; };
 		CAD1A0311FE318C50052E16A /* IconAndLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconAndLabelView.swift; sourceTree = "<group>"; };
+		CAD1C7332049D0CF0041FD90 /* OriginTextFieldHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginTextFieldHeaderView.swift; sourceTree = "<group>"; };
+		CAD1C7352049F8A40041FD90 /* UITextField+Padding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Padding.swift"; sourceTree = "<group>"; };
 		CAD659BC2018008A006AB441 /* MyFlightCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFlightCardView.swift; sourceTree = "<group>"; };
 		CAD659BE201800EB006AB441 /* MyFlightCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyFlightCardView.xib; sourceTree = "<group>"; };
 		CAD659C120180C81006AB441 /* FlightDetailsVCFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDetailsVCFactory.swift; sourceTree = "<group>"; };
@@ -1059,6 +1063,7 @@
 				CA5328221FE7571D00867E35 /* FlightDataTableViewHeaderView.swift */,
 				CA5B598B1FE83BE800B08A9D /* ProfileImageView.swift */,
 				CA55C0F21FE99965008990C8 /* LoggedInStatusView.swift */,
+				CAD1C7332049D0CF0041FD90 /* OriginTextFieldHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1124,6 +1129,7 @@
 				CA6543BC2037C1E900D70711 /* Double+asCurrencyString.swift */,
 				CA86A324203891E50023A49D /* UITableView+ReusableCells.swift */,
 				CA86A3262038939F0023A49D /* UICollectionView+ReusableCells.swift */,
+				CAD1C7352049F8A40041FD90 /* UITextField+Padding.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1541,6 +1547,7 @@
 				CA55C0F51FE99F2D008990C8 /* LoggedInStatusViewDelegate.swift in Sources */,
 				CAA6561E1FF40D2F00DB59C4 /* RefineVCDelegate.swift in Sources */,
 				CAED4264203CFE3F00BF1EE0 /* DestinationFlightsVC.swift in Sources */,
+				CAD1C7342049D0CF0041FD90 /* OriginTextFieldHeaderView.swift in Sources */,
 				CA55C0F31FE99965008990C8 /* LoggedInStatusView.swift in Sources */,
 				CA76EB0020211CA200D5D91C /* Destination.swift in Sources */,
 				CAFA6E53201047A600FA39B2 /* SearchState.swift in Sources */,
@@ -1655,6 +1662,7 @@
 				CAA19A0E1FA3C08000A479A8 /* AirportPickerCell.swift in Sources */,
 				CA5328231FE7571D00867E35 /* FlightDataTableViewHeaderView.swift in Sources */,
 				CAB0B4ED20377223000A13EE /* AirportAnnotation.swift in Sources */,
+				CAD1C7362049F8A40041FD90 /* UITextField+Padding.swift in Sources */,
 				CAC4CB0C20362FA600B4665A /* UIViewController+Identifier.swift in Sources */,
 				CA9B20831FD5F4990008447C /* FlightDataCell.swift in Sources */,
 				CA3E533120117D1D00148910 /* FlightFilterOptions.swift in Sources */,

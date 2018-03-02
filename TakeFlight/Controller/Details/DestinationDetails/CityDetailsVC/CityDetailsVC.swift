@@ -10,6 +10,14 @@ import UIKit
 
 class CityDetailsVC: UIViewController {
     
+    // MARK: Properties
+    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
     var destination: Destination? {
         didSet {
             if let destination = destination {
@@ -24,12 +32,16 @@ class CityDetailsVC: UIViewController {
         label.textAlignment = .center
         return label
     }()
+    
+    // MARK: View Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupView()
     }
+    
+    // MARK: Setup
 
     private func setupView() {
         view.addSubview(populationLabel)
@@ -45,3 +57,5 @@ class CityDetailsVC: UIViewController {
     }
 
 }
+
+

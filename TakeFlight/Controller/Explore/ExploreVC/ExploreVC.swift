@@ -74,6 +74,7 @@ class ExploreVC: UIViewController {
     
     private func presentDestinationDetailsVC(with destination: Destination) {
         let destinationDetailsVC = DestinationDetailsVC(destination: destination)
+        
         self.navigationController?.pushViewController(destinationDetailsVC, animated: true)
     }
 }

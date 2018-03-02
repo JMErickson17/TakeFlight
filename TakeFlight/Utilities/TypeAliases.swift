@@ -14,3 +14,4 @@ typealias Hour = Int
 // MARK: Completion Handlers
 
 typealias ErrorCompletionHandler = (Error?) -> Void
+typealias CompletionHandler = () -> Void

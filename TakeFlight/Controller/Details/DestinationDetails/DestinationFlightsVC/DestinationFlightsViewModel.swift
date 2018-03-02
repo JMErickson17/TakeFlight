@@ -16,6 +16,7 @@ struct DestinationFlightsViewModel {
     
     var originTextFieldText: BehaviorRelay<String> = BehaviorRelay(value: "")
     var cheapestFlights: BehaviorRelay<[FlightData]> = BehaviorRelay(value: [])
+    var isSearching: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     
     // MARK: Properties
     
@@ -37,16 +38,19 @@ struct DestinationFlightsViewModel {
     
     private func setupViewModel() {
         configureViewModel(for: destination)
-        
-        if let origin = userDefaults.origin {
-            originTextFieldText.accept("From \(origin.name)")
-        } else {
-            originTextFieldText.accept("Select an origin.")
-        }
+        configureViewModel(for: userDefaults.origin)
     }
     
     private func configureViewModel(for destination: Destination) {
         searchFlights(for: destination)
+    }
+    
+    private func configureViewModel(for origin: Airport?) {
+        if let origin = origin {
+            originTextFieldText.accept(origin.name)
+        } else {
+            originTextFieldText.accept("Select an origin.")
+        }
     }
     
     // MARK: Flights Search
@@ -56,6 +60,8 @@ struct DestinationFlightsViewModel {
         guard let destinationAirportCode = destination.airports.first else { return }
         guard let destinationAirport = airportService.airport(withIdentifier: destinationAirportCode) else { return }
         let departureDate = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
+        removeAllFlights()
+        isSearching.accept(true)
         
         let request = flightDataService.makeQPXRequest(adultCount: 1,
                                                        childCount: 0,
@@ -72,11 +78,13 @@ struct DestinationFlightsViewModel {
     }
     
     private func handleFlightDataError(_ error: Error) {
+        isSearching.accept(false)
         print(error)
     }
     
     
     private func handleNewFlightData(_ flightData: [FlightData]) {
+        isSearching.accept(false)
         var cheapestFlights = [Carrier: FlightData]()
         let carriers = flightData.map { $0.departingFlight.carrier }
 
@@ -90,9 +98,18 @@ struct DestinationFlightsViewModel {
         self.cheapestFlights.accept(cheapestFlights.map { $0.value }.sorted(by: { $0.saleTotal < $1.saleTotal }))
     }
     
+    private func removeAllFlights() {
+        self.cheapestFlights.accept([])
+    }
+    
     // MARK: Public API
     
     func flight(for indexPath: IndexPath) -> FlightData {
         return cheapestFlights.value[indexPath.row]
+    }
+    
+    func updateViewModel(for origin: Airport) {
+        configureViewModel(for: origin)
+        searchFlights(for: destination)
     }
 }

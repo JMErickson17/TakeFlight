@@ -8,8 +8,17 @@
 
 import UIKit
 
-class DestinationDetailsVC: UIViewController {
+protocol DestinationDetailsVCScrollable: class {
+    func scrollTo(_ position: DestinationDetailsScrollPosition, completion: CompletionHandler?)
+}
 
+enum DestinationDetailsScrollPosition {
+    case destinationFlights
+    case cityDetails
+}
+
+class DestinationDetailsVC: UIViewController {
+    
     // MARK: Properties
     
     private var destinationService: DestinationService!
@@ -32,6 +41,7 @@ class DestinationDetailsVC: UIViewController {
     private let contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.backgroundGray
         return view
     }()
     
@@ -61,6 +71,7 @@ class DestinationDetailsVC: UIViewController {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
+        stackView.spacing = 10
         return stackView
     }()
     
@@ -75,6 +86,7 @@ class DestinationDetailsVC: UIViewController {
         let destinationFlightsVC = DestinationFlightsVC(destination: self.destination!)
         destinationFlightsVC.view.translatesAutoresizingMaskIntoConstraints = false
         destinationFlightsVC.view.backgroundColor = .white
+        destinationFlightsVC.scroller = self
         return destinationFlightsVC
     }()
     
@@ -101,6 +113,7 @@ class DestinationDetailsVC: UIViewController {
     
     private func setupView() {
         view.backgroundColor = .white
+        title = "Explore"
         
         view.addSubview(scrollView)
         NSLayoutConstraint.activate([
@@ -145,9 +158,15 @@ class DestinationDetailsVC: UIViewController {
         contentView.addSubview(contentStackView)
         NSLayoutConstraint.activate([
             contentStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            contentStackView.topAnchor.constraint(equalTo: destinationHeaderView.bottomAnchor),
+            contentStackView.topAnchor.constraint(equalTo: destinationHeaderView.bottomAnchor, constant: 10),
             contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             contentStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
+        
+        add(destinationFlightsVC)
+        contentStackView.addArrangedSubview(destinationFlightsVC.view)
+        NSLayoutConstraint.activate([
+            destinationFlightsVC.view.widthAnchor.constraint(equalTo: contentStackView.widthAnchor)
         ])
         
         add(cityDetailsVC)
@@ -155,19 +174,11 @@ class DestinationDetailsVC: UIViewController {
         cityDetailsVC.destination = destination
         NSLayoutConstraint.activate([
             cityDetailsVC.view.widthAnchor.constraint(equalTo: contentStackView.widthAnchor),
-            cityDetailsVC.view.heightAnchor.constraint(equalToConstant: 100)
-        ])
-        
-        add(destinationFlightsVC)
-        contentStackView.addArrangedSubview(destinationFlightsVC.view)
-        NSLayoutConstraint.activate([
-            destinationFlightsVC.view.widthAnchor.constraint(equalTo: contentStackView.widthAnchor),
-            destinationFlightsVC.view.heightAnchor.constraint(equalToConstant: 500)
+            cityDetailsVC.view.heightAnchor.constraint(equalToConstant: 300)
         ])
         
         scrollView.contentSize = CGSize(width: contentView.bounds.width, height: contentView.bounds.height)
     }
-    
     
     // MARK: Configuration
     
@@ -181,5 +192,24 @@ class DestinationDetailsVC: UIViewController {
             }
         }
     }
+}
+
+extension DestinationDetailsVC: DestinationDetailsVCScrollable {
+    func scrollTo(_ position: DestinationDetailsScrollPosition, completion: CompletionHandler? = nil) {
+        switch position {
+        case .destinationFlights:
+            let destinationFlightsOffset = CGPoint(x: 0, y: destinationHeaderView.frame.height)
+            UIView.animate(withDuration: 0.5, animations: {
+                self.scrollView.setContentOffset(destinationFlightsOffset, animated: false)
+            }, completion: { finished in
+                if finished { completion?() }
+            })
+            
+        case .cityDetails: break
+            
+        }
+    }
+    
+    
 }
 
